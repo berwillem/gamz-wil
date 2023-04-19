@@ -1,52 +1,66 @@
-import React from 'react'
-import { BsDiscord, BsFacebook, BsInstagram, BsWhatsapp } from 'react-icons/bs'
-import Logo from  '../../assets/1.png'
-import Logo2 from  '../../assets/2.png'
-import './Footer.css'
+import React from "react";
+import { BsDiscord, BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
+import Logo from "../../assets/1.png";
+import Logo2 from "../../assets/2.png";
+import "./Footer.css";
+import { Link } from "react-router-dom";
+import pdf1 from "../../assets/pdf/Conditions d'utilisation .pdf";
+import pdf2 from "../../assets/pdf/Politique de confidentialité .pdf";
 
-function Footer({p}) {
-   
+function Footer({ p }) {
   return (
-   <div className="footer-container">
-    <div className="footer-content">
+    <div className="footer-container">
+      <div className="footer-content">
         <div className="L-footer">
-            <div className="logo-footer">
-                <img src={p ? Logo2 : Logo} alt="" />
-            </div>
-            <div className="social-media">
-                <BsInstagram size={20} color='#757575'/>
-                <BsFacebook  size={20} color='#757575'/>
-                <BsDiscord  size={20} color='#757575' />
-                {/* <BsDiscord  size={20} color='#757575' />   twitter */}
-            </div>
-                 
+          <div className="logo-footer">
+            <img src={p ? Logo2 : Logo} alt="" />
+          </div>
+          <div className="social-media">
+            <a href="https://www.instagram.com/gamz.dz/?igshid=ZDdkNTZiNTM%3D" target="blank">
+              <BsInstagram size={20} color="#757575" />
+            </a>
+            <a href="" target="blank">
+              <BsFacebook size={20} color="#757575" />
+            </a>
+            <a href="https://discord.com/invite/QVMfN2S9qN" target="blank">
+              <BsDiscord size={20} color="#757575" />
+            </a>
+            <a href="https://twitter.com/Gamz_Dz?t=4rVPquN813yhWN7hxb9AxQ&s=09" target="blank">
+              <BsTwitter size={20} color="#757575" />
+            </a>
+          </div>
         </div>
         <div className="categories">
-            <div className="title-category">
-                <strong>Categories</strong>
-            </div>
-            <div className="category-list">
+          <div className="title-category">
+            <strong>Categories</strong>
+          </div>
+          <div className="category-list">
             <li>Informatique</li>
             <li>Consoles</li>
             <li>Jeux Vidéos </li>
             <li>Contenu Digital</li>
-            </div>
+          </div>
         </div>
         <div className="R-footer">
-            <li>About us
-
-</li>
-            <li>Contact
-</li>
-            <li>FAQ</li>
+          <Link to="contact" className="sp-li">
+            <li>Contact</li>
+          </Link>
+          <a href={pdf1} download>
+            <li className="sp-li">Conditions d'utilisation</li>
+          </a>
+          <a href={pdf2} download>
+            <li className="sp-li">Politique de confidentialité </li>
+          </a>
         </div>
-
+      </div>
+      <div className="copy-right">
+        <p>
+          {" "}
+          @ <strong>Gamz</strong>- All Rights Reserved
+        </p>
+      </div>
     </div>
-    <div className="copy-right">
-        <p> @ <strong>Gamz</strong>- All Rights Reserved</p>
-    </div>
-   </div>
-  )
+  );
 }
 
-export default Footer
+export default Footer;

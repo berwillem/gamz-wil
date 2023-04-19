@@ -255,6 +255,9 @@
     color: var(--text-color) !important;
 
 }
+.user-l-content li a{
+    font-size: 16px;
+}
 .user-l-content li:hover{
     background-color: var(--text-color);
     color: var(--background-color);
@@ -264,5 +267,4 @@
     background-color: var(--text-color);
     color: var(--background-color);
     transition:ease-in ;
-    
 }

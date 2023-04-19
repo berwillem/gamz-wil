@@ -2,11 +2,10 @@ import React, { useState } from 'react'
 import {AiOutlineDashboard, AiOutlineHome} from 'react-icons/ai'
 import {CiUser} from 'react-icons/ci'
 import {MdOutlineLogout} from 'react-icons/md'
-import Ads from '../Ads/Ads'
 import DashboardCard from '../DashboardCard/DashboardCard'
 import './Dashboard.css'
 import UsersList from '../Users_list/UsersList'
-import image from '../../assets/shape.svg'
+import image from '../../assets/Svg/shape.svg'
 import { Link } from 'react-router-dom'
 
 function Dashboard({users}) {

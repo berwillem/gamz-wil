@@ -48,38 +48,16 @@ function User({
                                 }
                         }>
 
-                            Home
+                            Aceuille
                             <AiOutlineHome/>
                         </Link>
-                    </li>
-                    <li>
-                        <Link to='/dashboard'
-                            style={
-                                {
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    width: '100%'
-                                }
-                        }>
-
-                            Dashboard
-                            <AiOutlineDashboard/>
-                        </Link>
-                    </li>
-                    <li>
-                        Dashboard
-                    </li>
-                    <li>
-                        Dashboard
                     </li>
                     <li>Account details
                         <CiUser/>
                     </li>
-                    <button onClick={handleLogout}>
-                    <li>Logout
+                    <li onClick={handleLogout}>Logout
                         <MdOutlineLogout/>
                     </li>
-                    </button>
                 </div>
 
                 <Ads uri='https://electro.madrasthemes.com/wp-content/uploads/2016/03/ad-banner-sidebar.jpg'/>

@@ -91,7 +91,18 @@
     font-weight: 600;
 }
 
-
+.sp-li{
+    list-style: none;
+    font-size: 14px;
+    cursor: pointer;
+   color: var(--text-color);
+    font-weight: 500;
+}
+.sp-li:hover{
+    color: var(--text-color);
+    transition: all ease-in 250ms;
+    font-weight: 600;
+}
 
 
 .logo-footer > img {

@@ -39,9 +39,6 @@ function Navbar({p}) {
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
   const username = JSON.parse(localStorage.getItem('user'))?.username || null;
   const infoupdate = JSON.parse(localStorage.getItem('user'))?.infoupdate || null;
-
-  
-  console.log("thisisusername::::", username)
   return (
     <div className="navbar-container">
       <div className="navbar-content">
@@ -77,7 +74,7 @@ function Navbar({p}) {
 
         <div className="navbar-center">
           <div className="logo">
-            <img src={p ? logo2 : logo} alt="" className="logo-gamz" />
+           <Link to="/"> <img src={p ? logo2 : logo} alt="" className="logo-gamz" /></Link>
           </div>
           <div className="search-left">
             <div className="searchBar">
