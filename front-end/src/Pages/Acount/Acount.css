@@ -1,0 +1,44 @@
+.account-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.account-center{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    padding: 4rem 4rem;
+}
+
+.line-account{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    
+}
+
+.line-account::after{
+    position: absolute;
+    right: 50%;
+    content: '';
+    height: 100%;
+    width: 2px;
+    background-color: var(--background-color);
+    z-index: -2;
+}
+.button{
+    color: black !important;
+}
+.or{
+    border: 1px solid #a7a7a7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+    border-radius: 100px;
+    background-color: #f7f7f7;
+    color: black !important;
+}

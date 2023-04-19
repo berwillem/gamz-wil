@@ -1,0 +1,43 @@
+.logo{
+    width: 100%;
+    text-align: center;
+}
+.logo-gamz{
+    width: 25vh;
+ }
+.otp-page{
+  margin: 30px;
+ }
+.otp-form form{
+    margin-top: 50px;
+    margin-left:450px ;
+    margin-right:450px ;
+    display: flex;
+    gap: 23px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 560px;
+    border: 3px solid #e81a2a;
+    border-radius: 10px ;
+}
+.security-img{
+    height: 150px;
+    width: 250px;
+}
+.otp-form form input{
+    width: 80%;
+    padding: 13px;
+    border-radius: 10px;
+    border-color: black;
+}
+.otp-form form button{
+    width: 80%;
+    padding: 12px;
+    border-radius: 10px;
+    border-color: black;
+    background-color:#e81a2a;
+    color: black;
+    font-size: larger;
+    font-weight: bolder;
+}

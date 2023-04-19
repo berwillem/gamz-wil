@@ -1,0 +1,51 @@
+:root {
+    --background-color: #FFFFFF;
+    --text-color: #333333;
+  }
+  
+  .dark-mode {
+    --background-color: #222222;
+    --text-color: #FFFFFF;
+  }
+  
+.home-center{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    gap: 140px;
+}
+
+.home-bottom{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    
+}
+.Ads-category{
+    width: 20%;
+    display: flex;
+    /* justify-content: space-between; */
+    flex-direction: column;
+    padding-top: 100px;
+    gap: 200px;
+    opacity: 0;
+    transform: translateY(100px);
+    position: relative;
+    z-index: 2;
+    background-color: var(--background-color);
+}
+
+.home-container{
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+}
+.content-card{
+    position: relative;
+    z-index: 1;
+}

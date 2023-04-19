@@ -1,0 +1,30 @@
+.hover-container{
+    display: flex;
+    flex-direction: grid;
+    grid-template-columns: auto;
+    gap: 20px;
+    padding: 20px;
+    opacity: 100;
+
+    
+}
+.hover-content{
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+.hover-content > ul{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap :10px;
+}
+
+.hover-content > ul >li{
+    list-style: none;
+    font-size: 14px;
+    color: #bebebe;
+
+} 

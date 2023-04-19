@@ -1,0 +1,15 @@
+#root {
+  
+  margin: 0;
+  padding: 0;
+
+}
+:root {
+  --background-color: #FFFFFF;
+  --text-color: #333333;
+}
+
+.dark-mode {
+  --background-color: #222222;
+  --text-color: #FFFFFF;
+}

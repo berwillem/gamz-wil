@@ -1,0 +1,70 @@
+/* PassForgot.css */
+
+.pass-forgot-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pass-forgot-image-container {
+  margin-top: 2.5rem;
+  width: 100%;
+  height: 230px;
+  display: flex;
+  justify-content: center;
+}
+
+.pass-forgot-image-container img {
+  width: 80%;
+  max-width: 500px;
+}
+
+.pass-forgot-form-container {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--background-color);
+  padding: 3rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 500px;
+}
+
+.pass-forgot-form-container h2 {
+  margin-bottom: 1rem;
+}
+
+.pass-forgot-form-container form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.pass-forgot-form-container label {
+  margin-top: 1rem;
+}
+
+.pass-forgot-form-container input {
+  padding: 1rem;
+  margin-top: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.pass-forgot-form-container button {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #e81a2a;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.pass-forgot-form-container button:hover {
+  background-color: tomato;
+}

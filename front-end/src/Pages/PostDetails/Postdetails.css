@@ -1,0 +1,16 @@
+.post-details-container{
+    background-color: #fdfdfd;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--background-color);
+}
+.post-details-center{
+    margin-top: 20px;
+    padding: 0 30px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}

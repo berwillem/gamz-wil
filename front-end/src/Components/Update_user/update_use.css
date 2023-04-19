@@ -1,0 +1,70 @@
+.update_user{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 30px 30px;
+    gap: 110px;    
+}
+
+
+.account_details{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}  
+
+.title_account_details{
+    margin-bottom: 20px;
+    text-decoration: underline;
+    letter-spacing: 1px;
+}
+.password_title{
+    width: 100%;
+    display: flex;
+    align-items: center;
+   position: relative;
+}
+.password_title::after{
+    position: absolute;
+    content: '';
+    width: 85%;
+    height: 1px;
+    bottom: 1px;
+    background-color: #a7a7a7;
+    z-index: -2;
+
+}
+.title-register > p {
+    font-size: 30px;
+    font-weight: 400;
+    width: auto;
+    height: 100%;
+    border-bottom: 3.5px solid #e81a2a;
+}
+.account_details > form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.account_details > form >label{
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.account_details > form >label>input{
+    width: 85%;
+    margin-left: 10px;
+    padding: 10px;
+    border-radius: 50px;
+    outline: none;
+    border: 1px solid #a7a7a7;
+}
+.error-message {
+    color: #e81a2a;
+    font-size: 18px;
+    font-weight: 800;
+  }
+  

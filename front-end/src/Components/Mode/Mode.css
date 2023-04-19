@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+.mode{
+  background-color: #A3A0A0;
+  height: 35px;
+  width: 110px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+ border-radius: 20px;
+ color: #333E48;
+ font-family: 'Inter', sans-serif;
+ font-weight: bold;
+ cursor: pointer;
+position: fixed;
+top: 50%;
+transform: rotate(-90deg);
+z-index: 3;
+}
+.toggle{
+  position: absolute;
+  height: 30px;
+  width: 50px;
+  background-color: white;
+  border-radius: 20px;
+  z-index: 0;
+transform: translateX(-27PX);
+transition: 0.5s;
+}
+.active2{
+  transform: translateX(27PX);
+transition:0.5s;
+}
+.light{
+  position: relative;
+
+  z-index: 1;
+}
+.dark{
+  position: relative;
+ 
+  z-index: 1;
+}

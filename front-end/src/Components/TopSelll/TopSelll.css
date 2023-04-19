@@ -1,0 +1,40 @@
+.topSell-container{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+.top-Sell-title{
+    margin-top: 20px;
+    border-bottom: 1px solid #a7a7a7;
+    display: flex;
+    justify-content: center;
+}
+
+.top-Sell-title > h4{
+    font-size: 24px;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+
+.top-Sell-title > h4::after{
+    position: absolute;
+    content: '';
+    bottom: -1px;
+    right: 0;
+    left: 0;
+    height: 2.5px;
+    width: 100%;
+    background-color: #e81a2a;
+
+
+}
+
+.topSell-content{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto;
+    opacity: 0;
+    transform: translateX(-100px);
+}

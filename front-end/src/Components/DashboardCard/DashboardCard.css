@@ -1,0 +1,32 @@
+.DashboardCard{
+    width: 272px;
+    height: 160px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid #cccccc;
+    border-radius: 15px;
+    justify-content: center;    
+    padding: 20px;
+}
+.DashboardCard_right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    width: 45px;
+    height: 45px;
+
+}
+.DashboardCard_right > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.DashboardCard_left{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

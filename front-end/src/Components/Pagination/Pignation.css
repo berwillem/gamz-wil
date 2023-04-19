@@ -1,0 +1,59 @@
+
+.pagination-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10%;
+}
+.pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.pagination > button{
+    height: 30px;
+    width: 30px;
+    border-radius: 100px;
+    border: 1px solid #a7a7a7;
+    font-size: 14px;
+    cursor: pointer;
+    margin-right: 3px;
+}
+
+#pagination-title{
+    display: flex;
+    width: 100%;
+    /* padding: 10px 0; */
+    border-bottom: 1px solid #a7a7a7;
+}
+#pagination-title > p{
+    position: relative;
+    font-size: 26px;
+    padding: 5px;
+}
+
+#pagination-title > p::after{
+    position: absolute;
+    bottom: -1px;
+    left:  0;
+    content: '';
+    width: 100%;
+    height: 2px;
+    background-color: red;
+}
+
+.dataContainer{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: auto auto auto ;
+    gap: 10px;
+
+}
+
+.post-box{
+    height: 150px;
+    background-color: aqua;
+}

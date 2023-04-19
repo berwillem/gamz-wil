@@ -1,0 +1,21 @@
+.update-info-check{
+    background-color: #e81a2a;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+h3{
+    color: white;
+}
+.check-button{
+    padding: 7px;
+    border-radius: 5px;
+    border: none;
+    font-weight: bolder;
+    letter-spacing: 0.5px;
+    font-size: 15px;
+}
+.check-button:hover{
+    cursor: pointer;
+}

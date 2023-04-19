@@ -1,0 +1,98 @@
+.register-container{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    
+
+}  
+.title-register{
+    width: 100%;
+    display: flex;
+    align-items: center;
+   position: relative;
+}
+.title-register::after{
+    position: absolute;
+    content: '';
+    width: 85%;
+    height: 1px;
+    bottom: 1px;
+    background-color: #a7a7a7;
+    z-index: -2;
+
+}
+.title-register > p {
+    font-size: 30px;
+    font-weight: 400;
+    width: auto;
+    height: 100%;
+    border-bottom: 3.5px solid #e81a2a;
+}
+
+
+.sub-title-register{
+    padding:  30px 0;
+
+}
+
+.sub-title-register > p{
+    font-size: 14px;
+    font-weight: 500;
+  
+}
+
+.register-container > form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.register-container > form >label{
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-container > form >label>input{
+    width: 85%;
+    margin-left: 10px;
+    padding: 10px;
+    border-radius: 50px;
+    outline: none;
+    border: 1px solid #a7a7a7;
+}
+
+.check-box-register{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.register-container > form >button{
+    padding: 10px;
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    border: 1px solid #a7a7a7;
+}
+
+.sub-text-register > small {
+    margin-top: 20px;
+    font-weight: 500;
+
+}
+.sub-text-register  small{
+    color: var(--text-color) !important;
+}
+.error-message {
+    color: #e81a2a;
+    font-size: 18px;
+    font-weight: 800;
+  }
+  .submit{
+    color: black !important;
+  }
+  
