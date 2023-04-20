@@ -70,11 +70,11 @@ const uploadImages = (folderName) => (req, res, next) => {
         const bannerUrl = uploadedImages[1].url;
         const bannerPublicId = uploadedImages[1].public_id;
 
-        req.avatar = {
+        req.body.avatar = {
           url: avatarUrl,
           public_id: avatarPublicId
         };
-        req.banner = {
+        req.body.banner = {
           url: bannerUrl,
           public_id: bannerPublicId
         };

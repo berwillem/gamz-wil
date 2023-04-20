@@ -1,11 +1,8 @@
-const Post = require("../models/Post");
-const uploadImages = require("../helpers/cloudinary");
+const Post = require('../models/Post');
 
 exports.createPost = async (req, res) => {
   try {
-    const { title, price, description, category, subcategories, wilaya, commune, num } = req.body;
-
-    const images = await uploadImages({ req, res }, "posts");
+    const { title, price, description, category, subcategories, images, wilaya, commune, num, author } = req.body;
 
     const post = new Post({
       title,
@@ -13,10 +10,11 @@ exports.createPost = async (req, res) => {
       description,
       category,
       subcategories,
+      images,
       wilaya,
       commune,
       num,
-      images,
+      author,
     });
 
     const savedPost = await post.save();
@@ -25,6 +23,7 @@ exports.createPost = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
+
 
 exports.deletePost = async (req, res) => {
   try {
