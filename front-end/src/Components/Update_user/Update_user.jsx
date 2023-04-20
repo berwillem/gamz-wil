@@ -26,7 +26,7 @@ function Update_user() {
               src={avatar}
               alt="Avatar"
               style={{
-                width: "250px",
+                width: "200px",
                 cursor: "pointer",
                 border: "2px solid #e81a2a",
                 borderRadius: "10px",
@@ -51,7 +51,8 @@ function Update_user() {
               src={banner}
               alt="Banner"
               style={{
-                width: "400px",
+                width: "200px",
+                cursor: "pointer",
                 border: "2px solid #e81a2a",
                 borderRadius: "10px",
               }}

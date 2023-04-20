@@ -28,7 +28,7 @@ const SideCard = () => {
                 width: "100%",
               }}
             >
-              Account details
+              Update Acount
               <CiUser />
             </Link>
           </li>
