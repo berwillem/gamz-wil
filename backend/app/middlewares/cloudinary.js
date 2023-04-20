@@ -1,28 +1,11 @@
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
-
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_KEY,
-  api_secret: process.env.CLOUD_KEY_SECRET,
-});
-
-const storage = multer.diskStorage({});
-
-const upload = multer({
-  storage: storage,
-  fileFilter: (req, file, callback) => {
-    if (!file.mimetype.startsWith("image/")) {
-      return callback(new Error("Only images are allowed."));
-    }
-    callback(null, true);
-  },
-});
+const upload = require("./uploadConfig");
 
 const uploadImages = (folderName) => (req, res, next) => {
   const uploadMiddleware = upload.fields([
     { name: "avatar", maxCount: 1 },
-    { name: "banner", maxCount: 1 }
+    { name: "banner", maxCount: 1 },
   ]);
   uploadMiddleware(req, res, (err) => {
     if (err instanceof multer.MulterError) {
@@ -62,7 +45,7 @@ const uploadImages = (folderName) => (req, res, next) => {
             resolve(result);
           }
         );
-      })
+      }),
     ])
       .then((uploadedImages) => {
         const avatarUrl = uploadedImages[0].url;
@@ -72,11 +55,11 @@ const uploadImages = (folderName) => (req, res, next) => {
 
         req.body.avatar = {
           url: avatarUrl,
-          public_id: avatarPublicId
+          public_id: avatarPublicId,
         };
         req.body.banner = {
           url: bannerUrl,
-          public_id: bannerPublicId
+          public_id: bannerPublicId,
         };
         next();
       })

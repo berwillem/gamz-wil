@@ -1,8 +1,18 @@
-const Post = require('../models/Post');
-
+const Post = require("../models/Post");
 exports.createPost = async (req, res) => {
   try {
-    const { title, price, description, category, subcategories, images, wilaya, commune, num, author } = req.body;
+    const {
+      title,
+      price,
+      description,
+      category,
+      subcategories,
+      images,
+      wilaya,
+      commune,
+      num,
+      author,
+    } = req.body;
 
     const post = new Post({
       title,
@@ -23,7 +33,6 @@ exports.createPost = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
-
 
 exports.deletePost = async (req, res) => {
   try {
@@ -89,14 +98,11 @@ exports.getAllPosts = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-  // const [formData, setFormData] = useState({
-  //     title: '',
-  //     description: '',
-  //     phoneNumber: '',
-  //     price: '',
-  //     willaya: '',
-  //     selectedCategory: []
-  // });
-
-
-
+// const [formData, setFormData] = useState({
+//     title: '',
+//     description: '',
+//     phoneNumber: '',
+//     price: '',
+//     willaya: '',
+//     selectedCategory: []
+// });
