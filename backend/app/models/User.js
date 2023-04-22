@@ -7,6 +7,19 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    nom: {
+      type: String,
+    },
+    prenom: {
+      type: String,
+    },
+    genre: {
+      type: String,
+    },
+    dateNaissance: {
+      type: Date,
+    },
+  
     email: {
       type: String,
       required: true,

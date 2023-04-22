@@ -96,7 +96,6 @@ function Navbar({p}) {
   const handleMenuScroll = (e) => {
     e.stopPropagation();
   };
-  
   return (
     <div className="navbar-container">
        {menuIsOpen && <div className="overlay"></div>}

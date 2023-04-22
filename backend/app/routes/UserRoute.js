@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const uploadImages=require("../helpers/cloudinary")
+const uploadImages=require("../middlewares/cloudinary")
 const { deleteUserByUsername, getAllUsers,  getUserByUsername, updateUser } = require("../controllers/userController");
 // GET all users
 router.get("/", getAllUsers);

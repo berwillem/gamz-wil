@@ -14,11 +14,11 @@ function Mode(props) {
       }
      
     return (
-        <div class="mode" onClick={handleDivClick}  >
-        <span class="light">Light</span>
-     <span class={divClass}></span>
+        <div className="mode" onClick={handleDivClick}  >
+        <span className="light">Light</span>
+     <span className={divClass}></span>
   
-     <span class="dark">Dark</span>
+     <span className="dark">Dark</span>
       
       </div>
       );

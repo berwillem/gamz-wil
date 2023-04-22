@@ -42,7 +42,7 @@ function Footer({ p }) {
           </div>
         </div>
         <div className="R-footer">
-          <Link to="contact" className="sp-li">
+          <Link to="/contact" className="sp-li">
             <li>Contact</li>
           </Link>
           <a href={pdf1} download>
