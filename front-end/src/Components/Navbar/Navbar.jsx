@@ -43,7 +43,7 @@ const category = [
 function Navbar({p}) {
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
   const username = JSON.parse(localStorage.getItem('user'))?.username || null;
-  const infoupdate = JSON.parse(localStorage.getItem('user'))?.infoupdate || null;
+  const infoupdate = JSON.parse(localStorage.getItem('user'))?.infoUpdate || null;
   const [isActive, setIsActive] = useState(false);
   const [searchActive,setSearchActive] = useState("search");
   function handleSearch() {
