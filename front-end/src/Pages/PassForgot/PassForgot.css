@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
 }
 
 .pass-forgot-image-container {
@@ -68,3 +69,36 @@
 .pass-forgot-form-container button:hover {
   background-color: tomato;
 }
+
+@media screen and (max-width: 1240px) {
+
+   
+
+}
+@media screen and (max-width: 1070px) {
+
+  
+  }
+  @media screen and (max-width: 820px) {
+    .pass-forgot-form-container{
+      width: 90vw;
+    }
+  }
+  @media screen and (max-width: 750px) {
+  
+  }
+  @media screen and (max-width: 590px) {
+  
+  }
+  @media screen and (max-width: 480px) {
+  
+  }
+  @media screen and (max-width: 414px) {
+  
+  }
+  @media screen and (max-width: 325px) {
+  
+  }
+  @media screen and (max-width: 250px) {
+  
+  }

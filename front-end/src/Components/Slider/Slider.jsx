@@ -88,6 +88,7 @@ function Slider() {
       }, []);
     return (
         <div className='slider'>
+             <div className="R-C-slider">
             <div className="L-slider">
                 <div ref={title}
                     className="title-slider">
@@ -150,7 +151,7 @@ function Slider() {
                     ref={cardContainer3}
                     className={`slideshow ${currentImageIndex !== 0 ? 'fade-in' : ''}`}/>
             </div>
-
+            </div>
             <div className="R-slider">
                 <div ref={cardContainer}
                     className="box">
