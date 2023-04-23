@@ -89,7 +89,6 @@ function Update_user() {
             <h1>Account Details :</h1>
           </div>
           <form
-          //  onSubmit={handleSubmit}
           >
             <label htmlFor="">
               <strong>prénom *</strong>
@@ -147,12 +146,13 @@ function Update_user() {
                   name="genre"
                   type="checkbox"
                   value="Famme"
-                  checked={genre === "famme"}
+                  checked={genre === "Famme"}
                   onChange={(e) => setGenre(e.target.value)}
                 />
                 <label htmlFor="female">Famme</label>
               </div>
             </label>
+            <button>sumbit</button>
           </form>
         </div>
       </div>

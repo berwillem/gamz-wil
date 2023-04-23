@@ -62,6 +62,19 @@
     outline: none;
     border: 1px solid #a7a7a7;
 }
+.account_details button{
+    padding: 10px;
+    background-color: #e81a2a;
+    color: white;
+    font-size: larger;
+    font-weight: bolder;
+    border-radius: 10px;
+    border:2px solid black;
+}
+.account_details button:hover{
+    background-color: #ee2939;
+    cursor: pointer;
+}
 .error-message {
     color: #e81a2a;
     font-size: 18px;
@@ -71,7 +84,6 @@
     display: flex;
     justify-content:center;
     margin-top: 50px;
-    margin-bottom: 50px;
     gap: 150px;
 }
 .images-update p{
