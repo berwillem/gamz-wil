@@ -44,7 +44,7 @@ function Dashbord() {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
         const token = user?.token || null;
-        console.log("Token stored:", token); // add this line
+        console.log("Token stored:", token);
         const config = {
           headers: { Authorization: `Bearer ${token}` },
         };
