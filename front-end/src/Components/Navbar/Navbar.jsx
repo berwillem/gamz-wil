@@ -83,7 +83,7 @@ function Navbar({p}) {
     const handleClickOutside = (event) => {
       if (navRef.current && !navRef.current.contains(event.target)) {
         setMenuIsOpen(false);
-        setSearchActive("search")
+       
       }
     };
   
@@ -96,6 +96,22 @@ function Navbar({p}) {
   const handleMenuScroll = (e) => {
     e.stopPropagation();
   };
+  
+  const searchBoxRef = useRef(null);
+  
+  useEffect(() => {
+    function handleOutsideClick(event) {
+      if (searchBoxRef.current && !searchBoxRef.current.contains(event.target)) {
+        setSearchActive("search");
+      }
+    }
+    
+    document.addEventListener("click", handleOutsideClick);
+    
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [searchBoxRef]);
   return (
     <div className="navbar-container">
        {menuIsOpen && <div className="overlay"></div>}
@@ -134,61 +150,61 @@ function Navbar({p}) {
         <div className="menu-logo">
           <div className={`menu ${menuIsOpen ? "open" : ""}`} ref={navRef}  onScroll={handleMenuScroll}>
            <ul className="ul" >
-           <li className="li-hover" >dksnkdncdk
-           
-            </li>
-            <li className="li-hover" >dksnkdncdk
-           
-            </li>
-            <li className="li-hover" >dksnkdncdk 
+           <Link to="/contact"> <li className="li-hover" >
+           Contact
+           </li></Link>
+          
             
-            </li>
             <ul className="ul2">
                 <li>jdj</li>
                 <li>d,dk</li>
                 <li>dkk</li>
               </ul>
-            <li onClick={handleClick2} >dksnkdncdk
+            <li onClick={handleClick2} >	Informatique 
             <AiFillCaretDown/>
             </li>
             <ul className="ul2">
-                <li>jdj</li>
-                <li>d,dk</li>
-                <li>dkk</li>
+                <li>PC Portable/ LAPTOB</li>
+                <li>PC Bureau </li>
+                <li>CONNECTIQUE/PERIPHERIQUES </li>
               </ul>
-            <li onClick={handleClick2} >dksnkdncdk
+            <li onClick={handleClick2} >Console
             <AiFillCaretDown/>
             </li>
             <ul className="ul2">
-                <li>jdj</li>
-                <li>d,dk</li>
-                <li>dkk</li>
+                <li>Sony / Playstation</li>
+                <li>Microsoft / Xbox</li>
+                <li>	Nintendo</li>
+                <li>	Steam Desk</li>
+                <li>Consoles Retro </li>
               </ul>
-            <li onClick={handleClick2} >dksnkdncdk
+            <li onClick={handleClick2} >Jeux videos
             <AiFillCaretDown/>
             </li>
             <ul className="ul2">
-                <li>jdj</li>
-                <li>d,dk</li>
-                <li>dkk</li>
+                <li>	Jeux Vidéos physique Ps</li>
+                <li>Jeux Vidéos physique Xbox </li>
+                <li>Packs Collectors</li>
+                <li>Produit Dérivés </li>
               </ul>
-            <li onClick={handleClick2} >dksnkdncdk
+            <li onClick={handleClick2} >	Contenu Digital 
             <AiFillCaretDown/>
             </li>
             <ul className="ul2">
-                <li>jdj</li>
-                <li>d,dk</li>
-                <li>dkk</li>
+                <li>Jeux Vidéos </li>
+                <li>Abonnements</li>
+                <li>Comptes </li>
+                <li>	Gift Card  </li>
               </ul>
          
-            <li  onClick={handleClick2} >dksnkdncdk
+            <li  onClick={handleClick2} >Téléphonie 
             <AiFillCaretDown/>
              
             </li>
             <ul className="ul2">
-                <li>jdj</li>
-                <li>d,dk</li>
-                <li>dkk</li>
+                <li>Marques </li>
+                <li>Objets Connectés </li>
+                <li>Accessoires Téléphonie</li>
               </ul>
            
           
@@ -200,15 +216,15 @@ function Navbar({p}) {
           </div>
           </div>
           <div className="search-left">
-            <div className="searchBar">
-              <input type="text" placeholder="Search here" className={searchActive} />
+            <div className="searchBar " ref={searchBoxRef }>
+              <input type="text" placeholder="Search here" className={searchActive}  />
               <div style={{ display: "flex" }}>
                 <select id="select">
                   {category.map((i) => (
                     <option value={i.value}>{i.label}</option>
                   ))}{" "}
                 </select>
-                <div className="search-icon" onClick={handleSearch} ref={navRef}>
+                <div className="search-icon" onClick={handleSearch}ref={searchBoxRef } >
                   <HiSearch size={25} />
                 </div>
               </div>

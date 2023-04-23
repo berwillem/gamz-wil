@@ -12,6 +12,7 @@
 .navbar-up{
     padding: 18px 50px;
     background-color: var(--nav-footer);
+    border-bottom: 1px solid #e7e5e59e;
     width: 100%;
     display:flex;
     justify-content: space-between;
@@ -189,7 +190,7 @@ a{
 }
 .menu{
     height: 100vh;
-    width:30% ;
+    width:40% ;
     position: absolute;
     z-index: 3;
     background-color: #f7f7f7;
@@ -251,6 +252,8 @@ a{
 width: 100%;
 display: none;
 overflow: auto;
+
+max-height: 250px;
 min-height: 150px;
 
 
@@ -261,6 +264,16 @@ min-height: 150px;
    
     width: 100%;
     background-color: #EBEBEB;
+    cursor: pointer;
+    
+}
+.ul2 li:hover{
+  text-decoration: underline #909090;
+}
+.ul a li{
+   
+   font-size: 16px;
+   
     
     
 }
