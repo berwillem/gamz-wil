@@ -7,9 +7,11 @@
 :root {
   --background-color: #FFFFFF;
   --text-color: #333333;
+  --nav-footer:#e7e5e59e;
 }
 
 .dark-mode {
   --background-color: #222222;
   --text-color: #FFFFFF;
+  --nav-footer:#222222;
 }

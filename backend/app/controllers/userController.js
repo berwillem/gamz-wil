@@ -44,8 +44,9 @@ exports.getUserByUsername = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   const { id } = req.params;
-  const { avatar, banner } = req;
-  const { username } = req.body;
+  const { avatar,banner,username, nom, prenom, genre, dateNaissance } = req.body;
+ console.log("banner",banner);
+ console.log("avatar",avatar);
 
   try {
     let user = await User.findById(id);
@@ -65,14 +66,30 @@ exports.updateUser = async (req, res) => {
       return res.status(400).json({ error: "New username must be different" });
     }
 
+    if (nom) {
+      user.nom = nom;
+    }
+
+    if (prenom) {
+      user.prenom = prenom;
+    }
+
+    if (genre) {
+      user.genre = genre;
+    }
+
+    if (dateNaissance) {
+      user.dateNaissance = dateNaissance;
+    }
+
     if (avatar) {
-      user.avatar.url = avatar[0].url;
-      user.avatar.public_id = avatar[0].public_id;
+      user.avatar.url = avatar.url;
+      user.avatar.public_id = avatar.public_id;
     }
 
     if (banner) {
-      user.banner.url = banner[0].url;
-      user.banner.public_id = banner[0].public_id;
+      user.banner.url = banner.url;
+      user.banner.public_id = banner.public_id;
     }
 
     user.infoUpdate = true;

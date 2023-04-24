@@ -15,20 +15,28 @@ const category = [
     value: "",
   },
   {
-    label: "Phone",
+    label: "Informatique",
     value: "phone",
   },
   {
-    label: "Laptop",
+    label: "Consoles",
     value: "laptop",
   },
   {
-    label: "Camera",
+    label: "Jeux Vidéos",
     value: "camera",
   },
   {
-    label: "Printer",
+    label: "Contenu Digital / Téléchargeable",
     value: "printer",
+  },
+  {
+    label: "Téléphonie",
+    value: "printer",
+  },
+  {
+    label: "Autre",
+    value: "",
   },
 ];
 const options = wilaya.map((wilaya) => ({

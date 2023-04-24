@@ -22,9 +22,9 @@ function Dashboard({users}) {
                         <AiOutlineHome/>
                     </Link>
                     </li>
-                    <li><Link to='/dashboard' style={{display:'flex',justifyContent:'space-between',width:'100%'}}>
+                    <li><Link to='/Pub-manage' style={{display:'flex',justifyContent:'space-between',width:'100%'}}>
 
-                        Dashboard
+                        pub managment
                         <AiOutlineDashboard/>
                     </Link>
                     </li>
