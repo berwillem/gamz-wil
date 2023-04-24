@@ -43,8 +43,7 @@ exports.getUserByUsername = async (req, res) => {
 //  update user
 
 exports.updateUser = async (req, res) => {
-  const { id } = req.params;
-  const { avatar,banner,username, nom, prenom, genre, dateNaissance } = req.body;
+  const { avatar,banner,username, nom, prenom, genre, dateNaissance,id } = req.body;
  console.log("banner",banner);
  console.log("avatar",avatar);
 

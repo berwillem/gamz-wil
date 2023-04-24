@@ -9,5 +9,5 @@ router.get("/:username", getUserByUsername);
 // deleteUser endpoint
 router.delete("/:username", deleteUserByUsername);
 // UPDATE user by ID
-router.put("/:id",uploadImages("users"),updateUser);
+router.put("/",uploadImages("users"),updateUser);
 module.exports = router;
