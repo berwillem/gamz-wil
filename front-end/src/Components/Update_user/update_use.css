@@ -42,25 +42,38 @@
     height: 100%;
     border-bottom: 3.5px solid #e81a2a;
 }
-.account_details > form {
+.form-style {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.account_details > form >label{
+.form-style >label{
     gap: 10px;
     display: flex;
     flex-direction: column;
 }
 
-.account_details > form >label>input{
+.form-style >label>input{
     width: 85%;
     margin-left: 10px;
     padding: 10px;
     border-radius: 50px;
     outline: none;
     border: 1px solid #a7a7a7;
+}
+.account_details button{
+    padding: 10px;
+    background-color: #e81a2a;
+    color: white;
+    font-size: larger;
+    font-weight: bolder;
+    border-radius: 10px;
+    border:2px solid black;
+}
+.account_details button:hover{
+    background-color: #ee2939;
+    cursor: pointer;
 }
 .error-message {
     color: #e81a2a;
@@ -71,7 +84,6 @@
     display: flex;
     justify-content:center;
     margin-top: 50px;
-    margin-bottom: 50px;
     gap: 150px;
 }
 .images-update p{

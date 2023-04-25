@@ -12,6 +12,7 @@ import Account_details from './Pages/Acount_details/Account_details'
 import PassForgot2 from './Pages/PassForgot/PassForgot2'
 import Mode from './Components/Mode/mode'
 import Contact from './Pages/Contact/Contact'
+import Page404 from './Pages/page404/Page404'
 
 
 
@@ -47,6 +48,8 @@ const toggleDarkMode = () => {
                     element={<Contact isDarkMode={isDarkMode}/>}/>
                 <Route path='/Details'
                     element={<Account_details isDarkMode={isDarkMode}/>}/>
+                <Route path='*'
+                    element={<Page404/>}/>
             </Routes>
 
         </div>
