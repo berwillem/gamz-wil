@@ -1,30 +1,88 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link,useNavigate} from "react-router-dom";
+import axios from "axios";
 import "./update_use.css";
 import avatarImage from "../../assets/images/avatar.png";
 import bannerImage from "../../assets/images/banner.png";
 function Update_user() {
+  const navigate=useNavigate()
   // states:
   const [nom, setNom] = useState("");
   const [prénom, setPrénom] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [avatar, setAvatar] = useState(avatarImage);
-  const [banner, setbanner] = useState(bannerImage);
+  const [avatarFile, setAvatarFile] = useState(null);
+  const [banner, setBanner] = useState(bannerImage);
+  const [bannerFile, setBannerFile] = useState(null);
   const [genre, setGenre] = useState("");
+  const [adress, setAdress] = useState("");
   const [dateNaissance, setDateNaissance] = useState("");
-  // daat :
-  const user = JSON.parse(localStorage.getItem("user"));
+  // data :
+  const userString = localStorage.getItem("user");
+  const user = JSON.parse(userString);
   const id = user.id;
+  useEffect(() => {
+    const userAvatar = user.avatar.url;
+    const userBanner = user.banner.url;
+    if (userAvatar) {
+      setAvatar(userAvatar);
+    }
+
+    if (userBanner) {
+      setBanner(userBanner);
+    }
+  }, []);
+
   // handlers
   const handleAvatarChange = (event) => {
-    setAvatar(URL.createObjectURL(event.target.files[0]));
+    const file = event.target.files[0];
+    setAvatarFile(file);
+    setAvatar(URL.createObjectURL(file));
   };
   const handleBannerChange = (event) => {
-    setbanner(URL.createObjectURL(event.target.files[0]));
+    const file = event.target.files[0];
+    setBannerFile(file);
+    setBanner(URL.createObjectURL(file));
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("username", displayName);
+    formData.append("nom", nom);
+    formData.append("prenom", prénom);
+    formData.append("genre", genre);
+    formData.append("adress", genre);
+    formData.append("dateNaissance", dateNaissance);
+    formData.append("id", id);
+    formData.append("avatar", avatarFile);
+    formData.append("banner", bannerFile);
+
+    try {
+      const res = await axios.put(
+        `http://localhost:5000/api/v1/user/`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+
+      // Update the user object with the new values
+      user.avatar.url = res.data.avatar.url;
+      user.avatar.public_id = res.data.avatar.public_id;
+      user.banner.url = res.data.banner.url;
+      user.banner.public_id = res.data.banner.public_id;
+      user.username = res.data.username;
+      user.infoUpdate = res.data.infoUpdate;
+      const updatedUserString = JSON.stringify(user);
+      localStorage.setItem("user", updatedUserString);
+      navigate("/")
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="images-update">
           <div className="avatar">
             <label htmlFor="avatar-input">
@@ -129,6 +187,16 @@ function Update_user() {
                   type="text"
                   placeholder="write your DisplayName"
                   onChange={(e) => setDisplayName(e.target.value)}
+                />
+              </label>
+              <label>
+                <strong>Adress *</strong>
+                <input
+                  name="adress"
+                  value={adress}
+                  type="text"
+                  placeholder="write your adress"
+                  onChange={(e) => setAdress(e.target.value)}
                 />
               </label>
               <label>
