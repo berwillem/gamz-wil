@@ -49,7 +49,7 @@ const toggleDarkMode = () => {
                 <Route path='/Details'
                     element={<Account_details isDarkMode={isDarkMode}/>}/>
                 <Route path='*'
-                    element={<Page404/>}/>
+                    element={<Page404  isDarkMode={isDarkMode}s/>}/>
             </Routes>
 
         </div>

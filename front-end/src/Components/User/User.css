@@ -113,8 +113,36 @@
 @media screen and (max-width: 1240px) {
 .user-l{
   display: flex !important;
+  width: 400px;
+  margin-bottom: 10px;
+}
+.Ads-container{
+  display: none;
 }
 
+.user-l-content{
+  flex-direction: row;
+  width: 100%;
+}
+.user-l-content li:first-child,.user-l-content li:last-child{
+ width: 30% !important;
+}
+.user-l-content li{
+ width: 40% ;
+}
+.user-l-content a,.user-l-content li{
+  font-size: 10px !important;
+
+}
+.user-l{
+  align-items: center;
+  
+}
+.user-container{
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 }
 @media screen and (max-width: 1070px) {
 
@@ -123,27 +151,47 @@
   .Ads-container{
     display: none;
   }
-  .user-l-content{
-    flex-direction: row;
+  .user-l{
+   
+    width: 100% !important;
+    
   }
-  .user-l-content li{
-   width: 33%;
-  }
-  .user-container{
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+ 
+  
 }
 @media screen and (max-width: 750px) {
-  
+  .user-info{
+    padding: 0;
+    padding-top: 10px;
+   }
  
 }
 @media screen and (max-width: 590px) {
-
+  .back-image{
+    height: 250px;
+    
+   }
+   .user-info .user:last-child{
+    display: none;
+   }
+  
+   .user-image-container{
+  height: 130px;
+   }
+   .user-image{
+    height: 60%;
+    width: auto;
+   }
+   .user-post *{
+    overflow: hidden;
+   }
 }
 @media screen and (max-width: 480px) {
- 
+  .user-l{
+    padding: 0%;
+  
+  
+  }
 }
 @media screen and (max-width: 414px) {
   .user-l{
@@ -154,10 +202,7 @@
   width: 99%;
   box-shadow: none;
   }
-  .user-l-content a,.user-l-content li{
-    font-size: 10px !important;
- 
-  }
+  
 }
 @media screen and (max-width: 325px) {
 

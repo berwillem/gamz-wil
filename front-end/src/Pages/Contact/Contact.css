@@ -62,6 +62,7 @@
    }
    .title_contact{
     width: 70%;
+   text-align: right;
    }
    .Contact-page > form > label {
     width: 100%;
