@@ -75,7 +75,9 @@
     gap: 5PX;
     margin-left: 30px;
     width: 150px;
+   
 }
+
 .logo-gamz{
     width: 25vh; 
 }
@@ -270,6 +272,9 @@ min-height: 150px;
 .ul2 li:hover{
   text-decoration: underline #909090;
 }
+.plus-annonce{
+    flex-direction: row-reverse;
+}
 .ul a li{
    
    font-size: 16px;
@@ -284,11 +289,20 @@ min-height: 150px;
     display: block;
 
 }
-
+.navbar-center .catch-button{
+    display: none;
+}
 
 @media screen and (max-width: 1240px) {
-    .navbar-up,.navbarDown,.heart-icon,#select{
+    .navbar-up,.navbarDown,.heart-icon,#select,.icons{
         display: none !important;
+    }
+    .navbar-center .catch-button{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+     margin-right: 20px;
+        
     }
     .search{
         position: absolute;
@@ -339,6 +353,11 @@ min-height: 150px;
         .menu{
             width:50% ;
          }
+         .menu-logo{
+          height: 100%;
+          overflow-y: hidden;
+           
+        }
     }
     @media screen and (max-width: 750px) {
     

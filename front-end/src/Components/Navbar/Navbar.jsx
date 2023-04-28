@@ -150,10 +150,15 @@ function Navbar({p}) {
         <div className="menu-logo">
           <div className={`menu ${menuIsOpen ? "open" : ""}`} ref={navRef}  onScroll={handleMenuScroll}>
            <ul className="ul" >
-           <Link to="/contact"> <li className="li-hover" >
-           Contact
+           <Link to="/Account"> <li className="li-hover" >
+           Account
            </li></Link>
-          
+          <Link to="/createPost">
+          <li className="li-hover plus-annonce" >
+              <BsPlusLg  size={13} />
+             Deposer une annonce
+            </li>
+          </Link>
             
             <ul className="ul2">
                 <li>jdj</li>
@@ -206,7 +211,10 @@ function Navbar({p}) {
                 <li>Objets Connectés </li>
                 <li>Accessoires Téléphonie</li>
               </ul>
-           
+              <Link to="/contact"> <li className="li-hover" >
+              Contact
+           </li></Link>
+          
           
            </ul>
           </div>
@@ -229,7 +237,10 @@ function Navbar({p}) {
                 </div>
               </div>
             </div>
-
+            <li className="catch-button">
+             
+              <Link to="/createPost"> <BsPlusLg  size={13} /></Link>
+            </li>
             <div className="icons">
               <li>
                 <BsSuitHeart size={20} />
@@ -239,6 +250,7 @@ function Navbar({p}) {
               </li>
             </div>
           </div>
+          
         </div>
         <div className="navbarDown">
           <div className="down">
