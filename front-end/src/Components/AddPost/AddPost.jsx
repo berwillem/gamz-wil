@@ -5,40 +5,11 @@ import image from "../../assets/Svg/undraw_image_post_re_25wd.svg";
 import Select from "react-select";
 import SideCard from "../SideCard/SideCard";
 import { wilaya } from "../../Data/wilaya";
+import { category } from "../../Data/category";
 
 // needs befor components :::
 
 const costumeStyle = [{}];
-const category = [
-  {
-    label: "All category",
-    value: "",
-  },
-  {
-    label: "Informatique",
-    value: "phone",
-  },
-  {
-    label: "Consoles",
-    value: "laptop",
-  },
-  {
-    label: "Jeux Vidéos",
-    value: "camera",
-  },
-  {
-    label: "Contenu Digital / Téléchargeable",
-    value: "printer",
-  },
-  {
-    label: "Téléphonie",
-    value: "printer",
-  },
-  {
-    label: "Autre",
-    value: "",
-  },
-];
 const options = wilaya.map((wilaya) => ({
   value: wilaya.name,
   label: wilaya.name,
@@ -50,7 +21,7 @@ function AddPost() {
   // * states :::
   const [principalImage, setPrincipalImage] = useState(image);
   const [otherImages, setOtherImages] = useState([image, image]);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState(null);
 
 
 
@@ -158,7 +129,7 @@ function AddPost() {
               value={selectedOptions}
               onChange={handleSelectChange}
               options={category}
-              isMulti={true}
+              isMulti={false}
               placeholder="Select countries"
               styles={customStyles}
             />
