@@ -7,12 +7,14 @@ import { BsSuitHeart } from "react-icons/bs";
 import { HiMenu } from "react-icons/hi";
 import logo from "../../assets/1.png";
 import logo2 from "../../assets/2.png";
-import  UpdateInfo from "../UpdateInfo/UpdateInfo";
+import UpdateInfo from "../UpdateInfo/UpdateInfo";
 import { Link } from "react-router-dom";
-import {useState} from 'react';
-import  { useRef } from "react";
+import { useState } from "react";
+import { useRef } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { AiFillCaretUp } from "react-icons/ai";
+import { useSelector } from "react-redux";
+// import posts from "../../redux/reducers/Posts";
 
 const category = [
   {
@@ -40,26 +42,26 @@ const category = [
     value: "Télephonie ",
   },
 ];
-function Navbar({p}) {
-  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-  const username = JSON.parse(localStorage.getItem('user'))?.username || null;
-  const infoupdate = JSON.parse(localStorage.getItem('user'))?.infoUpdate || null;
+function Navbar({ p }) {
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const username = JSON.parse(localStorage.getItem("user"))?.username || null;
+  const infoupdate =
+    JSON.parse(localStorage.getItem("user"))?.infoUpdate || null;
   const [isActive, setIsActive] = useState(false);
-  const [searchActive,setSearchActive] = useState("search");
-  function handleSearch() {
-   if(searchActive==="search"){
-    setSearchActive("search active-search")
-   }
-   else{
-    setSearchActive("search")
-   }
-  }
+  const [searchActive, setSearchActive] = useState("search");
+  // const posts = useSelector((state) => state.post.posts);
 
- 
+  // function handleSearch() {
+  //     if (searchActive === "search") {
+  //         setSearchActive("search active-search")
+  //     } else {
+  //         setSearchActive("search")
+  //     }
+  // }
+
   function handleClick2(event) {
     const nextElement = event.target.nextElementSibling;
     if (nextElement) {
-    
       nextElement.classList.toggle("active-ul");
     }
   }
@@ -75,195 +77,207 @@ function Navbar({p}) {
       document.body.classList.remove("menu-open", "overlay");
     }
   }, [menuIsOpen]);
-  
-  
+
   const navRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (navRef.current && !navRef.current.contains(event.target)) {
         setMenuIsOpen(false);
-       
       }
     };
-  
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [navRef]);
-  
+
   const handleMenuScroll = (e) => {
     e.stopPropagation();
   };
-  
+
   const searchBoxRef = useRef(null);
-  
+
   useEffect(() => {
     function handleOutsideClick(event) {
-      if (searchBoxRef.current && !searchBoxRef.current.contains(event.target)) {
+      if (
+        searchBoxRef.current &&
+        !searchBoxRef.current.contains(event.target)
+      ) {
         setSearchActive("search");
       }
     }
-    
+
     document.addEventListener("click", handleOutsideClick);
-    
+
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
   }, [searchBoxRef]);
-  return (
-    <div className="navbar-container">
-       {menuIsOpen && <div className="overlay"></div>}
-      <div className="navbar-content">
-        <div className="navbar-up">
-          <div className="welcome-message">
-            Welcome to
-            <span className="span-message">Gamz</span>
-          </div>
-          <div className="account-pub">
-            <li className="catch-button">
-              <BsPlusLg  size={13} />
-              <Link to="/createPost">Deposer une annonce</Link>
-            </li>
-            <li className="upline">|</li>
-            <li>
-              {isLoggedIn ? (
-                <div>
-                  <Link to={"/account"}>
-                    <CiUser  size={20} />
-                    {username}
-                  </Link>
-                </div>
-              ) : (
-                <Link to={"/account"}>
-                  <CiUser  size={20} />
-                  {isLoggedIn ? username : "Account"}
-                </Link>
-              )}
-            </li>
-          </div>
-        </div>
-        {isLoggedIn ? infoupdate ? <div></div> : <UpdateInfo /> : <div></div>}
 
-        <div className="navbar-center">
-        <div className="menu-logo">
-          <div className={`menu ${menuIsOpen ? "open" : ""}`} ref={navRef}  onScroll={handleMenuScroll}>
-           <ul className="ul" >
-           <Link to="/Account"> <li className="li-hover" >
-           Account
-           </li></Link>
-          <Link to="/createPost">
-          <li className="li-hover plus-annonce" >
-              <BsPlusLg  size={13} />
-             Deposer une annonce
-            </li>
-          </Link>
-            
-            <ul className="ul2">
-                <li>jdj</li>
-                <li>d,dk</li>
-                <li>dkk</li>
-              </ul>
-            <li onClick={handleClick2} >	Informatique 
-            <AiFillCaretDown/>
-            </li>
-            <ul className="ul2">
-                <li>PC Portable/ LAPTOB</li>
-                <li>PC Bureau </li>
-                <li>CONNECTIQUE/PERIPHERIQUES </li>
-              </ul>
-            <li onClick={handleClick2} >Console
-            <AiFillCaretDown/>
-            </li>
-            <ul className="ul2">
-                <li>Sony / Playstation</li>
-                <li>Microsoft / Xbox</li>
-                <li>	Nintendo</li>
-                <li>	Steam Desk</li>
-                <li>Consoles Retro </li>
-              </ul>
-            <li onClick={handleClick2} >Jeux videos
-            <AiFillCaretDown/>
-            </li>
-            <ul className="ul2">
-                <li>	Jeux Vidéos physique Ps</li>
-                <li>Jeux Vidéos physique Xbox </li>
-                <li>Packs Collectors</li>
-                <li>Produit Dérivés </li>
-              </ul>
-            <li onClick={handleClick2} >	Contenu Digital 
-            <AiFillCaretDown/>
-            </li>
-            <ul className="ul2">
-                <li>Jeux Vidéos </li>
-                <li>Abonnements</li>
-                <li>Comptes </li>
-                <li>	Gift Card  </li>
-              </ul>
-         
-            <li  onClick={handleClick2} >Téléphonie 
-            <AiFillCaretDown/>
-             
-            </li>
-            <ul className="ul2">
-                <li>Marques </li>
-                <li>Objets Connectés </li>
-                <li>Accessoires Téléphonie</li>
-              </ul>
-              <Link to="/contact"> <li className="li-hover" >
-              Contact
-           </li></Link>
-          
-          
-           </ul>
+  // search function
+
+  //* state
+  const [searchText, setSearchText] = useState("");
+  const [searchCategory, setSearchCategory] = useState("");
+
+  //* function
+
+  const handleSearch = () => {
+    setSearchText(
+      searchBoxRef.current.querySelector('input[type="text"]').value
+    );
+    setSearchCategory(searchBoxRef.current.querySelector("select").value);
+  };
+
+  // const filteredPosts = posts.filter((item) => {
+  //   return (
+  //     item.name.toLowerCase().includes(searchText.toLowerCase()) &&
+  //     item.category.toLowerCase() === searchCategory.toLowerCase()
+  //   );
+  // });
+
+  return (
+    <>
+      <div className="navbar-container">
+        {menuIsOpen && <div className="overlay"></div>}
+        <div className="navbar-content">
+          <div className="navbar-up">
+            <div className="welcome-message">
+              Welcome to <span className="span-message">Gamz</span>
+            </div>
+            <div className="account-pub">
+              <li className="catch-button">
+                <BsPlusLg size={13} />
+                <Link to="/createPost">Deposer une annonce</Link>
+              </li>
+              <li className="upline">|</li>
+              <li>
+                {isLoggedIn ? (
+                  <div>
+                    <Link to={"/account"}>
+                      <CiUser size={20} /> {username}{" "}
+                    </Link>
+                  </div>
+                ) : (
+                  <Link to={"/account"}>
+                    <CiUser size={20} /> {isLoggedIn ? username : "Account"}{" "}
+                  </Link>
+                )}
+              </li>
+            </div>
           </div>
-        <HiMenu size={25} onClick={toggleMenu}  />
-          <div className="logo" >
-           <Link to="/"> <img src={p ? logo2 : logo} alt="" className="logo-gamz" /></Link>
-          </div>
-          </div>
-          <div className="search-left">
-            <div className="searchBar " ref={searchBoxRef }>
-              <input type="text" placeholder="Search here" className={searchActive}  />
-              <div style={{ display: "flex" }}>
-                <select id="select">
-                  {category.map((i) => (
-                    <option value={i.value}>{i.label}</option>
-                  ))}{" "}
-                </select>
-                <div className="search-icon" onClick={handleSearch}ref={searchBoxRef } >
-                  <HiSearch size={25} />
-                </div>
+          {isLoggedIn ? infoupdate ? <div></div> : <UpdateInfo /> : <div></div>}
+          <div className="navbar-center">
+            <div className="menu-logo">
+              <div
+                className={`menu ${menuIsOpen ? "open" : ""}`}
+                ref={navRef}
+                onScroll={handleMenuScroll}
+              >
+                <ul className="ul">
+                  <li>
+                    <Link to="/contact">Contact</Link>
+                  </li>
+                  <li onClick={handleClick2}>
+                    Informatique <AiFillCaretDown />
+                    <ul className="ul2">
+                      <li>PC Portable/ LAPTOB</li>
+                      <li>PC Bureau</li>
+                      <li>CONNECTIQUE/PERIPHERIQUES</li>
+                    </ul>
+                  </li>
+                  <li onClick={handleClick2}>
+                    Console <AiFillCaretDown />
+                    <ul className="ul2">
+                      <li>Sony / Playstation</li>
+                      <li>Microsoft / Xbox</li>
+                      <li>Nintendo</li>
+                      <li>Steam Desk</li>
+                      <li>Consoles Retro</li>
+                    </ul>
+                  </li>
+                  <li onClick={handleClick2}>
+                    Jeux videos <AiFillCaretDown />
+                    <ul className="ul2">
+                      <li>Jeux Vidéos physique Ps</li>
+                      <li>Jeux Vidéos physique Xbox</li>
+                      <li>Packs Collectors</li>
+                      <li>Produit Dérivés</li>
+                    </ul>
+                  </li>
+                  <li onClick={handleClick2}>
+                    Contenu Digital <AiFillCaretDown />
+                    <ul className="ul2">
+                      <li>Jeux Vidéos</li>
+                      <li>Abonnements</li>
+                      <li>Comptes</li>
+                      <li>Gift Card</li>
+                    </ul>
+                  </li>
+                  <li onClick={handleClick2}>
+                    Téléphonie <AiFillCaretDown />
+                    <ul className="ul2">
+                      <li>Marques</li>
+                      <li>Objets Connectés</li>
+                      <li>Accessoires Téléphonie</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <HiMenu size={25} onClick={toggleMenu} />
+              <div className="logo">
+                <Link to="/">
+                  <img src={p ? logo2 : logo} alt="" className="logo-gamz" />
+                </Link>
               </div>
             </div>
-            <li className="catch-button">
-             
-              <Link to="/createPost"> <BsPlusLg  size={13} /></Link>
-            </li>
-            <div className="icons">
-              <li>
-                <BsSuitHeart size={20} />
-              </li>
-              <li>
-                <CiUser  size={20} />
-              </li>
+            <div className="search-left">
+              <div className="searchBar " ref={searchBoxRef}>
+                <input
+                  type="text"
+                  placeholder="Search here"
+                  className={searchActive}
+                />
+                <div style={{ display: "flex" }}>
+                  <select id="select">
+                    {category.map((i) => (
+                      <option value={i.value}>{i.label}</option>
+                    ))}{" "}
+                  </select>
+                  <div
+                    ref={searchBoxRef}
+                    className="search-icon"
+                    onClick={handleSearch}
+                  >
+                    <HiSearch size={25} />
+                  </div>
+                </div>
+              </div>
+
+              <div className="icons">
+                <li>
+                  <BsSuitHeart size={20} />
+                </li>
+                <li>
+                  <CiUser size={20} />
+                </li>
+              </div>
             </div>
           </div>
-          
-        </div>
-        <div className="navbarDown">
-          <div className="down">
-            <li>Informatique</li>
-            <li>Consoles</li>
-            <li>Jeux Vidéos</li>
-            <li>Contenu Digital</li>
-            <li>Télephonie</li>
+          <div className="navbarDown">
+            <div className="down">
+              <li>Informatique</li>
+              <li>Consoles</li>
+              <li>Jeux Vidéos</li>
+              <li>Contenu Digital</li>
+              <li>Télephonie</li>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
-
 export default Navbar;

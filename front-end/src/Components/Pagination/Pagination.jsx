@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {posts} from '../../Data/Posts';
+// import {posts} from '../../Data/Posts';
 import Post from '../Post/Post';
 import { Link } from 'react-router-dom';
 import './Pignation.css'
 
-function Pagination() {
+function Pagination( {posts}) {
     const [pages] = useState(Math.ceil(posts.length / 9));
     const [currentPage, setCurrentPage] = useState(1);
 

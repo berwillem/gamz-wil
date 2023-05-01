@@ -16,8 +16,11 @@ import { useNavigate } from "react-router-dom";
 import { logout } from "../../redux/reducers/Auth";
 
 const boxSlice = Box.slice(0, 4);
-
-function User({ user_name, image, phone_number, address, back_ground_image }) {
+const userString = localStorage.getItem("user");
+  const user = JSON.parse(userString);
+  // const userAvatar = user.avatar.url;
+  // const userBanner = user.banner.url;
+function User({ user_name,  phone_number, address, }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -25,6 +28,7 @@ function User({ user_name, image, phone_number, address, back_ground_image }) {
     navigate("/");
   };
   return (
+    <>
     <div className="user-container">
       <div className="user-l">
         <div className="user-l-content">
@@ -74,7 +78,6 @@ function User({ user_name, image, phone_number, address, back_ground_image }) {
           <div className="user-info">
             <div className="user-image-container">
               <img src={image1} alt="" className="user-image" />
-
               <strong> {user_name} </strong>
             </div>
 
@@ -107,6 +110,7 @@ function User({ user_name, image, phone_number, address, back_ground_image }) {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
