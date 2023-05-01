@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-
 export const baseUrl = "http://localhost:5000/api/v1/user";
 
 const initialState = {

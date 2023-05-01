@@ -21,7 +21,6 @@ function Acount(isDarkMode) {
               user_name='Anis'
               phone_number='055423482'
               address='boumerdess ,alger ,14,200'
-              image='https://demo2.chethemes.com/electro-dokan/wp-content/uploads/2018/01/cropped-1_widget_john-doe.jpg'
             />
           </div>
 

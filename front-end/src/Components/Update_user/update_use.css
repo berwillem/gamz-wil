@@ -3,7 +3,8 @@
     width: 100%;
     justify-content: center;
     padding: 30px 30px;
-    gap: 110px;    
+    gap: 110px;   
+    
 }
 
 
@@ -42,19 +43,19 @@
     height: 100%;
     border-bottom: 3.5px solid #e81a2a;
 }
-.account_details > form {
+.form-style {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.account_details > form >label{
+.form-style >label{
     gap: 10px;
     display: flex;
     flex-direction: column;
 }
 
-.account_details > form >label>input{
+.form-style >label>input{
     width: 85%;
     margin-left: 10px;
     padding: 10px;

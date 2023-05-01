@@ -37,11 +37,22 @@ const createSubcategory = async (subcategoryData, parentId) => {
       res.status(400).json({ message: error.message });
     }
   };
+  const getSubcategoriesByCategory = async (req, res) => {
+    try {
+      const { categoryId } = req.params;
+      const subcategories = await Subcategory.find({ parent: categoryId });
+      res.status(200).json(subcategories);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Server Error" });
+    }
+  };
   
   
 module.exports = {
     createCategory,
-    createSubcategory
+    createSubcategory,
+    getSubcategoriesByCategory,
   };
   
 

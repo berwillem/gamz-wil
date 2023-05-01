@@ -57,6 +57,7 @@
 @media screen and (max-width: 750px) {
 .account-center{
     flex-direction: column;
+    padding: 20px 10px ;
 }
 }
 @media screen and (max-width: 590px) {

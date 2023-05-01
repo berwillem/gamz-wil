@@ -16,6 +16,9 @@ const userSchema = new mongoose.Schema(
     genre: {
       type: String,
     },
+    adress: {
+      type: String,
+    },
     dateNaissance: {
       type: Date,
     },

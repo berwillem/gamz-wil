@@ -43,10 +43,8 @@ exports.getUserByUsername = async (req, res) => {
 //  update user
 
 exports.updateUser = async (req, res) => {
-  const { id } = req.params;
-  const { avatar,banner,username, nom, prenom, genre, dateNaissance } = req.body;
- console.log("banner",banner);
- console.log("avatar",avatar);
+  const { avatar, banner, username, nom, prenom, genre, dateNaissance,adress,id } =
+    req.body;
 
   try {
     let user = await User.findById(id);
@@ -69,7 +67,9 @@ exports.updateUser = async (req, res) => {
     if (nom) {
       user.nom = nom;
     }
-
+    if (adress) {
+      user.adress = adress;
+    }
     if (prenom) {
       user.prenom = prenom;
     }
