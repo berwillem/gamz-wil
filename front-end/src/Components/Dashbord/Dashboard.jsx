@@ -6,10 +6,14 @@ import DashboardCard from '../DashboardCard/DashboardCard'
 import './Dashboard.css'
 import UsersList from '../Users_list/UsersList'
 import image from '../../assets/Svg/shape.svg'
+// import {IoTrendingUpSharp} from 'react-icons/io'
 import { Link } from 'react-router-dom'
 
 function Dashboard({users}) {
     const [num, setNum] = useState(0)
+    const [visitors, setVisitors] = useState(20.5)
+    const [user, setUser] = useState(20.5)
+    const [posts, setPosts] = useState(20.5)
     return (
         <div className='dashboard-container'>
 
@@ -42,20 +46,20 @@ function Dashboard({users}) {
             <div className="user_dashboard_right">
                 <div className="dashboard_card_container">
                     <DashboardCard
-                    title='total Users'
-                    number='32.342'
+                    title='visitors'
+                    number={visitors}
                     url={image}/>
                     <DashboardCard
                     title='total Users'
-                    number='32.342'
+                    number={user}
                     url={image}/>
                     <DashboardCard
-                    title='total Users'
-                    number='32.342'
+                    title='Post number'
+                    number={posts}
                     url={image}/>
                     <DashboardCard
-                    title='total Users'
-                    number='32.342'
+                    title='active'
+                    number='+150'
                     url={image}/>
 
                 </div>
