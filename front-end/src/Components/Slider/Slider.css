@@ -11,6 +11,43 @@
   height: 390px;
   padding: 50px;
 }
+
+.dot{
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+}
+.menu_dots{
+  display: flex;
+  flex-direction: column;
+ 
+
+}
+
+.menu_dots > ul > li {
+  cursor: pointer;
+  
+}
+.menu_dots > ul > li:hover {
+  color: rgb(104, 104, 104);
+  transition: all ease-in-out 300ms;
+  scale: 1.1;
+  
+}
+.menu_dots > ul {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  gap: 10px;
+}
+.close{
+  display: flex;
+  justify-content: flex-end;
+}
 .R-C-slider{
   display: flex;
   width:90%;

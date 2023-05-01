@@ -11,6 +11,8 @@ import CategorySide from '../../Components/CategorySide/CategorySide';
 import React, {useEffect, useState, useRef} from 'react'
 import {ScrollTrigger} from "gsap/dist/ScrollTrigger";
 import {gsap, Power3} from "gsap"
+import { GetAllPosts, baseUrl } from "../../redux/reducers/Posts"
+import axios from 'axios';
 
 const images = ["https://picsum.photos/800/600?random=1", "https://picsum.photos/800/600?random=2", "https://picsum.photos/800/600?random=3", "https://picsum.photos/800/600?random=4",];
 function Home(isDarkMode) {
@@ -50,6 +52,27 @@ function Home(isDarkMode) {
     }, [])
 
     const p=isDarkMode.isDarkMode
+
+
+    const [posts, setPosts] = useState([])
+    
+    
+    useEffect(() => {
+        const getUsers = async () => {
+          try {
+          
+         
+            const res = await axios.get(baseUrl + "/");
+            setPosts(res.data);
+            console.log(res.data);
+            dispatch(GetAllPosts(res.data));
+          } catch (err) {
+            console.log(err);
+          }
+        };
+        getUsers();
+      }, []);
+    
     return (
       
         <div >
@@ -72,7 +95,8 @@ function Home(isDarkMode) {
                     }
                     ref={cardContainer3}>
 
-                    <Pagination/>
+                    <Pagination
+                    posts={posts}/>
                 </div>
             </div>
             <div className="home-bottom">

@@ -3,6 +3,7 @@ import {ScrollTrigger} from "gsap/dist/ScrollTrigger";
 import {gsap, Power3} from "gsap";
 import './Slider.css'
 import {AiFillRightCircle} from 'react-icons/ai'
+import {CgCloseR, CgMenuGridO} from 'react-icons/cg'
 
 const image1 = 'https://electro.madrasthemes.com/wp-content/uploads/2016/03/headphonecase.png'
 const image2 = " https://electro.madrasthemes.com/wp-content/uploads/2016/03/usbheadphone.png"
@@ -10,6 +11,17 @@ const image3 = " https://electro.madrasthemes.com/wp-content/uploads/2016/03/cam
 const image4 = " https://electro.madrasthemes.com/wp-content/uploads/2016/03/watch-300x300.png"
 
 function Slider() {
+    const [show, setShow] = useState(true)
+
+
+
+    const handleUpdate = () =>{
+        ///Reset
+        
+    }
+    const handleDelete = () =>{
+
+    }
    
     gsap.registerPlugin(ScrollTrigger);
     const subtitle = useRef();
@@ -19,6 +31,8 @@ function Slider() {
     const cardContainer = useRef();
     const cardContainer2 = useRef();
     const cardContainer3 = useRef();
+
+
     useEffect(() => {
         gsap.to(subtitle.current, {
             y: 0,
@@ -88,6 +102,26 @@ function Slider() {
       }, []);
     return (
         <div className='slider'>
+            <div className="dot">
+                {/* //condition to show it only for the admin */}
+                {
+                    show? 
+                    <div className="" onClick={()=>setShow(false)}>
+                        <CgMenuGridO size={30} />
+                    </div>
+                    :
+                <div className="menu_dots" >
+                    <div className="close">
+                    <CgCloseR size={15} onClick={()=>setShow(true)} />
+                    </div>
+                    <ul>
+
+                    <li onClick={handleUpdate()}>Update</li>
+                    <li onClick={handleDelete()}>Delete</li>
+                    </ul>
+                </div>
+                }
+            </div>
              <div className="R-C-slider">
             <div className="L-slider">
                 <div ref={title}
