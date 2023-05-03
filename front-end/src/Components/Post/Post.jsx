@@ -14,8 +14,8 @@ function Post( {category,img_post ,name,price}) {
           {name}
         </p>
       </div>
-
       <img src={img_post} alt="post-image" />
+      {console.log("img_post:",img_post)}
       <div className="button-post-container">
         <strong>{price}</strong>
 
