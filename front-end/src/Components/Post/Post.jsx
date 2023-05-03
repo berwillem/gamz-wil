@@ -3,7 +3,7 @@ import { AiOutlineArrowRight } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import './Post.css'
 
-function Post( {category,img_post ,name}) {
+function Post( {category,img_post ,name,price}) {
   return (
     <div className='post-container'>
       <div className="post-category">
@@ -14,10 +14,10 @@ function Post( {category,img_post ,name}) {
           {name}
         </p>
       </div>
-
       <img src={img_post} alt="post-image" />
+      {console.log("img_post:",img_post)}
       <div className="button-post-container">
-        <strong>22.05 $</strong>
+        <strong>{price}</strong>
 
       <button>
         <Link to='/postDetails'>

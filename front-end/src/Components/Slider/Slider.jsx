@@ -10,19 +10,19 @@ const image2 = " https://electro.madrasthemes.com/wp-content/uploads/2016/03/usb
 const image3 = " https://electro.madrasthemes.com/wp-content/uploads/2016/03/cam4k-300x300.png"
 const image4 = " https://electro.madrasthemes.com/wp-content/uploads/2016/03/watch-300x300.png"
 
-function Slider() {
+function Slider({disp}) {
     const [show, setShow] = useState(true)
-
-
-
-    const handleUpdate = () =>{
-        ///Reset
-        
-    }
-    const handleDelete = () =>{
-
-    }
+    const [display, setDisplay] = useState(disp)
+    const [images, setImages] = useState([
+        { id: 0, src: image1 },
+        { id: 1, src: image2 },
+        { id: 2, src: image3 },
+        { id: 3, src: image4 },
+      ]);
+  
    
+
+
     gsap.registerPlugin(ScrollTrigger);
     const subtitle = useRef();
     const title = useRef();
@@ -95,96 +95,195 @@ function Slider() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     useEffect(() => {
         const interval = setInterval(() => {
-          setCurrentImageIndex(currentImageIndex => (currentImageIndex + 1) % 4);
+            setCurrentImageIndex(currentImageIndex => (currentImageIndex + 1) % 4);
         }, 4000); // change slide every 5 seconds
-      
-        return () => clearInterval(interval);
-      }, []);
+
+        return() => clearInterval(interval);
+    }, []);
+
+
+    const handleImageUpdate = (index) => { // Show the update modal
+        setSelectedImageIndex(index);
+        setShowUpdateModal(true);
+    }
+    const handleUpdate = () => {
+        setDisplay(true);
+    };
+
+    const handleDelete = (id) => {
+        const updatedImages = images.filter((image) => image.id !== id);
+        setImages(updatedImages);
+    };
+
+    const handleReplace = (id) => {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.onchange = (e) => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                const updatedImages = images.map((image) => {
+                    if (image.id === id) {
+                        return {
+                            ...image,
+                            src: reader.result
+                        };
+                    } else {
+                        return image;
+                    }
+                });
+                setImages(updatedImages);
+            };
+        };
+        input.click();
+
+    };
+    const [file, setFile] = useState(null);
+    const [file2 ,setFil2] = useState(null);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setFile(file);
+      const reader = new FileReader();
+      reader.onload = () => {
+        onImageChange(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleFileChange2 = (event) => {
+    const file2 = event.target.files[0];
+    if (file2) {
+      setFil2(file2);
+      const reader = new FileReader();
+      reader.onload = () => {
+        onImageChange(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  
     return (
         <div className='slider'>
-            <div className="dot">
-                {/* //condition to show it only for the admin */}
-                {
-                    show? 
-                    <div className="" onClick={()=>setShow(false)}>
-                        <CgMenuGridO size={30} />
+            {
+            display ? (
+                <div className='dot'>
+                    {
+                    show ? (
+                        <div className=''
+                            onClick={
+                                () => setShow(false)
+                        }>
+                            <CgMenuGridO size={30}/>
+                        </div>
+                    ) : (
+                        <div className='menu_dots'>
+                            <div className='close'>
+                                <CgCloseR size={15}
+                                    onClick={
+                                        () => setShow(true)
+                                    }/>
+                            </div>
+                            <ul> {
+                                images.map((image) => (
+                                    <li key={
+                                            image.id
+                                        }
+                                        onClick={
+                                            () => handleReplace(image.id)
+                                    }>
+                                        Replace {
+                                        image.id + 1
+                                    } </li>
+                                ))
+                            }
+                                {
+                                images.length > 1 && (
+                                    <li onClick={
+                                        () => handleDelete(currentImageIndex)
+                                    }>
+                                        Delete
+                                    </li>
+                                )
+                            } </ul>
+                        </div>
+                    )
+                } </div>
+            ) : null
+        }
+            <div className="R-C-slider">
+                <div className="L-slider">
+                    <div ref={title}
+                        className="title-slider">
+                        <p>SHOP TO GET WHAT YOU LOVE</p>
+
                     </div>
-                    :
-                <div className="menu_dots" >
-                    <div className="close">
-                    <CgCloseR size={15} onClick={()=>setShow(true)} />
+                    <div className="sub-title">
+                        <p ref={subtitle}>
+
+                            TIMEPIECES THAT
+                            <br/>
+                            MAKE A STATEMENT
+                            <br/>
+                            UP  TO
+                            <span>
+                                40% OFF</span>
+                        </p>
                     </div>
-                    <ul>
+                    <div className="buy-button">
+                        <button ref={button}>
+                            Start buying
+                        </button>
+                    </div>
 
-                    <li onClick={handleUpdate()}>Update</li>
-                    <li onClick={handleDelete()}>Delete</li>
-                    </ul>
+                    <div ref={dot}
+                        className="button-container">
+
+                        <button onClick={
+                                () => setCurrentImageIndex(0)
+                            }
+                            className={
+                                currentImageIndex === 0 ? 'active' : ''
+                        }></button>
+                        <button onClick={
+                                () => setCurrentImageIndex(1)
+                            }
+                            className={
+                                currentImageIndex === 1 ? 'active' : ''
+                        }></button>
+                        <button onClick={
+                                () => setCurrentImageIndex(2)
+                            }
+                            className={
+                                currentImageIndex === 2 ? 'active' : ''
+                        }></button>
+                        <button onClick={
+                                () => setCurrentImageIndex(3)
+                            }
+                            className={
+                                currentImageIndex === 3 ? 'active' : ''
+                        }></button>
+                    </div>
                 </div>
-                }
-            </div>
-             <div className="R-C-slider">
-            <div className="L-slider">
-                <div ref={title}
-                    className="title-slider">
-                    <p>SHOP TO GET WHAT YOU LOVE</p>
+                <div className="C-slider">
+                    
 
-                </div>
-                <div className="sub-title">
-                    <p ref={subtitle}>
-
-                        TIMEPIECES THAT
-                        <br/>
-                        MAKE A STATEMENT
-                        <br/>
-                        UP  TO
-                        <span>
-                            40% OFF</span>
-                    </p>
-                </div>
-                <div className="buy-button">
-                    <button ref={button}>
-                        Start buying
-                    </button>
-                </div>
-
-                <div ref={dot}
-                    className="button-container">
-
-                    <button onClick={
-                            () => setCurrentImageIndex(0)
-                        }
+                        
+                        <img src={images[currentImageIndex].src}
+                        
+                        alt="Slideshow Image"
+                        ref={cardContainer3}
                         className={
-                            currentImageIndex === 0 ? 'active' : ''
-                    }></button>
-                    <button onClick={
-                            () => setCurrentImageIndex(1)
-                        }
-                        className={
-                            currentImageIndex === 1 ? 'active' : ''
-                    }></button>
-                    <button onClick={
-                            () => setCurrentImageIndex(2)
-                        }
-                        className={
-                            currentImageIndex === 2 ? 'active' : ''
-                    }></button>
-                    <button onClick={
-                            () => setCurrentImageIndex(3)
-                        }
-                        className={
-                            currentImageIndex === 3 ? 'active' : ''
-                    }></button>
-                </div>
-            </div>
-            <div className="C-slider">
+                            `slideshow ${
+                                currentImageIndex !== 0 ? 'fade-in' : ''
+                            }`
+                        }/>
 
-                <img src={
-                        currentImageIndex === 0 ? image1 : currentImageIndex === 1 ? image2 : currentImageIndex === 2 ? image3 : currentImageIndex === 3 ? image4 : null
-                    }
-                    alt="Slideshow Image"
-                    ref={cardContainer3}
-                    className={`slideshow ${currentImageIndex !== 0 ? 'fade-in' : ''}`}/>
-            </div>
+                </div>
             </div>
             <div className="R-slider">
                 <div ref={cardContainer}
@@ -198,14 +297,17 @@ function Slider() {
                             THE CONSOLES</p>
                     </div>
                     <div className="sub-title-box">
+                        {display?
+                    <input type="file" onChange={handleFileChange} />
+                    :null
+                }
                         <strong>
                             Shop now
                         </strong>
                         <AiFillRightCircle size={20}
                             color='#e81a2a'/>
                         <div className="image-R-slide">
-                            <img src={image1}
-                                alt="image-slide"/>
+                        <img src={file ? URL.createObjectURL(file) : images[0].src} alt="image-slide" />
                         </div>
                     </div>
                 </div>
@@ -220,14 +322,17 @@ function Slider() {
                             THE CONSOLES</p>
                     </div>
                     <div className="sub-title-box">
+                        {display? 
+                    <input type="file" onChange={handleFileChange2} />
+                    :null
+                }
                         <strong>
                             Shop now
                         </strong>
                         <AiFillRightCircle size={20}
                             color='#e81a2a'/>
                         <div className="image-R-slide">
-                            <img src={image2}
-                                alt="image-slide"/>
+                        <img src={file2 ? URL.createObjectURL(file2) : images[1].src} alt="image-slide" />
                         </div>
                     </div>
 
