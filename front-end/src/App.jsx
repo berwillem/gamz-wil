@@ -13,6 +13,7 @@ import PassForgot2 from './Pages/PassForgot/PassForgot2'
 import Mode from './Components/Mode/mode'
 import Contact from './Pages/Contact/Contact'
 import Page404 from './Pages/page404/Page404'
+import PubManage from './Pages/PubManage/PubManage'
 
 
 
@@ -40,6 +41,8 @@ const toggleDarkMode = () => {
                     element={<Dashbord />}/>
                 <Route path='/otp'
                     element={<Otp isDarkMode={isDarkMode}/>}/>
+                <Route path='/pub-manage'
+                    element={<PubManage isDarkMode={isDarkMode}/>}/>
                 <Route path='/PassForgot'
                     element={<PassForgot/>}/>
                 <Route path='/PassForgot2'

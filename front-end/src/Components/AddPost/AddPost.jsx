@@ -315,11 +315,9 @@ function AddPost() {
                 styles={customStyles}
               />
             </div>
-
-            <button type="submit" class="btn-submit">
-              Submit
-            </button>
-          </div>
+          <button type="submit" className="btn-submit">
+            Submit
+          </button>
         </div>
       </div>
       </form>
