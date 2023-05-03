@@ -71,24 +71,23 @@ function AddPost() {
     formData.append("title", title);
     formData.append("price", price);
     formData.append("description", description);
-    formData.append("category", selectedOptions);
-    formData.append("subcategories", [principalImageFile,otherImagesFile]);
+    formData.append("category", selectedOptions.value);
+    formData.append("subcategories", [selectedSubcats.value]);
     formData.append("wilaya", wilaya);
     formData.append("commune", id);
     formData.append("num", phone);
     formData.append("author", id);
-    formData.append("images",[principalImage,otherImages])
-  //   try {
-  //     const res = await axios.post(
-  //       `http://localhost:5000/api/v1/post/create`,
-  //       formData,
-  //       { headers: { "Content-Type": "multipart/form-data" } }
-  //     );
-  //     console.log("response:",res.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+    formData.append("images",[principalImageFile,otherImagesFile])
+    try {
+      const res = await axios.post(
+        `http://localhost:5000/api/v1/post/create`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+      console.log("response:",res.data);
+    } catch (err) {
+      console.log(err);
+    }
   }
   // api calls::
   useEffect(() => {

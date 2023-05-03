@@ -13,11 +13,12 @@ import {ScrollTrigger} from "gsap/dist/ScrollTrigger";
 import {gsap, Power3} from "gsap"
 import { GetAllPosts, baseUrl } from "../../redux/reducers/Posts"
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 const images = ["https://picsum.photos/800/600?random=1", "https://picsum.photos/800/600?random=2", "https://picsum.photos/800/600?random=3", "https://picsum.photos/800/600?random=4",];
 function Home(isDarkMode) {
   
-
+   const dispatch=useDispatch()
 
     gsap.registerPlugin(ScrollTrigger);
 

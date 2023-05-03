@@ -1,54 +1,52 @@
-import React, {useState, useEffect} from 'react';
-// import {posts} from '../../Data/Posts';
-import Post from '../Post/Post';
-import { Link } from 'react-router-dom';
-import './Pignation.css'
+import React, { useState, useEffect } from "react";
+import Post from "../Post/Post";
+import "./Pignation.css";
 
-function Pagination( {posts}) {
-    const [pages] = useState(Math.ceil(posts.length / 9));
-    const [currentPage, setCurrentPage] = useState(1);
+function Pagination({ posts }) {
+  const [pages] = useState(Math.ceil(posts.length / 9));
+  const [currentPage, setCurrentPage] = useState(1);
 
-    useEffect(() => {
-        window.scrollTo({behavior: 'smooth', top: '0px'});
-    }, [currentPage]);
+  useEffect(() => {
+    window.scrollTo({ behavior: "smooth", top: "0px" });
+  }, [currentPage]);
 
-    function changePage(event) {
-        const pageNumber = Number(event.target.textContent);
-        setCurrentPage(pageNumber);
-    }
+  function changePage(event) {
+    const pageNumber = Number(event.target.textContent);
+    setCurrentPage(pageNumber);
+  }
 
-    const getPaginatedData = () => {
-        const startIndex = (currentPage - 1) * 9
-        const endIndex = startIndex + 9;
-        return posts.slice(startIndex, endIndex);
-    };
+  const getPaginatedData = () => {
+    const startIndex = (currentPage - 1) * 9;
+    const endIndex = startIndex + 9;
+    return posts.slice(startIndex, endIndex);
+  };
 
-    const getPaginationGroup = () => {
-        let start = Math.floor((currentPage - 1) / 10) * 10;
-        return new Array(pages).fill().map((_, idx) => idx + 1);
-    };
+  const getPaginationGroup = () => {
+    let start = Math.floor((currentPage - 1) / 10) * 10;
+    return new Array(pages).fill().map((_, idx) => idx + 1);
+  };
 
-    return (
-        <div className="pagination-container">
-            <div id="pagination-title">
-           <p>Hot Products Today</p>
-            </div>
+  return (
+    <div className="pagination-container">
+      <div id="pagination-title">
+        <p>Hot Products Today</p>
+      </div>
 
-
-            <div className="dataContainer">
-                {
-                getPaginatedData().map((i, index) => (
-                   <Post
-                   key={index}
-                   category={i.category}
-                   img_post={i.images[0].url}
-                   name={i.title}
-                   price={i.price}
-                   />
-                ))
-            } </div>
-            <div className="pagination">
-                {/* <button onClick={goToPreviousPage}
+      <div className="dataContainer">
+        {getPaginatedData().map((i, index) => (
+          <Post
+            key={index}
+            category={i.category}
+            img_post={i.images}
+            name={i.title}
+            price={i.price}
+          />
+        ))}
+        
+        {" "}
+      </div>
+      <div className="pagination">
+        {/* <button onClick={goToPreviousPage}
                     className={
                         `prev ${
                             currentPage === 1 ? 'disabled' : ''
@@ -57,21 +55,19 @@ function Pagination( {posts}) {
                     prev
                 </button> */}
 
-                {
-                getPaginationGroup().map((item, index) => (
-                    <button key={index}
-                        onClick={changePage}
-                        className={
-                            `paginationItem ${
-                                currentPage === item ? 'active' : null
-                            }`
-                    }>
-                        <span>{item}</span>
-                    </button>
-                ))
-            }
+        {getPaginationGroup().map((item, index) => (
+          <button
+            key={index}
+            onClick={changePage}
+            className={`paginationItem ${
+              currentPage === item ? "active" : null
+            }`}
+          >
+            <span>{item}</span>
+          </button>
+        ))}
 
-                {/* <button onClick={goToNextPage}
+        {/* <button onClick={goToNextPage}
                     className={
                         `next ${
                             currentPage === pages ? 'disabled' : ''
@@ -79,9 +75,9 @@ function Pagination( {posts}) {
                 }>
                     next
                 </button> */}
-            </div>
-        </div>
-    );
+      </div>
+    </div>
+  );
 }
 
-export default Pagination
+export default Pagination;
