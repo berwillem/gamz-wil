@@ -182,7 +182,7 @@ function AddPost() {
             />
           </div>
 
-          <button type="submit" class="btn-submit">
+          <button type="submit" className="btn-submit">
             Submit
           </button>
         </div>
