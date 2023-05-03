@@ -1,44 +1,46 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import "./Navbar.css";
-import {BsPlusLg} from "react-icons/bs";
-import {CiUser} from "react-icons/ci";
-import {HiSearch} from "react-icons/hi";
-import {BsSuitHeart} from "react-icons/bs";
-import {HiMenu} from "react-icons/hi";
+import { BsPlusLg } from "react-icons/bs";
+import { CiUser } from "react-icons/ci";
+import { HiSearch } from "react-icons/hi";
+import { BsSuitHeart } from "react-icons/bs";
+import { HiMenu } from "react-icons/hi";
 import logo from "../../assets/1.png";
 import logo2 from "../../assets/2.png";
 import UpdateInfo from "../UpdateInfo/UpdateInfo";
-import {Link} from "react-router-dom";
-import {useState} from 'react';
-import {useRef} from "react";
-import {AiFillCaretDown} from "react-icons/ai";
-import {AiFillCaretUp} from "react-icons/ai";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useRef } from "react";
+import { AiFillCaretDown } from "react-icons/ai";
+import { AiFillCaretUp } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import Posts from "../../redux/reducers/Posts";
+// import posts from "../../redux/reducers/Posts";
 
 const category = [
-    {
-        label: "All category",
-        value: ""
-    },
-    {
-        label: "Informatiques",
-        value: "informatiques"
-    },
-    {
-        label: "Consols",
-        value: "Consols"
-    },
-    {
-        label: "Jeux video",
-        value: "Jeux video"
-    }, {
-        label: "Contenu digital ",
-        value: "Contenu digital "
-    }, {
-        label: "Télephonie ",
-        value: "Télephonie "
-    },
+  {
+    label: "All category",
+    value: "",
+  },
+  {
+    label: "Informatiques",
+    value: "informatiques",
+  },
+  {
+    label: "Consols",
+    value: "Consols",
+  },
+  {
+    label: "Jeux video",
+    value: "Jeux video",
+  },
+  {
+    label: "Contenu digital ",
+    value: "Contenu digital ",
+  },
+  {
+    label: "Télephonie ",
+    value: "Télephonie ",
+  },
 ];
 function Navbar({p}) {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
@@ -64,38 +66,27 @@ function Navbar({p}) {
             nextElement.classList.toggle("active-ul");
         }
     }
-    const [menuIsOpen, setMenuIsOpen] = useState(false);
+  }
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
-    const toggleMenu = () => {
-        setMenuIsOpen(!menuIsOpen);
-    };
-    useEffect(() => {
-        if (menuIsOpen) {
-            document.body.classList.add("menu-open", "overlay");
-        } else {
-            document.body.classList.remove("menu-open", "overlay");
-        }
-    }, [menuIsOpen]);
+  const toggleMenu = () => {
+    setMenuIsOpen(!menuIsOpen);
+  };
+  useEffect(() => {
+    if (menuIsOpen) {
+      document.body.classList.add("menu-open", "overlay");
+    } else {
+      document.body.classList.remove("menu-open", "overlay");
+    }
+  }, [menuIsOpen]);
 
+  const navRef = useRef(null);
 
-    const navRef = useRef(null);
-
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (navRef.current && ! navRef.current.contains(event.target)) {
-                setMenuIsOpen(false);
-
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return() => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [navRef]);
-
-    const handleMenuScroll = (e) => {
-        e.stopPropagation();
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setMenuIsOpen(false);
+      }
     };
 
     const searchBoxRef = useRef(null);
@@ -128,7 +119,7 @@ function Navbar({p}) {
     //   setSearchCategory(searchBoxRef.current.querySelector('select').value);
     // };
 
-
+    document.addEventListener("click", handleOutsideClick);
     // const filteredPosts = posts.filter((item) => {
     //   return (
     //     item.name.toLowerCase().includes(searchText.toLowerCase()) &&
@@ -187,75 +178,20 @@ function Navbar({p}) {
                                     </li>
                                 </Link>
 
+  // search function
 
-                                <ul className="ul2">
-                                    <li>jdj</li>
-                                    <li>d,dk</li>
-                                    <li>dkk</li>
-                                </ul>
-                                <li onClick={handleClick2}>
-                                    Informatique
-                                    <AiFillCaretDown/>
-                                </li>
-                                <ul className="ul2">
-                                    <li>PC Portable/ LAPTOB</li>
-                                    <li>PC Bureau
-                                    </li>
-                                    <li>CONNECTIQUE/PERIPHERIQUES
-                                    </li>
-                                </ul>
-                                <li onClick={handleClick2}>Console
-                                    <AiFillCaretDown/>
-                                </li>
-                                <ul className="ul2">
-                                    <li>Sony / Playstation</li>
-                                    <li>Microsoft / Xbox</li>
-                                    <li>
-                                        Nintendo</li>
-                                    <li>
-                                        Steam Desk</li>
-                                    <li>Consoles Retro
-                                    </li>
-                                </ul>
-                                <li onClick={handleClick2}>Jeux videos
-                                    <AiFillCaretDown/>
-                                </li>
-                                <ul className="ul2">
-                                    <li>
-                                        Jeux Vidéos physique Ps</li>
-                                    <li>Jeux Vidéos physique Xbox
-                                    </li>
-                                    <li>Packs Collectors</li>
-                                    <li>Produit Dérivés
-                                    </li>
-                                </ul>
-                                <li onClick={handleClick2}>
-                                    Contenu Digital
-                                    <AiFillCaretDown/>
-                                </li>
-                                <ul className="ul2">
-                                    <li>Jeux Vidéos
-                                    </li>
-                                    <li>Abonnements</li>
-                                    <li>Comptes
-                                    </li>
-                                    <li>
-                                        Gift Card
-                                    </li>
-                                </ul>
+  //* state
+  const [searchText, setSearchText] = useState("");
+  const [searchCategory, setSearchCategory] = useState("");
 
-                                <li onClick={handleClick2}>Téléphonie
-                                    <AiFillCaretDown/>
+  //* function
 
-                                </li>
-                                <ul className="ul2">
-                                    <li>Marques
-                                    </li>
-                                    <li>Objets Connectés
-                                    </li>
-                                    <li>Accessoires Téléphonie</li>
-                                </ul>
-
+  const handleSearch = () => {
+    setSearchText(
+      searchBoxRef.current.querySelector('input[type="text"]').value
+    );
+    setSearchCategory(searchBoxRef.current.querySelector("select").value);
+  };
 
                             </ul>
                         </div>
@@ -322,9 +258,6 @@ function Navbar({p}) {
             
   );
 
-  
-
-    
+ 
 }
-
 export default Navbar;
