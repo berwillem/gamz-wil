@@ -186,6 +186,7 @@ function AddPost() {
                   style={{ display: "none" }}
                 />
               </div>
+              </div>
             </div>
             <div className="add-images">
               <p>Choose Other Images</p>
