@@ -26,10 +26,11 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
-// get  user by username :
-exports.getUserByUsername = async (req, res) => {
+// get user by ID:
+exports.getUserById = async (req, res) => {
   try {
-    const user = await User.findOne({ username: req.params.username });
+    console.log(req.params.id);
+    const user = await User.findById(req.params.id);
     if (!user) {
       return res.status(404).send({ error: "User not found" });
     }
@@ -39,6 +40,7 @@ exports.getUserByUsername = async (req, res) => {
     res.status(500).send({ error: "Server error" });
   }
 };
+
 
 //  update user
 
