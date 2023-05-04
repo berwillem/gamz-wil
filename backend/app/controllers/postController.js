@@ -98,11 +98,3 @@ exports.getAllPosts = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-// const [formData, setFormData] = useState({
-//     title: '',
-//     description: '',
-//     phoneNumber: '',
-//     price: '',
-//     willaya: '',
-//     selectedCategory: []
-// });
