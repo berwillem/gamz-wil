@@ -253,10 +253,10 @@ a{
     transition: 0.3s;
 width: 100%;
 display: none;
-overflow: auto;
+overflow: hidden;
 
-max-height: 250px;
-min-height: 150px;
+max-height: 300px;
+min-height: 0px;
 
 
 
@@ -267,6 +267,7 @@ min-height: 150px;
     width: 100%;
     background-color: #EBEBEB;
     cursor: pointer;
+    
     
 }
 .ul2 li:hover{

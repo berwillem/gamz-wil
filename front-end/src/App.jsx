@@ -42,7 +42,7 @@ const toggleDarkMode = () => {
                 <Route path='/otp'
                     element={<Otp isDarkMode={isDarkMode}/>}/>
                 <Route path='/pub-manage'
-                    element={<PubManage isDarkMode={isDarkMode}/>}/>
+                    element={<PubManage />}/>
                 <Route path='/PassForgot'
                     element={<PassForgot/>}/>
                 <Route path='/PassForgot2'

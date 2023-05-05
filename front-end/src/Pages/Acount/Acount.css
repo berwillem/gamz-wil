@@ -42,6 +42,11 @@
     background-color: #f7f7f7;
     color: black !important;
 }
+.user-l .Ads-container img{
+    height: 400px;
+    width: 250px;
+    object-fit:fill;
+  }
 /*respo*/
 @media screen and (max-width: 1240px) {
    
