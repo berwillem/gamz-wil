@@ -1,4 +1,6 @@
 const Post = require("../models/Post");
+const User = require("../models/User");
+
 exports.createPost = async (req, res) => {
   try {
     const {
@@ -28,11 +30,18 @@ exports.createPost = async (req, res) => {
     });
 
     const savedPost = await post.save();
+
+    // Add the reference to the post to the user's posts field
+    const user = await User.findById(author);
+    user.posts.push(savedPost._id);
+    await user.save();
+
     res.status(201).json(savedPost);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 };
+
 
 exports.deletePost = async (req, res) => {
   try {
@@ -76,25 +85,13 @@ exports.getPostById = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
-
 exports.getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find();
-    res.json(posts);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-exports.getAllPosts = async (req, res) => {
-  try {
-    const userId = req.query.userId; // assuming you pass the userId as a query parameter
+    const userId = req.query.userId;
     let posts;
     if (userId) {
-      // if userId is specified, retrieve only posts made by that user
       posts = await Post.find({ user: userId });
     } else {
-      // otherwise, retrieve all posts
       posts = await Post.find();
     }
     res.json(posts);

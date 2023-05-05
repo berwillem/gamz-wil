@@ -29,7 +29,14 @@ exports.getAllUsers = async (req, res) => {
 // get user by ID:
 exports.getUserById = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id).populate({
+      path: 'posts',
+      select: '_id title price category',
+      populate: {
+        path: 'category',
+        select: '_id name',
+      },
+    });
     if (!user) {
       return res.status(404).send({ error: "User not found" });
     }
