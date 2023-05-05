@@ -59,7 +59,7 @@ function Home(isDarkMode) {
     
     
     useEffect(() => {
-        const getUsers = async () => {
+        const getPosts = async () => {
           try {
           
          
@@ -71,7 +71,7 @@ function Home(isDarkMode) {
             console.log(err);
           }
         };
-        getUsers();
+        getPosts();
       }, []);
     
     return (

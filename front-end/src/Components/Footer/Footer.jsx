@@ -20,7 +20,7 @@ function Footer({ p }) {
             <a href="https://www.instagram.com/gamz.dz/?igshid=ZDdkNTZiNTM%3D" target="blank">
               <BsInstagram size={20} color="#757575" />
             </a>
-            <a href="" target="blank">
+            <a href="https://www.facebook.com/profile.php?id=100092228414663&mibextid=ZbWKwL" target="blank">
               <BsFacebook size={20} color="#757575" />
             </a>
             <a href="https://discord.com/invite/QVMfN2S9qN" target="blank">
