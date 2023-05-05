@@ -73,12 +73,12 @@ function User({ user_name,  phone_number, address,banner,avatar }) {
           className="back-image"
           style={{
             backgroundImage:
-              `url(${banner})`
+              `url(${banner? banner:'https://demo2.chethemes.com/electro-dokan/wp-content/uploads/2018/01/flipkart_625x300_81431586162.jpg'})`
           }}
         >
           <div className="user-info">
             <div className="user-image-container">
-              <img src={avatar} alt="" className="user-image" />
+              <img src={avatar ? avatar:image1} alt="" className="user-image" />
               <strong> {user_name} </strong>
             </div>
 

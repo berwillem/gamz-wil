@@ -293,7 +293,31 @@ min-height: 0px;
 .navbar-center .catch-button{
     display: none;
 }
-
+/*search*/
+.results-list {
+    width: 50%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 8px #ddd;
+    border-radius: 10px;
+    margin-top: 1rem;
+    max-height: 300px;
+    overflow-y: auto;
+    position: fixed;
+    top: 160px;
+    z-index: 5;
+    
+  }
+  .SearchResult {
+    padding: 10px 20px;
+  }
+  
+  .SearchResult:hover {
+    background-color: #efefef;
+    cursor: pointer;
+  }
+  
 @media screen and (max-width: 1240px) {
     .navbar-up,.navbarDown,.heart-icon,#select,.icons{
         display: none !important;
@@ -304,6 +328,11 @@ min-height: 0px;
         justify-content: space-between;
      margin-right: 20px;
         
+    }
+    .results-list{
+        width: 100%;
+        left: 0;
+        top: 75PX;
     }
     .search{
         position: absolute;
