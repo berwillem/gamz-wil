@@ -40,6 +40,7 @@ function Pagination({ posts }) {
             img_post={i.images}
             name={i.title}
             price={i.price}
+            id={i._id}
           />
         ))}
         
