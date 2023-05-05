@@ -16,9 +16,8 @@ const options = wilaya.map((wilaya) => ({
   label: wilaya.name,
 }));
 const userString = localStorage.getItem("user");
-  const user = JSON.parse(userString);
-  const id = user.id;
-
+const user = JSON.parse(userString);
+const id = user.id;
 // component start ::::
 
 function AddPost() {
@@ -26,32 +25,36 @@ function AddPost() {
   const [principalImage, setPrincipalImage] = useState(image);
   const [principalImageFile, setPrincipalImageFile] = useState(null);
   const [otherImages, setOtherImages] = useState([image, image]);
-  const [otherImagesFile, setOtherImagesFile] = useState(null);
+  const [otherImagesFile, setOtherImagesFile] = useState([]);
   const [selectedOptions, setSelectedOptions] = useState(null);
   const [subcats, setSubcats] = useState(null);
   const [subcatschildren, setSubcatschildren] = useState(null);
-  const [selectedSubcatschildren, setSelectedSubcatschildren] =useState(subcatschildren);
+  const [selectedSubcatschildren, setSelectedSubcatschildren] =
+    useState(subcatschildren);
   const [selectedSubcats, setSelectedSubcats] = useState(subcats);
-  const [title,setTitle] = useState("");
-  const [description,setDescription] = useState("");
-  const [phone,setPhone] = useState("");
-  const [price,setPrice] = useState("");
-  const [wilaya,setWilaya] = useState("");
-
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [phone, setPhone] = useState("");
+  const [price, setPrice] = useState("");
+  const [wilaya, setWilaya] = useState("");
 
   // handle functions ::::
   const handlePrincipalImageChange = (event) => {
     const file = event.target.files[0];
     setPrincipalImage(URL.createObjectURL(file));
-    setPrincipalImageFile(file)
+    setPrincipalImageFile(file);
+    console.log("principal image:", principalImageFile);
   };
   const handleOtherImageChange = (index, event) => {
     const newOtherImages = [...otherImages];
     newOtherImages[index] = URL.createObjectURL(event.target.files[0]);
     setOtherImages(newOtherImages);
-    setOtherImagesFile(event.target.files[0]);
+
+    const newOtherImagesFiles = [...otherImagesFile]; // copy the existing array
+    newOtherImagesFiles[index] = event.target.files[0]; // add the new file to the end
+    setOtherImagesFile(newOtherImagesFiles);
   };
-  
+
   const handleSelectChange = (selectedOptions) => {
     setSelectedOptions(selectedOptions);
   };
@@ -66,7 +69,8 @@ function AddPost() {
   };
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log("submited");
+    console.log("sumbited pricipal", principalImageFile);
+    console.log("secondary", otherImagesFile);
     const formData = new FormData();
     formData.append("title", title);
     formData.append("price", price);
@@ -77,18 +81,20 @@ function AddPost() {
     formData.append("commune", id);
     formData.append("num", phone);
     formData.append("author", id);
-    formData.append("images",[principalImageFile,otherImagesFile])
+    formData.append("images", principalImageFile);
+    formData.append("images", otherImagesFile[0])
+    formData.append("images", otherImagesFile[1])
     try {
       const res = await axios.post(
         `http://localhost:5000/api/v1/post/create`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
-      console.log("response:",res.data);
+      console.log("response:", res.data);
     } catch (err) {
       console.log(err);
     }
-  }
+  };
   // api calls::
   useEffect(() => {
     if (selectedOptions) {
@@ -151,40 +157,40 @@ function AddPost() {
 
   return (
     <>
-    <form onSubmit={handleFormSubmit} encType="multipart/form-data">
-      <div className="account-center">
-        <div className="user-l">
-          <SideCard />
-          <Ads uri="https://electro.madrasthemes.com/wp-content/uploads/2016/03/ad-banner-sidebar.jpg" />
-        </div>
-        <div className="add-content">
-          <div className="add-post-l">
-            <div className="add-big-image">
-              <p>Choose The Principal Image</p>
-              <div className="principal-image">
-                <label htmlFor="principal-image-input">
-                  {principalImage ? (
-                    <img
-                      src={principalImage}
-                      alt="Principal"
-                      style={{
-                        width: "400px",
-                        border: "2px solid #e81a2a ",
-                        borderRadius: "10px",
-                      }}
-                    />
-                  ) : (
-                    <span>Click to upload image</span>
-                  )}{" "}
-                </label>
-                <input
-                  type="file"
-                  id="principal-image-input"
-                  accept="image/*"
-                  onChange={handlePrincipalImageChange}
-                  style={{ display: "none" }}
-                />
-              </div>
+      <form onSubmit={handleFormSubmit} encType="multipart/form-data">
+        <div className="account-center">
+          <div className="user-l">
+            <SideCard />
+            <Ads uri="https://electro.madrasthemes.com/wp-content/uploads/2016/03/ad-banner-sidebar.jpg" />
+          </div>
+          <div className="add-content">
+            <div className="add-post-l">
+              <div className="add-big-image">
+                <p>Choose The Principal Image</p>
+                <div className="principal-image">
+                  <label htmlFor="principal-image-input">
+                    {principalImage ? (
+                      <img
+                        src={principalImage}
+                        alt="Principal"
+                        style={{
+                          width: "400px",
+                          border: "2px solid #e81a2a ",
+                          borderRadius: "10px",
+                        }}
+                      />
+                    ) : (
+                      <span>Click to upload image</span>
+                    )}{" "}
+                  </label>
+                  <input
+                    type="file"
+                    id="principal-image-input"
+                    accept="image/*"
+                    onChange={handlePrincipalImageChange}
+                    style={{ display: "none" }}
+                  />
+                </div>
               </div>
             </div>
             <div className="add-images">
@@ -301,7 +307,14 @@ function AddPost() {
 
             <div className="add-price">
               <p>fix price for your product</p>
-              <input type="number" placeholder="00" name="price" value={price} onChange={(e) => setPrice(e.target.value)} id="" />
+              <input
+                type="number"
+                placeholder="00"
+                name="price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                id=""
+              />
             </div>
             <div className="add-price">
               <p>add your willaya</p>
@@ -315,11 +328,11 @@ function AddPost() {
                 styles={customStyles}
               />
             </div>
-          <button type="submit" className="btn-submit">
-            Submit
-          </button>
+            <button type="submit" className="btn-submit">
+              Submit
+            </button>
+          </div>
         </div>
-      </div>
       </form>
     </>
   );

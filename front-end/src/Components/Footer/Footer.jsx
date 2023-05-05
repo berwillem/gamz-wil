@@ -6,6 +6,7 @@ import "./Footer.css";
 import { Link } from "react-router-dom";
 import pdf1 from "../../assets/pdf/Conditions d'utilisation .pdf";
 import pdf2 from "../../assets/pdf/Politique de confidentialité .pdf";
+import categoryes from "../../Data/category";
 
 function Footer({ p }) {
   return (
@@ -19,7 +20,7 @@ function Footer({ p }) {
             <a href="https://www.instagram.com/gamz.dz/?igshid=ZDdkNTZiNTM%3D" target="blank">
               <BsInstagram size={20} color="#757575" />
             </a>
-            <a href="" target="blank">
+            <a href="https://www.facebook.com/profile.php?id=100092228414663&mibextid=ZbWKwL" target="blank">
               <BsFacebook size={20} color="#757575" />
             </a>
             <a href="https://discord.com/invite/QVMfN2S9qN" target="blank">
@@ -35,10 +36,9 @@ function Footer({ p }) {
             <strong>Categories</strong>
           </div>
           <div className="category-list">
-            <li>Informatique</li>
-            <li>Consoles</li>
-            <li>Jeux Vidéos </li>
-            <li>Contenu Digital</li>
+          {categoryes.map((categorye) => (
+                            <li>{categorye.label}</li>
+            ))}
           </div>
         </div>
         <div className="R-footer">

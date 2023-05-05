@@ -1,11 +1,11 @@
 const router = require("express").Router();
 const uploadImages=require("../middlewares/cloudinary")
-const { deleteUserByUsername, getAllUsers,  getUserByUsername, updateUser } = require("../controllers/userController");
+const { deleteUserByUsername, getAllUsers, updateUser, getUserById } = require("../controllers/userController");
 // const {verifyTokenAndAdmin}=require("../middlewares/authval")
 // GET all users
 router.get("/",getAllUsers);
 // GET user by ID
-router.get("/:username", getUserByUsername);
+router.get("/:id", getUserById);
 // deleteUser endpoint
 router.delete("/:username", deleteUserByUsername);
 // UPDATE user by ID

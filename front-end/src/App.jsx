@@ -33,7 +33,7 @@ const toggleDarkMode = () => {
                     element={<Home isDarkMode={isDarkMode} />}/>
                 <Route path='/Account'
                     element={<Acount isDarkMode={isDarkMode} />}/>
-                <Route path='/postDetails'
+                <Route path='/postDetails/:id'
                     element={<Postdetails isDarkMode={isDarkMode}/>}/>
                 <Route path='/createPost'
                     element={<ADdPost isDarkMode={isDarkMode} />}/>
@@ -42,7 +42,7 @@ const toggleDarkMode = () => {
                 <Route path='/otp'
                     element={<Otp isDarkMode={isDarkMode}/>}/>
                 <Route path='/pub-manage'
-                    element={<PubManage isDarkMode={isDarkMode}/>}/>
+                    element={<PubManage />}/>
                 <Route path='/PassForgot'
                     element={<PassForgot/>}/>
                 <Route path='/PassForgot2'

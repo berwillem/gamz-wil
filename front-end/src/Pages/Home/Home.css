@@ -37,6 +37,11 @@
     z-index: 2;
     background-color: var(--background-color);
 }
+.Ads-category img{
+  height: 400px;
+  width: 250px;
+  object-fit:fill;
+}
 
 .home-container{
     background-color: var(--background-color);

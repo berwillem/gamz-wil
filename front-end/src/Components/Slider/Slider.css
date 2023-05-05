@@ -16,13 +16,21 @@
   position: absolute;
   bottom: 10px;
   left: 20px;
+  z-index: 3;
+  
+}
+.dot svg{
+  height: 60px;
+  width: 60px;
+
 }
 .menu_dots{
   display: flex;
   flex-direction: column;
- 
+
 
 }
+
 
 .menu_dots > ul > li {
   cursor: pointer;
