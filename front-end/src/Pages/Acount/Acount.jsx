@@ -7,10 +7,39 @@ import Register from "../../Components/Register/Register";
 import TopSelll from "../../Components/TopSelll/TopSelll";
 import User from "../../Components/User/User";
 import "./Acount.css";
+import axios from 'axios';
+import { useState,useEffect } from 'react';
+
 
 function Acount(isDarkMode) {
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  const userId = JSON.parse(localStorage.getItem("user"))?.id || null;
+ 
+  const [banner, setBanner] = useState('')
+  const [data, setData] = useState({})
+  const [avatar, setAvatar] = useState('')
+  const [NumTel, setNumTel] = useState('')
+  const [address, setAdresse] = useState('')
+  const [Username, setUsername] = useState('')
   const p=isDarkMode.isDarkMode
+  useEffect(() => {
+    axios.get(`http://localhost:5000/api/v1/user/${userId}`)
+      .then(response => {
+        const userData = response.data;
+        setData(userData)
+        setBanner(userData.banner.url)
+        setAvatar(userData.avatar.url)
+        setNumTel(userData.phone)
+        setAdresse(userData.adress)
+        setUsername(userData.username)
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, [userId]);
+  
+
+
   return (
     <div className='account-container'>
       <Navbar p={p} />
@@ -18,9 +47,11 @@ function Acount(isDarkMode) {
         <div>
           <div className="account-center">
             <User
-              user_name='Anis'
-              phone_number='055423482'
-              address='boumerdess ,alger ,14,200'
+              user_name={Username}
+              phone_number={NumTel}
+              address={address}
+              banner={banner}
+              avatar={avatar}
             />
           </div>
 

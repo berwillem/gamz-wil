@@ -73,7 +73,7 @@ function Dashboard({users}) {
                         <li>Date</li>
                         <li>Name</li>
                         <li>email</li>
-                        <li>order</li>
+                        
                         <li>action</li>
                     </div>
                     {
@@ -88,12 +88,15 @@ function Dashboard({users}) {
                                 name={item.username}
                                 number={num +1}
                                 id={item._id}
-                                order={item.order}
+                               
                                 date={item.createdAt.slice(0,10)}
                                 email={item.email}/>
+                               
+                                
                             ))
+                           
                         }
-
+                      
                     </div>
                 </div>
             </div>

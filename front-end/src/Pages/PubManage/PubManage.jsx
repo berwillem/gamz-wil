@@ -5,11 +5,11 @@ import Slider from '../../Components/Slider/Slider'
 
 
 
-function PubManage(isDarkMode) {
-    const p=isDarkMode.isDarkMode
+function PubManage() {
+   
   return (
     <div>
-        <Navbar p={p} />
+        <Navbar  />
             <Slider disp={true}/>
         
     </div>

@@ -1,6 +1,6 @@
 import Navbar from '../../Components/Navbar/Navbar'
 import Slider from '../../Components/Slider/Slider'
-
+import pubImg from '../../assets/images/pub.png'
 import BackgroundSlider from 'react-background-slider'
 import Footer from '../../Components/Footer/Footer';
 import Pagination from '../../Components/Pagination/Pagination';
@@ -84,7 +84,7 @@ function Home(isDarkMode) {
                 <div className="Ads-category "
                     ref={cardContainer2}>
                     <CategorySide/>
-                    <Ads uri='https://electro.madrasthemes.com/wp-content/uploads/2016/03/ad-banner-sidebar.jpg'/>
+                    <Ads uri={pubImg} />
                 </div>
                 <div className='content-card' style={
                         {
@@ -102,7 +102,7 @@ function Home(isDarkMode) {
             </div>
             <div className="home-bottom">
                 <TopSelll/>
-                <Ads uri='https://electro.madrasthemes.com/wp-content/uploads/2019/04/footer-widget-img-01.jpg'/>
+                <Ads uri={pubImg} />
 
             </div>
             <Footer p={p} />

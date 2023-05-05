@@ -1,5 +1,6 @@
 import React from "react";
 import "./User.css";
+
 import { BsPhone } from "react-icons/bs";
 import { FaStore } from "react-icons/fa";
 import { ImLocation } from "react-icons/im";
@@ -20,7 +21,7 @@ const userString = localStorage.getItem("user");
   const user = JSON.parse(userString);
   // const userAvatar = user.avatar.url;
   // const userBanner = user.banner.url;
-function User({ user_name,  phone_number, address, }) {
+function User({ user_name,  phone_number, address,banner,avatar }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -72,28 +73,25 @@ function User({ user_name,  phone_number, address, }) {
           className="back-image"
           style={{
             backgroundImage:
-              "url('https://demo2.chethemes.com/electro-dokan/wp-content/uploads/2018/01/flipkart_625x300_81431586162.jpg')",
+              `url(${banner})`
           }}
         >
           <div className="user-info">
             <div className="user-image-container">
-              <img src={image1} alt="" className="user-image" />
+              <img src={avatar} alt="" className="user-image" />
               <strong> {user_name} </strong>
             </div>
 
             <div className="user"></div>
             <div className="user">
               <ImLocation />
-              <p>{address}</p>
+              <p>{address ? address:(<Link to="/Details">Add address</Link>)}</p>
             </div>
             <div className="user">
               <BsPhone />
-              <p>{phone_number}</p>
+              <p>{phone_number ? phone_number: (<Link to="/Details">Add phone number</Link>)}</p>
             </div>
-            <div className="user">
-              <FaStore />
-              <p>Store Closed</p>
-            </div>
+            
           </div>
         </div>
 

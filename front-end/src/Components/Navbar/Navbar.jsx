@@ -14,6 +14,8 @@ import { useRef } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { AiFillCaretUp } from "react-icons/ai";
 import { useSelector } from "react-redux";
+import categoryes from "../../Data/category";
+import subCategoryes from "../../Data/subCategory";
 // import posts from "../../redux/reducers/Posts";
 
 const category = [
@@ -128,6 +130,12 @@ function Navbar({ p }) {
     setSearchText(
       searchBoxRef.current.querySelector('input[type="text"]').value
     );
+    if(searchActive==="search"){
+      setSearchActive("search active-search")
+     }
+     else{
+      setSearchActive("search")
+     }
     setSearchCategory(searchBoxRef.current.querySelector("select").value);
   };
 
@@ -177,53 +185,38 @@ function Navbar({ p }) {
                 onScroll={handleMenuScroll}
               >
                 <ul className="ul">
-                  <li>
-                    <Link to="/contact">Contact</Link>
-                  </li>
-                  <li onClick={handleClick2}>
-                    Informatique <AiFillCaretDown />
-                    <ul className="ul2">
-                      <li>PC Portable/ LAPTOB</li>
-                      <li>PC Bureau</li>
-                      <li>CONNECTIQUE/PERIPHERIQUES</li>
-                    </ul>
-                  </li>
-                  <li onClick={handleClick2}>
-                    Console <AiFillCaretDown />
-                    <ul className="ul2">
-                      <li>Sony / Playstation</li>
-                      <li>Microsoft / Xbox</li>
-                      <li>Nintendo</li>
-                      <li>Steam Desk</li>
-                      <li>Consoles Retro</li>
-                    </ul>
-                  </li>
-                  <li onClick={handleClick2}>
-                    Jeux videos <AiFillCaretDown />
-                    <ul className="ul2">
-                      <li>Jeux Vidéos physique Ps</li>
-                      <li>Jeux Vidéos physique Xbox</li>
-                      <li>Packs Collectors</li>
-                      <li>Produit Dérivés</li>
-                    </ul>
-                  </li>
-                  <li onClick={handleClick2}>
-                    Contenu Digital <AiFillCaretDown />
-                    <ul className="ul2">
-                      <li>Jeux Vidéos</li>
-                      <li>Abonnements</li>
-                      <li>Comptes</li>
-                      <li>Gift Card</li>
-                    </ul>
-                  </li>
-                  <li onClick={handleClick2}>
-                    Téléphonie <AiFillCaretDown />
-                    <ul className="ul2">
-                      <li>Marques</li>
-                      <li>Objets Connectés</li>
-                      <li>Accessoires Téléphonie</li>
-                    </ul>
-                  </li>
+                <Link to="/Account"> <li className="li-hover" >
+           Account
+           </li></Link>
+          <Link to="/createPost">
+          <li className="li-hover plus-annonce" >
+              <BsPlusLg  size={13} />
+             Deposer une annonce
+            </li>
+          </Link>
+          {categoryes.map((categorye) => (
+                        <>
+                              <li onClick={handleClick2}>
+                            {categorye.label} <AiFillCaretDown />
+                           
+                          </li>
+                          <ul className="ul2">
+                          {subCategoryes.map((subcategorye) => {
+                           if (subcategorye.parentCategoryId === categorye.value) {
+                            return(
+                            <li>{subcategorye.label}</li>
+                         
+                         )
+                           }
+})} </ul>
+                          
+                        </>
+            ))}
+                 
+                 
+                    <Link to="/contact"> <li className="li-hover" >
+              Contact
+           </li></Link>
                 </ul>
               </div>
               <HiMenu size={25} onClick={toggleMenu} />
@@ -255,7 +248,10 @@ function Navbar({ p }) {
                   </div>
                 </div>
               </div>
-
+              <li className="catch-button">
+             
+             <Link to="/createPost"> <BsPlusLg  size={13} /></Link>
+           </li>
               <div className="icons">
                 <li>
                   <BsSuitHeart size={20} />
@@ -268,11 +264,9 @@ function Navbar({ p }) {
           </div>
           <div className="navbarDown">
             <div className="down">
-              <li>Informatique</li>
-              <li>Consoles</li>
-              <li>Jeux Vidéos</li>
-              <li>Contenu Digital</li>
-              <li>Télephonie</li>
+            {categoryes.map((categorye) => (
+                            <li>{categorye.label}</li>
+            ))}
             </div>
           </div>
         </div>
