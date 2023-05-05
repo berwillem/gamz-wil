@@ -29,7 +29,6 @@ exports.getAllUsers = async (req, res) => {
 // get user by ID:
 exports.getUserById = async (req, res) => {
   try {
-    console.log(req.params.id);
     const user = await User.findById(req.params.id);
     if (!user) {
       return res.status(404).send({ error: "User not found" });

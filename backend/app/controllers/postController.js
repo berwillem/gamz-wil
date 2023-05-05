@@ -66,7 +66,7 @@ exports.getPostById = async (req, res) => {
   try {
     const postId = req.params.id;
     const post = await Post.findById(postId)
-      .populate('author', 'username')
+    .populate('author', 'username avatar')
       .populate('category', 'name');
     if (!post) {
       return res.status(404).json({ message: "Post not found" });
