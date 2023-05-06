@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import categoryes from "../../Data/category";
 import subCategoryes from "../../Data/subCategory";
 // import posts from "../../redux/reducers/Posts";
+import axios from "axios";
 
 const category = [
   {
@@ -44,7 +45,7 @@ const category = [
     value: "Télephonie ",
   },
 ];
-function Navbar({ p }) {
+function Navbar({ p },{ sendData  }) {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const username = JSON.parse(localStorage.getItem("user"))?.username || null;
   const infoupdate =
@@ -108,6 +109,8 @@ function Navbar({ p }) {
         !searchBoxRef.current.contains(event.target)
       ) {
         setSearchActive("search");
+        setSearchText('');
+        setResults([]);
       }
     }
 
@@ -121,9 +124,44 @@ function Navbar({ p }) {
   // search function
 
   //* state
+
   const [searchText, setSearchText] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
+  const [results, setResults] = useState([]);
+  const [data, setData] = useState('');
 
+  const fetchData = (value) => {
+    axios.get("http://localhost:5000/api/v1/post/")
+      .then(response => {
+      
+        const results = response.data.filter(post =>
+          post.title.toLowerCase().includes(value.toLowerCase())
+        );
+        setResults(results);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    fetchData(searchText);
+  }, [searchText]);
+  const handleChange = (event) => {
+    setSearchText(event.target.value);
+    fetchData(event.target.value);
+    
+    sendData(event.target.value);
+  };
+  const filterResultsByCategory = (category) => {
+    if (category === '') {
+      return results;
+    } else {
+      return results.filter((result) => {
+        return result.category === category;
+      });
+    }
+  };
+ 
   //* function
 
   const handleSearch = () => {
@@ -232,8 +270,17 @@ function Navbar({ p }) {
                   type="text"
                   placeholder="Search here"
                   className={searchActive}
+                  value={searchText}
+                  name="searchText"
+                  onChange={handleChange}
                 />
+                    <div className="results-list">
+                    {searchText !== "" && filterResultsByCategory(searchCategory).map((result) => (
+  <Link to={`/postDetails/${result._id}`}><li key={result._id}>{result.title}</li></Link>
+))}
+    </div>
                 <div style={{ display: "flex" }}>
+
                   <select id="select">
                     {category.map((i,index) => (
                       <option key={index} value={i.value}>{i.label}</option>

@@ -59,11 +59,15 @@ function Home(isDarkMode) {
   const p = isDarkMode.isDarkMode;
 
   const [posts, setPosts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
+  const [searchText, setSearchText] = useState('iphone');
+  
+  
 
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const res = await axios.get(baseUrl + "/");
+        const res = await axios.get(baseUrl + '/');
         setPosts(res.data);
         dispatch(GetAllPosts(res.data));
         // res.data.forEach((post) => {
@@ -73,16 +77,19 @@ function Home(isDarkMode) {
         // });
         // console.log(res.data.images);
         // console.log(res.data[0].images[0].url);
+        setFilteredPosts(posts.filter((post) =>
+        post.title.toLowerCase().includes(searchText.toLowerCase())
+      ))
       } catch (err) {
         console.log(err);
       }
     };
+
     getPosts();
   }, []);
-
   return (
     <div>
-      <Navbar p={p} />
+      <Navbar p={p}  />
       <Slider />
       <div className="home-center">
         <div className="Ads-category " ref={cardContainer2}>
@@ -98,7 +105,7 @@ function Home(isDarkMode) {
           }}
           ref={cardContainer3}
         >
-          <Pagination posts={posts} />
+          <Pagination posts={posts}  />
         </div>
       </div>
       <div className="home-bottom">

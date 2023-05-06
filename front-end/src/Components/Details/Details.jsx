@@ -28,7 +28,7 @@ function Details() {
   useEffect(() => {
     fetchPostDetails();
   }, [postId]);
-  console.log(post);
+ 
   //   style ::
   const boxSlice = Box.slice(0, 3);
   gsap.registerPlugin(ScrollTrigger);

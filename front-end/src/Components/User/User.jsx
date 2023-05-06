@@ -21,13 +21,15 @@ const userString = localStorage.getItem("user");
   const user = JSON.parse(userString);
   // const userAvatar = user.avatar.url;
   // const userBanner = user.banner.url;
-function User({ user_name,  phone_number, address,banner,avatar }) {
+function User({ user_name,  phone_number, address,banner,avatar,posts },) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
+   
   };
+  console.log({posts});
   return (
     <>
     <div className="user-container">
@@ -73,12 +75,12 @@ function User({ user_name,  phone_number, address,banner,avatar }) {
           className="back-image"
           style={{
             backgroundImage:
-              `url(${banner})`
+              `url(${banner? banner:'https://demo2.chethemes.com/electro-dokan/wp-content/uploads/2018/01/flipkart_625x300_81431586162.jpg'})`
           }}
         >
           <div className="user-info">
             <div className="user-image-container">
-              <img src={avatar} alt="" className="user-image" />
+              <img src={avatar ? avatar:image1} alt="" className="user-image" />
               <strong> {user_name} </strong>
             </div>
 
