@@ -37,7 +37,7 @@ function Pagination({ posts }) {
           <Post
             key={index}
             category={i.category}
-            img_post={i.images}
+            img_post={i.images[0]}
             name={i.title}
             price={i.price}
             id={i._id}

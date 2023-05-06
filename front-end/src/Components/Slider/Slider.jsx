@@ -14,13 +14,20 @@ function Slider({disp}) {
     const [show, setShow] = useState(true)
     const [display, setDisplay] = useState(disp)
     const [images, setImages] = useState([
-        { id: 0, src: image1 },
-        { id: 1, src: image2 },
-        { id: 2, src: image3 },
-        { id: 3, src: image4 },
-      ]);
-  
-   
+        {
+            id: 0,
+            src: image1
+        }, {
+            id: 1,
+            src: image2
+        }, {
+            id: 2,
+            src: image3
+        }, {
+            id: 3,
+            src: image4
+        },
+    ]);
 
 
     gsap.registerPlugin(ScrollTrigger);
@@ -141,32 +148,39 @@ function Slider({disp}) {
 
     };
     const [file, setFile] = useState(null);
-    const [file2 ,setFil2] = useState(null);
+    const [file2, setFil2] = useState(null);
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setFile(file);
-      const reader = new FileReader();
-      reader.onload = () => {
-        onImageChange(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            setFile(file);
+            const reader = new FileReader();
+            reader.onload = () => {
+                onImageChange(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
-  const handleFileChange2 = (event) => {
-    const file2 = event.target.files[0];
-    if (file2) {
-      setFil2(file2);
-      const reader = new FileReader();
-      reader.onload = () => {
-        onImageChange(reader.result);
+    const handleFileChange2 = (event) => {
+        const file2 = event.target.files[0];
+        if (file2) {
+            setFil2(file2);
+            const reader = new FileReader();
+            reader.onload = () => {
+                onImageChange(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleSubtitleClick = () => {
+        const newSubtitle = prompt('Enter a new subtitle:');
+        if (newSubtitle) {
+          subtitle.current.innerText = newSubtitle;
+        }
       };
-      reader.readAsDataURL(file);
-    }
-  };
-  
+
     return (
         <div className='slider'>
             {
@@ -223,15 +237,14 @@ function Slider({disp}) {
 
                     </div>
                     <div className="sub-title">
-                        <p ref={subtitle}>
-
+                        <p ref={subtitle}
+                            onClick={handleSubtitleClick}>
                             TIMEPIECES THAT
                             <br/>
                             MAKE A STATEMENT
                             <br/>
-                            UP  TO
-                            <span>
-                                40% OFF</span>
+                            UP TO
+                            <span>40% OFF</span>
                         </p>
                     </div>
                     <div className="buy-button">
@@ -270,11 +283,12 @@ function Slider({disp}) {
                     </div>
                 </div>
                 <div className="C-slider">
-                    
 
-                        
-                        <img src={images[currentImageIndex].src}
-                        
+
+                    <img src={
+                            images[currentImageIndex].src
+                        }
+
                         alt="Slideshow Image"
                         ref={cardContainer3}
                         className={
@@ -297,17 +311,20 @@ function Slider({disp}) {
                             THE CONSOLES</p>
                     </div>
                     <div className="sub-title-box">
-                        {display?
-                    <input type="file" onChange={handleFileChange} />
-                    :null
-                }
+                        {
+                        display ? <input type="file"
+                            onChange={handleFileChange}/> : null
+                    }
                         <strong>
                             Shop now
                         </strong>
                         <AiFillRightCircle size={20}
                             color='#e81a2a'/>
                         <div className="image-R-slide">
-                        <img src={file ? URL.createObjectURL(file) : images[0].src} alt="image-slide" />
+                            <img src={
+                                    file ? URL.createObjectURL(file) : images[0].src
+                                }
+                                alt="image-slide"/>
                         </div>
                     </div>
                 </div>
@@ -322,17 +339,20 @@ function Slider({disp}) {
                             THE CONSOLES</p>
                     </div>
                     <div className="sub-title-box">
-                        {display? 
-                    <input type="file" onChange={handleFileChange2} />
-                    :null
-                }
+                        {
+                        display ? <input type="file"
+                            onChange={handleFileChange2}/> : null
+                    }
                         <strong>
                             Shop now
                         </strong>
                         <AiFillRightCircle size={20}
                             color='#e81a2a'/>
                         <div className="image-R-slide">
-                        <img src={file2 ? URL.createObjectURL(file2) : images[1].src} alt="image-slide" />
+                            <img src={
+                                    file2 ? URL.createObjectURL(file2) : images[1].src
+                                }
+                                alt="image-slide"/>
                         </div>
                     </div>
 

@@ -2,7 +2,15 @@ import React from 'react'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import './Post.css'
+import NotFound from '../../assets/images/Image_not_available.png'
 function Post( {category,img_post ,name,price,id}) {
+
+
+  const fallbackImageUrl = NotFound
+  // Determine the image URL to use
+  const imageUrl = img_post && img_post.url ? img_post.url : fallbackImageUrl;
+
+
   return (
     <div className='post-container'>
       <div className="post-category">
@@ -13,7 +21,7 @@ function Post( {category,img_post ,name,price,id}) {
           {name}
         </p>
       </div>
-      <img src={img_post} alt="post-image" />
+    <img src={imageUrl} alt="post-image" />
       <div className="button-post-container">
         <strong>{price}</strong>
         <Link to={`/postDetails/${id}`}>
