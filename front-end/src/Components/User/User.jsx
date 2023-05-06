@@ -21,13 +21,15 @@ const userString = localStorage.getItem("user");
   const user = JSON.parse(userString);
   // const userAvatar = user.avatar.url;
   // const userBanner = user.banner.url;
-function User({ user_name,  phone_number, address,banner,avatar }) {
+function User({ user_name,  phone_number, address,banner,avatar },posts) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
+   
   };
+  console.log({posts});
   return (
     <>
     <div className="user-container">

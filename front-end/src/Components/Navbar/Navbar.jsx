@@ -45,7 +45,7 @@ const category = [
     value: "Télephonie ",
   },
 ];
-function Navbar({ p }) {
+function Navbar({ p },{ sendData  }) {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const username = JSON.parse(localStorage.getItem("user"))?.username || null;
   const infoupdate =
@@ -128,10 +128,12 @@ function Navbar({ p }) {
   const [searchText, setSearchText] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
   const [results, setResults] = useState([]);
+  const [data, setData] = useState('');
 
   const fetchData = (value) => {
     axios.get("http://localhost:5000/api/v1/post/")
       .then(response => {
+      
         const results = response.data.filter(post =>
           post.title.toLowerCase().includes(value.toLowerCase())
         );
@@ -141,10 +143,14 @@ function Navbar({ p }) {
         console.log(error);
       });
   };
-
+  useEffect(() => {
+    fetchData(searchText);
+  }, [searchText]);
   const handleChange = (event) => {
     setSearchText(event.target.value);
     fetchData(event.target.value);
+    
+    sendData(event.target.value);
   };
   const filterResultsByCategory = (category) => {
     if (category === '') {
@@ -270,7 +276,7 @@ function Navbar({ p }) {
                 />
                     <div className="results-list">
                     {searchText !== "" && filterResultsByCategory(searchCategory).map((result) => (
-  <li key={result._id}>{result.title}</li>
+  <Link to={`/postDetails/${result._id}`}><li key={result._id}>{result.title}</li></Link>
 ))}
     </div>
                 <div style={{ display: "flex" }}>

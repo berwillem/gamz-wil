@@ -21,6 +21,7 @@ function Acount(isDarkMode) {
   const [NumTel, setNumTel] = useState('')
   const [address, setAdresse] = useState('')
   const [Username, setUsername] = useState('')
+  const [poste, setposte] = useState({})
   const p=isDarkMode.isDarkMode
   useEffect(() => {
     axios.get(`http://localhost:5000/api/v1/user/${userId}`)
@@ -33,6 +34,7 @@ function Acount(isDarkMode) {
         setNumTel(userData.phone)
         setAdresse(userData.adress)
         setUsername(userData.username)
+        setposte(userData.posts)
       })
       .catch(error => {
         console.error(error);
@@ -53,6 +55,7 @@ function Acount(isDarkMode) {
               address={address}
               banner={banner}
               avatar={avatar}
+              poste={poste}
             />
           </div>
 
