@@ -56,11 +56,11 @@ function CategorySide() {
                     <ul key={subcategorye.id}>
                       <li className="drop-down-titel">{subcategorye.label} </li>
                     <div>
-                    {subSubCategoryes.map((subcategorye2) => {
+                    {subSubCategoryes.map((subcategorye2,index) => {
                         if (
                           subcategorye2.parentCategoryId === subcategorye.id
                         ) {
-                          return <li>{subcategorye2.label}</li>;
+                          return <li key={index}>{subcategorye2.label}</li>;
                         }
                       })}
                     </div>

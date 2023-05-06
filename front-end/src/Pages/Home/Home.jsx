@@ -66,6 +66,13 @@ function Home(isDarkMode) {
         const res = await axios.get(baseUrl + "/");
         setPosts(res.data);
         dispatch(GetAllPosts(res.data));
+        // res.data.forEach((post) => {
+        //   post.images.forEach((image) => {
+        //     console.log(image);
+        //   });
+        // });
+        // console.log(res.data.images);
+        // console.log(res.data[0].images[0].url);
       } catch (err) {
         console.log(err);
       }
