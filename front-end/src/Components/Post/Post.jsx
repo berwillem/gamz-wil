@@ -16,13 +16,14 @@ function Post( {category,img_post ,name,price,id}) {
       <img src={img_post} alt="post-image" />
       <div className="button-post-container">
         <strong>{price}</strong>
-
+        <Link to={`/postDetails/${id}`}>
       <button>
-      <Link to={`/postDetails/${id}`}>
+     
           
        <AiOutlineArrowRight size={17} color='#f7f7f7' fontWeight='bold'/>
-        </Link>
+     
       </button>
+      </Link>
       </div>
     </div>
   )

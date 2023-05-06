@@ -43,7 +43,7 @@ content: 'helllo there';
     width: 100%;
 
 }
-.button-post-container>button{
+.button-post-container>a{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,5 +58,21 @@ content: 'helllo there';
     font-weight: 400;
     cursor: pointer;
     box-shadow: 0px 15px 25px -4px rgba(150, 150, 150, 0.24);
+
+}
+.button-post-container>a>button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+ 
+    width: 100%;
+    color: #f7f7f7;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
 
 }

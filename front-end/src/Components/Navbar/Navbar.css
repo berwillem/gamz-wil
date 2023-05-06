@@ -304,7 +304,7 @@ min-height: 0px;
     margin-top: 1rem;
     max-height: 300px;
     overflow-y: auto;
-    position: fixed;
+    position: absolute;
     top: 160px;
     z-index: 5;
     
