@@ -21,7 +21,7 @@ const userString = localStorage.getItem("user");
   const user = JSON.parse(userString);
   // const userAvatar = user.avatar.url;
   // const userBanner = user.banner.url;
-function User({ user_name,  phone_number, address,banner,avatar },posts) {
+function User({ user_name,  phone_number, address,banner,avatar,posts },) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {

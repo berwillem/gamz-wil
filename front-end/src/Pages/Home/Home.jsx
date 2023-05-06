@@ -98,7 +98,7 @@ function Home(isDarkMode) {
           }}
           ref={cardContainer3}
         >
-          <Pagination posts={filteredPosts}  />
+          <Pagination posts={posts}  />
         </div>
       </div>
       <div className="home-bottom">
