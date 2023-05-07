@@ -102,7 +102,7 @@ function User({ user_name,  phone_number, address,banner,avatar,posts },) {
             <UserPost
               key={i.id}
               category={i.category}
-              name={i.name}
+              name={i.title}
               user_post_image={i.image}
               price={i.price}
             />

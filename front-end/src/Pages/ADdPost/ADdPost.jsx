@@ -14,7 +14,6 @@ function ADdPost(isDarkMode) {
         <TopSelll />
         <Ads uri="https://electro.madrasthemes.com/wp-content/uploads/2019/04/footer-widget-img-01.jpg" />
       </div>
-      {/* <Slider/>  */}
       <Footer p={p} />
     </div>
   );

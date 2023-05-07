@@ -17,7 +17,7 @@ const options = wilaya.map((wilaya) => ({
 }));
 const userString = localStorage.getItem("user");
 const user = JSON.parse(userString);
-// const id = user.id;
+const id = user.id;
 // component start ::::
 
 function AddPost() {
