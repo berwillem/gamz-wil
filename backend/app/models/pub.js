@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const pubSchema = new mongoose.Schema({
-  bannerPub: {
-    url: { type: String },
-    publicId: { type: String },
+  title:{
+    type:String,
+    required:true
   },
-  smallPub: [
+  pub: [
     {
       url: { type: String },
       publicId: { type: String },
