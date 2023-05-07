@@ -7,6 +7,7 @@ const uploadImages = (folderName) => (req, res, next) => {
     { name: "avatar", maxCount: 1 },
     { name: "banner", maxCount: 1 },
     { name: "images", maxCount: 3 },
+    { name: "pub", maxCount: 3 },
   ]);
   uploadMiddleware(req, res, (err) => {
     if (err instanceof multer.MulterError) {
@@ -70,11 +71,30 @@ const uploadImages = (folderName) => (req, res, next) => {
           });
         })
       : [];
+    const pubUploadPromises = req.files["pub"]
+      ? req.files["pub"].map((image) => {
+          return new Promise((resolve, reject) => {
+            cloudinary.uploader.upload(
+              image.path,
+              {
+                folder: folderName,
+              },
+              (error, result) => {
+                if (error) {
+                  return reject(error);
+                }
+                resolve(result);
+              }
+            );
+          });
+        })
+      : [];
 
     Promise.all([
       avatarUploadPromise,
       bannerUploadPromise,
       ...imagesUploadPromises,
+      ...pubUploadPromises
     ])
       .then((uploadedImages) => {
         const avatarUrl = uploadedImages[0] ? uploadedImages[0].url : null;
@@ -90,6 +110,10 @@ const uploadImages = (folderName) => (req, res, next) => {
         const imagePublicIds = uploadedImages
           .slice(2)
           .map((image) => image.public_id);
+        const pubUrls = uploadedImages.slice(2).map((image) => image.url);
+        const pubPublicIds = uploadedImages
+          .slice(2)
+          .map((image) => image.public_id);
 
         req.body.avatar = {
           url: avatarUrl,
@@ -103,6 +127,12 @@ const uploadImages = (folderName) => (req, res, next) => {
           return {
             url,
             public_id: imagePublicIds[index],
+          };
+        });
+        req.body.pub = pubUrls.map((url, index) => {
+          return {
+            url,
+            public_id: pubPublicIds[index],
           };
         });
         next();

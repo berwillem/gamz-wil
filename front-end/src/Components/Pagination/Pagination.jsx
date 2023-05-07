@@ -36,8 +36,8 @@ function Pagination({ posts }) {
         {getPaginatedData().map((i, index) => (
           <Post
             key={index}
-            category={i.category}
-            img_post={i.images}
+            category={i.category.name}
+            img_post={i.images[0]}
             name={i.title}
             price={i.price}
             id={i._id}

@@ -6,13 +6,15 @@ import "./Details.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Power3 } from "gsap";
-import image_user from "../../assets/user_image.jpg";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 function Details() {
   // api call :::
   const [post, setPost] = useState("");
+  const [pricipalImage, setPricipalImage] = useState("");
+  const [secondImage, setSecondImage] = useState("");
+  const [thirdImage, setThirdImage] = useState("");
   const location = useLocation();
   const postId = location.pathname.split("/")[2];
   const fetchPostDetails = async () => {
@@ -21,6 +23,9 @@ function Details() {
         `http://localhost:5000/api/v1/post/${postId}`
       );
       setPost(response.data);
+      setPricipalImage(response.data.images[0].url)
+      setSecondImage(response.data.images[1].url)
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -90,11 +95,6 @@ function Details() {
               alt=""
               className="images"
             />
-            <img
-              src="https://electro.madrasthemes.com/wp-content/uploads/2016/03/uniheadphone.png"
-              alt=""
-              className="images"
-            />
           </div>
         </div>
 
@@ -112,7 +112,7 @@ function Details() {
             <p> {post.description}</p>
           </div>
           <div className="post-details-price">
-            <p>{post.price}</p>
+            <p>{post.price} DA</p>
             <button className="button-whislist">
               <p></p>
               <AiOutlineHeart size={20} />

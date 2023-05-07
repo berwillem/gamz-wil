@@ -42,7 +42,6 @@ exports.createPost = async (req, res) => {
   }
 };
 
-
 exports.deletePost = async (req, res) => {
   try {
     const postId = req.params.id;
@@ -75,8 +74,8 @@ exports.getPostById = async (req, res) => {
   try {
     const postId = req.params.id;
     const post = await Post.findById(postId)
-    .populate('author', 'username avatar')
-      .populate('category', 'name');
+      .populate("author", "username avatar")
+      .populate("category", "name");
     if (!post) {
       return res.status(404).json({ message: "Post not found" });
     }
@@ -90,10 +89,19 @@ exports.getAllPosts = async (req, res) => {
     const userId = req.query.userId;
     let posts;
     if (userId) {
-      posts = await Post.find({ user: userId });
+      posts = await Post.find({ user: userId }).populate("category", "name");
     } else {
-      posts = await Post.find();
+      posts = await Post.find().populate("category", "name");
     }
+    res.json(posts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+exports.getPostsByCategoryId = async (req, res) => {
+  try {
+    const categoryId = req.body;
+    const posts = await Post.find({ category: categoryId });
     res.json(posts);
   } catch (err) {
     res.status(500).json({ message: err.message });

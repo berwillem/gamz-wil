@@ -15,9 +15,9 @@ const options = wilaya.map((wilaya) => ({
   value: wilaya.name,
   label: wilaya.name,
 }));
-const userString = localStorage.getItem("user");
-const user = JSON.parse(userString);
-const id = user.id;
+// const userString = localStorage.getItem("user");
+// const user = JSON.parse(userString);
+const id = "1000";
 // component start ::::
 
 function AddPost() {
@@ -82,8 +82,8 @@ function AddPost() {
     formData.append("num", phone);
     formData.append("author", id);
     formData.append("images", principalImageFile);
-    formData.append("images", otherImagesFile[0])
-    formData.append("images", otherImagesFile[1])
+    formData.append("images", otherImagesFile[0]);
+    formData.append("images", otherImagesFile[1]);
     try {
       const res = await axios.post(
         `http://localhost:5000/api/v1/post/create`,

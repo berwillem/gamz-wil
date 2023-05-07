@@ -36,8 +36,8 @@ function Footer({ p }) {
             <strong>Categories</strong>
           </div>
           <div className="category-list">
-          {categoryes.map((categorye) => (
-                            <li>{categorye.label}</li>
+          {categoryes.map((categorye,index) => (
+                            <li key={index}>{categorye.label}</li>
             ))}
           </div>
         </div>

@@ -69,10 +69,10 @@ function Home(isDarkMode) {
       try {
         const res = await axios.get(baseUrl + '/');
         setPosts(res.data);
+        dispatch(GetAllPosts(res.data));
         setFilteredPosts(posts.filter((post) =>
         post.title.toLowerCase().includes(searchText.toLowerCase())
       ))
-       
       } catch (err) {
         console.log(err);
       }

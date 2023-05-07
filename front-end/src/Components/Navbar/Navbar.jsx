@@ -232,23 +232,23 @@ function Navbar({ p },{ sendData  }) {
              Deposer une annonce
             </li>
           </Link>
-          {categoryes.map((categorye) => (
-                        <>
+          {categoryes.map((categorye,index) => (
+                        <div key={index}>
                               <li onClick={handleClick2}>
                             {categorye.label} <AiFillCaretDown />
                            
                           </li>
                           <ul className="ul2">
-                          {subCategoryes.map((subcategorye) => {
+                          {subCategoryes.map((subcategorye,index) => {
                            if (subcategorye.parentCategoryId === categorye.value) {
                             return(
-                            <li>{subcategorye.label}</li>
+                            <li key={index}>{subcategorye.label}</li>
                          
                          )
                            }
 })} </ul>
                           
-                        </>
+                        </div>
             ))}
                  
                  
@@ -280,9 +280,10 @@ function Navbar({ p },{ sendData  }) {
 ))}
     </div>
                 <div style={{ display: "flex" }}>
-                  <select id="select" name="searchCategory" value={searchCategory} onChange={handleChange}>
-                    {category.map((i) => (
-                      <option value={i.value}>{i.label}</option>
+
+                  <select id="select">
+                    {category.map((i,index) => (
+                      <option key={index} value={i.value}>{i.label}</option>
                     ))}{" "}
                   </select>
                   <div
@@ -310,8 +311,8 @@ function Navbar({ p },{ sendData  }) {
           </div>
           <div className="navbarDown">
             <div className="down">
-            {categoryes.map((categorye) => (
-                            <li>{categorye.label}</li>
+            {categoryes.map((categorye,index) => (
+                            <li key={index}>{categorye.label}</li>
             ))}
             </div>
           </div>
