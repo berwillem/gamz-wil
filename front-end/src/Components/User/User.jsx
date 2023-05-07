@@ -7,7 +7,7 @@ import { ImLocation } from "react-icons/im";
 import { AiOutlineHome } from "react-icons/ai";
 import { MdOutlineLogout } from "react-icons/md";
 import { CiUser } from "react-icons/ci";
-import image1 from "../../assets/user_image.jpg";
+import image1 from "../../assets/images/avatar.png";
 import { Box } from "../../Data/Box";
 import UserPost from "../UserPost/UserPost";
 import Ads from "../Ads/Ads";
