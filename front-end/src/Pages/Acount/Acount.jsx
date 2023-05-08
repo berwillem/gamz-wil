@@ -20,13 +20,14 @@ function Acount(isDarkMode) {
   const [NumTel, setNumTel] = useState("");
   const [address, setAdresse] = useState("");
   const [Username, setUsername] = useState("");
-  const [poste, setposte] = useState({});
+  const [poste, setposte] = useState([]);
   const p = isDarkMode.isDarkMode;
   useEffect(() => {
     axios
       .get(`http://localhost:5000/api/v1/user/${userId}`)
       .then((response) => {
         const userData = response.data;
+        console.log(response.data);
         console.log("user data",userData);
         setData(userData);
         setBanner(userData.banner.url);
