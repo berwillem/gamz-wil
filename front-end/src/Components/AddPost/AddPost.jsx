@@ -16,8 +16,8 @@ const options = wilaya.map((wilaya) => ({
   label: wilaya.name,
 }));
 const userString = localStorage.getItem("user");
-const user = userString ? JSON.parse(userString) : null;
-const id = user ? user.id : null;
+const user = userString ? JSON.parse(userString) : "";
+const id = user ? user.id : "";
 
 
 // component start ::::
