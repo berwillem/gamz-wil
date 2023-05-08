@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState } from 'react';
 import { AiOutlineMore,AiFillDelete,AiOutlineUser } from "react-icons/ai";
+import "./UserList.css"
+import axios from "axios"
 
 function UsersList({number,id,date,name,email,order}) {
  
@@ -24,8 +26,8 @@ function UsersList({number,id,date,name,email,order}) {
         <li>{email}</li>
         <li className="action-li" ><AiOutlineMore onClick={handelaction}/>
 
-        <div className={action}><span><AiOutlineUser/> User</span>
-        <span><AiFillDelete/> Delete</span></div>
+        <div className={action}><span className='dashbord-ic'><AiOutlineUser/> User</span>
+        <span className='dashbord-ic'><AiFillDelete/> Delete</span></div>
         </li>
         
         
