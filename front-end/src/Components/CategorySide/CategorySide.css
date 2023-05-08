@@ -130,7 +130,7 @@ transform: scaleX(1);
    
 
 }
-.hover-drop-down ul li:hover:not(:first-child){
+.hover-drop-down ul li:hover:not(.drop-down-titel){
   text-decoration:underline;
   color: var(--text-color);
    

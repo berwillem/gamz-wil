@@ -272,6 +272,7 @@ function Navbar({ p },{ sendData  }) {
                   className={searchActive}
                   value={searchText}
                   name="searchText"
+                  autocomplete="off"
                   onChange={handleChange}
                 />
                     <div className="results-list">
@@ -281,11 +282,7 @@ function Navbar({ p },{ sendData  }) {
     </div>
                 <div style={{ display: "flex" }}>
 
-                  <select id="select">
-                    {category.map((i,index) => (
-                      <option key={index} value={i.value}>{i.label}</option>
-                    ))}{" "}
-                  </select>
+                  
                   <div
                     ref={searchBoxRef}
                     className="search-icon"
@@ -312,7 +309,19 @@ function Navbar({ p },{ sendData  }) {
           <div className="navbarDown">
             <div className="down">
             {categoryes.map((categorye,index) => (
+                          <div className="catnav">
                             <li key={index}>{categorye.label}</li>
+                            <ul className="subNav">
+                            {subCategoryes.map((subcategorye,index) => {
+                           if (subcategorye.parentCategoryId === categorye.value) {
+                            return(
+                            <li key={index}>{subcategorye.label}</li>
+                         
+                         )
+                           }
+})}
+                            </ul>
+                          </div>
             ))}
             </div>
           </div>

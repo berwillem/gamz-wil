@@ -317,6 +317,42 @@ min-height: 0px;
     background-color: #efefef;
     cursor: pointer;
   }
+  /*subnav*/
+    .subNav{
+   position: absolute;
+    background-color: #e81a2a;
+    font-size: 13px;
+    font-weight:500;
+    display: none;
+    top: 275px;
+  
+    border-radius: 0 0 10px 10px ;
+   
+  }
+  .subNav li{
+    padding: 10px 10px 10px 10px;
+    
+  }
+  .subNav li:hover{
+   text-decoration: underline;
+   cursor: pointer;
+
+  }
+  .catnav{
+    width: auto;
+    display: flex;
+    list-style: none;
+    padding: 10px;
+    color: #f7f7f7;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .catnav:hover>.subNav{
+    display: flex;
+    flex-direction: column;
+  }
+  
   
 @media screen and (max-width: 1240px) {
     .navbar-up,.navbarDown,.heart-icon,#select,.icons{

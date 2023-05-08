@@ -17,13 +17,15 @@ scale: 1.1;
 transition: all ease-in-out 300ms;
 content: 'helllo there';
 
+
 }
 .post-name{
     padding: 5px;
+    font-size: 20px;
 }
 
 .post-category{
-    font-size: 12px;
+    font-size: 15px;
     color: #aaaaaa;
     text-align: center;
 }
@@ -32,8 +34,8 @@ content: 'helllo there';
     display: flex;
     justify-content: center;
     object-fit: contain;
-    height: 160px;
-    width: 160px;
+    height: 200px;
+    width: 200px;
 }
 .button-post-container{
     padding: 10px;
