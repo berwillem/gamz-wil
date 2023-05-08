@@ -15,9 +15,9 @@ const options = wilaya.map((wilaya) => ({
   value: wilaya.name,
   label: wilaya.name,
 }));
-// const userString = localStorage.getItem("user");
-// const user = JSON.parse(userString);
-const id = "1000";
+const userString = localStorage.getItem("user");
+const user = JSON.parse(userString);
+const id = user.id;
 // component start ::::
 
 function AddPost() {
@@ -78,7 +78,7 @@ function AddPost() {
     formData.append("category", selectedOptions.value);
     formData.append("subcategories", [selectedSubcats.value]);
     formData.append("wilaya", wilaya);
-    formData.append("commune", id);
+    formData.append("commune", "alger");
     formData.append("num", phone);
     formData.append("author", id);
     formData.append("images", principalImageFile);
