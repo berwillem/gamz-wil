@@ -27,7 +27,7 @@ const toggleDarkMode = () => {
     return (
         <div className={isDarkMode ? 'dark-mode' : ''}  style={{backgroundColor: `var(--background-color) `, color: `var(--text-color)`,fill:`var(--text-color)`}}>
             
-   <Mode toggleDarkMode={toggleDarkMode} />
+  
             <Routes>
                 <Route path='/'
                     element={<Home isDarkMode={isDarkMode} />}/>
@@ -54,7 +54,7 @@ const toggleDarkMode = () => {
                 <Route path='*'
                     element={<Page404  isDarkMode={isDarkMode}s/>}/>
             </Routes>
-
+            {!window.location.pathname.includes('/pub-manage') && <Mode toggleDarkMode={toggleDarkMode} />}
         </div>
 
     )

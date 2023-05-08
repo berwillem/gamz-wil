@@ -1,6 +1,6 @@
 import React from "react";
 import "./User.css";
-
+import defaultBanner from "../../assets/images/banner.png"
 import { BsPhone } from "react-icons/bs";
 import { FaStore } from "react-icons/fa";
 import { ImLocation } from "react-icons/im";
@@ -75,7 +75,7 @@ function User({ user_name,  phone_number, address,banner,avatar,posts },) {
           className="back-image"
           style={{
             backgroundImage:
-              `url(${banner? banner:'https://demo2.chethemes.com/electro-dokan/wp-content/uploads/2018/01/flipkart_625x300_81431586162.jpg'})`
+              `url(${banner? banner:defaultBanner})`
           }}
         >
           <div className="user-info">
@@ -98,7 +98,7 @@ function User({ user_name,  phone_number, address,banner,avatar,posts },) {
         </div>
 
         <div className="user-post">
-          {boxSlice.map((i, key) => (
+          {boxSlice.map((i) => (
             <UserPost
               key={i.id}
               category={i.category}
