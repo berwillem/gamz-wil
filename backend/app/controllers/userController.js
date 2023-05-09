@@ -31,7 +31,7 @@ exports.getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id).populate({
       path: 'posts',
-      select: '_id title price category',
+      select: '_id title price category images',
       populate: {
         path: 'category',
         select: '_id name',

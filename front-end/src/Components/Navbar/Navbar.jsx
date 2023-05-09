@@ -183,7 +183,6 @@ function Navbar({ p },{ sendData  }) {
   //     item.category.toLowerCase() === searchCategory.toLowerCase()
   //   );
   // });
-console.log(results);
   return (
     <>
       <div className="navbar-container">

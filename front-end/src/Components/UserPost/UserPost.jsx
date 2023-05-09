@@ -6,10 +6,9 @@ import { Link } from "react-router-dom";
 
 
 function UserPost({posts}) {
-
   return (
     <>
-      {posts.map((post) =>
+      {posts?.map((post) =>
        (
 
         <div className='user-post-container'>
@@ -20,9 +19,10 @@ function UserPost({posts}) {
             <strong>{post.title}</strong>
         </div>
         <div className="user-post-image">
-            <img src={post.user_post_image} alt="user_post_image" className='user-post-image' />
+            <img src={post.images[0].url} alt="user_post_image" className='user-post-image' />
         </div>
         <div className="user-post-info">
+          {console.log("ids",post._id)}
             <strong>{post.price}</strong>
            <Link to={`/postDetails/${post._id}`}> <button>       <AiOutlineArrowRight size={15} color='#f7f7f7' fontWeight='bold'/>
   </button></Link>
