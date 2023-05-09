@@ -98,15 +98,11 @@ function User({ user_name,  phone_number, address,banner,avatar,posts },) {
         </div>
 
         <div className="user-post">
-          {boxSlice.map((i) => (
+         
             <UserPost
-              key={i.id}
-              category={i.category}
-              name={i.title}
-              user_post_image={i.image}
-              price={i.price}
+            posts={posts}
             />
-          ))}{" "}
+        
         </div>
       </div>
     </div>

@@ -1,31 +1,42 @@
 import React from 'react'
 import { AiOutlineArrowRight, AiOutlineHeart } from 'react-icons/ai'
 import './UserPost.css'
+import { Link } from "react-router-dom";
 
 
 
-function UserPost({category ,name ,user_post_image,price}) {
+function UserPost({posts}) {
+
   return (
-    <div className='user-post-container'>
+    <>
+      {posts.map((post) =>
+       (
+
+        <div className='user-post-container'>
         <div className="user-post-category">
-            <p>{category}</p>
+            <p>{post.category.name}</p>
         </div>
         <div className="user-post-name">
-            <strong>{name}</strong>
+            <strong>{post.title}</strong>
         </div>
         <div className="user-post-image">
-            <img src={user_post_image} alt="user_post_image" className='user-post-image' />
+            <img src={post.user_post_image} alt="user_post_image" className='user-post-image' />
         </div>
         <div className="user-post-info">
-            <strong>{price}</strong>
-            <button>       <AiOutlineArrowRight size={15} color='#f7f7f7' fontWeight='bold'/>
-</button>
+            <strong>{post.price}</strong>
+           <Link to={`/postDetails/${post._id}`}> <button>       <AiOutlineArrowRight size={15} color='#f7f7f7' fontWeight='bold'/>
+  </button></Link>
         </div>
         <div className="like-button">
           <p>WishList</p> <AiOutlineHeart size={15}  /> 
         </div>
-
+  
     </div>
+      ))}
+    </>
+      
+      
+    
   )
 }
 
