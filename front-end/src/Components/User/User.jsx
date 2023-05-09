@@ -29,7 +29,6 @@ function User({ user_name,  phone_number, address,banner,avatar,posts },) {
     navigate("/");
    
   };
-  console.log({posts});
   return (
     <>
     <div className="user-container">
