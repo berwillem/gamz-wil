@@ -23,7 +23,7 @@ function UserPost({posts}) {
         </div>
         <div className="user-post-info">
           {console.log("ids",post._id)}
-            <strong>{post.price}</strong>
+            <strong>{post.price} DA</strong>
            <Link to={`/postDetails/${post._id}`}> <button>       <AiOutlineArrowRight size={15} color='#f7f7f7' fontWeight='bold'/>
   </button></Link>
         </div>
