@@ -25,6 +25,7 @@ function Details() {
       setPost(response.data);
       setPricipalImage(response.data.images[0].url)
       setSecondImage(response.data.images[1].url)
+      setThirdImage(response.data.images[2].url)
       console.log(response.data);
     } catch (error) {
       console.log(error);

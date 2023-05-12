@@ -5,6 +5,6 @@ const uploadImages = require("../middlewares/cloudinary");
 router.post("/create", uploadImages("posts"), createPost);
 router.get("/", getAllPosts);
 router.get("/:id", getPostById);
-router.get("/", getPostsByCategoryId);
+router.get("/category/:categoryId", getPostsByCategoryId);
 
 module.exports = router;

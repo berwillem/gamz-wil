@@ -100,7 +100,8 @@ exports.getAllPosts = async (req, res) => {
 };
 exports.getPostsByCategoryId = async (req, res) => {
   try {
-    const categoryId = req.body;
+    const categoryId = req.params.categoryId;
+    console.log(req.params.categoryId);
     const posts = await Post.find({ category: categoryId });
     res.json(posts);
   } catch (err) {
