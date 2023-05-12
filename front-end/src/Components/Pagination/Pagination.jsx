@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Post from "../Post/Post";
-import "./Pignation.css";
+import "./Pagination.css";
 
 function Pagination({ posts }) {
-  const [pages] = useState(Math.ceil(posts.length / 9));
+  const [pages, setPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setPages(Math.ceil(posts.length / 9));
+  }, [posts]);
 
   useEffect(() => {
     window.scrollTo({ behavior: "smooth", top: "0px" });
@@ -22,8 +26,12 @@ function Pagination({ posts }) {
   };
 
   const getPaginationGroup = () => {
-    let start = Math.floor((currentPage - 1) / 10) * 10;
-    return new Array(pages).fill().map((_, idx) => idx + 1);
+    const startPage = Math.max(1, currentPage - 2);
+    const endPage = Math.min(currentPage + 2, pages);
+    return Array.from(
+      { length: endPage - startPage + 1 },
+      (_, i) => startPage + i
+    );
   };
 
   return (
@@ -32,51 +40,38 @@ function Pagination({ posts }) {
         <p>Hot Products Today</p>
       </div>
 
-      <div className="dataContainer">
-        {getPaginatedData().map((i, index) => (
-          <Post
-            key={index}
-            category={i.category.name}
-            img_post={i.images[0]}
-            name={i.title}
-            price={i.price}
-            id={i._id}
-          />
-        ))}
-        
-        {" "}
-      </div>
-      <div className="pagination">
-        {/* <button onClick={goToPreviousPage}
-                    className={
-                        `prev ${
-                            currentPage === 1 ? 'disabled' : ''
-                        }`
-                }>
-                    prev
-                </button> */}
+      {pages === 0 && <p>Loading...</p>}
 
-        {getPaginationGroup().map((item, index) => (
-          <button
-            key={index}
-            onClick={changePage}
-            className={`paginationItem ${
-              currentPage === item ? "active" : null
-            }`}
-          >
-            <span>{item}</span>
-          </button>
-        ))}
+      {pages > 0 && (
+        <>
+          <div className="dataContainer">
+            {getPaginatedData().map((i, index) => (
+              <Post
+                key={index}
+                category={i.category.name}
+                img_post={i.images[0]}
+                name={i.title}
+                price={i.price}
+                id={i._id}
+              />
+            ))}
+          </div>
 
-        {/* <button onClick={goToNextPage}
-                    className={
-                        `next ${
-                            currentPage === pages ? 'disabled' : ''
-                        }`
-                }>
-                    next
-                </button> */}
-      </div>
+          <div className="pagination">
+            {getPaginationGroup().map((item, index) => (
+              <button
+                key={index}
+                onClick={changePage}
+                className={`paginationItem ${
+                  currentPage === item ? "active" : null
+                }`}
+              >
+                <span>{item}</span>
+              </button>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }
