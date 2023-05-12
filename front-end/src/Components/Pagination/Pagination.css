@@ -58,6 +58,10 @@
     height: 150px;
     background-color: aqua;
 }
+.next.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 @media screen and (max-width: 1240px) {
     .dataContainer{
      
