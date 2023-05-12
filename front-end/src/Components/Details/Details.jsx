@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Box } from "../../Data/Box";
-import UserPost from "../UserPost/UserPost";
 import "./Details.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Power3 } from "gsap";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import RelatedPost from "../RelatedPost/RelatedPost";
 
 function Details() {
   // api call :::
@@ -68,6 +68,28 @@ function Details() {
       scrollTrigger: cardContainer3.current,
     });
   }, []);
+  const [posts, setPosts] = useState([]);
+  
+   
+  
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/v1/post/', {
+        params: {
+          categoryId: "644b907d1b7633709d2db0fa"
+        }
+      })
+      .then(response => {
+        // Traiter les données de la réponse
+        setPosts(response.data)
+     
+      })
+      .catch(error => {
+        // Gérer les erreurs
+        console.error(error);
+      });
+  }, []);
+  const slicedData = posts.slice(0, 3);
+ 
   return (
     <div className="details-container">
        {post && post.author && (
@@ -135,15 +157,9 @@ function Details() {
           <p>Related Post</p>
         </div>
         <div className="user-post ">
-          {boxSlice.map((i, key) => (
-            <UserPost
-              key={i.id}
-              user_post_image={i.image}
-              name={i.name}
-              price={i.price}
-              category={i.category}
-            />
-          ))}{" "}
+        {slicedData.map(post => (
+           <RelatedPost post={post} />))}
+    
         </div>
       </div>
     </div>
