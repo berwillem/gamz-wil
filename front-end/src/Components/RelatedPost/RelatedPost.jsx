@@ -13,7 +13,7 @@ import { useState,useEffect } from 'react';
 
 
 function RelatedPost({post}) {
-  
+  console.log(post);
     
   return (
       <>

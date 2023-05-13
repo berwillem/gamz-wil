@@ -17,12 +17,16 @@ function Details() {
   const [thirdImage, setThirdImage] = useState("");
   const location = useLocation();
   const postId = location.pathname.split("/")[2];
+ 
   const fetchPostDetails = async () => {
     try {
       const response = await axios.get(
         `http://localhost:5000/api/v1/post/${postId}`
       );
       setPost(response.data);
+      if (response.data.category) {
+        setId(response.data.category._id);
+      }
       setPricipalImage(response.data.images[0].url)
       setSecondImage(response.data.images[1].url)
       setThirdImage(response.data.images[2].url)
@@ -33,6 +37,7 @@ function Details() {
   };
   useEffect(() => {
     fetchPostDetails();
+   
   }, [postId]);
  
   //   style ::
@@ -70,25 +75,24 @@ function Details() {
     });
   }, []);
   const [posts, setPosts] = useState([]);
-  
+ 
+
+    const [id, setId] = useState("");
    
-  
   useEffect(() => {
-    axios.get('http://localhost:5000/api/v1/post/', {
-        params: {
-          categoryId: "644b907d1b7633709d2db0fa"
-        }
-      })
+   
+    axios.get(`http://localhost:5000/api/v1/post/category/${id}` )
       .then(response => {
         // Traiter les données de la réponse
         setPosts(response.data)
+        
      
       })
       .catch(error => {
         // Gérer les erreurs
         console.error(error);
       });
-  }, []);
+  }, [id]);
   const slicedData = posts.slice(0, 3);
  
   return (
