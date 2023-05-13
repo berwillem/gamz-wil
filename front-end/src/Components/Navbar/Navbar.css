@@ -1,7 +1,7 @@
 .navbar-container{
     width: 100%;
     height:auto;
-  
+  z-index: 4;
 }
 .navbar-content{
     display: flex;
@@ -102,7 +102,7 @@
     border: none;
     background: none;
     outline: none;
-    width: 250px;
+    width: 100%;
     padding-left: 10px;
 }
 
@@ -325,7 +325,7 @@ min-height: 0px;
     font-weight:500;
     display: none;
     top: 275px;
-  
+  z-index: 5;
     border-radius: 0 0 10px 10px ;
    
   }
@@ -347,6 +347,7 @@ min-height: 0px;
     cursor: pointer;
     font-size: 15px;
     font-weight: bold;
+    z-index: 5;
   }
   .catnav:hover>.subNav{
     display: flex;

@@ -25,17 +25,18 @@ content: 'helllo there';
 }
 
 .post-category{
-    font-size: 15px;
-    color: #aaaaaa;
+    font-size: 17px;
+    color: var(--text-color);
     text-align: center;
 }
 
 .post-container > img{
     display: flex;
     justify-content: center;
-    object-fit: contain;
+    object-fit: fill;
     height: 200px;
     width: 200px;
+    border-radius: 10px;
 }
 .button-post-container{
     padding: 10px;

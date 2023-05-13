@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Box } from "../../Data/Box";
-import UserPost from "../UserPost/UserPost";
 import "./Details.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Power3 } from "gsap";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import RelatedPost from "../RelatedPost/RelatedPost";
 
 function Details() {
   // api call :::
@@ -17,12 +17,16 @@ function Details() {
   const [thirdImage, setThirdImage] = useState("");
   const location = useLocation();
   const postId = location.pathname.split("/")[2];
+ 
   const fetchPostDetails = async () => {
     try {
       const response = await axios.get(
         `http://localhost:5000/api/v1/post/${postId}`
       );
       setPost(response.data);
+      if (response.data.category) {
+        setId(response.data.category._id);
+      }
       setPricipalImage(response.data.images[0].url)
       setSecondImage(response.data.images[1].url)
       setThirdImage(response.data.images[2].url)
@@ -33,6 +37,7 @@ function Details() {
   };
   useEffect(() => {
     fetchPostDetails();
+   
   }, [postId]);
  
   //   style ::
@@ -69,6 +74,27 @@ function Details() {
       scrollTrigger: cardContainer3.current,
     });
   }, []);
+  const [posts, setPosts] = useState([]);
+ 
+
+    const [id, setId] = useState("");
+   
+  useEffect(() => {
+   
+    axios.get(`http://localhost:5000/api/v1/post/category/${id}` )
+      .then(response => {
+        // Traiter les données de la réponse
+        setPosts(response.data)
+        
+     
+      })
+      .catch(error => {
+        // Gérer les erreurs
+        console.error(error);
+      });
+  }, [id]);
+  const slicedData = posts.slice(0, 3);
+ 
   return (
     <div className="details-container">
        {post && post.author && (
@@ -136,15 +162,9 @@ function Details() {
           <p>Related Post</p>
         </div>
         <div className="user-post ">
-          {boxSlice.map((i, key) => (
-            <UserPost
-              key={i.id}
-              user_post_image={i.image}
-              name={i.name}
-              price={i.price}
-              category={i.category}
-            />
-          ))}{" "}
+        {slicedData.map(post => (
+           <RelatedPost post={post} />))}
+    
         </div>
       </div>
     </div>
