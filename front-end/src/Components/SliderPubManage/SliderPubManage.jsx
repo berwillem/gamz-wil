@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react'
 import {ScrollTrigger} from "gsap/dist/ScrollTrigger";
 import {gsap, Power3} from "gsap";
-import './Slider.css'
+import './SliderPubManage.css'
 import {AiFillRightCircle} from 'react-icons/ai'
 import {CgCloseR, CgMenuGridO} from 'react-icons/cg'
 
@@ -9,11 +9,23 @@ const image1 = 'https://electro.madrasthemes.com/wp-content/uploads/2016/03/head
 const image2 = " https://electro.madrasthemes.com/wp-content/uploads/2016/03/usbheadphone.png"
 const image3 = " https://electro.madrasthemes.com/wp-content/uploads/2016/03/cam4k-300x300.png"
 const image4 = " https://electro.madrasthemes.com/wp-content/uploads/2016/03/watch-300x300.png"
-const background="https://electro.madrasthemes.com/wp-content/uploads/2021/08/home-v10-swb-bg.jpeg"
+const defaultBackground ="https://electro.madrasthemes.com/wp-content/uploads/2021/08/home-v10-swb-bg.jpeg"
 
-function Slider({disp}) {
+function SliderPubManage({disp}) {
     const [show, setShow] = useState(true)
     const [display, setDisplay] = useState(disp)
+    const [backgroundImage, setBackgroundImage] = useState(defaultBackground);
+
+  const handleBackgroundChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setBackgroundImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
     const [images, setImages] = useState([
         {
             id: 0,
@@ -33,6 +45,8 @@ function Slider({disp}) {
 
     gsap.registerPlugin(ScrollTrigger);
     const subtitle = useRef();
+    const subtitle2 = useRef();
+    const subtitle3 = useRef();
     const title = useRef();
     const dot = useRef();
     const button = useRef();
@@ -181,14 +195,45 @@ function Slider({disp}) {
           subtitle.current.innerText = newSubtitle;
         }
       };
+    const handleSubtitleClick2 = () => {
+        const newSubtitle = prompt('Enter a new subtitle:');
+        if (newSubtitle) {
+          subtitle2.current.innerText = newSubtitle;
+        }
+      };
+    const handleSubtitleClick3 = () => {
+        const newSubtitle = prompt('Enter a new subtitle:');
+        if (newSubtitle) {
+          subtitle3.current.innerText = newSubtitle;
+        }
+      };
 
     return (
-        <div className='slider'  style={{
-            backgroundImage: `url(${background})`,
-            
-           }}>
+        <div className='slider' style={{
+           backgroundImage: `url(${backgroundImage})`,
+           
+          }}>
+            <div className='dot'>
+            {display && (
         
-            <div className="R-C-slider">
+          <input type="file" accept="image/*" onChange={handleBackgroundChange}/>
+        
+      )}
+      {
+                        display ? <input type="file"
+                            onChange={handleFileChange}/> : null
+                    }
+                     {
+                        display ? <input type="file"
+                            onChange={handleFileChange2}/> : null
+                    }
+                    <input type="button" value="entre text1"  onClick={handleSubtitleClick} />
+                    <input type="button" value="entre text2"  onClick={handleSubtitleClick2} />
+                    <input type="button" value="entre text3"  onClick={handleSubtitleClick3} />
+            </div>
+            
+          
+            <div className="R-C-sliderPub">
                 <div className="L-slider">
                     <div ref={title}
                         className="title-slider">
@@ -212,30 +257,15 @@ function Slider({disp}) {
                         </button>
                     </div>
 
-                  
+                   
                 </div>
-                <div className="C-slider">
-
-
-                    <img src={
-                            images[currentImageIndex].src
-                        }
-
-                        alt="Slideshow Image"
-                        ref={cardContainer3}
-                        className={
-                            `slideshow ${
-                                currentImageIndex !== 0 ? 'fade-in' : ''
-                            }`
-                        }/>
-
-                </div>
+                
             </div>
             <div className="R-slider">
                 <div ref={cardContainer}
                     className="box">
                     <div className="title-box">
-                        <p>CATCH BIG
+                        <p ref={subtitle2}>CATCH BIG
                             <strong>
                                 DEAL</strong>
                             ON
@@ -243,10 +273,7 @@ function Slider({disp}) {
                             THE CONSOLES</p>
                     </div>
                     <div className="sub-title-box">
-                        {
-                        display ? <input type="file"
-                            onChange={handleFileChange}/> : null
-                    }
+                        
                         <strong>
                             Shop now
                         </strong>
@@ -263,7 +290,7 @@ function Slider({disp}) {
                 <div className="box"
                     ref={cardContainer2}>
                     <div className="title-box">
-                        <p>CATCH BIG
+                        <p ref={subtitle3}>CATCH BIG
                             <strong>
                                 DEAL</strong>
                             ON
@@ -271,10 +298,7 @@ function Slider({disp}) {
                             THE CONSOLES</p>
                     </div>
                     <div className="sub-title-box">
-                        {
-                        display ? <input type="file"
-                            onChange={handleFileChange2}/> : null
-                    }
+                       
                         <strong>
                             Shop now
                         </strong>
@@ -297,4 +321,4 @@ function Slider({disp}) {
     )
 }
 
-export default Slider
+export default SliderPubManage

@@ -36,7 +36,7 @@ const Categoryes = [
 
 function CategorySide() {
   const [style, setStyle] = useState("cat-hoverContainer");
-
+  
   return (
     <div className="category-side-container">
       <div className="category-side-title">

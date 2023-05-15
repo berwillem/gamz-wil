@@ -4,7 +4,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url("https://electro.madrasthemes.com/wp-content/uploads/2021/08/home-v10-swb-bg.jpeg");
+ 
   display: flex;
   /* justify-content: center; */
   /* align-items: center; */
@@ -12,46 +12,7 @@
   padding: 50px;
 }
 
-.dot{
-  position: absolute;
-  bottom: 10px;
-  left: 20px;
-  z-index: 3;
-  
-}
-.dot svg{
-  height: 60px;
-  width: 60px;
 
-}
-.menu_dots{
-  display: flex;
-  flex-direction: column;
-
-
-}
-
-
-.menu_dots > ul > li {
-  cursor: pointer;
-  
-}
-.menu_dots > ul > li:hover {
-  color: rgb(104, 104, 104);
-  transition: all ease-in-out 300ms;
-  scale: 1.1;
-  
-}
-.menu_dots > ul {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  font-weight: bold;
-  gap: 10px;
-}
 .close{
   display: flex;
   justify-content: flex-end;
@@ -290,29 +251,5 @@ object-fit: contain;
 
 }
 
-.sub-title-box input[type="file"] {
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-}
 
-.sub-title-box label {
-  display: inline-block;
-  cursor: pointer;
-}
 
-.sub-title-box label::after {
-  content: "...";
-  display: inline-block;
-  padding: 0 8px;
-  border-radius: 4px;
-  background-color: #eee;
-  color: #666;
-  font-size: 14px;
-  line-height: 20px;
-  vertical-align: middle;
-}

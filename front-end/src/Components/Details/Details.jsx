@@ -93,7 +93,17 @@ function Details() {
         console.error(error);
       });
   }, [id]);
-  const slicedData = posts.slice(0, 3);
+  const slicedData = shuffleArray(posts).slice(0, 3);
+
+// Fonction pour mélanger les éléments d'un tableau
+function shuffleArray(array) {
+  const shuffledArray = [...array];
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray;
+}
  
   return (
     <div className="details-container">

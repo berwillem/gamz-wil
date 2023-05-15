@@ -80,6 +80,7 @@ function Home(isDarkMode) {
 
     getPosts();
   }, []);
+  
   return (
     <div>
       <Navbar p={p}  />
