@@ -167,7 +167,7 @@ function shuffleArray(array) {
       </div>
 
       {/* related post section  */}
-     {slicedData?( <div className="related-post" ref={cardContainer3}>
+     {slicedData.length==0? "":( <div className="related-post" ref={cardContainer3}>
         <div className="related-title">
           <p>Related Post</p>
         </div>
@@ -176,7 +176,7 @@ function shuffleArray(array) {
            <RelatedPost post={post} />))}
     
         </div>
-      </div>):""}
+      </div>)}
     </div>
   );
 }

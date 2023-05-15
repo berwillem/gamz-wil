@@ -8,11 +8,13 @@
     padding: 15px;
     background-color: var(--background-color);
 }
-
+.Top-sal-box-container a{
+    width: 30%;
+}
 .sal-box-L{
     display: flex;
     align-items: center;
-    width: 30%;
+    width: 100%;
 }
 
 #box-image{

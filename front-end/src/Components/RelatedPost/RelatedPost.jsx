@@ -30,7 +30,7 @@ function RelatedPost({post}) {
           </div>
           <div className="user-post-info">
             <strong>{post.price} DA</strong>
-            <Link to={`/posts/${post._id}`}>
+            <Link to={`/postDetails/${post._id}`}>
               <button>
                 <AiOutlineArrowRight size={15} color='#f7f7f7' fontWeight='bold' />
               </button>

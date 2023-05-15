@@ -61,6 +61,7 @@ console.log(postsConsole[0]);
 const boxSlice1 = shuffleArray(postsConsole).slice(0,3)
 const boxSlice2 = shuffleArray(postsInformatique).slice(0,3)
 const boxSlice3 = shuffleArray(postsTelephone).slice(0,3)
+
 function shuffleArray(array) {
   const shuffledArray = [...array];
   for (let i = shuffledArray.length - 1; i > 0; i--) {
@@ -77,7 +78,7 @@ function shuffleArray(array) {
     }, [])
    return (
     <>
-   
+   {boxSlice1.length==0 || boxSlice2.length==0 || boxSlice3.length==0 ? "": (
       <div className='topSell-container'>
         <div className="top-Sell-title">
           <h4>Top Selling Products</h4>
@@ -86,30 +87,21 @@ function shuffleArray(array) {
           <div className="grid">
             {boxSlice1.map((i, key) => (
               <TopSelBox
-                key={i._id}
-                name={i.title}
-                picture={i.images[0].url}
-                price={i.price}
+                    i={i}
               />
             ))}
           </div>
           <div className="grid">
             {boxSlice2.map((i, key) => (
               <TopSelBox
-                key={i._id}
-                name={i.title}
-                picture={i.images[0].url}
-                price={i.price}
+              i={i}
               />
             ))}
           </div>
           <div className="grid">
             {boxSlice3.map((i, key) => (
               <TopSelBox
-                key={i._id}
-                name={i.title}
-                picture={i.images[0].url}
-                price={i.price}
+              i={i}
               />
             ))}
           </div>
@@ -117,7 +109,7 @@ function shuffleArray(array) {
       </div>
  
     
-    </>)
+   )} </>)
  }
  
  export default TopSelll
