@@ -21,6 +21,11 @@
     grid-template-columns: auto auto auto auto auto auto;
     
   }
+  .switch{
+    position: absolute;
+    left: 50%;
+    top: 80%;
+  }
   .dot svg{
     height: 60px;
     width: 60px;
@@ -276,6 +281,8 @@
     offset: 5px;
    
   }
+
+  
   /*respo*/
   @media screen and (max-width: 1240px) {
     .slider{
