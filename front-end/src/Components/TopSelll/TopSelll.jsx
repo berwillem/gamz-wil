@@ -76,54 +76,48 @@ function shuffleArray(array) {
       gsap.to(cardContainer.current,{x:0,delay:0.2,opacity:1,duration:1,ease:Power3.easeOut,scrollTrigger:cardContainer.current})
     }, [])
    return (
-     <div className='topSell-container' >
-      <div className="top-Sell-title">
-        <h4>Top Selling Products</h4>
+    <>
+   
+      <div className='topSell-container'>
+        <div className="top-Sell-title">
+          <h4>Top Selling Products</h4>
+        </div>
+        <div className='topSell-content' ref={cardContainer}>
+          <div className="grid">
+            {boxSlice1.map((i, key) => (
+              <TopSelBox
+                key={i._id}
+                name={i.title}
+                picture={i.images[0].url}
+                price={i.price}
+              />
+            ))}
+          </div>
+          <div className="grid">
+            {boxSlice2.map((i, key) => (
+              <TopSelBox
+                key={i._id}
+                name={i.title}
+                picture={i.images[0].url}
+                price={i.price}
+              />
+            ))}
+          </div>
+          <div className="grid">
+            {boxSlice3.map((i, key) => (
+              <TopSelBox
+                key={i._id}
+                name={i.title}
+                picture={i.images[0].url}
+                price={i.price}
+              />
+            ))}
+          </div>
+        </div>
       </div>
-      <div className='topSell-content' ref={cardContainer} >
-     <>
-    <div className="grid">
-    {
-        boxSlice1.map((i,key)=>(
-          <TopSelBox
-          key={i._id}
-          name={i.title}
-          picture={i.images[0].url}
-          price={i.price}
-          />
-     
-        ))
-      } </div>
-    <div className="grid">
-    {
-        boxSlice2.map((i,key)=>(
-          <TopSelBox
-          key={i._id}
-          name={i.title}
-          picture={i.images[0].url}
-          price={i.price}
-          />
-     
-        ))
-      } </div>
-    <div className="grid">
-    {
-        boxSlice3.map((i,key)=>(
-          <TopSelBox
-          key={i._id}
-          name={i.title}
-          picture={i.images[0].url}
-          price={i.price}
-          />
-     
-        ))
-      } </div>
-      </>
-      </div>
-
-
-     </div>
-   )
+ 
+    
+    </>)
  }
  
  export default TopSelll

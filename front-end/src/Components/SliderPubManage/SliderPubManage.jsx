@@ -4,6 +4,7 @@ import {gsap, Power3} from "gsap";
 import './SliderPubManage.css'
 import {AiFillRightCircle} from 'react-icons/ai'
 import {CgCloseR, CgMenuGridO} from 'react-icons/cg'
+import { AiOutlineRight,AiOutlineLeft } from "react-icons/ai";
 
 const image1 = 'https://electro.madrasthemes.com/wp-content/uploads/2016/03/headphonecase.png'
 const image2 = " https://electro.madrasthemes.com/wp-content/uploads/2016/03/usbheadphone.png"
@@ -14,18 +15,40 @@ const defaultBackground ="https://electro.madrasthemes.com/wp-content/uploads/20
 function SliderPubManage({disp}) {
     const [show, setShow] = useState(true)
     const [display, setDisplay] = useState(disp)
-    const [backgroundImage, setBackgroundImage] = useState(defaultBackground);
-
-  const handleBackgroundChange = (event) => {
+    const [backgroundImage, setBackgroundImage] = useState([
+        {
+            src:defaultBackground
+        },
+        {
+            src:defaultBackground
+        },
+        {
+            src:defaultBackground
+        }
+    ]);
+ const[index,setIndex]=useState(0)
+ const handleBackgroundChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = () => {
-        setBackgroundImage(reader.result);
+      reader.onload = (event) => {
+        const imageUrl = event.target.result;
+        const newImage = {
+          src: imageUrl
+        };
+        const updatedImages = [...backgroundImage]; // Create a copy of the original array
+        updatedImages[index] = newImage; // Update the image at the current index
+        setBackgroundImage(updatedImages);
       };
       reader.readAsDataURL(file);
     }
   };
+  const switchback=(()=>{
+    setIndex(index => index<backgroundImage.length -1? (index + 1):backgroundImage.length -1  );
+  })
+  const switchback2=(()=>{
+    setIndex(index => index>0? (index - 1): 0 );
+  })
     const [images, setImages] = useState([
         {
             id: 0,
@@ -210,9 +233,11 @@ function SliderPubManage({disp}) {
 
     return (
         <div className='slider' style={{
-           backgroundImage: `url(${backgroundImage})`,
+           backgroundImage: `url(${backgroundImage[index].src})`,
            
           }}>
+            
+          
             <div className='dot'>
             {display && (
         
@@ -259,7 +284,22 @@ function SliderPubManage({disp}) {
 
                    
                 </div>
-                
+                <div className="C-slider">
+
+
+<img src={
+        images[currentImageIndex].src
+    }
+
+    alt="Slideshow Image"
+    ref={cardContainer3}
+    className={
+        `slideshow ${
+            currentImageIndex !== 0 ? 'fade-in' : ''
+        }`
+    }/>
+
+</div>
             </div>
             <div className="R-slider">
                 <div ref={cardContainer}
@@ -315,7 +355,10 @@ function SliderPubManage({disp}) {
                 </div>
 
             </div>
-
+         <div className="switch">
+         <AiOutlineLeft onClick={switchback2}/>
+            <AiOutlineRight onClick={switchback}/>
+         </div>
 
         </div>
     )
