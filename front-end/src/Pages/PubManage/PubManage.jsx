@@ -1,7 +1,7 @@
 import React from 'react'
 import './PubManage.css'
 import Navbar from '../../Components/Navbar/Navbar'
-import Slider from '../../Components/Slider/Slider'
+import SliderPubManage from '../../Components/SliderPubManage/SliderPubManage'
 
 
 
@@ -10,7 +10,7 @@ function PubManage() {
   return (
     <div>
         <Navbar  />
-            <Slider disp={true}/>
+            <SliderPubManage disp={true}/>
         
     </div>
   )

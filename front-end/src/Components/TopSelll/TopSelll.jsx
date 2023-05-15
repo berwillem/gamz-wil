@@ -1,13 +1,74 @@
- import React, { useEffect ,useRef} from 'react'
+ import React, { useEffect ,useRef, useState} from 'react'
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { gsap,Power3 } from "gsap"
  import './TopSelll.css'
  import { Box } from '../../Data/Box'
 import TopSelBox from '../TopSelBox/TopSelBox'
+import axios from 'axios';
 
-const boxSlice = Box.slice(0,9)
- 
+
+const boxSlice = Box.slice(0,3)
+
+
  function TopSelll() {
+const [postsConsole, setPostsConsole] = useState([]);
+const [postsTelephone, setPostsTelephone] = useState([]);
+const [postsInformatique, setPostsInformatique] = useState([]);
+useEffect(() => {
+   
+  axios.get(`http://localhost:5000/api/v1/post/category/644b93f21b7633709d2db121` )
+    .then(response => {
+      // Traiter les données de la réponse
+      setPostsConsole(response.data)
+      
+   
+    })
+    .catch(error => {
+      // Gérer les erreurs
+      console.error(error);
+    });
+}, []);
+useEffect(() => {
+   
+  axios.get(`http://localhost:5000/api/v1/post/category/644b907d1b7633709d2db0fa` )
+    .then(response => {
+      // Traiter les données de la réponse
+      setPostsInformatique(response.data)
+      
+   
+    })
+    .catch(error => {
+      // Gérer les erreurs
+      console.error(error);
+    });
+}, []);
+useEffect(() => {
+   
+  axios.get(`http://localhost:5000/api/v1/post/category/644b97091b7633709d2db1d8` )
+    .then(response => {
+      // Traiter les données de la réponse
+      setPostsTelephone(response.data)
+      
+   
+    })
+    .catch(error => {
+      // Gérer les erreurs
+      console.error(error);
+    });
+}, []);
+console.log(postsConsole[0]);
+
+const boxSlice1 = shuffleArray(postsConsole).slice(0,3)
+const boxSlice2 = shuffleArray(postsInformatique).slice(0,3)
+const boxSlice3 = shuffleArray(postsTelephone).slice(0,3)
+function shuffleArray(array) {
+  const shuffledArray = [...array];
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray;
+}
   gsap.registerPlugin(ScrollTrigger);
     
     const cardContainer = useRef();
@@ -20,20 +81,44 @@ const boxSlice = Box.slice(0,9)
         <h4>Top Selling Products</h4>
       </div>
       <div className='topSell-content' ref={cardContainer} >
-      {
-        boxSlice.map((i,key)=>(
-
-
-
+     <>
+    <div className="grid">
+    {
+        boxSlice1.map((i,key)=>(
           <TopSelBox
-          key={i.id}
-          name={i.name}
-          picture={i.image}
+          key={i._id}
+          name={i.title}
+          picture={i.images[0].url}
           price={i.price}
           />
      
         ))
-      }
+      } </div>
+    <div className="grid">
+    {
+        boxSlice2.map((i,key)=>(
+          <TopSelBox
+          key={i._id}
+          name={i.title}
+          picture={i.images[0].url}
+          price={i.price}
+          />
+     
+        ))
+      } </div>
+    <div className="grid">
+    {
+        boxSlice3.map((i,key)=>(
+          <TopSelBox
+          key={i._id}
+          name={i.title}
+          picture={i.images[0].url}
+          price={i.price}
+          />
+     
+        ))
+      } </div>
+      </>
       </div>
 
 
