@@ -328,6 +328,9 @@
      .L-slider{
       width:500px ;
      }
+     .dot{
+        grid-template-columns: auto auto ;
+    }
   }
   @media screen and (max-width: 325px) {
     
