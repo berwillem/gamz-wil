@@ -2,13 +2,16 @@ import { Power3 } from "gsap";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from 'react-redux'
 import Dashboard from "../../Components/Dashbord/Dashboard";
 import { GetAllUsers, baseUrl } from "../../redux/reducers/users";
 import axios from "axios";
 function Dashbord() {
   gsap.registerPlugin(ScrollTrigger);
   const [users, setUsers] = useState([]);
-
+  const [postCount, setPostCount] = useState(0);
+  const [userCount, setUserCount] = useState(0);
+  const dispatch= useDispatch()
   const cardContainer = useRef();
   const cardContainer2 = useRef();
   const cardContainer3 = useRef();
@@ -44,7 +47,6 @@ function Dashbord() {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
         const token = user?.token || null;
-        console.log("Token stored:", token);
         const config = {
           headers: { Authorization: `Bearer ${token}` },
         };
@@ -57,6 +59,24 @@ function Dashbord() {
     };
     getUsers();
   }, []);
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/v1/post/count")
+      .then(response => {
+        setPostCount(response.data.count);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    axios.get("http://localhost:5000/api/v1/user/count")
+      .then(response => {
+        setUserCount(response.data.count);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
 
   return (
     <div className="home-container" style={{ height: "100vh" }}>
@@ -68,7 +88,7 @@ function Dashbord() {
         }}
         ref={cardContainer3}
       >
-        <Dashboard users={users} />
+        <Dashboard users={users} userCount={userCount} postCount={postCount}/>
       </div>
     </div>
   );

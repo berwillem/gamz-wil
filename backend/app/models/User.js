@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema(
     adress: {
       type: String,
     },
-    
+
     dateNaissance: {
       type: Date,
     },
@@ -52,31 +52,37 @@ const userSchema = new mongoose.Schema(
     avatar: {
       url: {
         type: String,
-        default:null,
+        default: null,
       },
       public_id: {
         type: String,
-        default:null,
+        default: null,
       },
     },
     banner: {
       url: {
         type: String,
-        default:null,
+        default: null,
       },
       public_id: {
         type: String,
-        default:null,
+        default: null,
       },
+    },
+    _id: {
+      type: mongoose.Schema.Types.ObjectId,
+      default: mongoose.Types.ObjectId,
     },
 
     posts: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product",
+        set: (v) => (mongoose.isValidObjectId(v) ? v : null),
       },
     ],
   },
+
   {
     timestamps: true,
   }

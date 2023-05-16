@@ -11,9 +11,10 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 function Acount(isDarkMode) {
+  // data::
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const userId = JSON.parse(localStorage.getItem("user"))?.id || null;
-
+  // states::
   const [banner, setBanner] = useState("");
   const [data, setData] = useState({});
   const [avatar, setAvatar] = useState("");
@@ -22,6 +23,9 @@ function Acount(isDarkMode) {
   const [Username, setUsername] = useState("");
   const [poste, setposte] = useState([]);
   const p = isDarkMode.isDarkMode;
+
+  // api call::
+
   useEffect(() => {
     axios
       .get(`http://localhost:5000/api/v1/user/${userId}`)
@@ -39,7 +43,8 @@ function Acount(isDarkMode) {
         console.error(error);
       });
   }, [userId]);
-  
+
+  // jsx :::
 
   return (
     <div className="account-container">
@@ -59,7 +64,7 @@ function Acount(isDarkMode) {
 
           <div className="home-bottom">
             <TopSelll />
-            <Ads uri="https://electro.madrasthemes.com/wp-content/uploads/2019/04/footer-widget-img-01.jpg" />
+            <Ads />
           </div>
         </div>
       ) : (

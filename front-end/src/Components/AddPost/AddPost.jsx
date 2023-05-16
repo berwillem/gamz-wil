@@ -71,8 +71,6 @@ function AddPost() {
   };
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log("sumbited pricipal", principalImageFile);
-    console.log("secondary", otherImagesFile);
     const formData = new FormData();
     formData.append("title", title);
     formData.append("price", price);
@@ -140,7 +138,7 @@ function AddPost() {
     }
   }, [selectedSubcats]);
 
-  // style ??
+  // style ::
   const customStyles = {
     control: (provided) => ({
       ...provided,

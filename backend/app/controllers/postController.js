@@ -101,10 +101,17 @@ exports.getAllPosts = async (req, res) => {
 exports.getPostsByCategoryId = async (req, res) => {
   try {
     const categoryId = req.params.categoryId;
-    console.log(req.params.categoryId);
     const posts = await Post.find({ category: categoryId });
     res.json(posts);
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+};
+exports.getPostCount = async (req, res) => {
+  try {
+    const count = await Post.countDocuments();
+    res.status(200).json({ count });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to retrieve post count" });
   }
 };

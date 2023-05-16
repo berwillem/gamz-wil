@@ -17,6 +17,7 @@ function Update_user() {
   const [genre, setGenre] = useState("");
   const [adress, setAdress] = useState("");
   const [dateNaissance, setDateNaissance] = useState("");
+  const [phone, setPhone] = useState("");
   // data :
   const userString = localStorage.getItem("user");
   const user = JSON.parse(userString);
@@ -52,8 +53,9 @@ function Update_user() {
     formData.append("nom", nom);
     formData.append("prenom", prénom);
     formData.append("genre", genre);
-    formData.append("adress", genre);
+    formData.append("adress", adress);
     formData.append("dateNaissance", dateNaissance);
+    formData.append("phone", phone);
     formData.append("id", id);
     formData.append("avatar", avatarFile);
     formData.append("banner", bannerFile);
@@ -197,6 +199,16 @@ function Update_user() {
                   type="text"
                   placeholder="write your adress"
                   onChange={(e) => setAdress(e.target.value)}
+                />
+              </label>
+              <label>
+                <strong>phone *</strong>
+                <input
+                  name="phone"
+                  value={phone}
+                  type="text"
+                  placeholder="write your phone number"
+                  onChange={(e) => setPhone(e.target.value)}
                 />
               </label>
               <label>
