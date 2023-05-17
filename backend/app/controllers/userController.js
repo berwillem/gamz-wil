@@ -1,10 +1,8 @@
 const User = require("../models/User");
 // delete user ::::
-exports.deleteUserByUsername = async (req, res) => {
+exports.deleteUserById = async (req, res) => {
   try {
-    const deletedUser = await User.findOneAndDelete({
-      username: req.params.username,
-    });
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
     if (!deletedUser) {
       return res.status(404).send({ error: "User not found" });
     }
@@ -51,7 +49,7 @@ exports.getUserById = async (req, res) => {
 //  update user
 
 exports.updateUser = async (req, res) => {
-  const { avatar, banner, username, nom, prenom, genre, dateNaissance,adress,id } =
+  const { avatar, banner, username, nom, prenom, genre, dateNaissance, adress, phone, id } =
     req.body;
 
   try {
@@ -81,6 +79,9 @@ exports.updateUser = async (req, res) => {
     if (prenom) {
       user.prenom = prenom;
     }
+    if (phone) {
+      user.phone = phone;
+    }
 
     if (genre) {
       user.genre = genre;
@@ -90,15 +91,15 @@ exports.updateUser = async (req, res) => {
       user.dateNaissance = dateNaissance;
     }
 
-    if (avatar) {
+    if (avatar.url) {
       user.avatar.url = avatar.url;
       user.avatar.public_id = avatar.public_id;
-    }
+    } 
 
-    if (banner) {
+    if (banner.url) {
       user.banner.url = banner.url;
       user.banner.public_id = banner.public_id;
-    }
+    } 
 
     user.infoUpdate = true;
 
@@ -107,5 +108,17 @@ exports.updateUser = async (req, res) => {
     res.json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+};
+
+
+
+// count users:
+exports.getUserCount = async (req, res) => {
+  try {
+    const count = await User.countDocuments();
+    res.status(200).json({ count });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to retrieve user count' });
   }
 };

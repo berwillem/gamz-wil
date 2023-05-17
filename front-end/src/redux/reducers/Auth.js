@@ -39,6 +39,7 @@ export const registrationSlice = createSlice({
       state.isLoading = false;
       state.user = action.payload.user;
       state.isLoggedIn = true;
+      console.log("islog",state.isLoggedIn)
       state.error = null;
       localStorage.setItem('user', JSON.stringify(action.payload.user));
       localStorage.setItem('isLoggedIn', 'true');
@@ -93,7 +94,6 @@ export const register = (userData) => async (dispatch) => {
   try {
     dispatch(registrationRequest());
     const response = await axios.post(baseUrl+"/register", userData);
-    console.log("Registration Success:", response.data);
     dispatch(registrationSuccess(response.data));
   } catch (error) {
     dispatch(registrationFailure(error));

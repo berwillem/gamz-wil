@@ -8,16 +8,17 @@ import { Power3 } from "gsap";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import RelatedPost from "../RelatedPost/RelatedPost";
+import notavalible from "../../assets/images/Image_not_available.png";
 
 function Details() {
   // api call :::
   const [post, setPost] = useState("");
-  const [pricipalImage, setPricipalImage] = useState("");
-  const [secondImage, setSecondImage] = useState("");
-  const [thirdImage, setThirdImage] = useState("");
+  const [pricipalImage, setPricipalImage] = useState(notavalible);
+  const [secondImage, setSecondImage] = useState(notavalible);
+  const [thirdImage, setThirdImage] = useState(notavalible);
   const location = useLocation();
   const postId = location.pathname.split("/")[2];
- 
+
   const fetchPostDetails = async () => {
     try {
       const response = await axios.get(
@@ -27,19 +28,25 @@ function Details() {
       if (response.data.category) {
         setId(response.data.category._id);
       }
-      setPricipalImage(response.data.images[0].url)
-      setSecondImage(response.data.images[1].url)
-      setThirdImage(response.data.images[2].url)
-      console.log(response.data);
+      if (response.data.images && response.data.images.length > 0) {
+        setPricipalImage(response.data.images[0].url);
+      }
+
+      if (response.data.images && response.data.images.length > 1) {
+        setSecondImage(response.data.images[1].url);
+      }
+
+      if (response.data.images && response.data.images.length > 2) {
+        setThirdImage(response.data.images[2].url);
+      }
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
     fetchPostDetails();
-   
   }, [postId]);
- 
+
   //   style ::
   const boxSlice = Box.slice(0, 3);
   gsap.registerPlugin(ScrollTrigger);
@@ -75,73 +82,81 @@ function Details() {
     });
   }, []);
   const [posts, setPosts] = useState([]);
- 
 
-    const [id, setId] = useState("");
-   
+  const [id, setId] = useState("");
+
   useEffect(() => {
-   
-    axios.get(`http://localhost:5000/api/v1/post/category/${id}` )
-      .then(response => {
+    axios
+      .get(`http://localhost:5000/api/v1/post/category/${id}`)
+      .then((response) => {
         // Traiter les données de la réponse
-        setPosts(response.data)
-        
-     
+        setPosts(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         // Gérer les erreurs
         console.error(error);
       });
   }, [id]);
   const slicedData = shuffleArray(posts).slice(0, 3);
 
-// Fonction pour mélanger les éléments d'un tableau
-function shuffleArray(array) {
-  const shuffledArray = [...array];
-  for (let i = shuffledArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  // Fonction pour mélanger les éléments d'un tableau
+  function shuffleArray(array) {
+    const shuffledArray = [...array];
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [
+        shuffledArray[j],
+        shuffledArray[i],
+      ];
+    }
+    return shuffledArray;
   }
-  return shuffledArray;
-}
- 
+  const handleSubImageClick = (clickedImageURL) => {
+    const currentPrincipalImage = pricipalImage;
+    setPricipalImage(clickedImageURL);
+    if (clickedImageURL === secondImage) {
+      setSecondImage(currentPrincipalImage);
+    } else if (clickedImageURL === thirdImage) {
+      setThirdImage(currentPrincipalImage);
+    }
+  };
+
   return (
     <div className="details-container">
-       {post && post.author && (
-      <div className="user-avatar">
-        <img src={post.author.avatar.url} alt="" />
-        <strong>{post.author.username} </strong>
-      </div>
-    )}
+      {post && post.author && (
+        <div className="user-avatar">
+          <img src={post.author.avatar.url} alt="" />
+          <strong>{post.author.username} </strong>
+        </div>
+      )}
       <div className="post-details">
         <div className="post-details-l" ref={cardContainer}>
           <div className="big-image">
-            <img
-              src="https://electro.madrasthemes.com/wp-content/uploads/2016/03/uniheadphone.png"
-              alt=""
-            />
+            <img src={pricipalImage} alt="post-image" />
           </div>
           <div className="sub-images">
             <img
-              src="https://electro.madrasthemes.com/wp-content/uploads/2016/03/uniheadphone.png"
-              alt=""
+              src={secondImage}
+              alt="post-image"
               className="images"
+              onClick={() => handleSubImageClick(secondImage)} // Switch positions with the clicked sub-image
             />
             <img
-              src="https://electro.madrasthemes.com/wp-content/uploads/2016/03/uniheadphone.png"
-              alt=""
+              src={thirdImage}
+              alt="post-image"
               className="images"
+              onClick={() => handleSubImageClick(thirdImage)} // Switch positions with the clicked sub-image
             />
           </div>
         </div>
 
         <div className="post-details-r" ref={cardContainer2}>
-        {post && post.category && (
-          <div className="post-details-category">
-            <p>{post.category.name}</p>
-          </div>
-           )}
-        
+          {post && post.category && (
+            <div className="post-details-category">
+              <p>{post.category.name}</p>
+            </div>
+          )}
+
           <div className="post-details-title">
             <p>{post.title}</p>
           </div>
@@ -160,23 +175,27 @@ function shuffleArray(array) {
               <strong>{post.num}</strong>
             </li>
             <li>
-              <strong> place where he live</strong>
+              <strong> {post.wilaya}</strong>
             </li>
           </div>
         </div>
       </div>
 
       {/* related post section  */}
-     {slicedData.length==0? "":( <div className="related-post" ref={cardContainer3}>
-        <div className="related-title">
-          <p>Related Post</p>
+      {slicedData ? (
+        <div className="related-post" ref={cardContainer3}>
+          <div className="related-title">
+            <p>Related Post</p>
+          </div>
+          <div className="user-post ">
+            {slicedData.map((post) => (
+              <RelatedPost post={post} />
+            ))}
+          </div>
         </div>
-        <div className="user-post ">
-        {slicedData.map(post => (
-           <RelatedPost post={post} />))}
-    
-        </div>
-      </div>)}
+      ) : (
+        ""
+      )}
     </div>
   );
 }

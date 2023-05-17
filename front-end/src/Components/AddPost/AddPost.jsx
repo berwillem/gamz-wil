@@ -19,7 +19,6 @@ const userString = localStorage.getItem("user");
 const user = userString ? JSON.parse(userString) : "";
 const id = user ? user.id : "";
 
-
 // component start ::::
 
 function AddPost() {
@@ -45,7 +44,6 @@ function AddPost() {
     const file = event.target.files[0];
     setPrincipalImage(URL.createObjectURL(file));
     setPrincipalImageFile(file);
-    console.log("principal image:", principalImageFile);
   };
   const handleOtherImageChange = (index, event) => {
     const newOtherImages = [...otherImages];
@@ -67,12 +65,10 @@ function AddPost() {
     setSelectedSubcatschildren(selectedSubcatschildren);
   };
   const handleSelectwilayaChange = (wilaya) => {
-    setWilaya(wilaya);
+    setWilaya(wilaya.value);
   };
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log("sumbited pricipal", principalImageFile);
-    console.log("secondary", otherImagesFile);
     const formData = new FormData();
     formData.append("title", title);
     formData.append("price", price);
@@ -92,7 +88,11 @@ function AddPost() {
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
-      console.log("response:", res.data);
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Your post has been create successfully!',
+      });
     } catch (err) {
       console.log(err);
     }
@@ -140,7 +140,7 @@ function AddPost() {
     }
   }, [selectedSubcats]);
 
-  // style ??
+  // style ::
   const customStyles = {
     control: (provided) => ({
       ...provided,
@@ -322,7 +322,7 @@ function AddPost() {
               <p>add your willaya</p>
 
               <Select
-                value={wilaya}
+                value={wilaya.value}
                 onChange={handleSelectwilayaChange}
                 options={options}
                 isMulti={false}

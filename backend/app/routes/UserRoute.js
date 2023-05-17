@@ -1,13 +1,26 @@
 const router = require("express").Router();
-const uploadImages=require("../middlewares/cloudinary")
-const { deleteUserByUsername, getAllUsers, updateUser, getUserById } = require("../controllers/userController");
-// const {verifyTokenAndAdmin}=require("../middlewares/authval")
+const uploadImages = require("../middlewares/cloudinary");
+const {
+  deleteUserById,
+  getAllUsers,
+  updateUser,
+  getUserById,
+  getUserCount,
+} = require("../controllers/userController");
+
 // GET all users
-router.get("/",getAllUsers);
+router.get("/", getAllUsers);
+
+// GET user count
+router.get("/count", getUserCount);
+
 // GET user by ID
 router.get("/:id", getUserById);
-// deleteUser endpoint
-router.delete("/:username", deleteUserByUsername);
-// UPDATE user by ID
-router.put("/",uploadImages("users"),updateUser);
+
+// DELETE user by username
+router.delete("/:id", deleteUserById);
+
+// UPDATE user
+router.put("/", uploadImages("users"), updateUser);
+
 module.exports = router;

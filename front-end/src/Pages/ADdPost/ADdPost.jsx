@@ -12,7 +12,7 @@ function ADdPost(isDarkMode) {
       <AddPost />
       <div className="home-bottom">
         <TopSelll />
-        <Ads uri="https://electro.madrasthemes.com/wp-content/uploads/2019/04/footer-widget-img-01.jpg" />
+        <Ads />
       </div>
       <Footer p={p} />
     </div>
