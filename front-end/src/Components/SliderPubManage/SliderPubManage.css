@@ -242,6 +242,7 @@
     align-items: center;
     border-radius: 10px;
     outline: none;
+    text-align: center;
     font-size: 15px;
     border: 2px solid #e81a2a ;
     background-color: #fff;
@@ -251,6 +252,16 @@
     height: 25px;
     margin: 3px;
   }
+   .dot ::placeholder {
+    color: #FF0000; /* Remplacez #FF0000 par la couleur de votre choix */
+  }
+  
+  /* Pour certains navigateurs plus anciens */
+  .dot :-ms-input-placeholder {
+    color: #FF0000;
+  }
+  
+ 
 
 ::-webkit-file-upload-button{
     display: flex;
@@ -266,25 +277,7 @@
   
     
 }
-::-webkit-file-upload-button:hover{
- 
-    background-color: #e81a2a;
-    color:white ;
-    transition: all ease-in-out 300ms;
-    offset: 5px;
-  
-    
-}
 
-
-  .dot input:hover {
-    border: 2px solid #fff ;
-    background-color: #e81a2a;
-    color:white ;
-    transition: all ease-in-out 300ms;
-    offset: 5px;
-   
-  }
 
   
   /*respo*/

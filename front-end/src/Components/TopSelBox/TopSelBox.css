@@ -23,6 +23,10 @@
     object-fit: fill;
 
 }
+.sal-box-L img{
+  border-radius: 10%;
+
+}
 
 .sal-box-R{
     display: flex;
@@ -30,6 +34,10 @@
     gap: 10px;
     align-items: start;
     width: 100%;
+}
+.box-price{
+    width: 70px;
+    font-size: medium;
 }
 
 

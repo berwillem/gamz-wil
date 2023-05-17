@@ -255,11 +255,11 @@ function SliderPubManage({disp}) {
                     <input type="button" value="entre text1"  onClick={handleSubtitleClick} />
                     <input type="button" value="entre text2"  onClick={handleSubtitleClick2} />
                     <input type="button" value="entre text3"  onClick={handleSubtitleClick3} />
-                    <input type="url"  />
-                    <input type="url"  />
-                    <input type="url"  />
-                    <input type="url"  />
-                    <input type="url"  />
+                    <input type="url"  placeholder='url 1' />
+                    <input type="url"  placeholder='url 2' />
+                    <input type="url"  placeholder='url 3' />
+                    <input type="url"  placeholder='url 4' />
+                    <input type="url"  placeholder='url 5' />
             </div>
             
           

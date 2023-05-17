@@ -15,3 +15,13 @@
   --text-color: #FFFFFF;
   --nav-footer:#222222;
 }
+::-webkit-scrollbar {
+  width: 15px; /* Remplacez par la largeur souhaitée */
+ 
+}
+
+/* Fond de la barre de défilement */
+::-webkit-scrollbar-thumb{
+  background-color: red; /* Remplacez par la couleur souhaitée */
+  border-radius: 10px;
+}
