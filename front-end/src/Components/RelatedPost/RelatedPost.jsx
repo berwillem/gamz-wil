@@ -3,6 +3,7 @@ import { AiOutlineArrowRight, AiOutlineHeart } from 'react-icons/ai'
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import { useState,useEffect } from 'react';
+ import './RelatedPost.css'
 
 
 
