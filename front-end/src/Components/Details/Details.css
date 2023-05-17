@@ -33,6 +33,9 @@ padding: 20px;
 }
 .big-image > img {
     height: 50vh;
+    width: 400px;
+    object-fit: fill;
+    border-radius: 10%;
 }
 
 .big-image{
@@ -84,6 +87,12 @@ padding: 20px;
 .post-details-description > p {
     font-size: 14px;
     font-weight: 400;
+    height: 200px;
+    width: 300px;
+    overflow:auto;
+    word-wrap: break-word;
+   
+    
 
 }
 
@@ -164,8 +173,9 @@ padding: 20px;
     width: 100%;
 }
 .sub-images img{
-    width: 33%;
-    height: auto !important;
+
+    width: 100px;
+    object-fit: fill;
 }
 .post-details-l,.post-details-r{
     width: 100%;
@@ -176,8 +186,9 @@ padding: 20px;
    
 }
 .big-image img{
-    width: 100%;
-    height: auto !important;
+    height: 50vh;
+    width: 400px;
+    object-fit: fill;
 }
 
 }

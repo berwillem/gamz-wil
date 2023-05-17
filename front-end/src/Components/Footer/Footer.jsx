@@ -9,7 +9,12 @@ import pdf2 from "../../assets/pdf/Politique de confidentialité .pdf";
 import categoryes from "../../Data/category";
 
 function Footer({ p, handleProductFetch }) {
-
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 400,
+      behavior: 'smooth'
+    });
+  };
   const handleCategoryClick = (categoryId) => {
     handleProductFetch(categoryId);
   };
@@ -41,7 +46,7 @@ function Footer({ p, handleProductFetch }) {
           </div>
           <div className="category-list">
           {categoryes.map((categorye,index) => (
-                            <li key={index} onClick={() => handleCategoryClick(categorye.value)}>{categorye.label}</li>
+                            <li key={index} onClick={() =>{ handleCategoryClick(categorye.value);; handleScrollToTop();}}>{categorye.label}</li>
             ))}
           </div>
         </div>

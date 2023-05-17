@@ -26,7 +26,8 @@ function RelatedPost({post}) {
             <strong>{post.title}</strong>
           </div>
           <div className="user-post-image">
-            <img src={post.images[1].url} alt="user_post_image" className='user-post-image' />
+          {post.images[0]?  <img src={post.images[0].url} alt="user_post_image" className='user-post-image' />:"no images" }
+           
           </div>
           <div className="user-post-info">
             <strong>{post.price} DA</strong>

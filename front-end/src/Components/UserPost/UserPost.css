@@ -24,6 +24,19 @@ content: 'helllo there';
     font-size: 12px;
     font-weight: 200;
     color: #aaaaaa;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.user-post-category svg{
+  height: 20px;
+  width: 20px;
+  color: red;
+  transition: 0.5s;
+}
+.user-post-category svg:hover{
+cursor: pointer;
+transform: scale(1.5);
 }
 
 .user-post-image {
