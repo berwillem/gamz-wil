@@ -1,8 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineHome } from "react-icons/ai";
 import { CiUser } from "react-icons/ci";
 import { MdOutlineLogout } from "react-icons/md";
+import { logout } from "../../redux/reducers/Auth";
+import { useDispatch } from "react-redux";
 const SideCard = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    useDispatch(logout());
+    navigate("/");
+   
+  };
   return (
     <>
       <div className="user-l-content">
@@ -32,7 +41,7 @@ const SideCard = () => {
             <CiUser />
           </Link>
         </li>
-        <li>
+        <li onClick={handleLogout}>
           Logout
           <MdOutlineLogout />
         </li>

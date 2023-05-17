@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link,useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import axios from "axios";
 import "./update_use.css";
 import avatarImage from "../../assets/images/avatar.png";
 import bannerImage from "../../assets/images/banner.png";
+import Swal from "sweetalert2";
 function Update_user() {
   const navigate=useNavigate()
   // states:
@@ -76,7 +77,13 @@ function Update_user() {
       user.infoUpdate = res.data.infoUpdate;
       const updatedUserString = JSON.stringify(user);
       localStorage.setItem("user", updatedUserString);
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Your acount has been updated successfully!',
+      });
       navigate("/")
+
     } catch (err) {
       console.log(err);
     }
