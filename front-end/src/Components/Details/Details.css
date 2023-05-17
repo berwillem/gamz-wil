@@ -163,6 +163,11 @@ padding: 20px;
     list-style: none;
 
 }
+.sub-images img{
+
+    width: 100px;
+    object-fit: fill;
+}
 /*respo*/
 @media screen and (max-width: 1240px) {
    
