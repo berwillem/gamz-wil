@@ -8,7 +8,11 @@ import pdf1 from "../../assets/pdf/Conditions d'utilisation .pdf";
 import pdf2 from "../../assets/pdf/Politique de confidentialité .pdf";
 import categoryes from "../../Data/category";
 
-function Footer({ p }) {
+function Footer({ p, handleProductFetch }) {
+
+  const handleCategoryClick = (categoryId) => {
+    handleProductFetch(categoryId);
+  };
   return (
     <div className="footer-container">
       <div className="footer-content">
@@ -37,7 +41,7 @@ function Footer({ p }) {
           </div>
           <div className="category-list">
           {categoryes.map((categorye,index) => (
-                            <li key={index}>{categorye.label}</li>
+                            <li key={index} onClick={() => handleCategoryClick(categorye.value)}>{categorye.label}</li>
             ))}
           </div>
         </div>

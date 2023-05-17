@@ -118,8 +118,7 @@ padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    opacity: 0;
-    transform: translateY(50px);
+  
 }
 
 .related-title{

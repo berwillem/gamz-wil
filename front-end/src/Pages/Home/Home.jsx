@@ -80,14 +80,19 @@ function Home(isDarkMode) {
 
     getPosts();
   }, []);
-  
+  const [selectedProducts, setSelectedProducts] = useState(null);
+
+  const handleProductFetch = (products) => {
+    setSelectedProducts(products);
+  }
+ console.log(selectedProducts);
   return (
     <div>
-      <Navbar p={p}  />
+      <Navbar p={p}  handleProductFetch={handleProductFetch}/>
       <Slider />
       <div className="home-center">
         <div className="Ads-category " ref={cardContainer2}>
-          <CategorySide />
+          <CategorySide  handleProductFetch={handleProductFetch}/>
           <Ads uri={pubImg} />
         </div>
         <div
@@ -99,14 +104,14 @@ function Home(isDarkMode) {
           }}
           ref={cardContainer3}
         >
-          <Pagination posts={posts}  />
+          <Pagination posts={posts} postsbycat={selectedProducts} />
         </div>
       </div>
       <div className="home-bottom">
         <TopSelll />
         <Ads uri={pubImg} />
       </div>
-      <Footer p={p} />
+      <Footer p={p}  handleProductFetch={handleProductFetch}/>
     </div>
   );
 }

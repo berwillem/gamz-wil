@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Post from "../Post/Post";
 import "./Pagination.css";
-
-function Pagination({ posts }) {
+import image from "../../assets/no-result-diadem.png"
+import axios from "axios";
+function Pagination({ posts,postsbycat}) {
+  
   const [pages, setPages] = useState(0);
+ 
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -33,7 +36,12 @@ function Pagination({ posts }) {
       (_, i) => startPage + i
     );
   };
-
+  const filtrepost = getPaginatedData()
+  .filter(
+    (item) =>
+      item.category._id === postsbycat || item.subcategories[0] === postsbycat
+  );
+ 
   return (
     <div className="pagination-container">
       <div id="pagination-title">
@@ -45,16 +53,44 @@ function Pagination({ posts }) {
       {pages > 0 && (
         <>
           <div className="dataContainer">
-            {getPaginatedData().map((i, index) => (
-              <Post
-                key={index}
-                category={i.category.name}
-                img_post={i.images[0]}
-                name={i.title}
-                price={i.price}
-                id={i._id}
-              />
-            ))}
+          {!postsbycat ? (
+  // Afficher toutes les catégories
+  getPaginatedData().map((item, index) => (
+  
+    <Post
+      key={index}
+      category={item.category.name}
+      img_post={item.images[0]}
+      name={item.title}
+      price={item.price}
+      id={item._id}
+    />
+  ))
+) : (
+  // Afficher les posts de la catégorie spécifiée par l'ID
+  getPaginatedData()
+    .filter((item) => item.category._id === postsbycat || item.subcategories[0]===postsbycat
+    )
+    .map((item, index) => (
+      <Post
+        key={index}
+        category={item.category.name}
+        img_post={item.images[0]}
+        name={item.title}
+        price={item.price}
+        id={item._id}
+      />
+    ))
+)}
+
+        
+        {" "}
+        {postsbycat && filtrepost.length === 0 && (
+        <div>
+          <img src={image} alt="Aucun résultat" />
+        </div>
+      )}
+ 
           </div>
 
           <div className="pagination">

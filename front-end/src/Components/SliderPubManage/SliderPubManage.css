@@ -24,7 +24,11 @@
   .switch{
     position: absolute;
     left: 50%;
-    top: 80%;
+    top: 70%;
+  }
+  .switch svg{
+   height: 30px;
+   width: 30px;
   }
   .dot svg{
     height: 60px;
@@ -243,7 +247,7 @@
     background-color: #fff;
     color:#e81a2a ;
     cursor: pointer;
-    width: 150PX;
+    width: 130PX;
     height: 25px;
     margin: 3px;
   }

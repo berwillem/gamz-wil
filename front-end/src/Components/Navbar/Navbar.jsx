@@ -19,33 +19,10 @@ import subCategoryes from "../../Data/subCategory";
 // import posts from "../../redux/reducers/Posts";
 import axios from "axios";
 
-const category = [
-  {
-    label: "All category",
-    value: "",
-  },
-  {
-    label: "Informatiques",
-    value: "informatiques",
-  },
-  {
-    label: "Consols",
-    value: "Consols",
-  },
-  {
-    label: "Jeux video",
-    value: "Jeux video",
-  },
-  {
-    label: "Contenu digital ",
-    value: "Contenu digital ",
-  },
-  {
-    label: "Télephonie ",
-    value: "Télephonie ",
-  },
-];
-function Navbar({ p },{ sendData  }) {
+
+
+function Navbar({ p, handleProductFetch }) {
+
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const username = JSON.parse(localStorage.getItem("user"))?.username || null;
   const infoupdate =
@@ -150,7 +127,7 @@ function Navbar({ p },{ sendData  }) {
     setSearchText(event.target.value);
     fetchData(event.target.value);
     
-    sendData(event.target.value);
+   
   };
   const filterResultsByCategory = (category) => {
     if (category === '') {
@@ -183,6 +160,9 @@ function Navbar({ p },{ sendData  }) {
   //     item.category.toLowerCase() === searchCategory.toLowerCase()
   //   );
   // });
+  const handleCategoryClick = (categoryId) => {
+    handleProductFetch(categoryId);
+  };
   return (
     <>
       <div className="navbar-container">
@@ -233,7 +213,7 @@ function Navbar({ p },{ sendData  }) {
           </Link>
           {categoryes.map((categorye,index) => (
                         <div key={index}>
-                              <li onClick={handleClick2}>
+                              <li onClick={() => { handleClick2(event); handleCategoryClick(categorye.value); }}>
                             {categorye.label} <AiFillCaretDown />
                            
                           </li>
@@ -241,7 +221,7 @@ function Navbar({ p },{ sendData  }) {
                           {subCategoryes.map((subcategorye,index) => {
                            if (subcategorye.parentCategoryId === categorye.value) {
                             return(
-                            <li key={index}>{subcategorye.label}</li>
+                            <li key={index} onClick={() => handleCategoryClick(subcategorye.id)}>{subcategorye.label}</li>
                          
                          )
                            }
@@ -309,12 +289,12 @@ function Navbar({ p },{ sendData  }) {
             <div className="down">
             {categoryes.map((categorye,index) => (
                           <div className="catnav">
-                            <li key={index}>{categorye.label}</li>
+                            <li key={index}  onClick={() => handleCategoryClick(categorye.value)}>{categorye.label}</li>
                             <ul className="subNav">
                             {subCategoryes.map((subcategorye,index) => {
                            if (subcategorye.parentCategoryId === categorye.value) {
                             return(
-                            <li key={index}>{subcategorye.label}</li>
+                            <li key={index} onClick={() => handleCategoryClick(subcategorye.id)}>{subcategorye.label}</li>
                          
                          )
                            }
