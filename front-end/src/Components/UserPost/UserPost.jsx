@@ -3,12 +3,12 @@ import { AiOutlineArrowRight, AiOutlineHeart } from 'react-icons/ai'
 import './UserPost.css'
 import { Link } from "react-router-dom";
 import { AiOutlineDelete } from "react-icons/ai";
-
+import notavalible from "../../assets/images/Image_not_available.png";
 
 function UserPost({posts}) {
   return (
     <>
-      {posts?.map((post) =>
+      {posts.length ? posts.map((post) =>
        (
 
         <div className='user-post-container'>
@@ -21,7 +21,7 @@ function UserPost({posts}) {
             <strong>{post.title}</strong>
         </div>
         <div className="user-post-image">
-        {post.images[0] ?  <img src={post.images[0].url} alt="user_post_image" className='user-post-image' />:"no images"}  
+        {post.images[0] ?  <img src={post.images[0].url} alt="user_post_image" className='user-post-image' />:<img src={notavalible} alt="user_post_image" className='user-post-image'></img>}  
         </div>
         <div className="user-post-info">
           {console.log("ids",post._id)}
@@ -34,7 +34,11 @@ function UserPost({posts}) {
         </div>
   
     </div>
-      ))}
+      )): (
+        <div className="user-post-container">
+          <p>no post yet </p>
+        </div>
+      )}
     </>
       
       

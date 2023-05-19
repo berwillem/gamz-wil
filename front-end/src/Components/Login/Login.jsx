@@ -32,7 +32,7 @@ function Login() {
     }
     return errors;
   };
-
+   
   return (
     <div className="login-container">
       <div className="title-login">
@@ -47,16 +47,17 @@ function Login() {
         validate={validate}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting }) => (
+        {() => (
           <Form>
             <label htmlFor="">
               <strong>Username or email address *</strong>
-              <Field type="email" name="email" placeholder="write your email" />
+              <Field type="email" name="email" placeholder="write your email"  />
               <ErrorMessage name="email" component="div" className="error" />
             </label>
             <label>
               <strong>Password *</strong>
               <Field
+        
                 type="password"
                 name="password"
                 placeholder="write your password"
@@ -72,7 +73,7 @@ function Login() {
               <Field type="checkbox" name="rememberMe" />
               <strong>Remember me</strong>
             </div>
-            <button type="submit" disabled={isSubmitting}>
+            <button type="submit"  >
               <strong>Log in</strong>
             </button>
             <Link to="/PassForgot">Lost your password ?</Link>
