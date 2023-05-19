@@ -119,7 +119,7 @@ function Update_user() {
               style={{ display: "none" }}
             />
             <strong>
-              <p>votre photo de profile *</p>
+              <p>Modifier votre photo de profile *</p>
             </strong>
           </div>
           <div className="banner">
@@ -148,7 +148,7 @@ function Update_user() {
               style={{ display: "none" }}
             />
             <strong>
-              <p>votre photo de couverture *</p>
+              <p>Modifier votre photo de couverture *</p>
             </strong>
           </div>
         </div>

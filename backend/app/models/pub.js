@@ -13,4 +13,4 @@ const pubSchema = new mongoose.Schema({
   ],
 });
 
-module.exports = mongoose.model("pub", pubSchema);
+module.exports = mongoose.model("Pub", pubSchema);
