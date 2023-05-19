@@ -8,6 +8,8 @@ import { wilaya } from "../../Data/wilaya";
 import { category } from "../../Data/category";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 // needs befor components :::
 
 const costumeStyle = [{}];
@@ -38,7 +40,7 @@ function AddPost() {
   const [phone, setPhone] = useState("");
   const [price, setPrice] = useState("");
   const [wilaya, setWilaya] = useState("");
-
+  const navigate = useNavigate();
   // handle functions ::::
   const handlePrincipalImageChange = (event) => {
     const file = event.target.files[0];
@@ -89,10 +91,11 @@ function AddPost() {
         { headers: { "Content-Type": "multipart/form-data" } }
       );
       Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: 'Your post has been create successfully!',
+        icon: "success",
+        title: "Success",
+        text: "Your post has been create successfully!",
       });
+      navigate("/account");
     } catch (err) {
       console.log(err);
     }
@@ -154,7 +157,7 @@ function AddPost() {
       color: "var(--text-color)",
     }),
   };
-
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   // component start:::
 
   return (
@@ -162,8 +165,9 @@ function AddPost() {
       <form onSubmit={handleFormSubmit} encType="multipart/form-data">
         <div className="account-center">
           <div className="user-l">
-            <SideCard />
-            <Ads uri="https://electro.madrasthemes.com/wp-content/uploads/2016/03/ad-banner-sidebar.jpg" />
+          {isLoggedIn === "true" ? null : <SideCard />}
+          {console.log(isLoggedIn)}
+            <Ads />
           </div>
           <div className="add-content">
             <div className="add-post-l">
@@ -236,7 +240,7 @@ function AddPost() {
                 onChange={handleSelectChange}
                 options={category}
                 isMulti={false}
-                placeholder="Select countries"
+                placeholder="Select category"
                 styles={customStyles}
               />
               {subcats && subcats.length > 0 && (
@@ -326,7 +330,7 @@ function AddPost() {
                 onChange={handleSelectwilayaChange}
                 options={options}
                 isMulti={false}
-                placeholder="Select countries"
+                placeholder="Select wilaya"
                 styles={customStyles}
               />
             </div>

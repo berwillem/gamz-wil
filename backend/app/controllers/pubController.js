@@ -1,4 +1,4 @@
-const Pub = require("../models/Pub");
+const Pub = require("../models/pub");
 
 exports.createPub = async (req, res) => {
   try {
