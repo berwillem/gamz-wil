@@ -10,7 +10,7 @@ function TopSelBox({i}) {
 
        <Link to={`/postDetails/${i._id}`}>
        <div className="sal-box-L">
-            <img src={i.images[0].url ?   i.images[0].url :'file not fond '} alt="" id='box-image' />
+            <img src={i.images[0]?   i.images[0].url :'file not fond '} alt="" id='box-image' />
         </div>
         <div className="sal-box-R">
             <div className="box-name">
