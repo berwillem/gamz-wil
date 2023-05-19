@@ -9,6 +9,7 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import RelatedPost from "../RelatedPost/RelatedPost";
 import notavalible from "../../assets/images/Image_not_available.png";
+import defaultAvatar from "../../assets/images/avatar.png"
 
 function Details() {
   // api call :::
@@ -125,7 +126,7 @@ function Details() {
     <div className="details-container">
       {post && post.author && (
         <div className="user-avatar">
-          <img src={post.author.avatar.url} alt="" />
+          <img src={post.author.avatar.url ? post.author.avatar.url:defaultAvatar} alt="" />
           <strong>{post.author.username} </strong>
         </div>
       )}

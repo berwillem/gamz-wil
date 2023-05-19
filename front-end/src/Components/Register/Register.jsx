@@ -65,7 +65,10 @@ function Register() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-
+        <div className="check-box-login">
+              <input type="checkbox" name="rememberMe"  required/>
+              <strong>accepter Conditions d'utilisation et la Politique de confidentialité </strong>
+            </div>
         <div className="sub-text-register">
           <small>
             Your personal data will be used to support your experience
