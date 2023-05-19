@@ -10,6 +10,8 @@ import axios from "axios";
 import RelatedPost from "../RelatedPost/RelatedPost";
 import notavalible from "../../assets/images/Image_not_available.png";
 import defaultAvatar from "../../assets/images/avatar.png"
+const baseURL = import.meta.env.VITE_BASE_URL;
+
 
 function Details() {
   // api call :::
@@ -23,7 +25,7 @@ function Details() {
   const fetchPostDetails = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/v1/post/${postId}`
+        baseURL+`/post/${postId}`
       );
       setPost(response.data);
       if (response.data.category) {
@@ -88,7 +90,7 @@ function Details() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/v1/post/category/${id}`)
+      .get(baseURL+`/post/category/${id}`)
       .then((response) => {
         // Traiter les données de la réponse
         setPosts(response.data);

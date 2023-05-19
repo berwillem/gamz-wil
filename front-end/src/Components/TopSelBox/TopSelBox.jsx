@@ -13,18 +13,16 @@ function TopSelBox({i}) {
             <img src={i.images[0]?   i.images[0].url :notavalible} alt="" id='box-image' />
         </div>
         <div className="sal-box-R">
-            <div className="box-name">
-                <strong>{i.title}</strong>
-            </div>
-            <div className="box-price">
-                <small>{i.price} da</small>
-            </div>
+          <div className="box-name">
+            <strong>{i.title}</strong>
+          </div>
+          <div className="box-price">
+            <small>{i.price} da</small>
+          </div>
         </div>
-       </Link>
-        
-
+      </Link>
     </div>
-  )
+  );
 }
 
-export default TopSelBox
+export default TopSelBox;

@@ -11,6 +11,7 @@ import "./Postdetails.css";
 import { Power3, gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useLocation } from "react-router-dom";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 function Postdetails(isDarkMode) {
   // style and animation ::
@@ -51,7 +52,7 @@ function Postdetails(isDarkMode) {
   const postId = location.pathname.split("/").pop();
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/v1/post/${postId}`)
+      .get(baseURL+`/post/${postId}`)
       .then((res) => setPost(res.data))
       .catch((err) => console.log(err));
   }, [postId]);

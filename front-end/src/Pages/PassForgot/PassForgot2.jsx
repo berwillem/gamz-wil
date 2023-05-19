@@ -3,6 +3,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import "./PassForgot2.css";
 import Swal from "sweetalert2";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 const PassForgot2 = () => {
   const [password, setPassword] = useState("");
@@ -23,7 +24,7 @@ const PassForgot2 = () => {
     }
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/v1/auth/reset-password?token=${token}&id=${userId}`,
+        baseURL+`/auth/reset-password?token=${token}&id=${userId}`,
         { password }
       );
       Swal.fire(

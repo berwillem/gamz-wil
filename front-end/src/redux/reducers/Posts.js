@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const baseUrl = "http://localhost:5000/api/v1/post";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 const initialState = {
   posts:[],
@@ -37,7 +37,7 @@ export const { createPostStart, GetAllPosts,createPostSuccess, createPostFailure
 export const createPost = (postData) => async (dispatch) => {
   try {
     dispatch(createPostStart());
-    const response = await axios.post('http://localhost:5000/api/v1/post/create', postData);
+    const response = await axios.post(baseURL+'/post/create', postData);
     dispatch(createPostSuccess(response.data));
   } catch (error) {
     dispatch(createPostFailure(error.message));

@@ -11,9 +11,10 @@ import CategorySide from "../../Components/CategorySide/CategorySide";
 import React, { useEffect, useState, useRef } from "react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { gsap, Power3 } from "gsap";
-import { GetAllPosts, baseUrl } from "../../redux/reducers/Posts";
+import { GetAllPosts } from "../../redux/reducers/Posts";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 const images = [
   "https://picsum.photos/800/600?random=1",
@@ -67,7 +68,7 @@ function Home(isDarkMode) {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const res = await axios.get(baseUrl + '/');
+        const res = await axios.get(baseURL + '/post/');
         setPosts(res.data);
         dispatch(GetAllPosts(res.data));
         setFilteredPosts(posts.filter((post) =>
@@ -85,7 +86,6 @@ function Home(isDarkMode) {
   const handleProductFetch = (products) => {
     setSelectedProducts(products);
   }
- console.log(selectedProducts);
   return (
     <div>
       <Navbar p={p}  handleProductFetch={handleProductFetch}/>

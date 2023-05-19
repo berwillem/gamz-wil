@@ -5,6 +5,7 @@ import image from "../../assets/Svg/undraw_forgot_password_re_hxwm.svg";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 
+
 const PassForgot = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

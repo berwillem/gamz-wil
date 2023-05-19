@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const baseUrl = "http://localhost:5000/api/v1/auth";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 const initialState = {
   isLoading: false,
@@ -40,7 +40,7 @@ export const {
 export const sendResetLink = (email) => async (dispatch) => {
   try {
     dispatch(sendResetLinkRequest());
-    const response = await axios.post(baseUrl + "/forgot-password", { email });
+    const response = await axios.post(baseURL + "/forgot-password", { email });
     console.log("Reset link sent successfully:", response.data);
     dispatch(sendResetLinkSuccess());
   } catch (error) {

@@ -3,6 +3,8 @@ import { useState } from "react";
 import { AiOutlineMore, AiFillDelete, AiOutlineUser } from "react-icons/ai";
 import "./UserList.css";
 import axios from "axios";
+const baseURL = import.meta.env.VITE_BASE_URL;
+
 
 function UsersList({ number, id, date, name, email, order }) {
   const [action, setAction] = useState("action active-action");
@@ -15,7 +17,7 @@ function UsersList({ number, id, date, name, email, order }) {
   };
   const deleteUser = (id) => {
     axios
-      .delete(`http://localhost:5000/api/v1/user/${id}`)
+      .delete(baseURL+`/user/${id}`)
       .then((response) => {
         console.log(response.data);
       })

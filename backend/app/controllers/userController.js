@@ -27,6 +27,10 @@ exports.getAllUsers = async (req, res) => {
 // get user by ID:
 exports.getUserById = async (req, res) => {
   try {
+    if (!req.params.id) {
+      return res.status(400).send({ error: "Invalid user ID" });
+    }
+
     const user = await User.findById(req.params.id).populate({
       path: 'posts',
       select: '_id title price category images',
@@ -35,15 +39,18 @@ exports.getUserById = async (req, res) => {
         select: '_id name',
       },
     });
+    
     if (!user) {
       return res.status(404).send({ error: "User not found" });
     }
+    
     res.send(user);
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: "Server error" });
   }
 };
+
 
 
 //  update user
