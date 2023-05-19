@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+const baseURL = import.meta.env.VITE_BASE_URL;
 
-const baseUrl="http://localhost:5000/api/v1/auth"
 
 const initialState = {
   isLoading: false,
@@ -93,7 +93,7 @@ export const {
 export const register = (userData) => async (dispatch) => {
   try {
     dispatch(registrationRequest());
-    const response = await axios.post(baseUrl+"/register", userData);
+    const response = await axios.post(baseURL+"/register", userData);
     dispatch(registrationSuccess(response.data));
   } catch (error) {
     dispatch(registrationFailure(error));
@@ -104,7 +104,7 @@ export const register = (userData) => async (dispatch) => {
 export const login = (userData) => async (dispatch) => {
   try {
     dispatch(loginRequest());
-    const response = await axios.post(baseUrl+"/signin", userData);
+    const response = await axios.post(baseURL+"/signin", userData);
     console.log("Login Success:", response.data);
     dispatch(loginSuccess(response.data));
   } catch (error) {
@@ -116,7 +116,7 @@ export const login = (userData) => async (dispatch) => {
 export const confirmEmail = (userId, otp) => async (dispatch) => {
   try {
     dispatch(emailConfirmationRequest());
-    const response = await axios.post(baseUrl + "/verify-email", { userId, otp });
+    const response = await axios.post(baseURL + "/verify-email", { userId, otp });
     console.log("Email Confirmation Success:", response.data);
     dispatch(emailConfirmationSuccess(response.data));
   } catch (error) {

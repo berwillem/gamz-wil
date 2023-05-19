@@ -8,7 +8,7 @@ const SideCard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
-    useDispatch(logout());
+    dispatch(logout());
     navigate("/");
    
   };

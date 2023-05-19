@@ -5,6 +5,7 @@ import "./update_use.css";
 import avatarImage from "../../assets/images/avatar.png";
 import bannerImage from "../../assets/images/banner.png";
 import Swal from "sweetalert2";
+const baseURL = import.meta.env.VITE_BASE_URL;
 function Update_user() {
   const navigate=useNavigate()
   // states:
@@ -63,7 +64,7 @@ function Update_user() {
 
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/v1/user/`,
+        baseURL+`/user/`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

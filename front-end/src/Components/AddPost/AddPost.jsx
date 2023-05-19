@@ -10,8 +10,9 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-// needs befor components :::
 
+// needs befor components :::
+const baseURL = import.meta.env.VITE_BASE_URL;
 const costumeStyle = [{}];
 const options = wilaya.map((wilaya) => ({
   value: wilaya.name,
@@ -86,7 +87,7 @@ function AddPost() {
     formData.append("images", otherImagesFile[1]);
     try {
       const res = await axios.post(
-        `http://localhost:5000/api/v1/post/create`,
+        baseURL+`/post/create`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -104,7 +105,7 @@ function AddPost() {
   useEffect(() => {
     if (selectedOptions) {
       axios
-        .get(`http://localhost:5000/api/v1/category/${selectedOptions.value}`)
+        .get(baseURL+`/category/${selectedOptions.value}`)
         .then((response) => {
           const subcatNames = response.data.map((subcat) => ({
             value: subcat._id,
@@ -125,7 +126,7 @@ function AddPost() {
   useEffect(() => {
     if (selectedSubcats) {
       axios
-        .get(`http://localhost:5000/api/v1/category/${selectedSubcats.value}`)
+        .get( baseURL+`/category/${selectedSubcats.value}`)
         .then((response) => {
           const subcatChilrenNames = response.data.map((selectedSubcats) => ({
             value: selectedSubcats._id,
@@ -157,7 +158,7 @@ function AddPost() {
       color: "var(--text-color)",
     }),
   };
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
   // component start:::
 
   return (
@@ -165,7 +166,7 @@ function AddPost() {
       <form onSubmit={handleFormSubmit} encType="multipart/form-data">
         <div className="account-center">
           <div className="user-l">
-          {isLoggedIn === "true" ? null : <SideCard />}
+          {isLoggedIn === "true" ? <SideCard /> : null}
           {console.log(isLoggedIn)}
             <Ads />
           </div>

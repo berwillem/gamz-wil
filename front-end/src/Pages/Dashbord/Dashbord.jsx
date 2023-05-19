@@ -4,8 +4,9 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from 'react-redux'
 import Dashboard from "../../Components/Dashbord/Dashboard";
-import { GetAllUsers, baseUrl } from "../../redux/reducers/users";
+import { GetAllUsers} from "../../redux/reducers/users";
 import axios from "axios";
+const baseURL = import.meta.env.VITE_BASE_URL;
 function Dashbord() {
   gsap.registerPlugin(ScrollTrigger);
   const [users, setUsers] = useState([]);
@@ -50,7 +51,7 @@ function Dashbord() {
         const config = {
           headers: { Authorization: `Bearer ${token}` },
         };
-        const res = await axios.get(baseUrl + "/", config);
+        const res = await axios.get(baseURL + "/user/", config);
         setUsers(res.data);
         dispatch(GetAllUsers(res.data));
       } catch (err) {
@@ -60,7 +61,7 @@ function Dashbord() {
     getUsers();
   }, []);
   useEffect(() => {
-    axios.get("http://localhost:5000/api/v1/post/count")
+    axios.get(baseURL+"/post/count")
       .then(response => {
         setPostCount(response.data.count);
       })
@@ -68,7 +69,7 @@ function Dashbord() {
         console.log(error);
       });
 
-    axios.get("http://localhost:5000/api/v1/user/count")
+    axios.get(baseURL+"/user/count")
       .then(response => {
         setUserCount(response.data.count);
       })
