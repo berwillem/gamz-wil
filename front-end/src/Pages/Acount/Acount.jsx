@@ -28,23 +28,23 @@ function Acount(isDarkMode) {
 
   // api call::
 
-  useEffect(() => {
-    axios
-      .get(baseURL+`/user/${userId}`)
-      .then((response) => {
-        const userData = response.data;
-        setData(userData);
-        setBanner(userData.banner.url);
-        setAvatar(userData.avatar.url);
-        setNumTel(userData.phone);
-        setAdresse(userData.adress);
-        setUsername(userData.username);
-        setposte(userData.posts);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [userId]);
+  // useEffect(() => {
+  //   axios
+  //     .get(baseURL+`/user/${userId}`)
+  //     .then((response) => {
+  //       const userData = response.data;
+  //       setData(userData);
+  //       setBanner(userData.banner.url);
+  //       setAvatar(userData.avatar.url);
+  //       setNumTel(userData.phone);
+  //       setAdresse(userData.adress);
+  //       setUsername(userData.username);
+  //       setposte(userData.posts);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, [userId]);
 
   // jsx :::
 
