@@ -15,6 +15,18 @@ const defaultBackground ="https://electro.madrasthemes.com/wp-content/uploads/20
 function SliderPubManage({disp}) {
     const [show, setShow] = useState(true)
     const [display, setDisplay] = useState(disp)
+    const [backgroundImage2, setBackgroundImage2] = useState([
+        {
+            src:defaultBackground
+        },
+      
+    ]);
+    const [backgroundImage3, setBackgroundImage3] = useState([
+        {
+            src:defaultBackground
+        },
+      
+    ]);
     const [backgroundImage, setBackgroundImage] = useState([
         {
             src:defaultBackground
@@ -39,6 +51,38 @@ function SliderPubManage({disp}) {
         const updatedImages = [...backgroundImage]; // Create a copy of the original array
         updatedImages[index] = newImage; // Update the image at the current index
         setBackgroundImage(updatedImages);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+ const handleBackgroundChange2 = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const imageUrl = event.target.result;
+        const newImage = {
+          src: imageUrl
+        };
+        let updatedImages = [...backgroundImage2]; // Create a copy of the original array
+        updatedImages[index] = newImage; // Update the image at the current index
+        setBackgroundImage2(updatedImages);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+ const handleBackgroundChange3 = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const imageUrl = event.target.result;
+        const newImage = {
+          src: imageUrl
+        };
+        let updatedImages = [...backgroundImage3]; // Create a copy of the original array
+        updatedImages[index] = newImage; // Update the image at the current index
+        setBackgroundImage3(updatedImages);
       };
       reader.readAsDataURL(file);
     }
@@ -147,70 +191,14 @@ function SliderPubManage({disp}) {
     }, []);
 
 
-    const handleImageUpdate = (index) => { // Show the update modal
-        setSelectedImageIndex(index);
-        setShowUpdateModal(true);
-    }
-    const handleUpdate = () => {
-        setDisplay(true);
-    };
+   
 
-    const handleDelete = (id) => {
-        const updatedImages = images.filter((image) => image.id !== id);
-        setImages(updatedImages);
-    };
+   
+    
 
-    const handleReplace = (id) => {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = 'image/*';
-        input.onchange = (e) => {
-            const file = e.target.files[0];
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                const updatedImages = images.map((image) => {
-                    if (image.id === id) {
-                        return {
-                            ...image,
-                            src: reader.result
-                        };
-                    } else {
-                        return image;
-                    }
-                });
-                setImages(updatedImages);
-            };
-        };
-        input.click();
+   
 
-    };
-    const [file, setFile] = useState(null);
-    const [file2, setFil2] = useState(null);
-
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            setFile(file);
-            const reader = new FileReader();
-            reader.onload = () => {
-                onImageChange(reader.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
-    const handleFileChange2 = (event) => {
-        const file2 = event.target.files[0];
-        if (file2) {
-            setFil2(file2);
-            const reader = new FileReader();
-            reader.onload = () => {
-                onImageChange(reader.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
+    
 
     const handleSubtitleClick = () => {
         const newSubtitle = prompt('Enter a new subtitle:');
@@ -244,14 +232,17 @@ function SliderPubManage({disp}) {
           <input type="file" accept="image/*" onChange={handleBackgroundChange}/>
         
       )}
-      {
-                        display ? <input type="file"
-                            onChange={handleFileChange}/> : null
-                    }
-                     {
-                        display ? <input type="file"
-                            onChange={handleFileChange2}/> : null
-                    }
+     {display && (
+        
+        <input type="file" accept="image/*" onChange={handleBackgroundChange2}/>
+      
+    )}
+     {display && (
+        
+        <input type="file" accept="image/*" onChange={handleBackgroundChange3}/>
+      
+    )}
+                    
                     <input type="button" value="entre text1"  onClick={handleSubtitleClick} />
                     <input type="button" value="entre text2"  onClick={handleSubtitleClick2} />
                     <input type="button" value="entre text3"  onClick={handleSubtitleClick3} />
@@ -308,7 +299,10 @@ function SliderPubManage({disp}) {
             </div>
             <div className="R-slider">
                 <div ref={cardContainer}
-                    className="box">
+                    className="box"  style={{
+                        backgroundImage: `url(${backgroundImage2[0].src})`,
+                        
+                       }}>
                     <div className="title-box">
                         <p ref={subtitle2}>CATCH BIG
                             <strong>
@@ -324,15 +318,16 @@ function SliderPubManage({disp}) {
                         </strong>
                         <AiFillRightCircle size={20}
                             color='#e81a2a'/>
-                        <div className="image-R-slide">
-                            <img src={
-                                    file ? URL.createObjectURL(file) : images[0].src
-                                }
-                                alt="image-slide"/>
+                        <div className="image-R-slide" >
+                            
                         </div>
                     </div>
                 </div>
                 <div className="box"
+                 style={{
+                    backgroundImage: `url(${backgroundImage3[0].src})`,
+                    
+                   }}
                     ref={cardContainer2}>
                     <div className="title-box">
                         <p ref={subtitle3}>CATCH BIG
@@ -350,10 +345,7 @@ function SliderPubManage({disp}) {
                         <AiFillRightCircle size={20}
                             color='#e81a2a'/>
                         <div className="image-R-slide">
-                            <img src={
-                                    file2 ? URL.createObjectURL(file2) : images[1].src
-                                }
-                                alt="image-slide"/>
+                           
                         </div>
                     </div>
 
