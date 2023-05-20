@@ -93,7 +93,7 @@ export const {
 export const register = (userData) => async (dispatch) => {
   try {
     dispatch(registrationRequest());
-    const response = await axios.post(baseURL+"/register", userData);
+    const response = await axios.post(baseURL+"/auth/register", userData);
     dispatch(registrationSuccess(response.data));
   } catch (error) {
     dispatch(registrationFailure(error));
@@ -104,7 +104,7 @@ export const register = (userData) => async (dispatch) => {
 export const login = (userData) => async (dispatch) => {
   try {
     dispatch(loginRequest());
-    const response = await axios.post(baseURL+"/signin", userData);
+    const response = await axios.post(baseURL+"/auth/signin", userData);
     console.log("Login Success:", response.data);
     dispatch(loginSuccess(response.data));
   } catch (error) {
@@ -116,7 +116,7 @@ export const login = (userData) => async (dispatch) => {
 export const confirmEmail = (userId, otp) => async (dispatch) => {
   try {
     dispatch(emailConfirmationRequest());
-    const response = await axios.post(baseURL + "/verify-email", { userId, otp });
+    const response = await axios.post(baseURL + "/auth/verify-email", { userId, otp });
     console.log("Email Confirmation Success:", response.data);
     dispatch(emailConfirmationSuccess(response.data));
   } catch (error) {
