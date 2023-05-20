@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-export const baseUrl = "http://localhost:5000/api/v1/user";
+
 
 const initialState = {
   user: [],

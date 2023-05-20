@@ -69,11 +69,6 @@ const userSchema = new mongoose.Schema(
         default: null,
       },
     },
-    _id: {
-      type: mongoose.Schema.Types.ObjectId,
-      default: mongoose.Types.ObjectId,
-    },
-
     posts: [
       {
         type: mongoose.Schema.Types.ObjectId,

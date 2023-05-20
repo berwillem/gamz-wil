@@ -9,6 +9,8 @@ import User from "../../Components/User/User";
 import "./Acount.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
+const baseURL = import.meta.env.VITE_BASE_URL;
+
 
 function Acount(isDarkMode) {
   // data::
@@ -28,7 +30,7 @@ function Acount(isDarkMode) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/v1/user/${userId}`)
+      .get(baseURL+`/user/${userId}`)
       .then((response) => {
         const userData = response.data;
         setData(userData);

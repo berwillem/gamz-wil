@@ -5,6 +5,7 @@ import { gsap,Power3 } from "gsap"
  import { Box } from '../../Data/Box'
 import TopSelBox from '../TopSelBox/TopSelBox'
 import axios from 'axios';
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 
 const boxSlice = Box.slice(0,3)
@@ -16,7 +17,7 @@ const [postsTelephone, setPostsTelephone] = useState([]);
 const [postsInformatique, setPostsInformatique] = useState([]);
 useEffect(() => {
    
-  axios.get(`http://localhost:5000/api/v1/post/category/644b93f21b7633709d2db121` )
+  axios.get(baseURL+`/post/category/644b93f21b7633709d2db121` )
     .then(response => {
       // Traiter les données de la réponse
       setPostsConsole(response.data)
@@ -30,7 +31,7 @@ useEffect(() => {
 }, []);
 useEffect(() => {
    
-  axios.get(`http://localhost:5000/api/v1/post/category/644b907d1b7633709d2db0fa` )
+  axios.get(baseURL+`/post/category/644b907d1b7633709d2db0fa` )
     .then(response => {
       // Traiter les données de la réponse
       setPostsInformatique(response.data)
@@ -44,7 +45,7 @@ useEffect(() => {
 }, []);
 useEffect(() => {
    
-  axios.get(`http://localhost:5000/api/v1/post/category/644b97091b7633709d2db1d8` )
+  axios.get(baseURL+`/post/category/644b97091b7633709d2db1d8` )
     .then(response => {
       // Traiter les données de la réponse
       setPostsTelephone(response.data)
@@ -56,8 +57,6 @@ useEffect(() => {
       console.error(error);
     });
 }, []);
-console.log(postsConsole[0]);
-
 const boxSlice1 = shuffleArray(postsConsole).slice(0,3)
 const boxSlice2 = shuffleArray(postsInformatique).slice(0,3)
 const boxSlice3 = shuffleArray(postsTelephone).slice(0,3)

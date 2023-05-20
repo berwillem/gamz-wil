@@ -12,32 +12,19 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
-import { AiFillCaretUp } from "react-icons/ai";
-import { useSelector } from "react-redux";
 import categoryes from "../../Data/category";
 import subCategoryes from "../../Data/subCategory";
-// import posts from "../../redux/reducers/Posts";
 import axios from "axios";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 
 
 function Navbar({ p, handleProductFetch }) {
-
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const username = JSON.parse(localStorage.getItem("user"))?.username || null;
   const infoupdate =
     JSON.parse(localStorage.getItem("user"))?.infoUpdate || null;
-  const [isActive, setIsActive] = useState(false);
   const [searchActive, setSearchActive] = useState("search");
-  // const posts = useSelector((state) => state.post.posts);
-
-  // function handleSearch() {
-  //     if (searchActive === "search") {
-  //         setSearchActive("search active-search")
-  //     } else {
-  //         setSearchActive("search")
-  //     }
-  // }
 
   function handleClick2(event) {
     const nextElement = event.target.nextElementSibling;
@@ -86,7 +73,7 @@ function Navbar({ p, handleProductFetch }) {
         !searchBoxRef.current.contains(event.target)
       ) {
         setSearchActive("search");
-        setSearchText('');
+        setSearchText("");
         setResults([]);
       }
     }
@@ -105,18 +92,17 @@ function Navbar({ p, handleProductFetch }) {
   const [searchText, setSearchText] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
   const [results, setResults] = useState([]);
-  const [data, setData] = useState('');
 
   const fetchData = (value) => {
-    axios.get("http://localhost:5000/api/v1/post/")
-      .then(response => {
-      
-        const results = response.data.filter(post =>
+    axios
+      .get(baseURL+"/post/")
+      .then((response) => {
+        const results = response.data.filter((post) =>
           post.title.toLowerCase().includes(value.toLowerCase())
         );
         setResults(results);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -126,11 +112,9 @@ function Navbar({ p, handleProductFetch }) {
   const handleChange = (event) => {
     setSearchText(event.target.value);
     fetchData(event.target.value);
-    
-   
   };
   const filterResultsByCategory = (category) => {
-    if (category === '') {
+    if (category === "") {
       return results;
     } else {
       return results.filter((result) => {
@@ -138,19 +122,18 @@ function Navbar({ p, handleProductFetch }) {
       });
     }
   };
- 
+
   //* function
 
   const handleSearch = () => {
     setSearchText(
       searchBoxRef.current.querySelector('input[type="text"]').value
     );
-    if(searchActive==="search"){
-      setSearchActive("search active-search")
-     }
-     else{
-      setSearchActive("search")
-     }
+    if (searchActive === "search") {
+      setSearchActive("search active-search");
+    } else {
+      setSearchActive("search");
+    }
     setSearchCategory(searchBoxRef.current.querySelector("select").value);
   };
 
@@ -202,38 +185,51 @@ function Navbar({ p, handleProductFetch }) {
                 onScroll={handleMenuScroll}
               >
                 <ul className="ul">
-                <Link to="/Account"> <li className="li-hover" >
-           Account
-           </li></Link>
-          <Link to="/createPost">
-          <li className="li-hover plus-annonce" >
-              <BsPlusLg  size={13} />
-             Deposer une annonce
-            </li>
-          </Link>
-          {categoryes.map((categorye,index) => (
-                        <div key={index}>
-                              <li onClick={() => { handleClick2(event); handleCategoryClick(categorye.value); }}>
-                            {categorye.label} <AiFillCaretDown />
-                           
-                          </li>
-                          <ul className="ul2">
-                          {subCategoryes.map((subcategorye,index) => {
-                           if (subcategorye.parentCategoryId === categorye.value) {
-                            return(
-                            <li key={index} onClick={() => handleCategoryClick(subcategorye.id)}>{subcategorye.label}</li>
-                         
-                         )
-                           }
-})} </ul>
-                          
-                        </div>
-            ))}
-                 
-                 
-                    <Link to="/contact"> <li className="li-hover" >
-              Contact
-           </li></Link>
+                  <Link to="/Account">
+                    {" "}
+                    <li className="li-hover">Account</li>
+                  </Link>
+                  <Link to="/createPost">
+                    <li className="li-hover plus-annonce">
+                      <BsPlusLg size={13} />
+                      Deposer une annonce
+                    </li>
+                  </Link>
+                  {categoryes.map((categorye, index) => (
+                    <div key={index}>
+                      <li
+                        onClick={() => {
+                          handleClick2(event);
+                          handleCategoryClick(categorye.value);
+                        }}
+                      >
+                        {categorye.label} <AiFillCaretDown />
+                      </li>
+                      <ul className="ul2">
+                        {subCategoryes.map((subcategorye, index) => {
+                          if (
+                            subcategorye.parentCategoryId === categorye.value
+                          ) {
+                            return (
+                              <li
+                                key={index}
+                                onClick={() =>
+                                  handleCategoryClick(subcategorye.id)
+                                }
+                              >
+                                {subcategorye.label}
+                              </li>
+                            );
+                          }
+                        })}{" "}
+                      </ul>
+                    </div>
+                  ))}
+
+                  <Link to="/contact">
+                    {" "}
+                    <li className="li-hover">Contact</li>
+                  </Link>
                 </ul>
               </div>
               <HiMenu size={25} onClick={toggleMenu} />
@@ -254,14 +250,15 @@ function Navbar({ p, handleProductFetch }) {
                   autocomplete="off"
                   onChange={handleChange}
                 />
-                    <div className="results-list">
-                    {searchText !== "" && filterResultsByCategory(searchCategory).map((result) => (
-  <Link to={`/postDetails/${result._id}`}><li key={result._id}>{result.title}</li></Link>
-))}
-    </div>
+                <div className="results-list">
+                  {searchText !== "" &&
+                    filterResultsByCategory(searchCategory).map((result) => (
+                      <Link to={`/postDetails/${result._id}`}>
+                        <li key={result._id}>{result.title}</li>
+                      </Link>
+                    ))}
+                </div>
                 <div style={{ display: "flex" }}>
-
-                  
                   <div
                     ref={searchBoxRef}
                     className="search-icon"
@@ -272,9 +269,11 @@ function Navbar({ p, handleProductFetch }) {
                 </div>
               </div>
               <li className="catch-button">
-             
-             <Link to="/createPost"> <BsPlusLg  size={13} /></Link>
-           </li>
+                <Link to="/createPost">
+                  {" "}
+                  <BsPlusLg size={13} />
+                </Link>
+              </li>
               <div className="icons">
                 <li>
                   <BsSuitHeart size={20} />
@@ -287,21 +286,30 @@ function Navbar({ p, handleProductFetch }) {
           </div>
           <div className="navbarDown">
             <div className="down">
-            {categoryes.map((categorye,index) => (
-                          <div className="catnav">
-                            <li key={index}  onClick={() => handleCategoryClick(categorye.value)}>{categorye.label}</li>
-                            <ul className="subNav">
-                            {subCategoryes.map((subcategorye,index) => {
-                           if (subcategorye.parentCategoryId === categorye.value) {
-                            return(
-                            <li key={index} onClick={() => handleCategoryClick(subcategorye.id)}>{subcategorye.label}</li>
-                         
-                         )
-                           }
-})}
-                            </ul>
-                          </div>
-            ))}
+              {categoryes.map((categorye, index) => (
+                <div className="catnav">
+                  <li
+                    key={index}
+                    onClick={() => handleCategoryClick(categorye.value)}
+                  >
+                    {categorye.label}
+                  </li>
+                  <ul className="subNav">
+                    {subCategoryes.map((subcategorye, index) => {
+                      if (subcategorye.parentCategoryId === categorye.value) {
+                        return (
+                          <li
+                            key={index}
+                            onClick={() => handleCategoryClick(subcategorye.id)}
+                          >
+                            {subcategorye.label}
+                          </li>
+                        );
+                      }
+                    })}
+                  </ul>
+                </div>
+              ))}
             </div>
           </div>
         </div>
