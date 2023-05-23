@@ -11,14 +11,13 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-
 function Acount(isDarkMode) {
   // data::
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const userId = JSON.parse(localStorage.getItem("user"))?.id || null;
   // states::
   const [banner, setBanner] = useState("");
-  const [data, setData] = useState({});
+
   const [avatar, setAvatar] = useState("");
   const [NumTel, setNumTel] = useState("");
   const [address, setAdresse] = useState("");
@@ -28,23 +27,22 @@ function Acount(isDarkMode) {
 
   // api call::
 
-  // useEffect(() => {
-  //   axios
-  //     .get(baseURL+`/user/${userId}`)
-  //     .then((response) => {
-  //       const userData = response.data;
-  //       setData(userData);
-  //       setBanner(userData.banner.url);
-  //       setAvatar(userData.avatar.url);
-  //       setNumTel(userData.phone);
-  //       setAdresse(userData.adress);
-  //       setUsername(userData.username);
-  //       setposte(userData.posts);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // }, [userId]);
+  useEffect(() => {
+    axios
+      .get(baseURL + `/user/${userId}`)
+      .then((response) => {
+        const userData = response.data;
+        setBanner(userData.banner.url);
+        setAvatar(userData.avatar.url);
+        setNumTel(userData.phone);
+        setAdresse(userData.adress);
+        setUsername(userData.username);
+        setposte(userData.posts);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [userId]);
 
   // jsx :::
 
