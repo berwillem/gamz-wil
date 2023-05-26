@@ -105,7 +105,7 @@ function Update_user() {
                     height: "120px",
                     cursor: "pointer",
                     border: "2px solid ",
-                    borderRadius: "15px",
+                    borderRadius: "50%",
                   }}
                 />
               ) : (
@@ -134,7 +134,7 @@ function Update_user() {
                     height: "120px",
                     cursor: "pointer",
                     border: "2px solid ",
-                    borderRadius: "15px",
+                    borderRadius: "10px",
                   }}
                 />
               ) : (

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState,useMemo } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Box } from "../../Data/Box";
 import "./Details.css";
@@ -100,7 +100,7 @@ function Details() {
         console.error(error);
       });
   }, [id]);
-  const slicedData = shuffleArray(posts).slice(0, 3);
+  const slicedData = useMemo(() => shuffleArray(posts).slice(0, 3), [posts]);
 
   // Fonction pour mélanger les éléments d'un tableau
   function shuffleArray(array) {
