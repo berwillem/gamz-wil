@@ -63,6 +63,7 @@
     padding: 2.286em 50px 1.857em;
     align-items: center;
     gap: 200px;
+    position: relative;
 
 }
 .logo{
@@ -326,7 +327,7 @@ min-height: 0px;
     font-size: 13px;
     font-weight:500;
     display: none;
-    top: 270px;
+    top: 40px;
   z-index: 5;
     border-radius: 0 0 10px 10px ;
    
@@ -350,6 +351,7 @@ min-height: 0px;
     font-size: 15px;
     font-weight: bold;
     z-index: 5;
+    position: relative;
   }
   .catnav:hover>.subNav{
     display: flex;
