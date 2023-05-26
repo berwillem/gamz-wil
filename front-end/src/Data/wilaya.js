@@ -17,7 +17,7 @@
   { id: "16", name: "Alger" },
   { id: "17", name: "Djelfa" },
   { id: "18", name: "Jijel" },
-  { id: "19", name: "Se9tif" },
+  { id: "19", name: "Setif" },
   { id: "20", name: "Saefda" },
   { id: "21", name: "Skikda" },
   { id: "22", name: "Sidi Bel Abbes" },

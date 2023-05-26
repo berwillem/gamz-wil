@@ -13,6 +13,8 @@ exports.createPost = async (req, res) => {
       wilaya,
       commune,
       num,
+      etat,
+      date,
       author,
     } = req.body;
 
@@ -25,6 +27,8 @@ exports.createPost = async (req, res) => {
       images,
       wilaya,
       commune,
+      etat,
+      date,
       num,
       author,
     });
