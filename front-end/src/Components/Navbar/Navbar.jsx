@@ -235,7 +235,7 @@ function Navbar({ p, handleProductFetch }) {
               <HiMenu size={25} onClick={toggleMenu} />
               <div className="logo">
                 <Link to="/">
-                  <img src={p ? logo2 : logo} alt="" className="logo-gamz" />
+                  <img src={p ? logo2 : logo} alt="" className="logo-gamz-nav" />
                 </Link>
               </div>
             </div>
@@ -274,14 +274,7 @@ function Navbar({ p, handleProductFetch }) {
                   <BsPlusLg size={13} />
                 </Link>
               </li>
-              <div className="icons">
-                <li>
-                  <BsSuitHeart size={20} />
-                </li>
-                <li>
-                  <CiUser size={20} />
-                </li>
-              </div>
+             
             </div>
           </div>
           <div className="navbarDown">

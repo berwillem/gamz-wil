@@ -7,7 +7,7 @@
     margin-top: 20px;
     border-bottom: 1px solid #a7a7a7;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .top-Sell-title > h4{
