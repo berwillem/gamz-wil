@@ -89,7 +89,7 @@ padding: 20px;
     font-size: 14px;
     font-weight: 400;
     height: 200px;
-    width: 300px;
+    width: auto;
     overflow:auto;
     word-wrap: break-word;
    
