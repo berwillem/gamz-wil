@@ -8,6 +8,8 @@ const uploadImages = (folderName) => (req, res, next) => {
     { name: "banner", maxCount: 1 },
     { name: "images", maxCount: 3 },
     { name: "pub", maxCount: 3 },
+    { name: "cardOneImage", maxCount: 1 },
+    { name: "cardTwoImage", maxCount: 1 },
   ]);
   uploadMiddleware(req, res, (err) => {
     if (err instanceof multer.MulterError) {
@@ -18,6 +20,8 @@ const uploadImages = (folderName) => (req, res, next) => {
 
     const avatarFile = req.files["avatar"] ? req.files["avatar"][0] : null;
     const bannerFile = req.files["banner"] ? req.files["banner"][0] : null;
+    const cardOneImageFile = req.files["cardOneImage"] ? req.files["cardOneImage"][0] : null;
+    const cardTwoImageFile = req.files["cardTwoImage"] ? req.files["cardTwoImage"][0] : null;
 
     const avatarUploadPromise = avatarFile
       ? new Promise((resolve, reject) => {
@@ -40,6 +44,40 @@ const uploadImages = (folderName) => (req, res, next) => {
       ? new Promise((resolve, reject) => {
           cloudinary.uploader.upload(
             bannerFile.path,
+            {
+              folder: folderName,
+            },
+            (error, result) => {
+              if (error) {
+                return reject(error);
+              }
+              resolve(result);
+            }
+          );
+        })
+      : Promise.resolve(null);
+
+    const cardOneImageUploadPromise = cardOneImageFile
+      ? new Promise((resolve, reject) => {
+          cloudinary.uploader.upload(
+            cardOneImageFile.path,
+            {
+              folder: folderName,
+            },
+            (error, result) => {
+              if (error) {
+                return reject(error);
+              }
+              resolve(result);
+            }
+          );
+        })
+      : Promise.resolve(null);
+
+    const cardTwoImageUploadPromise = cardTwoImageFile
+      ? new Promise((resolve, reject) => {
+          cloudinary.uploader.upload(
+            cardTwoImageFile.path,
             {
               folder: folderName,
             },
@@ -93,6 +131,8 @@ const uploadImages = (folderName) => (req, res, next) => {
     Promise.all([
       avatarUploadPromise,
       bannerUploadPromise,
+      cardOneImageUploadPromise,
+      cardTwoImageUploadPromise,
       ...imagesUploadPromises,
       ...pubUploadPromises
     ])
@@ -105,34 +145,50 @@ const uploadImages = (folderName) => (req, res, next) => {
         const bannerPublicId = uploadedImages[1]
           ? uploadedImages[1].public_id
           : null;
+        const cardOneImageUrl = uploadedImages[2] ? uploadedImages[2].url : null;
+        const cardOneImagePublicId = uploadedImages[2]
+          ? uploadedImages[2].public_id
+          : null;
+        const cardTwoImageUrl = uploadedImages[3] ? uploadedImages[3].url : null;
+        const cardTwoImagePublicId = uploadedImages[3]
+          ? uploadedImages[3].public_id
+          : null;
 
-        const imageUrls = uploadedImages.slice(2).map((image) => image.url);
+        const imageUrls = uploadedImages.slice(4).map((image) => image.url);
         const imagePublicIds = uploadedImages
-          .slice(2)
+          .slice(4)
           .map((image) => image.public_id);
-        const pubUrls = uploadedImages.slice(2).map((image) => image.url);
+        const pubUrls = uploadedImages.slice(4).map((image) => image.url);
         const pubPublicIds = uploadedImages
-          .slice(2)
+          .slice(4)
           .map((image) => image.public_id);
 
         req.body.avatar = {
           url: avatarUrl,
-          public_id: avatarPublicId,
+          publicId: avatarPublicId,
         };
         req.body.banner = {
           url: bannerUrl,
-          public_id: bannerPublicId,
+          publicId: bannerPublicId,
+        };
+        req.body.cardOneImage = {
+          url: cardOneImageUrl,
+          publicId: cardOneImagePublicId,
+        };
+        req.body.cardTwoImage = {
+          url: cardTwoImageUrl,
+          publicId: cardTwoImagePublicId,
         };
         req.body.images = imageUrls.map((url, index) => {
           return {
             url,
-            public_id: imagePublicIds[index],
+            publicId: imagePublicIds[index],
           };
         });
         req.body.pub = pubUrls.map((url, index) => {
           return {
             url,
-            public_id: pubPublicIds[index],
+            publicId: pubPublicIds[index],
           };
         });
         next();
