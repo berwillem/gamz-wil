@@ -12,9 +12,10 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
-import categoryes from "../../Data/category";
+// import categoryes from "../../Data/category";
 import subCategoryes from "../../Data/subCategory";
 import axios from "axios";
+import { fetchCategories, getCategories } from "../../Data/category";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
 
@@ -37,6 +38,22 @@ function Navbar({ p, handleProductFetch }) {
   const toggleMenu = () => {
     setMenuIsOpen(!menuIsOpen);
   };
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await fetchCategories();
+        const fetchedCategories = getCategories();
+        setCategories(fetchedCategories);
+        console.log(fetchedCategories);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
   useEffect(() => {
     if (menuIsOpen) {
       document.body.classList.add("menu-open", "overlay");
@@ -195,20 +212,20 @@ function Navbar({ p, handleProductFetch }) {
                       Deposer une annonce
                     </li>
                   </Link>
-                  {categoryes.map((categorye, index) => (
+                  {categories.map((categorie, index) => (
                     <div key={index}>
                       <li
                         onClick={() => {
                           handleClick2(event);
-                          handleCategoryClick(categorye.value);
+                          handleCategoryClick(categorie._id);
                         }}
                       >
-                        {categorye.label} <AiFillCaretDown />
+                        {categorie.name} <AiFillCaretDown />
                       </li>
                       <ul className="ul2">
                         {subCategoryes.map((subcategorye, index) => {
                           if (
-                            subcategorye.parentCategoryId === categorye.value
+                            subcategorye.parentCategoryId === categorie._id
                           ) {
                             return (
                               <li
@@ -279,17 +296,17 @@ function Navbar({ p, handleProductFetch }) {
           </div>
           <div className="navbarDown">
             <div className="down">
-              {categoryes.map((categorye, index) => (
+              {categories.map((categorie, index) => (
                 <div className="catnav">
                   <li
                     key={index}
-                    onClick={() => handleCategoryClick(categorye.value)}
+                    onClick={() => handleCategoryClick(categorie._id)}
                   >
-                    {categorye.label}
+                    {categorie.name}
                   </li>
                   <ul className="subNav">
                     {subCategoryes.map((subcategorye, index) => {
-                      if (subcategorye.parentCategoryId === categorye.value) {
+                      if (subcategorye.parentCategoryId === categorie._id) {
                         return (
                           <li
                             key={index}

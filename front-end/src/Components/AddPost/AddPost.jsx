@@ -5,11 +5,12 @@ import image from "../../assets/Svg/undraw_image_post_re_25wd.svg";
 import Select from "react-select";
 import SideCard from "../SideCard/SideCard";
 import { wilaya } from "../../Data/wilaya";
-import { category } from "../../Data/category";
+// import { category } from "../../Data/category";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {options_state} from "../../Data/etat";
+import { fetchCategories, getCategories } from "../../Data/category";
 
 // needs befor components :::
 const baseURL = import.meta.env.VITE_BASE_URL;
@@ -21,6 +22,7 @@ const options = wilaya.map((wilaya) => ({
 const userString = localStorage.getItem("user");
 const user = userString ? JSON.parse(userString) : "";
 const id = user ? user.id : "";
+
 
 // component start ::::
 
@@ -43,6 +45,9 @@ function AddPost() {
   const [wilaya, setWilaya] = useState("");
   const [date, setDate] = useState("");
   const [etat, setEtat] = useState("");
+  const [categories, setCategories] = useState([]);
+
+
   const navigate = useNavigate();
   // handle functions ::::
   const handlePrincipalImageChange = (event) => {
@@ -147,6 +152,20 @@ function AddPost() {
         });
     }
   }, [selectedSubcats]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await fetchCategories();
+        const fetchedCategories = getCategories();
+        setCategories(fetchedCategories);
+        console.log(fetchedCategories);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // style ::
   const customStyles = {
@@ -243,7 +262,7 @@ function AddPost() {
               <Select
                 value={selectedOptions}
                 onChange={handleSelectChange}
-                options={category}
+                options={categories.name}
                 isMulti={false}
                 placeholder="Select category"
                 styles={customStyles}
