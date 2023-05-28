@@ -9,7 +9,7 @@ import { category } from "../../Data/category";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import {options_state} from "../../Data/etat";
 
 // needs befor components :::
 const baseURL = import.meta.env.VITE_BASE_URL;
@@ -41,6 +41,8 @@ function AddPost() {
   const [phone, setPhone] = useState("");
   const [price, setPrice] = useState("");
   const [wilaya, setWilaya] = useState("");
+  const [date, setDate] = useState("");
+  const [etat, setEtat] = useState("");
   const navigate = useNavigate();
   // handle functions ::::
   const handlePrincipalImageChange = (event) => {
@@ -70,6 +72,10 @@ function AddPost() {
   const handleSelectwilayaChange = (wilaya) => {
     setWilaya(wilaya.value);
   };
+  const handleChange = (event) => {
+    setEtat(options_state.value);
+  };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -86,11 +92,9 @@ function AddPost() {
     formData.append("images", otherImagesFile[0]);
     formData.append("images", otherImagesFile[1]);
     try {
-      const res = await axios.post(
-        baseURL+`/post/create`,
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
+      const res = await axios.post(baseURL + `/post/create`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       Swal.fire({
         icon: "success",
         title: "Success",
@@ -105,7 +109,7 @@ function AddPost() {
   useEffect(() => {
     if (selectedOptions) {
       axios
-        .get(baseURL+`/category/${selectedOptions.value}`)
+        .get(baseURL + `/category/${selectedOptions.value}`)
         .then((response) => {
           const subcatNames = response.data.map((subcat) => ({
             value: subcat._id,
@@ -126,7 +130,7 @@ function AddPost() {
   useEffect(() => {
     if (selectedSubcats) {
       axios
-        .get( baseURL+`/category/${selectedSubcats.value}`)
+        .get(baseURL + `/category/${selectedSubcats.value}`)
         .then((response) => {
           const subcatChilrenNames = response.data.map((selectedSubcats) => ({
             value: selectedSubcats._id,
@@ -166,8 +170,8 @@ function AddPost() {
       <form onSubmit={handleFormSubmit} encType="multipart/form-data">
         <div className="account-center">
           <div className="user-l">
-          {isLoggedIn === "true" ? <SideCard /> : null}
-          {console.log(isLoggedIn)}
+            {isLoggedIn === "true" ? <SideCard /> : null}
+            {console.log(isLoggedIn)}
             <Ads />
           </div>
           <div className="add-content">
@@ -275,6 +279,17 @@ function AddPost() {
                     />
                   </div>
                 )}
+              <div className="add-category">
+                <p>Choose The Condition for your post</p>
+                <Select
+                  value={options_state.find((option) => option.value === etat)}
+                  onChange={handleChange}
+                  options={options_state}
+                  isClearable
+                  placeholder="Select an option"
+                  styles={customStyles}
+                />
+              </div>
             </div>
             <div className="add-title">
               <p>Write a Title for your product</p>

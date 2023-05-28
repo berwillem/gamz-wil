@@ -239,7 +239,17 @@ function Update_user() {
                     checked={genre === "Famme"}
                     onChange={(e) => setGenre(e.target.value)}
                   />
-                  <label htmlFor="female">Famme</label>
+                  <label htmlFor="female">Femme</label>
+                </div>
+                <div>
+                  <input
+                    name="genre"
+                    type="checkbox"
+                    value="Non definié"
+                    checked={genre === "Non definié"}
+                    onChange={(e) => setGenre(e.target.value)}
+                  />
+                  <label htmlFor="non definie">Non definié</label>
                 </div>
               </label>
               <button>sumbit</button>
