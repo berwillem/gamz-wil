@@ -5,16 +5,14 @@ import image from "../../assets/Svg/undraw_image_post_re_25wd.svg";
 import Select from "react-select";
 import SideCard from "../SideCard/SideCard";
 import { wilaya } from "../../Data/wilaya";
-// import { category } from "../../Data/category";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import {options_state} from "../../Data/etat";
+import { options_state } from "../../Data/etat";
 import { fetchCategories, getCategories } from "../../Data/category";
 
 // needs befor components :::
 const baseURL = import.meta.env.VITE_BASE_URL;
-const costumeStyle = [{}];
 const options = wilaya.map((wilaya) => ({
   value: wilaya.name,
   label: wilaya.name,
@@ -22,7 +20,6 @@ const options = wilaya.map((wilaya) => ({
 const userString = localStorage.getItem("user");
 const user = userString ? JSON.parse(userString) : "";
 const id = user ? user.id : "";
-
 
 // component start ::::
 
@@ -43,10 +40,8 @@ function AddPost() {
   const [phone, setPhone] = useState("");
   const [price, setPrice] = useState("");
   const [wilaya, setWilaya] = useState("");
-  const [date, setDate] = useState("");
   const [etat, setEtat] = useState("");
   const [categories, setCategories] = useState([]);
-
 
   const navigate = useNavigate();
   // handle functions ::::
@@ -137,11 +132,11 @@ function AddPost() {
       axios
         .get(baseURL + `/category/${selectedSubcats.value}`)
         .then((response) => {
-          const subcatChilrenNames = response.data.map((selectedSubcats) => ({
-            value: selectedSubcats._id,
-            label: selectedSubcats.name,
+          const subcatChildrenNames = response.data.map((subcat) => ({
+            value: subcat._id,
+            label: subcat.name,
           }));
-          setSubcatschildren(subcatChilrenNames);
+          setSubcatschildren(subcatChildrenNames);
         })
         .catch((error) => {
           Swal.fire({
@@ -152,13 +147,13 @@ function AddPost() {
         });
     }
   }, [selectedSubcats]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         await fetchCategories();
         const fetchedCategories = getCategories();
         setCategories(fetchedCategories);
-        console.log(fetchedCategories);
       } catch (error) {
         console.error(error);
       }
@@ -190,7 +185,6 @@ function AddPost() {
         <div className="account-center">
           <div className="user-l">
             {isLoggedIn === "true" ? <SideCard /> : null}
-            {console.log(isLoggedIn)}
             <Ads />
           </div>
           <div className="add-content">
@@ -262,11 +256,15 @@ function AddPost() {
               <Select
                 value={selectedOptions}
                 onChange={handleSelectChange}
-                options={categories.name}
+                options={categories.map((category) => ({
+                  value: category._id,
+                  label: category.name,
+                }))}
                 isMulti={false}
                 placeholder="Select category"
                 styles={customStyles}
               />
+
               {subcats && subcats.length > 0 && (
                 <div className="add-category">
                   <p>Choose The SubCategory for your post</p>

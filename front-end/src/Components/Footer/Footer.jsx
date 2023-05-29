@@ -26,7 +26,6 @@ function Footer({ p, handleProductFetch }) {
         await fetchCategories();
         const fetchedCategories = getCategories();
         setCategories(fetchedCategories);
-        console.log(fetchedCategories);
       } catch (error) {
         console.error(error);
       }
