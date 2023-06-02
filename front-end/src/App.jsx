@@ -33,7 +33,7 @@ function App() {
     >
       <Routes>
         <Route path="/" element={<Home isDarkMode={isDarkMode} />} />
-        <Route path="/Account" element={<Acount isDarkMode={isDarkMode} />} />
+        <Route path="/Account/:userId" element={<Acount isDarkMode={isDarkMode} />} />
         <Route
           path="/postDetails/:id"
           element={<Postdetails isDarkMode={isDarkMode} />}

@@ -23,6 +23,7 @@ const baseURL = import.meta.env.VITE_BASE_URL;
 function Navbar({ p, handleProductFetch }) {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const username = JSON.parse(localStorage.getItem("user"))?.username || null;
+  const userId = JSON.parse(localStorage.getItem("user"))?.id || null;
   const infoupdate =
     JSON.parse(localStorage.getItem("user"))?.infoUpdate || null;
   const [searchActive, setSearchActive] = useState("search");
@@ -180,12 +181,12 @@ function Navbar({ p, handleProductFetch }) {
               <li>
                 {isLoggedIn ? (
                   <div>
-                    <Link to={"/account"}>
+                    <Link to={`/account/${userId}`}>
                       <CiUser size={20} /> {username}{" "}
                     </Link>
                   </div>
                 ) : (
-                  <Link to={"/account"}>
+                  <Link to={`/account/${userId}`}>
                     <CiUser size={20} /> {isLoggedIn ? username : "Account"}{" "}
                   </Link>
                 )}

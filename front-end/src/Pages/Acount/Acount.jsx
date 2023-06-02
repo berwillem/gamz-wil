@@ -9,12 +9,13 @@ import User from "../../Components/User/User";
 import "./Acount.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
 function Acount(isDarkMode) {
   // data::
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  const userId = JSON.parse(localStorage.getItem("user"))?.id || null;
+  const { userId } = useParams();
   // states::
   const [banner, setBanner] = useState("");
 

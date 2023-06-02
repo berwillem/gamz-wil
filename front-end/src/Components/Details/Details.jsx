@@ -5,7 +5,7 @@ import "./Details.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Power3 } from "gsap";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import RelatedPost from "../RelatedPost/RelatedPost";
 import notavalible from "../../assets/images/Image_not_available.png";
@@ -16,6 +16,7 @@ const baseURL = import.meta.env.VITE_BASE_URL;
 function Details() {
   // api call :::
   const [post, setPost] = useState("");
+  const [id, setId] = useState("");
   const [pricipalImage, setPricipalImage] = useState(notavalible);
   const [secondImage, setSecondImage] = useState(notavalible);
   const [thirdImage, setThirdImage] = useState(notavalible);
@@ -86,7 +87,6 @@ function Details() {
   }, []);
   const [posts, setPosts] = useState([]);
 
-  const [id, setId] = useState("");
 
   useEffect(() => {
     axios
@@ -126,12 +126,14 @@ function Details() {
 
   return (
     <div className="details-container">
-      {post && post.author && (
-        <div className="user-avatar">
-          <img src={post.author.avatar.url ? post.author.avatar.url:defaultAvatar} alt="" />
-          <strong>{post.author.username} </strong>
-        </div>
-      )}
+    {post && post.author && (
+  <div className="user-avatar">
+    <Link to={`/account/${post.author._id}`}>
+      <img src={post.author.avatar.url ? post.author.avatar.url : defaultAvatar} alt="" />
+      <strong>{post.author.username}</strong>
+    </Link>
+  </div>
+)}
       <div className="post-details">
         <div className="post-details-l" ref={cardContainer}>
           <div className="big-image">
