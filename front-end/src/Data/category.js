@@ -7,7 +7,7 @@ import cat_img5 from "../assets/images/PICS/img5.png";
 import axios from 'axios';
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-let categories = []; // Store the retrieved categories
+let categories = [];
 
 export const fetchCategories = async () => {
   try {
@@ -16,7 +16,7 @@ export const fetchCategories = async () => {
     return categories;
   } catch (error) {
     console.error(error);
-    throw error; // Propagate the error to the caller
+    throw error; 
   }
 };
 
