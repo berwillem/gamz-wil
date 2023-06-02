@@ -179,6 +179,10 @@ button.active {
     color: var(--text-color);
   
 }
+.sub-title-box a{
+  font-size: medium;
+  
+}
 
 .image-R-slide{
 
