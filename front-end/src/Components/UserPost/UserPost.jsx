@@ -4,7 +4,7 @@ import './UserPost.css'
 import { Link } from "react-router-dom";
 import { AiOutlineDelete } from "react-icons/ai";
 import notavalible from "../../assets/images/Image_not_available.png";
-
+import image from "../../assets/no-result-diadem.png"
 function UserPost({posts}) {
   return (
     <>
@@ -36,7 +36,7 @@ function UserPost({posts}) {
     </div>
       )): (
         <div className="user-post-container">
-          <p>no post yet </p>
+        <img src={image} alt="" />
         </div>
       )}
     </>

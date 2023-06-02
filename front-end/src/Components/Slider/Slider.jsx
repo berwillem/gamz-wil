@@ -4,13 +4,15 @@ import {gsap, Power3} from "gsap";
 import './Slider.css'
 import {AiFillRightCircle} from 'react-icons/ai'
 import {CgCloseR, CgMenuGridO} from 'react-icons/cg'
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const image1 = 'https://electro.madrasthemes.com/wp-content/uploads/2016/03/headphonecase.png'
 const image2 = " https://electro.madrasthemes.com/wp-content/uploads/2016/03/usbheadphone.png"
 const image3 = " https://electro.madrasthemes.com/wp-content/uploads/2016/03/cam4k-300x300.png"
 const image4 = " https://electro.madrasthemes.com/wp-content/uploads/2016/03/watch-300x300.png"
 const background="https://electro.madrasthemes.com/wp-content/uploads/2021/08/home-v10-swb-bg.jpeg"
-
+const baseURL = import.meta.env.VITE_BASE_URL;
 function Slider({disp}) {
     const [show, setShow] = useState(true)
     const [display, setDisplay] = useState(disp)
@@ -29,6 +31,42 @@ function Slider({disp}) {
             src: image4
         },
     ]);
+   
+    const [card, setCard] = useState({});
+    const [card1, setCard1] = useState({});
+    const [card2, setCard2] = useState({});
+    
+    useEffect(() => {
+      axios.get(baseURL + "/pub/")
+        .then(response => {
+          const { cardOne, cardTwo, pub } = response.data;
+          setCard(response.data);
+          setCard1(cardOne);
+          setCard2(cardTwo);
+          console.log(card);
+          console.log(card1);
+          console.log(card2);
+          console.log(response.data);
+      
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }, []);
+    const [backgroundImages,setBackgroundImages] =useState ([background, image1, image3]); // Tableau des URLs des images de fond
+    const [currentImageIndex2, setCurrentImageIndex2] = useState(0); // Index de l'image actuellement affiché
+    useEffect(() => {
+        // Fonction pour changer l'image toutes les 3 secondes
+        const interval = setInterval(() => {
+          setCurrentImageIndex2((prevIndex) => (prevIndex + 1) % 3);
+        }, 3000);
+    
+        // Nettoyage de l'intervalle lors de la désactivation du composant
+        return () => {
+          clearInterval(interval);
+        };
+      }, []);
+    
 
 
     gsap.registerPlugin(ScrollTrigger);
@@ -183,10 +221,7 @@ function Slider({disp}) {
       };
 
     return (
-        <div className='slider'  style={{
-            backgroundImage: `url(${background})`,
-            
-           }}>
+        <div className='slider'  style={{ backgroundImage: `url(${backgroundImages[currentImageIndex2]})` }}>
         
             <div className="R-C-slider">
                 <div className="L-slider">
@@ -196,7 +231,7 @@ function Slider({disp}) {
 
                     </div>
                     <div className="sub-title">
-                        <p ref={subtitle}
+                    {card && card.title ? <p ref={subtitle}>{card.title}</p>:  <p ref={subtitle}
                            >
                             TIMEPIECES THAT
                             <br/>
@@ -204,7 +239,8 @@ function Slider({disp}) {
                             <br/>
                             UP TO
                             <span>40% OFF</span>
-                        </p>
+                        </p>}
+                      
                     </div>
                     <div className="buy-button">
                         <button ref={button}>
@@ -233,23 +269,29 @@ function Slider({disp}) {
             </div>
             <div className="R-slider">
                 <div ref={cardContainer}
-                    className="box">
+                    className="box" style={{
+                        backgroundImage: `url(${card1 && card1.cardOneImage && card1.cardOneImage.url ?
+                            card1.cardOneImage.url:""
+                        })`,
+                        
+                       }}>
                     <div className="title-box">
-                        <p>CATCH BIG
+                        {card1 && card1.title ? <p>{card1.title}</p>:<p>CATCH BIG
                             <strong>
                                 DEAL</strong>
                             ON
                             <br/>
-                            THE CONSOLES</p>
+                            THE CONSOLES</p>}
                     </div>
                     <div className="sub-title-box">
                         {
                         display ? <input type="file"
                             onChange={handleFileChange}/> : null
                     }
+                        <Link to={card1.redirect}>
                         <strong>
                             Shop now
-                        </strong>
+                        </strong></Link>
                         <AiFillRightCircle size={20}
                             color='#e81a2a'/>
                         <div className="image-R-slide">
@@ -261,23 +303,30 @@ function Slider({disp}) {
                     </div>
                 </div>
                 <div className="box"
-                    ref={cardContainer2}>
+                    ref={cardContainer2}
+                    style={{
+                        backgroundImage: `url(${card2 && card2.cardTwoImage && card2.cardTwoImage.url ?
+                            card2.cardTwoImage.url:""
+                        })`,
+                        
+                       }}>
                     <div className="title-box">
-                        <p>CATCH BIG
+                    {card2 && card2.title ? <p>{card2.title}</p>:<p>CATCH BIG
                             <strong>
                                 DEAL</strong>
                             ON
                             <br/>
-                            THE CONSOLES</p>
+                            THE CONSOLES</p>}
                     </div>
                     <div className="sub-title-box">
                         {
                         display ? <input type="file"
                             onChange={handleFileChange2}/> : null
                     }
+                        <Link to={card2.redirect}  >
                         <strong>
                             Shop now
-                        </strong>
+                        </strong></Link>
                         <AiFillRightCircle size={20}
                             color='#e81a2a'/>
                         <div className="image-R-slide">

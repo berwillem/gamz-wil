@@ -175,10 +175,13 @@ function Details() {
           </div>
           <div className="info">
             <li>
-              <strong>{post.num}</strong>
+              <strong>num :{post.num}</strong>
             </li>
             <li>
-              <strong> {post.wilaya}</strong>
+              <strong>willaya: {post.wilaya}</strong>
+            </li>
+            <li>
+              <strong>etat: {post.etat}</strong>
             </li>
           </div>
         </div>
