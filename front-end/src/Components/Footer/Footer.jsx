@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BsDiscord, BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
 import Logo from "../../assets/1.png";
 import Logo2 from "../../assets/2.png";
@@ -6,7 +6,7 @@ import "./Footer.css";
 import { Link } from "react-router-dom";
 import pdf1 from "../../assets/pdf/Conditions d'utilisation .pdf";
 import pdf2 from "../../assets/pdf/Politique de confidentialité .pdf";
-import categoryes from "../../Data/category";
+import { fetchCategories, getCategories } from "../../Data/category";
 
 function Footer({ p, handleProductFetch }) {
   const handleScrollToTop = () => {
@@ -18,6 +18,21 @@ function Footer({ p, handleProductFetch }) {
   const handleCategoryClick = (categoryId) => {
     handleProductFetch(categoryId);
   };
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await fetchCategories();
+        const fetchedCategories = getCategories();
+        setCategories(fetchedCategories);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <div className="footer-container">
       <div className="footer-content">
@@ -45,8 +60,8 @@ function Footer({ p, handleProductFetch }) {
             <strong>Categories</strong>
           </div>
           <div className="category-list">
-          {categoryes.map((categorye,index) => (
-                            <li key={index} onClick={() =>{ handleCategoryClick(categorye.value);; handleScrollToTop();}}>{categorye.label}</li>
+          {categories.map((categorie,index) => (
+                            <li key={index} onClick={() =>{ handleCategoryClick(categorie._id);; handleScrollToTop();}}>{categorie.name}</li>
             ))}
           </div>
         </div>
