@@ -9,7 +9,7 @@
     opacity: 0;
     transform: translateY(100px);
 }
-.user-avatar{
+.user-avatar a{
     display: flex;
     align-items: center;
     gap: 10px;
@@ -17,7 +17,7 @@
     padding: 10px;
 
 }
-.user-avatar > img {
+.user-avatar > a >img {
     border-radius: 100px;
     height:5vh;
     width: 5vh;
