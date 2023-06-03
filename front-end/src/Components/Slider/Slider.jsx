@@ -37,24 +37,35 @@ function Slider({disp}) {
     const [card2, setCard2] = useState({});
     
     useEffect(() => {
-      axios.get(baseURL + "/pub/")
-        .then(response => {
-          const { cardOne, cardTwo, pub } = response.data;
-          setCard(response.data);
-          setCard1(cardOne);
-          setCard2(cardTwo);
-          console.log(card);
-          console.log(card1);
-          console.log(card2);
-          console.log(response.data);
-      
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }, []);
-    const [backgroundImages,setBackgroundImages] =useState ([background, image1, image3]); // Tableau des URLs des images de fond
-    const [currentImageIndex2, setCurrentImageIndex2] = useState(0); // Index de l'image actuellement affiché
+        axios.get(baseURL + "/pub/")
+          .then(response => {
+            const { cardOne, cardTwo, pub } = response.data;
+            setCard(response.data);
+            setCard1(cardOne);
+            setCard2(cardTwo);
+            console.log(card);
+            console.log(card1);
+            console.log(card2);
+            console.log(response.data);
+            if (card.pub && card.pub.length > 0) {
+              const pubUrls = card.pub.map(item => item.url);
+              setBackgroundImages(pubUrls);
+            }
+            if (card.redirectUrls && card.redirectUrls.length > 0) {
+              const redirectUrls = card.redirectUrls.map(item => item.url);
+              setRedirect(redirectUrls);
+            }
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }, []);
+    const [backgroundImages, setBackgroundImages] = useState([]);
+    const [redirect, setRedirect] = useState([]);
+    const [currentImageIndex2, setCurrentImageIndex2] = useState(0);
+    const imageUrl = backgroundImages[currentImageIndex2];
+    const  RedirectLink = redirect[currentImageIndex2];
+    // Index de l'image actuellement affiché
     useEffect(() => {
         // Fonction pour changer l'image toutes les 3 secondes
         const interval = setInterval(() => {
@@ -221,7 +232,7 @@ function Slider({disp}) {
       };
 
     return (
-        <div className='slider'  style={{ backgroundImage: `url(${backgroundImages[currentImageIndex2]})` }}>
+        <div className='slider'  style={{ backgroundImage: `url(${card &&card.pub&& imageUrl? imageUrl:""})` }}>
         
             <div className="R-C-slider">
                 <div className="L-slider">
@@ -243,9 +254,10 @@ function Slider({disp}) {
                       
                     </div>
                     <div className="buy-button">
-                        <button ref={button}>
+                       <Link to={card && card.redirectUrls&& RedirectLink? RedirectLink:"" }>
+                       <button ref={button} >
                             Start buying
-                        </button>
+                        </button></Link>
                     </div>
 
                   

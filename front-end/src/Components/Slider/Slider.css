@@ -91,7 +91,7 @@
   justify-content: center;
 }
 
-.buy-button > button {
+.buy-button a > button {
   height: 41px;
   width: 190px;
   background-color: #e81a2a;
