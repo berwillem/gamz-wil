@@ -3,7 +3,7 @@ import {ScrollTrigger} from "gsap/dist/ScrollTrigger";
 import {gsap, Power3} from "gsap";
 import './Slider.css'
 import {AiFillRightCircle} from 'react-icons/ai'
-import {CgCloseR, CgMenuGridO} from 'react-icons/cg'
+
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -11,10 +11,10 @@ const image1 = 'https://electro.madrasthemes.com/wp-content/uploads/2016/03/head
 const image2 = " https://electro.madrasthemes.com/wp-content/uploads/2016/03/usbheadphone.png"
 const image3 = " https://electro.madrasthemes.com/wp-content/uploads/2016/03/cam4k-300x300.png"
 const image4 = " https://electro.madrasthemes.com/wp-content/uploads/2016/03/watch-300x300.png"
-const background="https://electro.madrasthemes.com/wp-content/uploads/2021/08/home-v10-swb-bg.jpeg"
+
 const baseURL = import.meta.env.VITE_BASE_URL;
 function Slider({disp}) {
-    const [show, setShow] = useState(true)
+  
     const [display, setDisplay] = useState(disp)
     const [images, setImages] = useState([
         {
@@ -43,10 +43,7 @@ function Slider({disp}) {
             setCard(response.data);
             setCard1(cardOne);
             setCard2(cardTwo);
-            console.log(card);
-            console.log(card1);
-            console.log(card2);
-            console.log(response.data);
+        
             if (card.pub && card.pub.length > 0) {
               const pubUrls = card.pub.map(item => item.url);
               setBackgroundImages(pubUrls);
@@ -87,7 +84,7 @@ function Slider({disp}) {
     const button = useRef();
     const cardContainer = useRef();
     const cardContainer2 = useRef();
-    const cardContainer3 = useRef();
+  
 
 
     useEffect(() => {
@@ -139,14 +136,7 @@ function Slider({disp}) {
             ease: Power3.easeOut,
             scrollTrigger: cardContainer2.current
         })
-        gsap.to(cardContainer3.current, {
-            y: 0,
-            delay: 0.2,
-            opacity: 1,
-            duration: 1,
-            ease: Power3.easeOut,
-            scrollTrigger: cardContainer3.current
-        })
+     
     }, [])
 
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -159,44 +149,9 @@ function Slider({disp}) {
     }, []);
 
 
-    const handleImageUpdate = (index) => { // Show the update modal
-        setSelectedImageIndex(index);
-        setShowUpdateModal(true);
-    }
-    const handleUpdate = () => {
-        setDisplay(true);
-    };
+    
 
-    const handleDelete = (id) => {
-        const updatedImages = images.filter((image) => image.id !== id);
-        setImages(updatedImages);
-    };
-
-    const handleReplace = (id) => {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = 'image/*';
-        input.onchange = (e) => {
-            const file = e.target.files[0];
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                const updatedImages = images.map((image) => {
-                    if (image.id === id) {
-                        return {
-                            ...image,
-                            src: reader.result
-                        };
-                    } else {
-                        return image;
-                    }
-                });
-                setImages(updatedImages);
-            };
-        };
-        input.click();
-
-    };
+ 
     const [file, setFile] = useState(null);
     const [file2, setFil2] = useState(null);
 
@@ -224,12 +179,7 @@ function Slider({disp}) {
         }
     };
 
-    const handleSubtitleClick = () => {
-        const newSubtitle = prompt('Enter a new subtitle:');
-        if (newSubtitle) {
-          subtitle.current.innerText = newSubtitle;
-        }
-      };
+   
 
     return (
         <div className='slider'  style={{ backgroundImage: `url(${card &&card.pub&& imageUrl? imageUrl:""})` }}>
@@ -265,17 +215,7 @@ function Slider({disp}) {
                 <div className="C-slider">
 
 
-                    <img src={
-                            images[currentImageIndex].src
-                        }
-
-                        alt="Slideshow Image"
-                        ref={cardContainer3}
-                        className={
-                            `slideshow ${
-                                currentImageIndex !== 0 ? 'fade-in' : ''
-                            }`
-                        }/>
+                   
 
                 </div>
             </div>

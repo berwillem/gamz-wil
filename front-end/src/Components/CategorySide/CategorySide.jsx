@@ -23,7 +23,7 @@ function CategorySide(props) {
         await fetchCategories();
         const fetchedCategories = getCategories();
         setCategories(fetchedCategories);
-        console.log(fetchedCategories);
+       
       } catch (error) {
         console.error(error);
       }
@@ -81,20 +81,7 @@ function CategorySide(props) {
                             return (
                               <li key={subSubSubCategory.id}>
                                 {subSubSubCategory.label}
-                                {subSubSubSubCategories.length > 0 && (
-                                  <ul>
-                                    {subSubSubSubCategories.map((subSubSubSubCategory) => (
-                                      <li
-                                        key={subSubSubSubCategory.id}
-                                        onClick={() =>
-                                          handleCategoryClick(subSubSubSubCategory.id)
-                                        }
-                                      >
-                                        {subSubSubSubCategory.label}
-                                      </li>
-                                    ))}
-                                  </ul>
-                                )}
+                              
                               </li>
                             );
                           })}

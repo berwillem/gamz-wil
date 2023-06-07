@@ -5,41 +5,37 @@ import "./SliderPubManage.css";
 import { AiFillRightCircle } from "react-icons/ai";
 import { AiOutlineRight, AiOutlineLeft } from "react-icons/ai";
 
-const image1 =
-  "https://electro.madrasthemes.com/wp-content/uploads/2016/03/headphonecase.png";
-const image2 =
-  " https://electro.madrasthemes.com/wp-content/uploads/2016/03/usbheadphone.png";
-const image3 =
-  " https://electro.madrasthemes.com/wp-content/uploads/2016/03/cam4k-300x300.png";
-const image4 =
-  " https://electro.madrasthemes.com/wp-content/uploads/2016/03/watch-300x300.png";
+
 const defaultBackground =
   "https://electro.madrasthemes.com/wp-content/uploads/2021/08/home-v10-swb-bg.jpeg";
 
 function SliderPubManage({ disp }) {
-  const [display, setDisplay] = useState(disp);
-  const [backgroundImage2, setBackgroundImage2] = useState([
-    {
-      src: defaultBackground,
-    },
-  ]);
-  const [backgroundImage3, setBackgroundImage3] = useState([
-    {
-      src: defaultBackground,
-    },
-  ]);
-  const [backgroundImage, setBackgroundImage] = useState([
-    {
-      src: defaultBackground,
-    },
-    {
-      src: defaultBackground,
-    },
-    {
-      src: defaultBackground,
-    },
-  ]);
-  const [index, setIndex] = useState(0);
+//stat 
+const [display, setDisplay] = useState(disp);
+const [backgroundImage2, setBackgroundImage2] = useState([
+  {
+    src: defaultBackground,
+  },
+]);
+const [backgroundImage3, setBackgroundImage3] = useState([
+  {
+    src: defaultBackground,
+  },
+]);
+const [backgroundImage, setBackgroundImage] = useState([
+  {
+    src: defaultBackground,
+  },
+  {
+    src: defaultBackground,
+  },
+  {
+    src: defaultBackground,
+  },
+]);
+const [index, setIndex] = useState(0);
+ // background switch
+ 
   const handleBackgroundChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -98,25 +94,8 @@ function SliderPubManage({ disp }) {
   const switchback2 = () => {
     setIndex((index) => (index > 0 ? index - 1 : 0));
   };
-  const [images, setImages] = useState([
-    {
-      id: 0,
-      src: image1,
-    },
-    {
-      id: 1,
-      src: image2,
-    },
-    {
-      id: 2,
-      src: image3,
-    },
-    {
-      id: 3,
-      src: image4,
-    },
-  ]);
-
+  
+// annimation
   gsap.registerPlugin(ScrollTrigger);
   const subtitle = useRef();
   const subtitle2 = useRef();
@@ -126,7 +105,7 @@ function SliderPubManage({ disp }) {
   const button = useRef();
   const cardContainer = useRef();
   const cardContainer2 = useRef();
-  const cardContainer3 = useRef();
+ 
 
   useEffect(() => {
     gsap.to(subtitle.current, {
@@ -177,25 +156,12 @@ function SliderPubManage({ disp }) {
       ease: Power3.easeOut,
       scrollTrigger: cardContainer2.current,
     });
-    gsap.to(cardContainer3.current, {
-      y: 0,
-      delay: 0.2,
-      opacity: 1,
-      duration: 1,
-      ease: Power3.easeOut,
-      scrollTrigger: cardContainer3.current,
-    });
+  
   }, []);
 
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((currentImageIndex) => (currentImageIndex + 1) % 4);
-    }, 4000); // change slide every 5 seconds
-
-    return () => clearInterval(interval);
-  }, []);
-
+ 
+ 
+// changment Subtitle
   const handleSubtitleClick = () => {
     const newSubtitle = prompt("Enter a new subtitle:");
     if (newSubtitle) {
@@ -214,14 +180,19 @@ function SliderPubManage({ disp }) {
       subtitle3.current.innerText = newSubtitle;
     }
   };
+// submit
+const handleSubmit = (event) => {
+  event.preventDefault(); // Empêche le rafraîchissement de la page
 
+  console.log("submit");
+  // Autres actions à effectuer, comme l'envoi des données via AJAX
+};
   return (
-    <div
-      className="slider"
-      style={{
-        backgroundImage: `url(${backgroundImage[index].src})`,
-      }}
-    >
+    <form action="" className="slider"
+    style={{
+      backgroundImage: `url(${backgroundImage[index].src})`,
+    }}
+    onSubmit={handleSubmit}>
       <div className="dot">
         {display && (
           <input
@@ -265,6 +236,7 @@ function SliderPubManage({ disp }) {
         <input type="url" placeholder="url 3" />
         <input type="url" placeholder="url 4" />
         <input type="url" placeholder="url 5" />
+      <input type="submit"  />
       </div>
 
       <div className="R-C-sliderPub">
@@ -287,12 +259,7 @@ function SliderPubManage({ disp }) {
           </div>
         </div>
         <div className="C-slider">
-          <img
-            src={images[currentImageIndex].src}
-            alt="Slideshow Image"
-            ref={cardContainer3}
-            className={`slideshow ${currentImageIndex !== 0 ? "fade-in" : ""}`}
-          />
+        
         </div>
       </div>
       <div className="R-slider">
@@ -345,7 +312,7 @@ function SliderPubManage({ disp }) {
         <AiOutlineLeft onClick={switchback2} />
         <AiOutlineRight onClick={switchback} />
       </div>
-    </div>
+      </form>
   );
 }
 

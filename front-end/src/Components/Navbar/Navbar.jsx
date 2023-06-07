@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
-// import categoryes from "../../Data/category";
+ //import categoryes from "../../Data/category";
 import subCategoryes from "../../Data/subCategory";
 import axios from "axios";
 import { fetchCategories, getCategories } from "../../Data/category";
@@ -105,23 +105,43 @@ function Navbar({ p, handleProductFetch }) {
   // search function
 
   //* state
-
+ 
+  
   const [searchText, setSearchText] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
   const [results, setResults] = useState([]);
-
+  const [selectedValue, setSelectedValue] = useState("");
+  console.log(selectedValue);
   const fetchData = (value) => {
-    axios
-      .get(baseURL+"/post/")
+    if(selectedValue==''){
+      axios
+      .get(baseURL+`/post/`)
       .then((response) => {
+        console.log(response);
         const results = response.data.filter((post) =>
           post.title.toLowerCase().includes(value.toLowerCase())
         );
         setResults(results);
+     
       })
       .catch((error) => {
         console.log(error);
       });
+    }
+    else{
+    axios
+      .get(baseURL+`/post/category/${selectedValue}`)
+      .then((response) => {
+        console.log(response);
+        const results = response.data.filter((post) =>
+          post.title.toLowerCase().includes(value.toLowerCase())
+        );
+        setResults(results);
+     
+      })
+      .catch((error) => {
+        console.log(error);
+      });}
   };
   useEffect(() => {
     fetchData(searchText);
@@ -276,6 +296,12 @@ function Navbar({ p, handleProductFetch }) {
                     ))}
                 </div>
                 <div style={{ display: "flex" }}>
+                <select id="select" value={selectedValue} onChange={(e) => setSelectedValue(e.target.value)}>
+                <option value="" >tout</option>
+                  {categories.map((i) => (
+                    <option value={i._id} >{i.name}</option>
+                  ))}{" "}
+                </select>
                   <div
                     ref={searchBoxRef}
                     className="search-icon"
