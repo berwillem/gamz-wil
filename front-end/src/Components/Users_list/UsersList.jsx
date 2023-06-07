@@ -3,11 +3,13 @@ import { useState } from "react";
 import { AiOutlineMore, AiFillDelete, AiOutlineUser } from "react-icons/ai";
 import "./UserList.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
 
 function UsersList({ number, id, date, name, email, order }) {
   const [action, setAction] = useState("action active-action");
+  const navigate=useNavigate()
   const handelaction = () => {
     if (action === "action active-action") {
       setAction("action ");
@@ -37,7 +39,7 @@ function UsersList({ number, id, date, name, email, order }) {
         <AiOutlineMore />
 
         <div className={action}>
-          <span className="dashbord-ic">
+          <span className="dashbord-ic"onClick={() => navigate(`/account/${id}`)}>
             <AiOutlineUser /> User
           </span>
           <span className="dashbord-ic" onClick={() => deleteUser(id)}>
