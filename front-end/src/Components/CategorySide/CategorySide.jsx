@@ -10,6 +10,8 @@ import cat_img5 from "../../assets/images/PICS/img5.png";
 import { fetchCategories, getCategories } from "../../Data/category";
 import subcategoryes from "../../Data/subCategory";
 import subSubCategoryes from "../../Data/subSubCategory";
+import subSubSubCategoryes from "../../Data/subSubSubCategory";
+import subSubSubSubCategoryes from "../../Data/subSubSubSubCategory";
 import axios from "axios";
 
 function CategorySide(props) {
@@ -29,61 +31,84 @@ function CategorySide(props) {
 
     fetchData();
   }, []);
+
   const handleCategoryClick = (categoryId) => {
     props.handleProductFetch(categoryId);
   };
+
   return (
     <div className="category-side-container">
       <div className="category-side-title">
         <h4>Categories</h4>
       </div>
       <div className="category-side">
-        {categories.map((categorie) => (
-          <li key={categorie.name}>
-            <p onClick={() => handleCategoryClick(categorie._id)}>
-              {categorie.name}
-            </p>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
-              <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
-            </svg>
-            <div className="hover-drop-down ">
-              {subcategoryes.map((subcategorye) => {
-                if (subcategorye.parentCategoryId === categorie._id) {
-                  return (
-                    <ul key={subcategorye.id}>
-                      <li
-                        className="drop-down-titel"
-                        onClick={() => handleCategoryClick(subcategorye.id)}
-                      >
-                        {subcategorye.label}{" "}
-                      </li>
-                      <div>
-                        {subSubCategoryes.map((subcategorye2, index) => {
-                          if (
-                            subcategorye2.parentCategoryId === subcategorye.id
-                          ) {
+        {subcategoryes.map((subcategorye) => {
+          const subSubCategories = subSubCategoryes.filter(
+            (subSubCategory) => subSubCategory.parentCategoryId === subcategorye.id
+          );
+
+          if (subSubCategories.length > 0) {
+            return (
+              <li key={subcategorye.id}>
+                <p onClick={() => handleCategoryClick(subcategorye.id)}>
+                  {subcategorye.label}
+                </p>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                  <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+                </svg>
+                <div className="hover-drop-down">
+                  {subSubCategories.map((subSubCategory) => {
+                    const subSubSubCategories = subSubSubCategoryes.filter(
+                      (subSubSubCategory) =>
+                        subSubSubCategory.parentCategoryId === subSubCategory.id
+                    );
+
+                    return (
+                      <ul key={subSubCategory.id}>
+                        <li
+                          className="drop-down-titel"
+                          onClick={() => handleCategoryClick(subSubCategory.id)}
+                        >
+                          {subSubCategory.label}
+                        </li>
+                        <div>
+                          {subSubSubCategories.map((subSubSubCategory) => {
+                            const subSubSubSubCategories = subSubSubSubCategoryes.filter(
+                              (subSubSubSubCategory) =>
+                                subSubSubSubCategory.parentCategoryId === subSubSubCategory.id
+                            );
+
                             return (
-                              <li
-                                key={index}
-                                onClick={() =>
-                                  handleCategoryClick(subcategorye2.id)
-                                }
-                              >
-                                {subcategorye2.label}
+                              <li key={subSubSubCategory.id}>
+                                {subSubSubCategory.label}
+                                {subSubSubSubCategories.length > 0 && (
+                                  <ul>
+                                    {subSubSubSubCategories.map((subSubSubSubCategory) => (
+                                      <li
+                                        key={subSubSubSubCategory.id}
+                                        onClick={() =>
+                                          handleCategoryClick(subSubSubSubCategory.id)
+                                        }
+                                      >
+                                        {subSubSubSubCategory.label}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                )}
                               </li>
                             );
-                          }
-                        })}
-                      </div>
-                    </ul>
-                  );
-                }
-              })}
+                          })}
+                        </div>
+                      </ul>
+                    );
+                  })}
+                </div>
+              </li>
+            );
+          }
 
-              {/* <img className="img-cat" src={categorye.image} alt="cat_img" /> */}
-            </div>
-          </li>
-        ))}
+          return null;
+        })}
       </div>
     </div>
   );

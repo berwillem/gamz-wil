@@ -72,11 +72,11 @@
 }
 .hover-drop-down{
     position:absolute;
-    height: 400px;
+    height: 770px;
     width: 500px;
     background-color:var(--background-color);
     left: 93%;
-    top:22px;
+    top:100px;
     display: flex;
      flex-wrap: wrap;
     line-height: 1.5;
@@ -96,12 +96,12 @@ transform: scaleX(1);
 }
 
 
-.category-side-container li:not(:last-child):hover > div {
+.category-side-container li:hover > div {
   clip-path: inset(0 0 0 0);
   transition: 0.5s;
    
 }
-.hover-drop-down ul{
+.hover-drop-down >ul{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -117,7 +117,7 @@ transform: scaleX(1);
     flex-direction: column;
     align-items: flex-start;
     flex-wrap: wrap;
-    max-height: 250px;
+    max-height: 400px;
   
 
 }
@@ -130,7 +130,7 @@ transform: scaleX(1);
    
 
 }
-.hover-drop-down ul li:hover:not(.drop-down-titel){
+.hover-drop-down ul >li:hover:not(.drop-down-titel){
   text-decoration:underline;
   color: var(--text-color);
    
