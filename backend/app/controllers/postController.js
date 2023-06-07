@@ -17,6 +17,7 @@ exports.createPost = async (req, res) => {
       date,
       author,
     } = req.body;
+    console.log("the req:::::::",req.body);
 
     const post = new Post({
       title,

@@ -72,8 +72,12 @@ function AddPost() {
   const handleSelectwilayaChange = (wilaya) => {
     setWilaya(wilaya.value);
   };
-  const handleChange = (event) => {
-    setEtat(options_state.value);
+  const handleChange = (selectedOption) => {
+    if (selectedOption) {
+      setEtat(selectedOption.value);
+    } else {
+      setEtat(null);
+    }
   };
 
   const handleFormSubmit = async (e) => {
@@ -85,12 +89,14 @@ function AddPost() {
     formData.append("category", selectedOptions.value);
     formData.append("subcategories", [selectedSubcats.value]);
     formData.append("wilaya", wilaya);
+    formData.append("etat", etat);
     formData.append("commune", "alger");
     formData.append("num", phone);
     formData.append("author", id);
     formData.append("images", principalImageFile);
     formData.append("images", otherImagesFile[0]);
     formData.append("images", otherImagesFile[1]);
+    console.log("état",etat);
     try {
       const res = await axios.post(baseURL + `/post/create`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -100,7 +106,7 @@ function AddPost() {
         title: "Success",
         text: "Your post has been create successfully!",
       });
-      navigate("/account");
+      navigate(`/account/${id}`);
     } catch (err) {
       console.log(err);
     }
