@@ -72,11 +72,12 @@
 }
 .hover-drop-down{
     position:absolute;
-    height: 770px;
+    height: auto;
+    min-height: 200px;
     width: 500px;
     background-color:var(--background-color);
     left: 93%;
-    top:100px;
+    
     display: flex;
      flex-wrap: wrap;
     line-height: 1.5;
@@ -130,7 +131,7 @@ transform: scaleX(1);
    
 
 }
-.hover-drop-down ul >li:hover:not(.drop-down-titel){
+.hover-drop-down ul  li:hover:not(.drop-down-titel){
   text-decoration:underline;
   color: var(--text-color);
    

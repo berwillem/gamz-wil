@@ -134,7 +134,7 @@ function Details() {
     </Link>
   </div>
 )}
-      <div className="post-details">
+      <div className="details">
         <div className="post-details-l" ref={cardContainer}>
           <div className="big-image">
             <img src={pricipalImage} alt="post-image" />

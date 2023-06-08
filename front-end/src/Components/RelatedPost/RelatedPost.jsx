@@ -2,7 +2,7 @@ import React from "react";
 import { AiOutlineArrowRight, AiOutlineHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import "./RelatedPost.css";
-
+import NotFound from '../../assets/images/Image_not_available.png'
 function RelatedPost({ post }) {
   console.log(post);
 
@@ -23,7 +23,11 @@ function RelatedPost({ post }) {
               className="user-post-image"
             />
           ) : (
-            "no images"
+            <img
+              src={NotFound}
+              alt="user_post_image"
+              className="user-post-image"
+            />
           )}
         </div>
         <div className="user-post-info">

@@ -77,7 +77,13 @@ function shuffleArray(array) {
     }, [])
    return (
     <>
-   {boxSlice1.length==0 || boxSlice2.length==0 || boxSlice3.length==0 ? "": (
+   {boxSlice1.length==0 || boxSlice2.length==0 || boxSlice3.length==0 ? ( 
+
+    <div className='noPost'>
+      <h2> NO TOP POST YET </h2>
+    </div>
+   )
+   : (
       <div className='topSell-container'>
         <div className="top-Sell-title">
           <h4>Top Selling Products</h4>
