@@ -17,8 +17,6 @@ exports.createPost = async (req, res) => {
       date,
       author,
     } = req.body;
-    console.log("the req:::::::",req.body);
-
     const post = new Post({
       title,
       price,
@@ -89,6 +87,20 @@ exports.getPostById = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+exports.getPostsBySubcategory = async (req, res) => {
+  try {
+    const subcategoryId = req.params.subcategoryId;
+    const posts = await Post.find({
+      subcategories: subcategoryId,
+    })
+      .populate("author", "username avatar")
+      .populate("category", "name");
+    res.json(posts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 exports.getAllPosts = async (req, res) => {
   try {
     const userId = req.query.userId;

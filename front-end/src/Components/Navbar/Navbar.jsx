@@ -18,8 +18,6 @@ import axios from "axios";
 import { fetchCategories, getCategories } from "../../Data/category";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-
-
 function Navbar({ p, handleProductFetch }) {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const username = JSON.parse(localStorage.getItem("user"))?.username || null;
@@ -113,6 +111,7 @@ function Navbar({ p, handleProductFetch }) {
   const [selectedValue, setSelectedValue] = useState("");
   console.log(selectedValue);
   const fetchData = (value) => {
+
     if(selectedValue==''){
       axios
       .get(baseURL+`/post/`)
@@ -202,12 +201,12 @@ function Navbar({ p, handleProductFetch }) {
                 {isLoggedIn ? (
                   <div>
                     <Link to={`/account/${userId}`}>
-                      <CiUser size={20} /> {username}{" "}
+                      <CiUser size={23} /> <strong>{username}</strong>{" "}
                     </Link>
                   </div>
                 ) : (
                   <Link to={`/account/${userId}`}>
-                    <CiUser size={20} /> {isLoggedIn ? username : "Account"}{" "}
+                    <CiUser size={23} /> {isLoggedIn ? username : <strong>Account</strong>}{" "}
                   </Link>
                 )}
               </li>
@@ -244,9 +243,7 @@ function Navbar({ p, handleProductFetch }) {
                       </li>
                       <ul className="ul2">
                         {subCategoryes.map((subcategorye, index) => {
-                          if (
-                            subcategorye.parentCategoryId === categorie._id
-                          ) {
+                          if (subcategorye.parentCategoryId === categorie._id) {
                             return (
                               <li
                                 key={index}
@@ -272,7 +269,11 @@ function Navbar({ p, handleProductFetch }) {
               <HiMenu size={25} onClick={toggleMenu} />
               <div className="logo">
                 <Link to="/">
-                  <img src={p ? logo2 : logo} alt="" className="logo-gamz-nav" />
+                  <img
+                    src={p ? logo2 : logo}
+                    alt=""
+                    className="logo-gamz-nav"
+                  />
                 </Link>
               </div>
             </div>
@@ -317,7 +318,6 @@ function Navbar({ p, handleProductFetch }) {
                   <BsPlusLg size={13} />
                 </Link>
               </li>
-             
             </div>
           </div>
           <div className="navbarDown">
