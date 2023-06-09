@@ -79,7 +79,7 @@ function CategorySide(props) {
                             );
 
                             return (
-                              <li key={subSubSubCategory.id}>
+                              <li key={subSubSubCategory.id}  onClick={() => handleCategoryClick(subSubCategory.id)}>
                                 {subSubSubCategory.label}
                               
                               </li>

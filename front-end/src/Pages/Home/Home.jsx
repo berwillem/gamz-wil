@@ -60,20 +60,25 @@ function Home(isDarkMode) {
   const p = isDarkMode.isDarkMode;
 
   const [posts, setPosts] = useState([]);
-  const [filteredPosts, setFilteredPosts] = useState([]);
-  const [searchText, setSearchText] = useState('iphone');
+ 
   
   
 
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const res = await axios.get(baseURL + '/post/');
-        setPosts(res.data);
-        dispatch(GetAllPosts(res.data));
-        setFilteredPosts(posts.filter((post) =>
-        post.title.toLowerCase().includes(searchText.toLowerCase())
-      ))
+     if(selectedProducts==""){
+      const res = await axios.get(baseURL + `/post/`);
+      setPosts(res.data);
+      dispatch(GetAllPosts(res.data));
+    
+     }
+     else{
+      const res = await axios.get(baseURL + `/post/category/${selectedProducts}`);
+      setPosts(res.data);
+      dispatch(GetAllPosts(res.data));
+    
+     }
       } catch (err) {
         console.log(err);
       }
@@ -81,11 +86,12 @@ function Home(isDarkMode) {
 
     getPosts();
   }, []);
-  const [selectedProducts, setSelectedProducts] = useState(null);
+  const [selectedProducts, setSelectedProducts] = useState("");
 
   const handleProductFetch = (products) => {
     setSelectedProducts(products);
   }
+  console.log(selectedProducts);
   return (
     <div>
       <Navbar p={p}  handleProductFetch={handleProductFetch}/>
