@@ -74,7 +74,7 @@ function Home(isDarkMode) {
     
      }
      else{
-      const res = await axios.get(baseURL + `/post/category/${selectedProducts}`);
+      const res = await axios.get(baseURL + `/post/subcategory/${selectedProducts}`);
       setPosts(res.data);
       dispatch(GetAllPosts(res.data));
     
