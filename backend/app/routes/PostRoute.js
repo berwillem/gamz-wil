@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { createPost, getAllPosts, getPostById, getPostsByCategoryId, getPostCount, getPostsBySubcategory } = require("../controllers/postController");
+const { createPost, getAllPosts, getPostById, getPostsByCategoryId, getPostCount, getPostsBySubcategory, deletePost } = require("../controllers/postController");
 const uploadImages = require("../middlewares/cloudinary");
 // const {verifyToken} =require("../middlewares/authval")
 
@@ -9,5 +9,6 @@ router.get("/category/:subcategoryId", getPostsBySubcategory);
 router.get("/:id", getPostById);
 router.get("/category/:categoryId", getPostsByCategoryId);
 router.get("/", getAllPosts);
+router.delete("/:id", deletePost);
 
 module.exports = router;

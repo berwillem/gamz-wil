@@ -143,7 +143,7 @@ function Slider({disp}) {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentImageIndex(currentImageIndex => (currentImageIndex + 1) % 4);
-        }, 4000); // change slide every 5 seconds
+        }, 4000);
 
         return() => clearInterval(interval);
     }, []);

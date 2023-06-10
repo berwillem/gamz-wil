@@ -4,14 +4,17 @@ import { CiUser } from "react-icons/ci";
 import { MdOutlineLogout } from "react-icons/md";
 import { logout } from "../../redux/reducers/Auth";
 import { useDispatch } from "react-redux";
+
 const SideCard = () => {
+  const userId = JSON.parse(localStorage.getItem("user"))?.id || null;
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
-   
   };
+  console.log("idddddddd:::", userId);
   return (
     <>
       <div className="user-l-content">
@@ -30,7 +33,7 @@ const SideCard = () => {
         </li>
         <li>
           <Link
-            to="/account"
+            to={`/account/${userId}`}
             style={{
               display: "flex",
               justifyContent: "space-between",

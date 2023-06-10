@@ -18,7 +18,6 @@ function Acount(isDarkMode) {
   const { userId } = useParams();
   // states::
   const [banner, setBanner] = useState("");
-
   const [avatar, setAvatar] = useState("");
   const [NumTel, setNumTel] = useState("");
   const [address, setAdresse] = useState("");
