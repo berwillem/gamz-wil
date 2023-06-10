@@ -48,6 +48,7 @@ exports.createPost = async (req, res) => {
 exports.deletePost = async (req, res) => {
   try {
     const postId = req.params.id;
+    console.log(req.params.id);
     const deletedPost = await Post.findByIdAndDelete(postId);
     if (!deletedPost) {
       return res.status(404).json({ message: "Post not found" });
@@ -89,7 +90,8 @@ exports.getPostById = async (req, res) => {
 };
 exports.getPostsBySubcategory = async (req, res) => {
   try {
-    const subcategoryId = req.params.subcategoryId;
+    console.log(req.params.subcategoryId);
+    const subcategoryId = req.params.subcategoryId
     const posts = await Post.find({
       subcategories: subcategoryId,
     })
