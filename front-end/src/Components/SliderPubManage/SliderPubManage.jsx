@@ -5,37 +5,29 @@ import "./SliderPubManage.css";
 import { AiFillRightCircle } from "react-icons/ai";
 import { AiOutlineRight, AiOutlineLeft } from "react-icons/ai";
 
-
 const defaultBackground =
   "https://electro.madrasthemes.com/wp-content/uploads/2021/08/home-v10-swb-bg.jpeg";
 
 function SliderPubManage({ disp }) {
-//stat 
-const [display, setDisplay] = useState(disp);
-const [backgroundImage2, setBackgroundImage2] = useState([
-  {
-    src: defaultBackground,
-  },
-]);
-const [backgroundImage3, setBackgroundImage3] = useState([
-  {
-    src: defaultBackground,
-  },
-]);
-const [backgroundImage, setBackgroundImage] = useState([
-  {
-    src: defaultBackground,
-  },
-  {
-    src: defaultBackground,
-  },
-  {
-    src: defaultBackground,
-  },
-]);
-const [index, setIndex] = useState(0);
- // background switch
- 
+  //state
+  const [backgroundImage, setBackgroundImage] = useState([
+    {
+      src: defaultBackground,
+    },
+    {
+      src: defaultBackground,
+    },
+    {
+      src: defaultBackground,
+    },
+  ]);
+
+  const [backgroundImage2, setBackgroundImage2] = useState(defaultBackground);
+  const [backgroundImage3, setBackgroundImage3] = useState(defaultBackground);
+
+  const [index, setIndex] = useState(0);
+  // background switch
+
   const handleBackgroundChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -45,8 +37,8 @@ const [index, setIndex] = useState(0);
         const newImage = {
           src: imageUrl,
         };
-        const updatedImages = [...backgroundImage]; // Create a copy of the original array
-        updatedImages[index] = newImage; // Update the image at the current index
+        const updatedImages = [...backgroundImage];
+        updatedImages[index] = newImage;
         setBackgroundImage(updatedImages);
       };
       reader.readAsDataURL(file);
@@ -61,8 +53,8 @@ const [index, setIndex] = useState(0);
         const newImage = {
           src: imageUrl,
         };
-        let updatedImages = [...backgroundImage2]; // Create a copy of the original array
-        updatedImages[index] = newImage; // Update the image at the current index
+        let updatedImages = [...backgroundImage2];
+        updatedImages[index] = newImage;
         setBackgroundImage2(updatedImages);
       };
       reader.readAsDataURL(file);
@@ -77,8 +69,8 @@ const [index, setIndex] = useState(0);
         const newImage = {
           src: imageUrl,
         };
-        let updatedImages = [...backgroundImage3]; // Create a copy of the original array
-        updatedImages[index] = newImage; // Update the image at the current index
+        let updatedImages = [...backgroundImage3];
+        updatedImages[index] = newImage;
         setBackgroundImage3(updatedImages);
       };
       reader.readAsDataURL(file);
@@ -94,8 +86,8 @@ const [index, setIndex] = useState(0);
   const switchback2 = () => {
     setIndex((index) => (index > 0 ? index - 1 : 0));
   };
-  
-// annimation
+
+  // annimation
   gsap.registerPlugin(ScrollTrigger);
   const subtitle = useRef();
   const subtitle2 = useRef();
@@ -105,7 +97,6 @@ const [index, setIndex] = useState(0);
   const button = useRef();
   const cardContainer = useRef();
   const cardContainer2 = useRef();
- 
 
   useEffect(() => {
     gsap.to(subtitle.current, {
@@ -156,12 +147,9 @@ const [index, setIndex] = useState(0);
       ease: Power3.easeOut,
       scrollTrigger: cardContainer2.current,
     });
-  
   }, []);
 
- 
- 
-// changment Subtitle
+  // changment Subtitle
   const handleSubtitleClick = () => {
     const newSubtitle = prompt("Enter a new subtitle:");
     if (newSubtitle) {
@@ -180,35 +168,36 @@ const [index, setIndex] = useState(0);
       subtitle3.current.innerText = newSubtitle;
     }
   };
-// submit
-const handleSubmit = (event) => {
-  event.preventDefault(); // Empêche le rafraîchissement de la page
-
-  console.log("submit");
-  // Autres actions à effectuer, comme l'envoi des données via AJAX
-};
+  // submit
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("submit");
+  };
   return (
-    <form action="" className="slider"
-    style={{
-      backgroundImage: `url(${backgroundImage[index].src})`,
-    }}
-    onSubmit={handleSubmit}>
+    <form
+      action=""
+      className="slider"
+      style={{
+        backgroundImage: `url(${backgroundImage[index].src})`,
+      }}
+      onSubmit={handleSubmit}
+    >
       <div className="dot">
-        {display && (
+        {disp && (
           <input
             type="file"
             accept="image/*"
             onChange={handleBackgroundChange}
           />
         )}
-        {display && (
+        {disp && (
           <input
             type="file"
             accept="image/*"
             onChange={handleBackgroundChange2}
           />
         )}
-        {display && (
+        {disp && (
           <input
             type="file"
             accept="image/*"
@@ -236,7 +225,7 @@ const handleSubmit = (event) => {
         <input type="url" placeholder="url 3" />
         <input type="url" placeholder="url 4" />
         <input type="url" placeholder="url 5" />
-      <input type="submit"  />
+        <input type="submit" />
       </div>
 
       <div className="R-C-sliderPub">
@@ -258,9 +247,7 @@ const handleSubmit = (event) => {
             <button ref={button}>Start buying</button>
           </div>
         </div>
-        <div className="C-slider">
-        
-        </div>
+        <div className="C-slider"></div>
       </div>
       <div className="R-slider">
         <div
@@ -312,7 +299,7 @@ const handleSubmit = (event) => {
         <AiOutlineLeft onClick={switchback2} />
         <AiOutlineRight onClick={switchback} />
       </div>
-      </form>
+    </form>
   );
 }
 
