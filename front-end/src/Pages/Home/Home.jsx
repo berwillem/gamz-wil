@@ -91,6 +91,7 @@ function Home(isDarkMode) {
   const handleProductFetch = (products) => {
     setSelectedProducts(products);
   }
+
   console.log(selectedProducts);
   return (
     <div>

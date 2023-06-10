@@ -67,7 +67,7 @@ function CategorySide(props) {
                       <ul key={subSubCategory.id}>
                         <li
                           className="drop-down-titel"
-                          onClick={() => handleCategoryClick(subSubCategory.id)}
+                         
                         >
                           {subSubCategory.label}
                         </li>
@@ -79,7 +79,7 @@ function CategorySide(props) {
                             );
 
                             return (
-                              <li key={subSubSubCategory.id}  onClick={() => handleCategoryClick(subSubCategory.id)}>
+                              <li key={subSubSubCategory.id}  >
                                 {subSubSubCategory.label}
                               
                               </li>

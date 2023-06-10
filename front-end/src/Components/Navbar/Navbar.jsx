@@ -7,6 +7,7 @@ import { BsSuitHeart } from "react-icons/bs";
 import { HiMenu } from "react-icons/hi";
 import logo from "../../assets/1.png";
 import logo2 from "../../assets/2.png";
+import logo3 from "../../assets/logodark.png";
 import UpdateInfo from "../UpdateInfo/UpdateInfo";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -25,6 +26,27 @@ function Navbar({ p, handleProductFetch }) {
   const infoupdate =
     JSON.parse(localStorage.getItem("user"))?.infoUpdate || null;
   const [searchActive, setSearchActive] = useState("search");
+  const [image, setImage] = useState(logo);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.matchMedia('(max-width: 1240px)').matches;
+      
+      if (isMobile) {
+        setImage(logo3);
+      } else {
+        setImage(logo);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   function handleClick2(event) {
     const nextElement = event.target.nextElementSibling;
@@ -116,7 +138,6 @@ function Navbar({ p, handleProductFetch }) {
       axios
       .get(baseURL+`/post/`)
       .then((response) => {
-        console.log(response);
         const results = response.data.filter((post) =>
           post.title.toLowerCase().includes(value.toLowerCase())
         );
@@ -131,7 +152,7 @@ function Navbar({ p, handleProductFetch }) {
     axios
       .get(baseURL+`/post/category/${selectedValue}`)
       .then((response) => {
-        console.log(response);
+    console.log(response);
         const results = response.data.filter((post) =>
           post.title.toLowerCase().includes(value.toLowerCase())
         );
@@ -270,7 +291,7 @@ function Navbar({ p, handleProductFetch }) {
               <div className="logo">
                 <Link to="/">
                   <img
-                    src={p ? logo2 : logo}
+                    src={p ? logo2 : image}
                     alt=""
                     className="logo-gamz-nav"
                   />
