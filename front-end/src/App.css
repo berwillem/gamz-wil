@@ -22,6 +22,6 @@
 
 /* Fond de la barre de défilement */
 ::-webkit-scrollbar-thumb{
-  background-color: red; /* Remplacez par la couleur souhaitée */
+  background-color: #e81a2a; /* Remplacez par la couleur souhaitée */
   border-radius: 10px;
 }
