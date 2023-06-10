@@ -90,7 +90,8 @@ exports.getPostById = async (req, res) => {
 };
 exports.getPostsBySubcategory = async (req, res) => {
   try {
-    const subcategoryId = req.params.subcategoryId;
+    console.log(req.params.subcategoryId);
+    const subcategoryId = req.params.subcategoryId
     const posts = await Post.find({
       subcategories: subcategoryId,
     })
