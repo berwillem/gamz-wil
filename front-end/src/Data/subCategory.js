@@ -68,7 +68,7 @@ const subcategories = [
     },
     {
       id: "6473deeb04ebb30a210eb601",
-      label: "Jeux Vidéos",
+      label: "Jeux Vidéos Digitale",
       parentCategoryId: "6473deeb04ebb30a210eb5ff"
     },
     {
@@ -84,7 +84,7 @@ const subcategories = [
    
     {
       id: "6473e00104ebb30a210eb658",
-      label: "Marques",
+      label: "Marques Télephonie",
       parentCategoryId: "6473e00104ebb30a210eb656"
     },
     {

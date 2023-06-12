@@ -16,6 +16,24 @@ function verifyToken(req, res, next) {
     next();
   });
 }
+const verifyTokenAndOwner = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (!token) {
+    req.isOwner = false;
+    return next();
+  }
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) {
+      req.isOwner = false;
+    } else {
+      const { id } = req.params;
+      const loggedInUserId = user.userId;
+      req.isOwner = loggedInUserId === id;
+    }
+    next();
+  });
+};
 const verifyTokenAndAdmin = (req, res, next) => {
   verifyToken(req, res, () => {
     if (req.user.isAdmin) {
@@ -25,4 +43,4 @@ const verifyTokenAndAdmin = (req, res, next) => {
     }
   });
 };
-module.exports = { verifyToken, verifyTokenAndAdmin };
+module.exports = { verifyToken, verifyTokenAndAdmin,verifyTokenAndOwner };
