@@ -15,6 +15,7 @@ const baseURL = import.meta.env.VITE_BASE_URL;
 function Acount(isDarkMode) {
   // data::
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const token = JSON.parse(localStorage.getItem("user"))?.token || null;
   const { userId } = useParams();
   // states::
   const [banner, setBanner] = useState("");
@@ -23,13 +24,17 @@ function Acount(isDarkMode) {
   const [address, setAdresse] = useState("");
   const [Username, setUsername] = useState("");
   const [poste, setposte] = useState([]);
+  const [isOwner, setIsOwner] = useState(false);
   const p = isDarkMode.isDarkMode;
 
   // api call::
-
   useEffect(() => {
     axios
-      .get(baseURL + `/user/${userId}`)
+      .get(baseURL + `/user/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         const userData = response.data;
         setBanner(userData.banner.url);
@@ -38,6 +43,7 @@ function Acount(isDarkMode) {
         setAdresse(userData.adress);
         setUsername(userData.username);
         setposte(userData.posts);
+        setIsOwner(userData.isOwner);
       })
       .catch((error) => {
         console.error(error);
@@ -59,6 +65,7 @@ function Acount(isDarkMode) {
               banner={banner}
               avatar={avatar}
               posts={poste}
+              owner={isOwner}
             />
           </div>
 

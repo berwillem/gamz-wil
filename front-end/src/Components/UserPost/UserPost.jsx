@@ -52,13 +52,12 @@ const modalStyles = {
   },
 };
 
-function UserPost({ posts }) {
+function UserPost({ posts, owner }) {
   const [deletedPosts, setDeletedPosts] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState("");
 
   const handlePostDelete = (postId) => {
-    // Open the delete confirmation modal
     setShowDeleteModal(true);
     setPostIdToDelete(postId);
   };
@@ -68,7 +67,6 @@ function UserPost({ posts }) {
       .delete(`${baseURL}/post/${postIdToDelete}`)
       .then((response) => {
         setDeletedPosts([...deletedPosts, postIdToDelete]);
-        // Close the delete confirmation modal after successful deletion
         setShowDeleteModal(false);
       })
       .catch((error) => {
@@ -88,7 +86,9 @@ function UserPost({ posts }) {
             <div className="user-post-container" key={post._id}>
               <div className="user-post-category">
                 <p>{post.category.name}</p>
-                <AiOutlineDelete onClick={() => handlePostDelete(post._id)} />
+                {owner && (
+                  <AiOutlineDelete onClick={() => handlePostDelete(post._id)} />
+                )}
               </div>
               <div className="user-post-name">
                 <strong>{post.title}</strong>
@@ -141,10 +141,7 @@ function UserPost({ posts }) {
         <h2>Confirm Delete</h2>
         <p>Are you sure you want to delete this post?</p>
         <div style={modalStyles.buttonsContainer}>
-          <button
-            onClick={confirmPostDelete}
-            style={modalStyles.confirmButton}
-          >
+          <button onClick={confirmPostDelete} style={modalStyles.confirmButton}>
             Yes, delete
           </button>
           <button

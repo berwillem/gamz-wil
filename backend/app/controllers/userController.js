@@ -39,17 +39,23 @@ exports.getUserById = async (req, res) => {
         select: '_id name',
       },
     });
-    
+
     if (!user) {
       return res.status(404).send({ error: "User not found" });
     }
-    
-    res.send(user);
+    const isOwner = req.isOwner;
+    const userData = {
+      ...user.toObject(),
+      isOwner: isOwner,
+    };
+
+    res.send(userData);
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: "Server error" });
   }
 };
+
 
 
 

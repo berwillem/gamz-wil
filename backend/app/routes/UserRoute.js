@@ -7,6 +7,7 @@ const {
   getUserById,
   getUserCount,
 } = require("../controllers/userController");
+const { verifyTokenAndOwner } = require("../middlewares/authval");
 
 // GET all users
 router.get("/", getAllUsers);
@@ -15,7 +16,7 @@ router.get("/", getAllUsers);
 router.get("/count", getUserCount);
 
 // GET user by ID
-router.get("/:id", getUserById);
+router.get("/:id", verifyTokenAndOwner,getUserById);
 
 // DELETE user by username
 router.delete("/:id", deleteUserById);

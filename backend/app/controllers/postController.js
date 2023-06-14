@@ -17,12 +17,15 @@ exports.createPost = async (req, res) => {
       date,
       author,
     } = req.body;
+
+    const subcategoryIds = subcategories.split(',');
+
     const post = new Post({
       title,
       price,
       description,
       category,
-      subcategories,
+      subcategories: subcategoryIds, 
       images,
       wilaya,
       commune,
@@ -45,10 +48,10 @@ exports.createPost = async (req, res) => {
   }
 };
 
+
 exports.deletePost = async (req, res) => {
   try {
     const postId = req.params.id;
-    console.log(req.params.id);
     const deletedPost = await Post.findByIdAndDelete(postId);
     if (!deletedPost) {
       return res.status(404).json({ message: "Post not found" });
@@ -88,21 +91,6 @@ exports.getPostById = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-exports.getPostsBySubcategory = async (req, res) => {
-  try {
-    console.log(req.params.subcategoryId);
-    const subcategoryId = req.params.subcategoryId
-    const posts = await Post.find({
-      subcategories: subcategoryId,
-    })
-      .populate("author", "username avatar")
-      .populate("category", "name");
-    res.json(posts);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
 exports.getAllPosts = async (req, res) => {
   try {
     const userId = req.query.userId;
@@ -117,6 +105,14 @@ exports.getAllPosts = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+exports.getPostCount = async (req, res) => {
+  try {
+    const count = await Post.countDocuments();
+    res.status(200).json({ count });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to retrieve post count" });
+  }
+};
 exports.getPostsByCategoryId = async (req, res) => {
   try {
     const categoryId = req.params.categoryId;
@@ -126,11 +122,17 @@ exports.getPostsByCategoryId = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-exports.getPostCount = async (req, res) => {
+
+exports.getPostsBySubcategory = async (req, res) => {
   try {
-    const count = await Post.countDocuments();
-    res.status(200).json({ count });
-  } catch (error) {
-    res.status(500).json({ error: "Failed to retrieve post count" });
+    const subcategoryId = req.params.subcategoryId
+    const posts = await Post.find({
+      subcategories: subcategoryId,
+    })
+      .populate("author", "username avatar")
+      .populate("category", "name");
+    res.json(posts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };

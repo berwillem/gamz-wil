@@ -14,7 +14,6 @@ const SideCard = () => {
     dispatch(logout());
     navigate("/");
   };
-  console.log("idddddddd:::", userId);
   return (
     <>
       <div className="user-l-content">

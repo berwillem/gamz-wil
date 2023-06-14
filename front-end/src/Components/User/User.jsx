@@ -2,13 +2,11 @@ import React from "react";
 import "./User.css";
 import defaultBanner from "../../assets/images/banner.png"
 import { BsPhone } from "react-icons/bs";
-import { FaStore } from "react-icons/fa";
 import { ImLocation } from "react-icons/im";
 import { AiOutlineHome } from "react-icons/ai";
 import { MdOutlineLogout } from "react-icons/md";
 import { CiUser } from "react-icons/ci";
 import image1 from "../../assets/images/avatar.png";
-import { Box } from "../../Data/Box";
 import UserPost from "../UserPost/UserPost";
 import Ads from "../Ads/Ads";
 import { Link } from "react-router-dom";
@@ -16,12 +14,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../redux/reducers/Auth";
 
-const boxSlice = Box.slice(0, 4);
-const userString = localStorage.getItem("user");
-  const user = JSON.parse(userString);
-  // const userAvatar = user.avatar.url;
-  // const userBanner = user.banner.url;
-function User({ user_name,  phone_number, address,banner,avatar,posts },) {
+function User({ user_name,  phone_number, address,banner,avatar,posts,owner },) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -66,7 +59,7 @@ function User({ user_name,  phone_number, address,banner,avatar,posts },) {
           </li>
         </div>
 
-        <Ads uri="https://electro.madrasthemes.com/wp-content/uploads/2016/03/ad-banner-sidebar.jpg" />
+        <Ads/>
       </div>
 
       <div className="user-r">
@@ -100,6 +93,7 @@ function User({ user_name,  phone_number, address,banner,avatar,posts },) {
          
             <UserPost
             posts={posts}
+            owner={owner}
             />
         
         </div>
