@@ -225,7 +225,6 @@ function SliderPubManage({ disp }) {
         <input type="url" placeholder="url 3" />
         <input type="url" placeholder="url 4" />
         <input type="url" placeholder="url 5" />
-        <input type="submit" />
       </div>
 
       <div className="R-C-sliderPub">
@@ -299,6 +298,7 @@ function SliderPubManage({ disp }) {
         <AiOutlineLeft onClick={switchback2} />
         <AiOutlineRight onClick={switchback} />
       </div>
+      <input type="submit" className="btnsub" />
     </form>
   );
 }
