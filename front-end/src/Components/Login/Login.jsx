@@ -36,10 +36,10 @@ function Login() {
   return (
     <div className="login-container">
       <div className="title-login">
-        <p>Login</p>
+        <p>Connexion</p>
       </div>
       <div className="sub-title-login">
-        <p>Welcome back! Sign in to account.</p>
+        <p>Content de te revoir ! connectez-vous à votre compte</p>
       </div>
       {error && <p className="error-message">{error}</p>}
       <Formik
@@ -50,12 +50,12 @@ function Login() {
         {() => (
           <Form>
             <label htmlFor="">
-              <strong>Username or email address *</strong>
+              <strong>Nom d'utilisateur ou addresse e-mail *</strong>
               <Field type="email" name="email" placeholder="write your email"  />
               <ErrorMessage name="email" component="div" className="error" />
             </label>
             <label>
-              <strong>Password *</strong>
+              <strong>Mot de passe *</strong>
               <Field
         
                 type="password"
@@ -71,12 +71,12 @@ function Login() {
 
             <div className="check-box-login">
               <Field type="checkbox" name="rememberMe" />
-              <strong>Remember me</strong>
+              <strong>Se rappeller de moi</strong>
             </div>
             <button type="submit"  >
-              <strong>Log in</strong>
+              <strong>Connexion</strong>
             </button>
-            <Link to="/PassForgot">Lost your password ?</Link>
+            <Link to="/PassForgot">Mon de passe oublié ?</Link>
           </Form>
         )}
       </Formik>

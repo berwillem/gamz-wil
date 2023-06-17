@@ -209,7 +209,7 @@ function Slider({ disp }) {
             <Link
               to={card && card.redirectUrls && RedirectLink ? RedirectLink : ""}
             >
-              <button ref={button}>Start buying</button>
+              <button ref={button}>En savoir plus !</button>
             </Link>
           </div>
         </div>
@@ -243,7 +243,7 @@ function Slider({ disp }) {
           <div className="sub-title-box">
             {display ? <input type="file" onChange={handleFileChange} /> : null}
             <Link to={card1.redirect}>
-              <strong>Shop now</strong>
+              <strong>En savoir plus !</strong>
             </Link>
             <AiFillRightCircle size={20} color="#e81a2a" />
             <div className="image-R-slide">
@@ -283,7 +283,7 @@ function Slider({ disp }) {
               <input type="file" onChange={handleFileChange2} />
             ) : null}
             <Link to={card2.redirect}>
-              <strong>Shop now</strong>
+              <strong>En savoir plus !</strong>
             </Link>
             <AiFillRightCircle size={20} color="#e81a2a" />
             <div className="image-R-slide">

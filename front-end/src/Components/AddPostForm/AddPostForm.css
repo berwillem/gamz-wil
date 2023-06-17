@@ -173,6 +173,7 @@
 .add-description {
     display: flex;
     flex-direction: column;
+    width: 100%;
     gap: 10px;
 }
 
@@ -184,7 +185,7 @@
 
 .add-description > textarea {
 
-    width: 90%;
+    width: 100%;
     padding: 10px;
     font-size: 14px;
     font-weight: 300;

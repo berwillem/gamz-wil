@@ -26,17 +26,17 @@ function Register() {
   return (
     <div className="register-container">
       <div className="title-register">
-        <p>Register</p>
+        <p>Enregistrer</p>
       </div>
       <div className="sub-title-register">
-        <p>Welcome back! Sign in to account.</p>
+        <p>Bienvenue, créez votre compte.</p>
       </div>
 
       {error && <div className="error-message">{error}</div>} 
       
       <form onSubmit={handleSubmit}>
         <label htmlFor="">
-          <strong>Username or email address *</strong>
+          <strong>Nom d'utilisateur ou addresse e-mail *</strong>
           <input
             name="Username"
             value={username}
@@ -46,7 +46,7 @@ function Register() {
           />
         </label>
         <label>
-          <strong>Email address *</strong>
+          <strong>addresse e-mail *</strong>
           <input
             name="Email"
             value={email}
@@ -56,7 +56,7 @@ function Register() {
           />
         </label>
         <label>
-          <strong>Password *</strong>
+          <strong>Mot de passe *</strong>
           <input
             name="password"
             value={password}
@@ -67,18 +67,16 @@ function Register() {
         </label>
         <div className="check-box-login">
               <input type="checkbox" name="rememberMe"  required/>
-              <strong>accepter Conditions d'utilisation et la Politique de confidentialité </strong>
+              <strong> accepter Conditions d'utilisation et la Politique de confidentialité  </strong>
             </div>
         <div className="sub-text-register">
           <small>
-            Your personal data will be used to support your experience
-            throughout this website, to manage access to your account, and for
-            other purposes described in our privacy policy.
+           Vos données personnelles seront utilisées pour soutenir votre expérience sur ce site Web pour gérer l'accés à votre compte et à d'autres fins décrites dans votre politique de confidentialité.
           </small>
         </div>
         <button type="submit">
         
-            <strong>Register</strong>
+            <strong>Inscription</strong>
           
         </button>
       </form>

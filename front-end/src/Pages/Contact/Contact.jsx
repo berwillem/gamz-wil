@@ -47,7 +47,7 @@ const Contact = (isDarkMode) => {
       <Navbar p={p}/>
       <div className="Contact-page">
         <div className="title_contact">
-          <h1>Account Details </h1>
+          <h1>Contactez Gamz</h1>
         </div>
         <form ref={formRef} onSubmit={handleSubmit}>
           <label htmlFor="">
@@ -89,7 +89,7 @@ const Contact = (isDarkMode) => {
               onChange={(e) => setMessage(e.target.value)}
             ></textarea>
           </label>
-          <button type="submit">send message</button>
+          <button type="submit">Envoyez votre message</button>
         </form>
       </div>
       <Footer p={p} />

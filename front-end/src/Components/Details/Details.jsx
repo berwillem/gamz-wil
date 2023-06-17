@@ -193,7 +193,7 @@ function Details() {
       {slicedData ? (
         <div className="related-post" ref={cardContainer3}>
           <div className="related-title">
-            <p>Related Post</p>
+            <p>Annonces similaires</p>
           </div>
           <div className="user-post ">
             {slicedData.map((post) => (

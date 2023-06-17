@@ -79,7 +79,7 @@ function Acount(isDarkMode) {
           <Login />
           <div className="line-account">
             <div className="or">
-              <strong>or</strong>
+              <strong>ou</strong>
             </div>
           </div>
           <Register />

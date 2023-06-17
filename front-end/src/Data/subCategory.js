@@ -1,7 +1,7 @@
 const subcategories = [
   {
     id: "6473d58604ebb30a210eb4de",
-    label: "Périphériques",
+    label: "Périphériques PC",
     parentCategoryId: "6473d58404ebb30a210eb48e"
   },
  
@@ -63,17 +63,17 @@ const subcategories = [
     },
     {
       id: "6473d10eb99f2e45e0b47a66",
-      label: "Produit Dérivés",
+      label: "Produits dérivés ",
       parentCategoryId: "6473d10eb99f2e45e0b47a61"
     },
     {
       id: "6473deeb04ebb30a210eb601",
-      label: "Jeux Vidéos Digitale",
+      label: "Jeux Vidéos Digital",
       parentCategoryId: "6473deeb04ebb30a210eb5ff"
     },
     {
       id: "6473deec04ebb30a210eb61f",
-      label: "Abonnements « Code Digitale »",
+      label: " Abonnements « Code Digital » ",
       parentCategoryId: "6473deeb04ebb30a210eb5ff"
     },
     {
@@ -84,7 +84,7 @@ const subcategories = [
    
     {
       id: "6473e00104ebb30a210eb658",
-      label: "Marques Télephonie",
+      label: "Marques Téléphonies",
       parentCategoryId: "6473e00104ebb30a210eb656"
     },
     {
@@ -99,7 +99,7 @@ const subcategories = [
     },
     {
       id: "6473e00404ebb30a210eb6bb",
-      label: "Accessoires Téléphonie",
+      label: "Accessoires Téléphonies ",
       parentCategoryId: "6473e00104ebb30a210eb656"
     },
     

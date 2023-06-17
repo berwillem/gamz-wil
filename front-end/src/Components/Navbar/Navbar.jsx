@@ -227,7 +227,7 @@ function Navbar({ p, handleProductFetch }) {
                   </div>
                 ) : (
                   <Link to={`/account/${userId}`}>
-                    <CiUser size={23} /> {isLoggedIn ? username : <strong>Account</strong>}{" "}
+                    <CiUser size={23} /> {isLoggedIn ? username : <strong>Mon Compte</strong>}{" "}
                   </Link>
                 )}
               </li>
@@ -242,10 +242,17 @@ function Navbar({ p, handleProductFetch }) {
                 onScroll={handleMenuScroll}
               >
                 <ul className="ul">
-                  <Link to="/Account">
-                    {" "}
-                    <li className="li-hover">Account</li>
-                  </Link>
+                 { isLoggedIn ?(
+                   <Link to={`/account/${userId}`}>
+                   {" "}
+                   <li className="li-hover">Mon Compte</li>
+                 </Link>
+                 ):(
+                  <Link to={`/account/${userId}`}>
+                   {" "}
+                   <li className="li-hover">connecte toi</li>
+                 </Link>
+                 )}
                   <Link to="/createPost">
                     <li className="li-hover plus-annonce">
                       <BsPlusLg size={13} />
@@ -302,7 +309,7 @@ function Navbar({ p, handleProductFetch }) {
               <div className="searchBar " ref={searchBoxRef}>
                 <input
                   type="text"
-                  placeholder="Search here"
+                  placeholder="Que recherchez-vous ?"
                   className={searchActive}
                   value={searchText}
                   name="searchText"
@@ -319,7 +326,7 @@ function Navbar({ p, handleProductFetch }) {
                 </div>
                 <div style={{ display: "flex" }}>
                 <select id="select" value={selectedValue} onChange={(e) => setSelectedValue(e.target.value)}>
-                <option value="" >tout</option>
+                <option value="" >Toutes les catégories </option>
                   {categories.map((i) => (
                     <option value={i._id} >{i.name}</option>
                   ))}{" "}

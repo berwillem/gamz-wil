@@ -36,7 +36,7 @@ function User({ user_name,  phone_number, address,banner,avatar,posts,owner },) 
                 width: "100%",
               }}
             >
-              Aceuille
+              Accueil
               <AiOutlineHome />
             </Link>
           </li>
@@ -49,12 +49,12 @@ function User({ user_name,  phone_number, address,banner,avatar,posts,owner },) 
                 width: "100%",
               }}
             >
-              Update Acount
+             Mettre à jour le compte.
               <CiUser />
             </Link>
           </li>
           <li onClick={handleLogout}>
-            Logout
+          Déconnexion
             <MdOutlineLogout />
           </li>
         </div>

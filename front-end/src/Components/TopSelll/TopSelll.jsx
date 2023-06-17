@@ -80,13 +80,13 @@ function shuffleArray(array) {
    {boxSlice1.length==0 || boxSlice2.length==0 || boxSlice3.length==0 ? ( 
 
     <div className='noPost'>
-      <h2> NO TOP POST YET </h2>
+      <h2> PAS DE POST ENCORE </h2>
     </div>
    )
    : (
       <div className='topSell-container'>
         <div className="top-Sell-title">
-          <h4>Top Selling Products</h4>
+          <h4>Autres annonces</h4>
         </div>
         <div className='topSell-content' ref={cardContainer}>
           <div className="grid">
