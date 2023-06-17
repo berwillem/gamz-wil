@@ -39,7 +39,7 @@ function CategorySide(props) {
   return (
     <div className="category-side-container">
       <div className="category-side-title">
-        <h4>Categories</h4>
+        <h4>Choisir une catégorie</h4>
       </div>
       <div className="category-side">
         {subcategoryes.map((subcategorye) => {
@@ -67,7 +67,7 @@ function CategorySide(props) {
                       <ul key={subSubCategory.id}>
                         <li
                           className="drop-down-titel"
-                         
+                          onClick={() => handleCategoryClick(subSubCategory.id)}
                         >
                           {subSubCategory.label}
                         </li>
@@ -79,7 +79,7 @@ function CategorySide(props) {
                             );
 
                             return (
-                              <li key={subSubSubCategory.id}  >
+                              <li key={subSubSubCategory.id}   onClick={() => handleCategoryClick(subSubSubCategory.id)} >
                                 {subSubSubCategory.label}
                               
                               </li>

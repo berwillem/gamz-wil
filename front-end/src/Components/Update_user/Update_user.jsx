@@ -5,6 +5,7 @@ import "./update_use.css";
 import avatarImage from "../../assets/images/avatar.png";
 import bannerImage from "../../assets/images/banner.png";
 import Swal from "sweetalert2";
+import { AiFillEdit } from "react-icons/ai";
 const baseURL = import.meta.env.VITE_BASE_URL;
 function Update_user() {
   const navigate=useNavigate()
@@ -97,6 +98,7 @@ function Update_user() {
           <div className="avatar">
             <label htmlFor="avatar-input">
               {avatar ? (
+            <>
                 <img
                   src={avatar}
                   alt="Avatar"
@@ -108,6 +110,8 @@ function Update_user() {
                     borderRadius: "50%",
                   }}
                 />
+               <AiFillEdit className="edit"/>
+            </>
               ) : (
                 <span>Click to upload avatar</span>
               )}
@@ -126,6 +130,7 @@ function Update_user() {
           <div className="banner">
             <label htmlFor="banner-input">
               {banner ? (
+               <>
                 <img
                   src={banner}
                   alt="Banner"
@@ -137,6 +142,8 @@ function Update_user() {
                     borderRadius: "10px",
                   }}
                 />
+                 <AiFillEdit className="edit"/>
+                </>
               ) : (
                 <span>Click to upload banner</span>
               )}

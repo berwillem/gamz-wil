@@ -40,11 +40,11 @@ const PassForgot = () => {
         <img src={image} alt="Image" />
       </div>
       <div className="pass-forgot-form-container">
-        <h2>Forgot Password</h2>
+        <h2>Mot de passe oublié </h2>
         <form onSubmit={handleResetPassword}>
-          <label htmlFor="user_login">Enter your email :</label>
+          <label htmlFor="user_login">Saisissez votre email :</label>
           <input type="email" id="user_login" name="user_login" required />
-          <button type="submit">Reset Password</button>
+          <button type="submit"> Réinitialiser le mot de passe.</button>
         </form>
       </div>
     </div>

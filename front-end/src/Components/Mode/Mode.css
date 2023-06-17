@@ -12,6 +12,7 @@
  font-weight: bold;
  cursor: pointer;
 position: fixed;
+
 top: 50%;
 transform: rotate(-90deg);
 z-index: 3;
@@ -19,16 +20,17 @@ z-index: 3;
 .toggle{
   position: absolute;
   height: 30px;
-  width: 50px;
+  width: 43px;
   background-color: white;
   border-radius: 20px;
   z-index: 0;
-transform: translateX(-27PX);
+transform: translateX(-31PX);
 transition: 0.5s;
 }
 .active2{
-  transform: translateX(27PX);
+  transform: translateX(20PX);
 transition:0.5s;
+width: 65px;
 }
 .light{
   position: relative;

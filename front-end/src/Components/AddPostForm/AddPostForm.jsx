@@ -199,7 +199,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
           <div className="add-content">
             <div className="add-post-l">
               <div className="add-big-image">
-                <p>Choose The Principal Image</p>
+                <p>Choisissez votre photo principale</p>
                 <div className="principal-image">
                   <label htmlFor="principal-image-input">
                     {principalImage ? (
@@ -227,7 +227,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
               </div>
             </div>
             <div className="add-images">
-              <p>Choose Other Images</p>
+              <p>Choisissez votre photo principale</p>
               <div className="images-sub">
                 {[0, 1].map((index) => (
                   <div key={index}>
@@ -261,7 +261,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
           </div>
           <div className="add-post-r">
             <div className="add-category">
-              <p>Choose The Category for your post</p>
+              <p>Choisissez votre categories d’annonce</p>
               <Select
                 options={categories.map((category) => ({
                   value: category._id,
@@ -274,7 +274,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
               />
               {selectedCategory && (
                 <div className="add-category">
-                  <p>Choose The Subcategory for your post</p>
+                  <p>Choisissez votre sous-categories d’annonce</p>
                   <Select
                     options={subcategories.map((subcategory) => ({
                       value: subcategory._id,
@@ -289,7 +289,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
               )}
               {selectedSubCategory && (
                 <div className="add-category">
-                  <p>Choose The Subcategory2 for your post</p>
+                  <p>: Choisissez votre sous-categories détaillée </p>
                   <Select
                     options={subcategories2.map((subcategory) => ({
                       value: subcategory._id,
@@ -303,7 +303,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
                 </div>
               )}
               <div className="add-category">
-                <p>Choose The Condition for your post</p>
+                <p>Définissez l’état de votre article</p>
                 <Select
                   value={options_state.find((option) => option.value === etat)}
                   onChange={handleConditionChange}
@@ -315,7 +315,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
               </div>
             </div>
             <div className="add-title">
-              <p>Write a Title for your product</p>
+              <p>Titre de l’annonce</p>
               <input
                 type="text"
                 name="title"
@@ -326,7 +326,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
               />
             </div>
             <div className="add-description">
-              <p>Write Description for your product</p>
+              <p>Description de l’annonce</p>
               <textarea
                 name="description"
                 id=""
@@ -338,20 +338,20 @@ function AddPostForm({ categories, fetchSubcategories }) {
               ></textarea>
             </div>
             <div className="add-title">
-              <p>write your phone number</p>
+              <p>Numéro de téléphone</p>
               <input
                 type="tel"
                 pattern="[0-9]{10}"
                 name="phoneNumber"
                 id=""
                 value={phone}
-                placeholder="write your phone number"
+                placeholder="Numéro de téléphone"
                 onChange={(e) => setPhone(e.target.value)}
               />
             </div>
 
             <div className="add-price">
-              <p>fix price for your product</p>
+              <p>Prix</p>
               <input
                 type="number"
                 placeholder="00"
@@ -362,7 +362,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
               />
             </div>
             <div className="add-price">
-              <p>add your willaya</p>
+              <p>willaya</p>
 
               <Select
                 value={wilaya.value}
@@ -374,7 +374,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
               />
             </div>
             <button type="submit" className="btn-submit">
-              Submit
+            Publier
             </button>
           </div>
         </div>

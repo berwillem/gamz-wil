@@ -43,10 +43,10 @@ function Pagination({ posts,postsbycat}) {
   return (
     <div className="pagination-container">
       <div id="pagination-title">
-        <p>Hot Products Today</p>
+        <p>Les announces récentes</p>
       </div>
 
-      {pages === 0 && <p>Loading...</p>}
+      {pages === 0 && <p>Chargement…</p>}
 
       {pages > 0 && (
         <>
