@@ -39,25 +39,3 @@ const AddPost = () => {
 };
 
 export default AddPost;
-
-{
-  /* <p>Choose The Category for your post</p>
-<Select
-  value={selectedOptions}
-  onChange={handleSelectChange}
-  options={categories.map((category) => ({
-    value: category._id,
-    label: category.name,
-  }))}
-  isMulti={false}
-  placeholder="Select category"
-  styles={customStyles}
-/> */
-}
-// const [categories, setCategories] = useState([]);
-// const [selectedOptions, setSelectedOptions] = useState(null);
-// const [subcats, setSubcats] = useState(null);
-// const [subcatschildren, setSubcatschildren] = useState(null);
-// const [selectedSubcatschildren, setSelectedSubcatschildren] =
-//   useState(subcatschildren);
-// const [selectedSubcats, setSelectedSubcats] = useState(subcats);

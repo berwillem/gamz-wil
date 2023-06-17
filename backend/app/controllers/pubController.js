@@ -11,8 +11,6 @@ exports.createPub = async (req, res) => {
       cardOneImage,
       cardTwoImage,
     } = req.body;
-    console.log("the log:::", req.body);
-
     // Perform data validation on the request payload
     if (!pub || !title) {
       return res.status(400).json({ message: "Missing required fields" });
@@ -21,31 +19,27 @@ exports.createPub = async (req, res) => {
     // Delete the existing pub, if it exists
     await Pub.deleteMany();
 
-    // Create an array of pub items with publicId included
-    const pubItems = pub.map((item) => ({
-      url: item.url,
-      publicId: item.publicId,
-    }));
+    // Parse redirectUrls from JSON string to an array of objects
+    const parsedRedirectUrls = JSON.parse(redirectUrls);
 
     // Create the pub data object
     const pubData = new Pub({
-      pub: pubItems,
+      pub: pub,
       title,
-      redirectUrls,
+      redirectUrls: parsedRedirectUrls,
       cardOne: {
         title: cardOne.title,
-        cardOneImage,
+        cardOneImage: cardOneImage,
         redirect: cardOne.redirect,
       },
       cardTwo: {
         title: cardTwo.title,
-        cardTwoImage,
+        cardTwoImage: cardTwoImage,
         redirect: cardTwo.redirect,
       },
     });
 
     const savedPub = await pubData.save();
-
     res.status(201).json(savedPub);
   } catch (err) {
     res.status(400).json({ message: err.message });

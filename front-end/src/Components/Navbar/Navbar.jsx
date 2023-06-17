@@ -3,7 +3,6 @@ import "./Navbar.css";
 import { BsPlusLg } from "react-icons/bs";
 import { CiUser } from "react-icons/ci";
 import { HiSearch } from "react-icons/hi";
-import { BsSuitHeart } from "react-icons/bs";
 import { HiMenu } from "react-icons/hi";
 import logo from "../../assets/1.png";
 import logo2 from "../../assets/2.png";
@@ -131,7 +130,6 @@ function Navbar({ p, handleProductFetch }) {
   const [searchCategory, setSearchCategory] = useState("");
   const [results, setResults] = useState([]);
   const [selectedValue, setSelectedValue] = useState("");
-  console.log(selectedValue);
   const fetchData = (value) => {
 
     if(selectedValue==''){
@@ -193,13 +191,6 @@ function Navbar({ p, handleProductFetch }) {
     }
     setSearchCategory(searchBoxRef.current.querySelector("select").value);
   };
-
-  // const filteredPosts = posts.filter((item) => {
-  //   return (
-  //     item.name.toLowerCase().includes(searchText.toLowerCase()) &&
-  //     item.category.toLowerCase() === searchCategory.toLowerCase()
-  //   );
-  // });
   const handleCategoryClick = (categoryId) => {
     handleProductFetch(categoryId);
   };

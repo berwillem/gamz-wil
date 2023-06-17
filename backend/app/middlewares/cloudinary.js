@@ -1,9 +1,9 @@
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
-const upload = require("./uploadConfig");
+const uploadConfig = require("./uploadConfig");
 
-const uploadImages = (folderName) => (req, res, next) => {
-  const uploadMiddleware = upload.fields([
+const uploadImages = (folderName) => {
+  const uploadMiddleware = uploadConfig.fields([
     { name: "avatar", maxCount: 1 },
     { name: "banner", maxCount: 1 },
     { name: "images", maxCount: 3 },
@@ -11,192 +11,89 @@ const uploadImages = (folderName) => (req, res, next) => {
     { name: "cardOneImage", maxCount: 1 },
     { name: "cardTwoImage", maxCount: 1 },
   ]);
-  uploadMiddleware(req, res, (err) => {
-    if (err instanceof multer.MulterError) {
-      return res.status(400).json({ error: err.message });
-    } else if (err) {
-      return res.status(500).json({ error: err.message });
-    }
 
-    const avatarFile = req.files["avatar"] ? req.files["avatar"][0] : null;
-    const bannerFile = req.files["banner"] ? req.files["banner"][0] : null;
-    const cardOneImageFile = req.files["cardOneImage"] ? req.files["cardOneImage"][0] : null;
-    const cardTwoImageFile = req.files["cardTwoImage"] ? req.files["cardTwoImage"][0] : null;
+  return async (req, res, next) => {
+    try {
+      await uploadMiddleware(req, res, async (err) => {
+        if (err instanceof multer.MulterError) {
+          return res.status(400).json({ error: err.message });
+        } else if (err) {
+          return res.status(500).json({ error: err.message });
+        }
 
-    const avatarUploadPromise = avatarFile
-      ? new Promise((resolve, reject) => {
-          cloudinary.uploader.upload(
-            avatarFile.path,
-            {
+        const getFilePromise = (file) => {
+          if (file) {
+            return cloudinary.uploader.upload(file.path, {
               folder: folderName,
-            },
-            (error, result) => {
-              if (error) {
-                return reject(error);
-              }
-              resolve(result);
-            }
-          );
-        })
-      : Promise.resolve(null);
-
-    const bannerUploadPromise = bannerFile
-      ? new Promise((resolve, reject) => {
-          cloudinary.uploader.upload(
-            bannerFile.path,
-            {
-              folder: folderName,
-            },
-            (error, result) => {
-              if (error) {
-                return reject(error);
-              }
-              resolve(result);
-            }
-          );
-        })
-      : Promise.resolve(null);
-
-    const cardOneImageUploadPromise = cardOneImageFile
-      ? new Promise((resolve, reject) => {
-          cloudinary.uploader.upload(
-            cardOneImageFile.path,
-            {
-              folder: folderName,
-            },
-            (error, result) => {
-              if (error) {
-                return reject(error);
-              }
-              resolve(result);
-            }
-          );
-        })
-      : Promise.resolve(null);
-
-    const cardTwoImageUploadPromise = cardTwoImageFile
-      ? new Promise((resolve, reject) => {
-          cloudinary.uploader.upload(
-            cardTwoImageFile.path,
-            {
-              folder: folderName,
-            },
-            (error, result) => {
-              if (error) {
-                return reject(error);
-              }
-              resolve(result);
-            }
-          );
-        })
-      : Promise.resolve(null);
-
-    const imagesUploadPromises = req.files["images"]
-      ? req.files["images"].map((image) => {
-          return new Promise((resolve, reject) => {
-            cloudinary.uploader.upload(
-              image.path,
-              {
-                folder: folderName,
-              },
-              (error, result) => {
-                if (error) {
-                  return reject(error);
-                }
-                resolve(result);
-              }
-            );
-          });
-        })
-      : [];
-    const pubUploadPromises = req.files["pub"]
-      ? req.files["pub"].map((image) => {
-          return new Promise((resolve, reject) => {
-            cloudinary.uploader.upload(
-              image.path,
-              {
-                folder: folderName,
-              },
-              (error, result) => {
-                if (error) {
-                  return reject(error);
-                }
-                resolve(result);
-              }
-            );
-          });
-        })
-      : [];
-
-    Promise.all([
-      avatarUploadPromise,
-      bannerUploadPromise,
-      cardOneImageUploadPromise,
-      cardTwoImageUploadPromise,
-      ...imagesUploadPromises,
-      ...pubUploadPromises
-    ])
-      .then((uploadedImages) => {
-        const avatarUrl = uploadedImages[0] ? uploadedImages[0].url : null;
-        const avatarPublicId = uploadedImages[0]
-          ? uploadedImages[0].public_id
-          : null;
-        const bannerUrl = uploadedImages[1] ? uploadedImages[1].url : null;
-        const bannerPublicId = uploadedImages[1]
-          ? uploadedImages[1].public_id
-          : null;
-        const cardOneImageUrl = uploadedImages[2] ? uploadedImages[2].url : null;
-        const cardOneImagePublicId = uploadedImages[2]
-          ? uploadedImages[2].public_id
-          : null;
-        const cardTwoImageUrl = uploadedImages[3] ? uploadedImages[3].url : null;
-        const cardTwoImagePublicId = uploadedImages[3]
-          ? uploadedImages[3].public_id
-          : null;
-
-        const imageUrls = uploadedImages.slice(4).map((image) => image.url);
-        const imagePublicIds = uploadedImages
-          .slice(4)
-          .map((image) => image.public_id);
-        const pubUrls = uploadedImages.slice(4).map((image) => image.url);
-        const pubPublicIds = uploadedImages
-          .slice(4)
-          .map((image) => image.public_id);
-
-        req.body.avatar = {
-          url: avatarUrl,
-          publicId: avatarPublicId,
+            });
+          } else {
+            return Promise.resolve(null);
+          }
         };
-        req.body.banner = {
-          url: bannerUrl,
-          publicId: bannerPublicId,
-        };
-        req.body.cardOneImage = {
-          url: cardOneImageUrl,
-          publicId: cardOneImagePublicId,
-        };
-        req.body.cardTwoImage = {
-          url: cardTwoImageUrl,
-          publicId: cardTwoImagePublicId,
-        };
-        req.body.images = imageUrls.map((url, index) => {
-          return {
-            url,
-            publicId: imagePublicIds[index],
-          };
+
+        const uploadedImages = {};
+
+        // Handle avatar file
+        if (req.files["avatar"]) {
+          const avatarUpload = getFilePromise(req.files["avatar"][0]);
+          uploadedImages.avatar = await avatarUpload;
+        }
+
+        // Handle banner file
+        if (req.files["banner"]) {
+          const bannerUpload = getFilePromise(req.files["banner"][0]);
+          uploadedImages.banner = await bannerUpload;
+        }
+
+        // Handle cardOneImage file
+        if (req.files["cardOneImage"]) {
+          const cardOneImageUpload = getFilePromise(req.files["cardOneImage"][0]);
+          uploadedImages.cardOneImage = await cardOneImageUpload;
+        }
+
+        // Handle cardTwoImage file
+        if (req.files["cardTwoImage"]) {
+          const cardTwoImageUpload = getFilePromise(req.files["cardTwoImage"][0]);
+          uploadedImages.cardTwoImage = await cardTwoImageUpload;
+        }
+
+        // Handle images files
+        if (req.files["images"]) {
+          const imagesUploadPromises = req.files["images"].map(getFilePromise);
+          uploadedImages.images = await Promise.all(imagesUploadPromises);
+        }
+
+        // Handle pub files
+        if (req.files["pub"]) {
+          const pubUploadPromises = req.files["pub"].map(getFilePromise);
+          uploadedImages.pub = await Promise.all(pubUploadPromises);
+        }
+
+        const mapImage = (image) => ({
+          url: image?.url || null,
+          publicId: image?.public_id || null
         });
-        req.body.pub = pubUrls.map((url, index) => {
-          return {
-            url,
-            publicId: pubPublicIds[index],
-          };
-        });
+
+        // Modify the conditional checks for avatar and banner
+        if (!req.body.avatar) {
+          req.body.avatar = mapImage(uploadedImages.avatar) || null;
+        }
+
+        if (!req.body.banner) {
+          req.body.banner = mapImage(uploadedImages.banner) || null;
+        }
+
+        req.body.cardOneImage = mapImage(uploadedImages.cardOneImage) || null;
+        req.body.cardTwoImage = mapImage(uploadedImages.cardTwoImage) || null;
+        req.body.images = (uploadedImages.images || []).map(mapImage);
+        req.body.pub = (uploadedImages.pub || []).map(mapImage);
+
         next();
-      })
-      .catch((error) => {
-        res.status(500).json({ error: error.message });
       });
-  });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
 };
 
 module.exports = uploadImages;
