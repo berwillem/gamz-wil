@@ -7,7 +7,11 @@ cloudinary.config({
   api_secret: process.env.CLOUD_KEY_SECRET,
 });
 
-const storage = multer.diskStorage({});
+const storage = multer.diskStorage({
+  limits: {
+    fileSize: 50  * 1024 * 1024, 
+  },
+});
 
 const upload = multer({
   storage: storage,
@@ -18,4 +22,5 @@ const upload = multer({
     callback(null, true);
   },
 });
+
 module.exports = upload;

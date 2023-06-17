@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Ads from "../Ads/Ads";
 import "./AddPostForm.css";
 import image from "../../assets/Svg/undraw_image_post_re_25wd.svg";
@@ -32,7 +32,6 @@ function AddPostForm({ categories, fetchSubcategories }) {
   const [principalImageFile, setPrincipalImageFile] = useState(null);
   const [otherImages, setOtherImages] = useState([image, image]);
   const [otherImagesFile, setOtherImagesFile] = useState([]);
-
   // select states:
 
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -69,7 +68,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
     newOtherImagesFiles[index] = event.target.files[0]; // add the new file to the end
     setOtherImagesFile(newOtherImagesFiles);
   };
-
+  
   //  categories handle:
 
   const handleCategoryChange = async (selectedOption) => {
@@ -128,7 +127,6 @@ function AddPostForm({ categories, fetchSubcategories }) {
       setEtat(null);
     }
   };
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -386,3 +384,4 @@ function AddPostForm({ categories, fetchSubcategories }) {
 }
 
 export default AddPostForm;
+
