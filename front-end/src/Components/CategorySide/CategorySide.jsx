@@ -12,7 +12,6 @@ import subcategoryes from "../../Data/subCategory";
 import subSubCategoryes from "../../Data/subSubCategory";
 import subSubSubCategoryes from "../../Data/subSubSubCategory";
 import subSubSubSubCategoryes from "../../Data/subSubSubSubCategory";
-import axios from "axios";
 
 function CategorySide(props) {
   const [categories, setCategories] = useState([]);

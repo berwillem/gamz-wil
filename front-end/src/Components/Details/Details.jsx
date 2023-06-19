@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState,useMemo } from "react";
-import { AiOutlineHeart } from "react-icons/ai";
 import { Box } from "../../Data/Box";
 import "./Details.css";
 import { gsap } from "gsap";
@@ -170,20 +169,16 @@ function Details() {
           </div>
           <div className="post-details-price">
             <p>{post.price} DA</p>
-            <button className="button-whislist">
-              <p></p>
-              <AiOutlineHeart size={20} />
-            </button>
           </div>
           <div className="info">
             <li>
-              <strong>num :{post.num}</strong>
+              <strong>Numéro De Téléphone : {post.num}</strong>
             </li>
             <li>
-              <strong>willaya: {post.wilaya}</strong>
+              <strong>willaya : {post.wilaya}</strong>
             </li>
             <li>
-              <strong>etat: {post.etat}</strong>
+              <strong>état : {post.etat}</strong>
             </li>
           </div>
         </div>

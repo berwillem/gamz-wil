@@ -1,7 +1,6 @@
 import Navbar from "../../Components/Navbar/Navbar";
 import Slider from "../../Components/Slider/Slider";
 import pubImg from "../../assets/images/pub.png";
-import BackgroundSlider from "react-background-slider";
 import Footer from "../../Components/Footer/Footer";
 import Pagination from "../../Components/Pagination/Pagination";
 import Ads from "../../Components/Ads/Ads";
@@ -92,7 +91,6 @@ function Home(isDarkMode) {
     setSelectedProducts(products);
   }
 
-  console.log(selectedProducts);
   return (
     <div>
       <Navbar p={p}  handleProductFetch={handleProductFetch}/>

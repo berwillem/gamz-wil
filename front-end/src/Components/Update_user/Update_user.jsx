@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./update_use.css";
 import avatarImage from "../../assets/images/avatar.png";
 import bannerImage from "../../assets/images/banner.png";
 import Swal from "sweetalert2";
 import { AiFillEdit } from "react-icons/ai";
+import loader from "../../assets/images/loader.gif";
 const baseURL = import.meta.env.VITE_BASE_URL;
 function Update_user() {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   // states:
   const [nom, setNom] = useState("");
   const [prénom, setPrénom] = useState("");
@@ -21,6 +22,7 @@ function Update_user() {
   const [adress, setAdress] = useState("");
   const [dateNaissance, setDateNaissance] = useState("");
   const [phone, setPhone] = useState("");
+  const [loading, setLoading] = useState(false);
   // data :
   const userString = localStorage.getItem("user");
   const user = JSON.parse(userString);
@@ -50,7 +52,8 @@ function Update_user() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
+    window.scrollTo({ top: 300 });
     const formData = new FormData();
     formData.append("username", displayName);
     formData.append("nom", nom);
@@ -64,11 +67,9 @@ function Update_user() {
     formData.append("banner", bannerFile);
 
     try {
-      const res = await axios.put(
-        baseURL+`/user/`,
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
+      const res = await axios.put(baseURL + `/user/`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       // Update the user object with the new values
       user.avatar.url = res.data.avatar.url;
@@ -80,38 +81,44 @@ function Update_user() {
       const updatedUserString = JSON.stringify(user);
       localStorage.setItem("user", updatedUserString);
       Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: 'Your acount has been updated successfully!',
+        icon: "success",
+        title: "Success",
+        text: "Your acount has been updated successfully!",
       });
-      navigate("/")
-
+      navigate("/");
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
+      {loading && (
+        <div className="loader">
+          <img src={loader} alt="Loading..." />
+        </div>
+      )}
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="images-update">
           <div className="avatar">
             <label htmlFor="avatar-input">
               {avatar ? (
-            <>
-                <img
-                  src={avatar}
-                  alt="Avatar"
-                  style={{
-                    width: "150px",
-                    height: "120px",
-                    cursor: "pointer",
-                    border: "2px solid ",
-                    borderRadius: "50%",
-                  }}
-                />
-               <AiFillEdit className="edit"/>
-            </>
+                <>
+                  <img
+                    src={avatar}
+                    alt="Avatar"
+                    style={{
+                      width: "150px",
+                      height: "120px",
+                      cursor: "pointer",
+                      border: "2px solid ",
+                      borderRadius: "50%",
+                    }}
+                  />
+                  <AiFillEdit className="edit" />
+                </>
               ) : (
                 <span>Click to upload avatar</span>
               )}
@@ -130,19 +137,19 @@ function Update_user() {
           <div className="banner">
             <label htmlFor="banner-input">
               {banner ? (
-               <>
-                <img
-                  src={banner}
-                  alt="Banner"
-                  style={{
-                    width: "300px",
-                    height: "120px",
-                    cursor: "pointer",
-                    border: "2px solid ",
-                    borderRadius: "10px",
-                  }}
-                />
-                 <AiFillEdit className="edit"/>
+                <>
+                  <img
+                    src={banner}
+                    alt="Banner"
+                    style={{
+                      width: "300px",
+                      height: "120px",
+                      cursor: "pointer",
+                      border: "2px solid ",
+                      borderRadius: "10px",
+                    }}
+                  />
+                  <AiFillEdit className="edit" />
                 </>
               ) : (
                 <span>Click to upload banner</span>

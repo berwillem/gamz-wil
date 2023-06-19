@@ -39,7 +39,7 @@ function Login() {
         <p>Connexion</p>
       </div>
       <div className="sub-title-login">
-        <p>Content de te revoir ! connectez-vous à votre compte</p>
+        <p>Content de vous revoir ! connectez-vous à votre compte</p>
       </div>
       {error && <p className="error-message">{error}</p>}
       <Formik
@@ -76,7 +76,7 @@ function Login() {
             <button type="submit"  >
               <strong>Connexion</strong>
             </button>
-            <Link to="/PassForgot">Mon de passe oublié ?</Link>
+            <Link to="/PassForgot">Mot de passe oublié ?</Link>
           </Form>
         )}
       </Formik>

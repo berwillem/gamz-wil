@@ -40,10 +40,10 @@ padding: 20px;
 padding: 20px;
 }
 .big-image > img {
-    height: 50vh;
+    height: 45vh;
     width: 400px;
     object-fit: fill;
-    border-radius: 10%;
+    border-radius: 5%;
 }
 
 .big-image{

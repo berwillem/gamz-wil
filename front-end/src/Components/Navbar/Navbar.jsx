@@ -206,7 +206,7 @@ function Navbar({ p, handleProductFetch }) {
             <div className="account-pub">
               <li className="catch-button">
                 <BsPlusLg size={13} />
-                <Link to="/createPost">Deposer une annonce</Link>
+                <Link to="/createPost">Deposez une annonce</Link>
               </li>
               <li className="upline">|</li>
               <li>
