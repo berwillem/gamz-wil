@@ -4,7 +4,7 @@ import CatHover from "../CatHover/CatHover";
 import "./CategorySide.css";
 import cat_img from "../../assets/images/PICS/img1.png";
 import cat_img2 from "../../assets/images/PICS/img2.png";
-import cat_img3 from "../../assets/images/PICS/img3.png";
+import cat_img3 from "../../assets/images/PICS/img3.jpeg";
 import cat_img4 from "../../assets/images/PICS/img4.png";
 import cat_img5 from "../../assets/images/PICS/img5.png";
 import { fetchCategories, getCategories } from "../../Data/category";

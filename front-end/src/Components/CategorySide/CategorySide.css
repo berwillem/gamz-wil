@@ -20,7 +20,7 @@
 }
 
 .category-side-title > h4 {
-    width: 50%;
+    width: 100%;
     font-size: 24px;
     position: relative;
 }
@@ -62,7 +62,7 @@
     /* border-radius: 5px; */
 }
 .category-side > li >p{
-  font-size: 14px;
+  font-size: 15px;
   font-weight: bold;
 
 }

@@ -26,7 +26,7 @@ function Register() {
   return (
     <div className="register-container">
       <div className="title-register">
-        <p>Enregistrer</p>
+        <p>Inscription</p>
       </div>
       <div className="sub-title-register">
         <p>Bienvenue, créez votre compte.</p>
@@ -41,7 +41,7 @@ function Register() {
             name="Username"
             value={username}
             type="text"
-            placeholder="write your Username"
+            placeholder="écrirvez votre nom d'utilisateur"
             onChange={(e) => setUsername(e.target.value)}
           />
         </label>
@@ -51,7 +51,7 @@ function Register() {
             name="Email"
             value={email}
             type="email"
-            placeholder="write your Email"
+            placeholder="écrirvez votre e-mail"
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
@@ -61,13 +61,13 @@ function Register() {
             name="password"
             value={password}
             type="password"
-            placeholder="write your password"
+            placeholder="écrirvez votre mot de passe"
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
         <div className="check-box-login">
               <input type="checkbox" name="rememberMe"  required/>
-              <strong> accepter Conditions d'utilisation et la Politique de confidentialité  </strong>
+              <strong> J’accepte les conditions d'utilisation et la politique de confidentialité   </strong>
             </div>
         <div className="sub-text-register">
           <small>

@@ -40,14 +40,21 @@ padding: 20px;
 padding: 20px;
 }
 .big-image > img {
-    height: 50vh;
-    width: 400px;
+    height: 250px;
+    width: 350px;
     object-fit: fill;
     border-radius: 10%;
 }
 
 .big-image{
     border-bottom: 1px solid #cccccc;
+    display: flex;
+    align-items: center;
+    width: 400px;
+}
+.big-image svg{
+    height: 30px;
+    width: 30px;
 }
 
 .sub-images {
@@ -176,6 +183,7 @@ padding: 20px;
     width: 100px;
     object-fit: fill;
 }
+
 /*respo*/
 @media screen and (max-width: 1240px) {
    .post-details{
@@ -200,11 +208,13 @@ padding: 20px;
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
    
 }
+
 .big-image img{
-    height: 50vh;
-    width: 400px;
+    height: 250px;
+    width: 350px;
     object-fit: fill;
 }
 .details{
@@ -216,6 +226,7 @@ padding: 20px;
     height: auto;
 }
 }
+
 @media screen and (max-width: 820px) {
 
 
@@ -229,7 +240,11 @@ padding: 20px;
 
 }
 @media screen and (max-width: 480px) {
-
+    .big-image img{
+        height: 150px;
+        width: 250px;
+        object-fit: fill;
+    }
 }
 @media screen and (max-width: 414px) {
 

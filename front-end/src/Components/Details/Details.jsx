@@ -7,6 +7,10 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Power3 } from "gsap";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
+import {
+  AiOutlineRight,
+  AiOutlineLeft,
+} from "react-icons/ai";
 import RelatedPost from "../RelatedPost/RelatedPost";
 import notavalible from "../../assets/images/Image_not_available.png";
 import defaultAvatar from "../../assets/images/avatar.png"
@@ -21,8 +25,46 @@ function Details() {
   const [secondImage, setSecondImage] = useState(notavalible);
   const [thirdImage, setThirdImage] = useState(notavalible);
   const location = useLocation();
+  const imageslide=[pricipalImage,secondImage,thirdImage]
+  const [index, setIndex] = useState(0);
+  const [index2, setIndex2] = useState(1);
+  const [index3, setIndex3] = useState(2);
   const postId = location.pathname.split("/")[2];
-
+  useEffect(() => {
+    switch (index) {
+      case 0:
+        setIndex2(1);
+        setIndex3(2);
+        break;
+      case 1:
+        setIndex2(2);
+        setIndex3(0);
+        break;
+      case 2:
+        setIndex2(0);
+        setIndex3(1);
+        break;
+      default:
+        break;
+    }
+  }, [index]);
+  
+ function handelright(){
+  if(index==2){
+    setIndex(0);
+  }
+  else{
+    setIndex(index+1);
+  }
+ }
+ function handelleft(){
+  if(index==0){
+    setIndex(2);
+  }
+  else{
+    setIndex(index-1);
+  }
+ }
   const fetchPostDetails = async () => {
     try {
       const response = await axios.get(
@@ -114,15 +156,7 @@ function Details() {
     }
     return shuffledArray;
   }
-  const handleSubImageClick = (clickedImageURL) => {
-    const currentPrincipalImage = pricipalImage;
-    setPricipalImage(clickedImageURL);
-    if (clickedImageURL === secondImage) {
-      setSecondImage(currentPrincipalImage);
-    } else if (clickedImageURL === thirdImage) {
-      setThirdImage(currentPrincipalImage);
-    }
-  };
+  
 
   return (
     <div className="details-container">
@@ -137,20 +171,22 @@ function Details() {
       <div className="details">
         <div className="post-details-l" ref={cardContainer}>
           <div className="big-image">
-            <img src={pricipalImage} alt="post-image" />
+            <AiOutlineLeft onClick={handelleft}  />
+            <img src={imageslide[index]} alt="post-image" />
+            <AiOutlineRight onClick={handelright} />           
           </div>
           <div className="sub-images">
             <img
-              src={secondImage}
+              src={imageslide[index2]}
               alt="post-image"
               className="images"
-              onClick={() => handleSubImageClick(secondImage)} // Switch positions with the clicked sub-image
+              // Switch positions with the clicked sub-image
             />
             <img
-              src={thirdImage}
+              src={imageslide[index3]}
               alt="post-image"
               className="images"
-              onClick={() => handleSubImageClick(thirdImage)} // Switch positions with the clicked sub-image
+               // Switch positions with the clicked sub-image
             />
           </div>
         </div>
