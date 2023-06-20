@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { options_state } from "../../Data/etat";
+import loader from "../../assets/images/loader.gif";
 
 // needs befor :::
 const baseURL = import.meta.env.VITE_BASE_URL;
@@ -49,6 +50,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
   const [price, setPrice] = useState("");
   const [wilaya, setWilaya] = useState("");
   const [etat, setEtat] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   // ***HANDELE FUNCTIONS ***
@@ -129,6 +131,8 @@ function AddPostForm({ categories, fetchSubcategories }) {
   };
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    window.scrollTo({ top: 300 });
     const formData = new FormData();
     formData.append("title", title);
     formData.append("price", price);
@@ -165,6 +169,8 @@ function AddPostForm({ categories, fetchSubcategories }) {
         text: "bad request",
       });
       console.log("errr:::", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -187,6 +193,11 @@ function AddPostForm({ categories, fetchSubcategories }) {
 
   return (
     <>
+      {loading && (
+        <div className="loader">
+          <img src={loader} alt="Loading..." />
+        </div>
+      )}
       <form onSubmit={handleFormSubmit} encType="multipart/form-data">
         <div className="account-center">
           <div className="user-l">
