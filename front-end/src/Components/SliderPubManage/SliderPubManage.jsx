@@ -9,6 +9,7 @@ import {
 import Swal from "sweetalert2";
 import "./SliderPubManage.css";
 import axios from "axios";
+import loader from "../../assets/images/loader.gif";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 const defaultBackground =
@@ -33,6 +34,7 @@ function SliderPubManage({ disp }) {
   const [url4, setUrl4] = useState("");
   const [url5, setUrl5] = useState("");
   const [index, setIndex] = useState(0);
+  const [loading, setLoading] = useState(false);
   // Refs
   const subtitle = useRef();
   const subtitle2 = useRef();
@@ -202,6 +204,8 @@ function SliderPubManage({ disp }) {
   // Handle the form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    window.scrollTo({ top: 300 });
     const requestData = {
       pub: principalImagesFile,
       title: subtitleValue1,
@@ -249,9 +253,18 @@ function SliderPubManage({ disp }) {
       });
       console.log(err);
     }
+    finally {
+      setLoading(false);
+    }
   };
 
   return (
+    <>
+     {loading && (
+        <div className="loader">
+          <img src={loader} alt="Loading..." />
+        </div>
+      )}
     <form
       action=""
       className="slider"
@@ -396,6 +409,7 @@ function SliderPubManage({ disp }) {
       </div>
       <input type="submit" className="btnsub" />
     </form>
+    </>
   );
 }
 

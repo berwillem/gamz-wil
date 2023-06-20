@@ -12,7 +12,7 @@ function Footer({ p, handleProductFetch }) {
   const handleScrollToTop = () => {
     window.scrollTo({
       top: 400,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   };
   const handleCategoryClick = (categoryId) => {
@@ -41,16 +41,25 @@ function Footer({ p, handleProductFetch }) {
             <img src={p ? Logo2 : Logo} alt="" />
           </div>
           <div className="social-media">
-            <a href="https://www.instagram.com/gamz.dz/?igshid=ZDdkNTZiNTM%3D" target="blank">
+            <a
+              href="https://www.instagram.com/gamz.dz/?igshid=ZDdkNTZiNTM%3D"
+              target="blank"
+            >
               <BsInstagram size={20} color="#757575" />
             </a>
-            <a href="https://www.facebook.com/profile.php?id=100092228414663&mibextid=ZbWKwL" target="blank">
+            <a
+              href="https://www.facebook.com/profile.php?id=100092228414663&mibextid=ZbWKwL"
+              target="blank"
+            >
               <BsFacebook size={20} color="#757575" />
             </a>
-            <a href="https://discord.com/invite/QVMfN2S9qN" target="blank">
+            <a href="https://discord.com/invite/FT42RYENUK" target="blank">
               <BsDiscord size={20} color="#757575" />
             </a>
-            <a href="https://twitter.com/Gamz_Dz?t=4rVPquN813yhWN7hxb9AxQ&s=09" target="blank">
+            <a
+              href="https://twitter.com/Gamz_Dz?t=4rVPquN813yhWN7hxb9AxQ&s=09"
+              target="blank"
+            >
               <BsTwitter size={20} color="#757575" />
             </a>
           </div>
@@ -60,8 +69,16 @@ function Footer({ p, handleProductFetch }) {
             <strong>Categories</strong>
           </div>
           <div className="category-list">
-          {categories.map((categorie,index) => (
-                            <li key={index} onClick={() =>{ handleCategoryClick(categorie._id);; handleScrollToTop();}}>{categorie.name}</li>
+            {categories.map((categorie, index) => (
+              <li
+                key={index}
+                onClick={() => {
+                  handleCategoryClick(categorie._id);
+                  handleScrollToTop();
+                }}
+              >
+                {categorie.name}
+              </li>
             ))}
           </div>
         </div>

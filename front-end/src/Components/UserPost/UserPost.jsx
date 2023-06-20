@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { AiOutlineArrowRight, AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineArrowRight } from "react-icons/ai";
 import "./UserPost.css";
 import { Link } from "react-router-dom";
 import { AiOutlineDelete } from "react-icons/ai";
@@ -119,10 +119,6 @@ function UserPost({ posts, owner }) {
                     />
                   </button>
                 </Link>
-              </div>
-              <div className="like-button">
-                <p>WishList</p>
-                <AiOutlineHeart size={15} />
               </div>
             </div>
           );

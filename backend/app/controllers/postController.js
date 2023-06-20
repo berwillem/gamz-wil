@@ -17,17 +17,13 @@ exports.createPost = async (req, res) => {
       date,
       author,
     } = req.body;
-  console.log(req.body.images);
-
-
-    const subcategoryIds = subcategories.split(',');
 
     const post = new Post({
       title,
       price,
       description,
       category,
-      subcategories: subcategoryIds, 
+      subcategories,
       images,
       wilaya,
       commune,
@@ -47,9 +43,9 @@ exports.createPost = async (req, res) => {
     res.status(201).json(savedPost);
   } catch (err) {
     res.status(400).json({ message: err.message });
+    console.log(err);
   }
 };
-
 
 exports.deletePost = async (req, res) => {
   try {
@@ -127,7 +123,8 @@ exports.getPostsByCategoryId = async (req, res) => {
 
 exports.getPostsBySubcategory = async (req, res) => {
   try {
-    const subcategoryId = req.params.subcategoryId
+    const subcategoryId = req.params.subcategoryId;
+    console.log(subcategoryId);
     const posts = await Post.find({
       subcategories: subcategoryId,
     })

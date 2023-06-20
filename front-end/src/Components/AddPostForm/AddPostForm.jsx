@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { options_state } from "../../Data/etat";
+import loader from "../../assets/images/loader.gif";
 
 // needs befor :::
 const baseURL = import.meta.env.VITE_BASE_URL;
@@ -49,6 +50,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
   const [price, setPrice] = useState("");
   const [wilaya, setWilaya] = useState("");
   const [etat, setEtat] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   // ***HANDELE FUNCTIONS ***
@@ -68,7 +70,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
     newOtherImagesFiles[index] = event.target.files[0]; // add the new file to the end
     setOtherImagesFile(newOtherImagesFiles);
   };
-  
+
   //  categories handle:
 
   const handleCategoryChange = async (selectedOption) => {
@@ -129,20 +131,18 @@ function AddPostForm({ categories, fetchSubcategories }) {
   };
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    window.scrollTo({ top: 300 });
     const formData = new FormData();
     formData.append("title", title);
     formData.append("price", price);
     formData.append("description", description);
     formData.append("category", selectedCategory.value);
-    if (selectedSubCategory || selectedSubCategory2) {
-      const subcategories = [];
-      if (selectedSubCategory) {
-        subcategories.push(selectedSubCategory.value);
-      }
-      if (selectedSubCategory2) {
-        subcategories.push(selectedSubCategory2.value);
-      }
-      formData.append("subcategories", subcategories);
+    if (selectedSubCategory) {
+      formData.append("subcategories", selectedSubCategory.value);
+    }
+    if (selectedSubCategory2 && selectedSubCategory2.value) {
+      formData.append("subcategories", selectedSubCategory2.value);
     }
     formData.append("wilaya", wilaya);
     formData.append("etat", etat);
@@ -159,15 +159,18 @@ function AddPostForm({ categories, fetchSubcategories }) {
       Swal.fire({
         icon: "success",
         title: "Success",
-        text: "Your post has been create successfully!",
+        text: "Your post has been created successfully!",
       });
       navigate(`/account/${id}`);
     } catch (err) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: {err},
-      })
+        icon: "error",
+        title: "Oops...",
+        text: "bad request",
+      });
+      console.log("errr:::", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -190,6 +193,11 @@ function AddPostForm({ categories, fetchSubcategories }) {
 
   return (
     <>
+      {loading && (
+        <div className="loader">
+          <img src={loader} alt="Loading..." />
+        </div>
+      )}
       <form onSubmit={handleFormSubmit} encType="multipart/form-data">
         <div className="account-center">
           <div className="user-l">
@@ -261,7 +269,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
           </div>
           <div className="add-post-r">
             <div className="add-category">
-              <p>Choisissez votre categories d’annonce</p>
+              <p>Choisissez votre categories d'annonce</p>
               <Select
                 options={categories.map((category) => ({
                   value: category._id,
@@ -272,7 +280,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
                 placeholder="Select a category"
                 styles={customStyles}
               />
-              {selectedCategory && (
+              {selectedCategory && subcategories.length > 0 && (
                 <div className="add-category">
                   <p>Choisissez votre sous-categories d’annonce</p>
                   <Select
@@ -287,7 +295,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
                   />
                 </div>
               )}
-              {selectedSubCategory && (
+              {selectedSubCategory && subcategories2.length > 0 && (
                 <div className="add-category">
                   <p>: Choisissez votre sous-categories détaillée </p>
                   <Select
@@ -308,8 +316,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
                   value={options_state.find((option) => option.value === etat)}
                   onChange={handleConditionChange}
                   options={options_state}
-                  isClearable
-                  placeholder="Select an option"
+                  placeholder="select a state "
                   styles={customStyles}
                 />
               </div>
@@ -374,7 +381,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
               />
             </div>
             <button type="submit" className="btn-submit">
-            Publier
+              Publier
             </button>
           </div>
         </div>
@@ -384,4 +391,3 @@ function AddPostForm({ categories, fetchSubcategories }) {
 }
 
 export default AddPostForm;
-

@@ -1,27 +1,33 @@
 #root {
-  
   margin: 0;
   padding: 0;
-
 }
 :root {
-  --background-color: #FFFFFF;
+  --background-color: #ffffff;
   --text-color: #333333;
-  --nav-footer:#e7e5e59e;
+  --nav-footer: #e7e5e59e;
 }
 
 .dark-mode {
   --background-color: #222222;
-  --text-color: #FFFFFF;
-  --nav-footer:#222222;
+  --text-color: #ffffff;
+  --nav-footer: #222222;
 }
 ::-webkit-scrollbar {
-  width: 15px; /* Remplacez par la largeur souhaitée */
- 
+  width: 15px;
 }
-
-/* Fond de la barre de défilement */
-::-webkit-scrollbar-thumb{
-  background-color: #e81a2a; /* Remplacez par la couleur souhaitée */
+::-webkit-scrollbar-thumb {
+  background-color: #e81a2a;
   border-radius: 10px;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+.loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
 }

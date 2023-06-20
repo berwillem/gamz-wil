@@ -1,8 +1,8 @@
 import React from "react";
-import { AiOutlineArrowRight, AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineArrowRight} from "react-icons/ai";
 import { Link } from "react-router-dom";
 import "./RelatedPost.css";
-import NotFound from '../../assets/images/Image_not_available.png'
+import NotFound from "../../assets/images/Image_not_available.png";
 function RelatedPost({ post }) {
   console.log(post);
 
@@ -41,10 +41,6 @@ function RelatedPost({ post }) {
               />
             </button>
           </Link>
-        </div>
-        <div className="like-button">
-          <p>WishList</p>
-          <AiOutlineHeart size={15} />
         </div>
       </div>
     </>
