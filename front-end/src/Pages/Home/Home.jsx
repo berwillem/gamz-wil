@@ -23,9 +23,9 @@ const images = [
 ];
 function Home(isDarkMode) {
   const dispatch = useDispatch();
-
+  const p = isDarkMode.isDarkMode;
+  // animations:::
   gsap.registerPlugin(ScrollTrigger);
-
   const cardContainer = useRef();
   const cardContainer2 = useRef();
   const cardContainer3 = useRef();
@@ -55,29 +55,15 @@ function Home(isDarkMode) {
       scrollTrigger: cardContainer.current,
     });
   }, []);
-
-  const p = isDarkMode.isDarkMode;
-
+  // states::
   const [posts, setPosts] = useState([]);
- 
-  
-  
 
   useEffect(() => {
     const getPosts = async () => {
       try {
-     if(selectedProducts==""){
-      const res = await axios.get(baseURL + `/post/`);
-      setPosts(res.data);
-      dispatch(GetAllPosts(res.data));
-    
-     }
-     else{
-      const res = await axios.get(baseURL + `/post/subcategory/${selectedProducts}`);
-      setPosts(res.data);
-      dispatch(GetAllPosts(res.data));
-    
-     }
+        const res = await axios.get(baseURL + "/post/");
+        setPosts(res.data);
+        dispatch(GetAllPosts(res.data));
       } catch (err) {
         console.log(err);
       }
@@ -85,19 +71,14 @@ function Home(isDarkMode) {
 
     getPosts();
   }, []);
-  const [selectedProducts, setSelectedProducts] = useState("");
-
-  const handleProductFetch = (products) => {
-    setSelectedProducts(products);
-  }
 
   return (
     <div>
-      <Navbar p={p}  handleProductFetch={handleProductFetch}/>
+      <Navbar p={p} />
       <Slider />
       <div className="home-center">
         <div className="Ads-category " ref={cardContainer2}>
-          <CategorySide  handleProductFetch={handleProductFetch}/>
+          <CategorySide />
           <Ads uri={pubImg} />
         </div>
         <div
@@ -109,14 +90,14 @@ function Home(isDarkMode) {
           }}
           ref={cardContainer3}
         >
-          <Pagination posts={posts} postsbycat={selectedProducts} />
+          <Pagination posts={posts} />
         </div>
       </div>
       <div className="home-bottom">
         <TopSelll />
         <Ads uri={pubImg} />
       </div>
-      <Footer p={p}  handleProductFetch={handleProductFetch}/>
+      <Footer p={p} />
     </div>
   );
 }
