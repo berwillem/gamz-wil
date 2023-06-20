@@ -6,7 +6,7 @@ import { HiSearch } from "react-icons/hi";
 import { HiMenu } from "react-icons/hi";
 import logo from "../../assets/1.png";
 import logo2 from "../../assets/2.png";
-import logo3 from "../../assets/logodark.png";
+import logo3 from "../../assets/logorespo.png";
 import UpdateInfo from "../UpdateInfo/UpdateInfo";
 import { Link } from "react-router-dom";
 import { useState } from "react";

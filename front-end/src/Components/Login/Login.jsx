@@ -51,7 +51,7 @@ function Login() {
           <Form>
             <label htmlFor="">
               <strong>Nom d'utilisateur ou addresse e-mail *</strong>
-              <Field type="email" name="email" placeholder="write your email"  />
+              <Field type="email" name="email" placeholder="écrirvez votre nom d'utilisateur"  />
               <ErrorMessage name="email" component="div" className="error" />
             </label>
             <label>
@@ -60,7 +60,7 @@ function Login() {
         
                 type="password"
                 name="password"
-                placeholder="write your password"
+                placeholder="écrirvez votre mot de passe"
               />
               <ErrorMessage
                 name="password"
