@@ -171,22 +171,24 @@ function Details() {
         <div className="post-details-l" ref={cardContainer}>
           <div className="big-image">
             <AiOutlineLeft onClick={handelleft}  />
-            <img src={imageslide[index]} alt="post-image" />
+           <a href={imageslide[index]} target="_blank"> <img src={imageslide[index]} alt="post-image" /></a>
             <AiOutlineRight onClick={handelright} />           
           </div>
           <div className="sub-images">
-            <img
+           <a href={imageslide[index2]} target="_blank"> <img
               src={imageslide[index2]}
               alt="post-image"
               className="images"
               // Switch positions with the clicked sub-image
-            />
-            <img
+            /></a>
+           <a href={imageslide[index3]} target="_blank">
+           <img
               src={imageslide[index3]}
               alt="post-image"
               className="images"
                // Switch positions with the clicked sub-image
             />
+           </a>
           </div>
         </div>
 

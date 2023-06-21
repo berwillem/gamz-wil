@@ -1,5 +1,6 @@
 import "./CategorySide.css";
 import arrow from "../../assets/Svg/arrow.svg";
+
 import subcategoryes from "../../Data/subCategory";
 import subSubCategoryes from "../../Data/subSubCategory";
 import subSubSubCategoryes from "../../Data/subSubCategory";
@@ -85,9 +86,12 @@ function CategorySide({ onSubcategoryChange }) {
                             );
                           })}
                         </div>
+                       
                       </ul>
+                      
                     );
                   })}
+                   <img src={subcategorye.src} alt="" className="img-cat" id={subcategorye.label} />
                 </div>
               </li>
             );
