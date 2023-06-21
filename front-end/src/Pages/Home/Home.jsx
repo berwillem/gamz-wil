@@ -57,6 +57,16 @@ function Home(isDarkMode) {
   }, []);
   // states::
   const [posts, setPosts] = useState([]);
+  const [categoryId, setCategoryId] = useState(null);
+  const [subcategoryId, setSubcategoryId] = useState(null);
+
+  const handleCategoryChange = (categoryId) => {
+    setCategoryId(categoryId);
+  };
+
+  const handleSubcategoryChange = (subcategoryId) => {
+    setSubcategoryId(subcategoryId);
+  };
 
   useEffect(() => {
     const getPosts = async () => {
@@ -78,7 +88,7 @@ function Home(isDarkMode) {
       <Slider />
       <div className="home-center">
         <div className="Ads-category " ref={cardContainer2}>
-          <CategorySide />
+          <CategorySide onSubcategoryChange={handleSubcategoryChange} />
           <Ads uri={pubImg} />
         </div>
         <div
@@ -97,7 +107,7 @@ function Home(isDarkMode) {
         <TopSelll />
         <Ads uri={pubImg} />
       </div>
-      <Footer p={p} />
+      <Footer onCategoryChange={handleCategoryChange} p={p} />
     </div>
   );
 }
