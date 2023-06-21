@@ -1,13 +1,17 @@
-import React from "react";
 import "./CategorySide.css";
 import arrow from "../../assets/Svg/arrow.svg";
 
 import subcategoryes from "../../Data/subCategory";
 import subSubCategoryes from "../../Data/subSubCategory";
-import subSubSubCategoryes from "../../Data/subSubSubCategory";
+import subSubSubCategoryes from "../../Data/subSubCategory";
 import subSubSubSubCategoryes from "../../Data/subSubSubSubCategory";
 
-function CategorySide() {
+function CategorySide({ onSubcategoryChange }) {
+
+  const handleSubcategorySelection = (subcategoryId) => {
+    onSubcategoryChange(subcategoryId);
+  };
+
   return (
     <div className="category-side-container">
       <div className="category-side-title">
@@ -23,7 +27,9 @@ function CategorySide() {
           if (subSubCategories.length > 0) {
             return (
               <li key={subcategorye.id}>
-                <p>{subcategorye.label}</p>
+                <p onClick={() => handleSubcategorySelection(subcategorye.id)}>
+                  {subcategorye.label}
+                </p>
                 <img src={arrow} alt="arrow" />
                 <div className="hover-drop-down">
                   {subSubCategories.map((subSubCategory) => {
@@ -34,7 +40,12 @@ function CategorySide() {
 
                     return (
                       <ul key={subSubCategory.id}>
-                        <li className="drop-down-titel">
+                        <li
+                          className="drop-down-titel"
+                          onClick={() =>
+                            handleSubcategorySelection(subSubCategory.id)
+                          }
+                        >
                           {subSubCategory.label}
                         </li>
                         <div>
@@ -47,9 +58,31 @@ function CategorySide() {
                               );
 
                             return (
-                              <li key={subSubSubCategory.id}>
-                                {subSubSubCategory.label}
-                              </li>
+                              <ul key={subSubSubCategory.id}>
+                                <li
+                                  onClick={() =>
+                                    handleSubcategorySelection(
+                                      subSubSubCategory.id
+                                    )
+                                  }
+                                >
+                                  {subSubSubCategory.label}
+                                </li>
+                                {subSubSubSubCategories.map(
+                                  (subSubSubSubCategory) => (
+                                    <li
+                                      key={subSubSubSubCategory.id}
+                                      onClick={() =>
+                                        handleSubcategorySelection(
+                                          subSubSubSubCategory.id
+                                        )
+                                      }
+                                    >
+                                      {subSubSubSubCategory.label}
+                                    </li>
+                                  )
+                                )}
+                              </ul>
                             );
                           })}
                         </div>
@@ -63,7 +96,13 @@ function CategorySide() {
               </li>
             );
           }
-          return null;
+          return (
+            <li key={subcategorye.id}>
+              <p onClick={() => handleSubcategorySelection(subcategorye.id)}>
+                {subcategorye.label}
+              </p>
+            </li>
+          );
         })}
       </div>
     </div>
