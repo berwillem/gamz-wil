@@ -53,9 +53,12 @@ function CategorySide() {
                             );
                           })}
                         </div>
+                       
                       </ul>
+                      
                     );
                   })}
+                   <img src={subcategorye.src} alt="" className="img-cat" id={subcategorye.label} />
                 </div>
               </li>
             );
