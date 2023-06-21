@@ -1,3 +1,10 @@
+import cat_img from "../../assets/images/PICS/img1.png";
+import cat_img2 from "../../assets/images/PICS/img2.png";
+import cat_img3 from "../../assets/images/PICS/img3.jpeg";
+import cat_img4 from "../../assets/images/PICS/img4.png";
+import cat_img5 from "../../assets/images/PICS/img5.png";
+import cat_img6 from "../../assets/images/PICS/img6.png";
+import cat_img7 from "../../assets/images/PICS/img7.png";
 const subcategories = [
   {
     id: "6473d58604ebb30a210eb4de",
