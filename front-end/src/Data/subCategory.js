@@ -13,13 +13,6 @@ const subcategories = [
     src:null
 
   },
- 
-    {
-      id: "6473d58404ebb30a210eb490",
-      label: "PC Portable / LAPTOP",
-      parentCategoryId: "6473d58404ebb30a210eb48e",
-      src:null
-    },
     {
       id: "6473d58404ebb30a210eb493",
       label: "PC Bureau",
@@ -46,12 +39,6 @@ const subcategories = [
       src:null
     },
     {
-      id: "6473d62c04ebb30a210eb59b",
-      label: "Steam Desk",
-      parentCategoryId: "6473d62704ebb30a210eb4fa",
-      src:null
-    },
-    {
       id: "6473d62c04ebb30a210eb59e",
       label: "Consoles Retro  ",
       parentCategoryId: "6473d62704ebb30a210eb4fa",
@@ -74,12 +61,6 @@ const subcategories = [
       label: "Jeux Vidéos physique Nintendo",
       parentCategoryId: "6473d8c504ebb30a210eb5b7",
       src:cat_img4
-    },
-    {
-      id: "6473d10eb99f2e45e0b47a63",
-      label: "Packs Collectors",
-      parentCategoryId: "6473d10eb99f2e45e0b47a61",
-      src:null
     },
     {
       id: "6473d10eb99f2e45e0b47a66",
