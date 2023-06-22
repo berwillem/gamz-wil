@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Ads from "../Ads/Ads";
 import "./AddPostForm.css";
-import image from "../../assets/Svg/undraw_image_post_re_25wd.svg";
+import image from "../../assets/ADDPHOTO.png";
 import Select from "react-select";
 import SideCard from "../SideCard/SideCard";
 import { wilaya } from "../../Data/wilaya";

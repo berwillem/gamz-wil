@@ -83,3 +83,38 @@ content: 'helllo there';
     cursor: pointer;
 
 }
+@media screen and (max-width: 1240px) {
+    
+
+   
+
+  }
+  @media screen and (max-width: 1070px) {
+  
+    
+    }
+    @media screen and (max-width: 820px) {
+     
+      
+    }
+    @media screen and (max-width: 750px) {
+    
+    }
+    @media screen and (max-width: 590px) {
+       
+        
+    }
+    @media screen and (max-width: 480px) {
+        .post-container > img{
+         
+            height: 180px;
+            width: 180px;
+        
+        }
+    }
+    @media screen and (max-width: 414px) {
+    
+    }
+    @media screen and (max-width: 325px) {
+        
+    }
