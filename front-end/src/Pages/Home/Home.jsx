@@ -98,7 +98,7 @@ function Home({ isDarkMode }) {
 
   return (
     <div>
-      <Navbar onCategoryChange={handleCategoryChange} p={p} />
+      <Navbar  p={p} onCategoryChange={handleCategoryChange} onSubcategoryChange={handleSubcategoryChange} />
       <Slider />
       <div className="home-center">
         <div className="Ads-category " ref={cardContainer2}>

@@ -18,7 +18,7 @@ import axios from "axios";
 import { fetchCategories, getCategories } from "../../Data/category";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-function Navbar({ p, onCategoryChange }) {
+function Navbar({ p, onCategoryChange,onSubcategoryChange }) {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const username = JSON.parse(localStorage.getItem("user"))?.username || null;
   const userId = JSON.parse(localStorage.getItem("user"))?.id || null;
@@ -26,7 +26,12 @@ function Navbar({ p, onCategoryChange }) {
     JSON.parse(localStorage.getItem("user"))?.infoUpdate || null;
   const [searchActive, setSearchActive] = useState("search");
   const [image, setImage] = useState(logo);
-
+  const handleCategorySelection = (categoryId) => {
+    onCategoryChange(categoryId);
+  };
+  const handleSubcategorySelection = (subcategoryId) => {
+    onSubcategoryChange(subcategoryId);
+  };
   useEffect(() => {
     const handleResize = () => {
       const isMobile = window.matchMedia('(max-width: 1240px)').matches;
@@ -191,9 +196,7 @@ function Navbar({ p, onCategoryChange }) {
     }
     setSearchCategory(searchBoxRef.current.querySelector("select").value);
   };
-  const handleCategoryClick = (categoryId) => {
-    handleProductFetch(categoryId);
-  };
+ 
   return (
     <>
       <div className="navbar-container">
@@ -255,7 +258,7 @@ function Navbar({ p, onCategoryChange }) {
                       <li
                         onClick={() => {
                           handleClick2(event);
-                          handleCategoryClick(categorie._id);
+                          handleCategorySelection(categorie._id);
                         }}
                       >
                         {categorie.name} <AiFillCaretDown />
@@ -267,7 +270,7 @@ function Navbar({ p, onCategoryChange }) {
                               <li
                                 key={index}
                                 onClick={() =>
-                                  handleCategoryClick(subcategorye.id)
+                                  handleSubcategorySelection(subcategorye.id)
                                 }
                               >
                                 {subcategorye.label}
@@ -345,7 +348,7 @@ function Navbar({ p, onCategoryChange }) {
                 <div className="catnav">
                   <li
                     key={index}
-                    onClick={() => handleCategoryClick(categorie._id)}
+                    onClick={() => handleCategorySelection(categorie._id)}
                   >
                     {categorie.name}
                   </li>
@@ -355,7 +358,7 @@ function Navbar({ p, onCategoryChange }) {
                         return (
                           <li
                             key={index}
-                            onClick={() => handleCategoryClick(subcategorye.id)}
+                            onClick={() => handleSubcategorySelection(subcategorye.id)}
                           >
                             {subcategorye.label}
                           </li>
