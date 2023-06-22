@@ -9,15 +9,16 @@ import pdf2 from "../../assets/pdf/Politique de confidentialité .pdf";
 import { fetchCategories, getCategories } from "../../Data/category";
 
 function Footer({ p, onCategoryChange }) {
+  const handleCategorySelection = (categoryId) => {
+    onCategoryChange(categoryId);
+  };
   const handleScrollToTop = () => {
     window.scrollTo({
       top: 400,
       behavior: "smooth",
     });
   };
-  const handleCategoryClick = (categoryId) => {
-    handleProductFetch(categoryId);
-  };
+ 
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -73,7 +74,7 @@ function Footer({ p, onCategoryChange }) {
               <li
                 key={index}
                 onClick={() => {
-                  handleCategoryClick(categorie._id);
+                  handleCategorySelection(categorie._id);
                   handleScrollToTop();
                 }}
               >
