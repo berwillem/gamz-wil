@@ -23,11 +23,18 @@
 body {
   margin: 0;
   padding: 0;
+ 
 }
+
 .loader {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 9999;
+}
+@media screen and (max-width: 1240px) {
+  *{
+    overflow-x: hidden;
+  }
 }

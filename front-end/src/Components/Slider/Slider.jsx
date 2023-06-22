@@ -188,9 +188,7 @@ function Slider({ disp }) {
     >
       <div className="R-C-slider">
         <div className="L-slider">
-          <div ref={title} className="title-slider">
-            <p>SHOP TO GET WHAT YOU LOVE</p>
-          </div>
+       
           <div className="sub-title">
             {card && card.title ? (
               <p ref={subtitle}>{card.title}</p>
@@ -216,6 +214,7 @@ function Slider({ disp }) {
         <div className="C-slider"></div>
       </div>
       <div className="R-slider">
+      <Link to={card1.redirect}>
         <div
           ref={cardContainer}
           className="box"
@@ -242,9 +241,9 @@ function Slider({ disp }) {
           </div>
           <div className="sub-title-box">
             {display ? <input type="file" onChange={handleFileChange} /> : null}
-            <Link to={card1.redirect}>
+          
               <strong>En savoir plus !</strong>
-            </Link>
+           
             <AiFillRightCircle size={20} color="#e81a2a" />
             <div className="image-R-slide">
               <img
@@ -254,6 +253,8 @@ function Slider({ disp }) {
             </div>
           </div>
         </div>
+        </Link>
+        <Link to={card2.redirect}>
         <div
           className="box"
           ref={cardContainer2}
@@ -282,9 +283,9 @@ function Slider({ disp }) {
             {display ? (
               <input type="file" onChange={handleFileChange2} />
             ) : null}
-            <Link to={card2.redirect}>
+            
               <strong>En savoir plus !</strong>
-            </Link>
+          
             <AiFillRightCircle size={20} color="#e81a2a" />
             <div className="image-R-slide">
               <img
@@ -293,7 +294,9 @@ function Slider({ disp }) {
               />
             </div>
           </div>
+         
         </div>
+        </Link>
       </div>
     </div>
   );

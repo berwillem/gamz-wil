@@ -342,9 +342,7 @@ function SliderPubManage({ disp }) {
 
       <div className="R-C-sliderPub">
         <div className="L-slider">
-          <div ref={title} className="title-slider">
-            <p>SHOP TO GET WHAT YOU LOVE</p>
-          </div>
+         
           <div className="sub-title">
             <p ref={subtitle}>
               TIMEPIECES THAT
