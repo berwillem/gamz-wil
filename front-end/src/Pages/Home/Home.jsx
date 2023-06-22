@@ -1,3 +1,8 @@
+import React, { useEffect, useState, useRef } from "react";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { gsap, Power3 } from "gsap";
+import { useDispatch } from "react-redux";
+import axios from "axios";
 import Navbar from "../../Components/Navbar/Navbar";
 import Slider from "../../Components/Slider/Slider";
 import pubImg from "../../assets/images/pub.png";
@@ -7,12 +12,8 @@ import Ads from "../../Components/Ads/Ads";
 import "./Home.css";
 import TopSelll from "../../Components/TopSelll/TopSelll";
 import CategorySide from "../../Components/CategorySide/CategorySide";
-import React, { useEffect, useState, useRef } from "react";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { gsap, Power3 } from "gsap";
 import { GetAllPosts } from "../../redux/reducers/Posts";
-import axios from "axios";
-import { useDispatch } from "react-redux";
+
 const baseURL = import.meta.env.VITE_BASE_URL;
 
 const images = [
@@ -21,14 +22,17 @@ const images = [
   "https://picsum.photos/800/600?random=3",
   "https://picsum.photos/800/600?random=4",
 ];
-function Home(isDarkMode) {
+
+function Home({ isDarkMode }) {
   const dispatch = useDispatch();
   const p = isDarkMode.isDarkMode;
-  // animations:::
+
+  // animations
   gsap.registerPlugin(ScrollTrigger);
   const cardContainer = useRef();
   const cardContainer2 = useRef();
   const cardContainer3 = useRef();
+
   useEffect(() => {
     gsap.to(cardContainer2.current, {
       y: 0,
@@ -55,7 +59,8 @@ function Home(isDarkMode) {
       scrollTrigger: cardContainer.current,
     });
   }, []);
-  // states::
+
+  // states
   const [posts, setPosts] = useState([]);
   const [categoryId, setCategoryId] = useState(null);
   const [subcategoryId, setSubcategoryId] = useState(null);
@@ -91,7 +96,6 @@ function Home(isDarkMode) {
   }, [categoryId, subcategoryId]);
 
 
-  console.log("heeeerrreee",subcategoryId);
   return (
     <div>
       <Navbar  p={p} onCategoryChange={handleCategoryChange} onSubcategoryChange={handleSubcategoryChange} />

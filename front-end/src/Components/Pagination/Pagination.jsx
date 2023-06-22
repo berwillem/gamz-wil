@@ -40,7 +40,7 @@ function Pagination({ posts }) {
         <p>Les annonces récentes</p>
       </div>
 
-      {pages === 0 && <p>Chargement…</p>}
+      {pages === 0 && <p>Aucune annonce trouvée.</p>}
 
       {pages > 0 && (
         <>
@@ -63,7 +63,7 @@ function Pagination({ posts }) {
                 key={index}
                 onClick={changePage}
                 className={`paginationItem ${
-                  currentPage === item ? "active" : null
+                  currentPage === item ? "active" : ""
                 }`}
               >
                 <span>{item}</span>
