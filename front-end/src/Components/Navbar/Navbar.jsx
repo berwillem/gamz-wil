@@ -18,7 +18,7 @@ import axios from "axios";
 import { fetchCategories, getCategories } from "../../Data/category";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-function Navbar({ p, handleProductFetch }) {
+function Navbar({ p, onCategoryChange }) {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const username = JSON.parse(localStorage.getItem("user"))?.username || null;
   const userId = JSON.parse(localStorage.getItem("user"))?.id || null;

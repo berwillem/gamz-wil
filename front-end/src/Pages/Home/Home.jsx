@@ -90,9 +90,11 @@ function Home(isDarkMode) {
     fetchPosts();
   }, [categoryId, subcategoryId]);
 
+
+  console.log("heeeerrreee",subcategoryId);
   return (
     <div>
-      <Navbar p={p} />
+      <Navbar onCategoryChange={handleCategoryChange} p={p} />
       <Slider />
       <div className="home-center">
         <div className="Ads-category " ref={cardContainer2}>
