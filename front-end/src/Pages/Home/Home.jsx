@@ -69,9 +69,17 @@ function Home(isDarkMode) {
   };
 
   useEffect(() => {
-    const getPosts = async () => {
+    const fetchPosts = async () => {
       try {
-        const res = await axios.get(baseURL + "/post/");
+        let url = `${baseURL}/post/`;
+
+        if (categoryId) {
+          url = `${baseURL}/post/category/${categoryId}`;
+        } else if (subcategoryId) {
+          url = `${baseURL}/post/subcategory/${subcategoryId}`;
+        }
+
+        const res = await axios.get(url);
         setPosts(res.data);
         dispatch(GetAllPosts(res.data));
       } catch (err) {
@@ -79,8 +87,8 @@ function Home(isDarkMode) {
       }
     };
 
-    getPosts();
-  }, []);
+    fetchPosts();
+  }, [categoryId, subcategoryId]);
 
   return (
     <div>
