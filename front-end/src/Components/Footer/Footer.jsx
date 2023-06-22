@@ -8,7 +8,7 @@ import pdf1 from "../../assets/pdf/Conditions d'utilisation .pdf";
 import pdf2 from "../../assets/pdf/Politique de confidentialité .pdf";
 import { fetchCategories, getCategories } from "../../Data/category";
 
-function Footer({ p, handleProductFetch }) {
+function Footer({ p, onCategoryChange }) {
   const handleScrollToTop = () => {
     window.scrollTo({
       top: 400,

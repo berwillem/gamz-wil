@@ -24,15 +24,15 @@ function Login() {
 
   const validate = (values) => {
     const errors = {};
-    if (!values.email) {
-      errors.email = "Email is required";
+    if (!values.emailOrUsername) {
+      errors.emailOrUsername = "Email or username is required";
     }
     if (!values.password) {
       errors.password = "Password is required";
     }
     return errors;
   };
-   
+
   return (
     <div className="login-container">
       <div className="title-login">
@@ -43,24 +43,31 @@ function Login() {
       </div>
       {error && <p className="error-message">{error}</p>}
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ emailOrUsername: "", password: "" }}
         validate={validate}
         onSubmit={handleSubmit}
       >
         {() => (
           <Form>
-            <label htmlFor="">
-              <strong>Nom d'utilisateur ou addresse e-mail *</strong>
-              <Field type="email" name="email" placeholder="écrirvez votre nom d'utilisateur"  />
-              <ErrorMessage name="email" component="div" className="error" />
+            <label htmlFor="emailOrUsername">
+              <strong>Nom d'utilisateur ou adresse e-mail *</strong>
+              <Field
+                type="text"
+                name="emailOrUsername"
+                placeholder="Entrez votre email ou nom d'utilisateur"
+              />
+              <ErrorMessage
+                name="emailOrUsername"
+                component="div"
+                className="error"
+              />
             </label>
             <label>
               <strong>Mot de passe *</strong>
               <Field
-        
                 type="password"
                 name="password"
-                placeholder="écrirvez votre mot de passe"
+                placeholder="Entrez votre mot de passe"
               />
               <ErrorMessage
                 name="password"
@@ -71,9 +78,9 @@ function Login() {
 
             <div className="check-box-login">
               <Field type="checkbox" name="rememberMe" />
-              <strong>Se rappeller de moi</strong>
+              <strong>Se rappeler de moi</strong>
             </div>
-            <button type="submit"  >
+            <button type="submit">
               <strong>Connexion</strong>
             </button>
             <Link to="/PassForgot">Mot de passe oublié ?</Link>

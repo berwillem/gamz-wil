@@ -65,16 +65,24 @@ exports.register = async (req, res) => {
 
 // login ::::
 exports.signin = async (req, res) => {
-  const { email, password } = req.body;
-  if (!email.trim() || !password.trim())
-    return sendError(res, "email/password is messing!");
-  const user = await User.findOne({ email });
-  if (!user) return sendError(res, "User not found Register?");
-  const Matched = await user.comparePassword(password);
-  if (!Matched) return sendError(res, "wrong email or password!");
+  const { emailOrUsername, password } = req.body;
+  if (!emailOrUsername.trim() || !password.trim())
+    return sendError(res, "Email/username or password is missing!");
+  const isEmail = emailOrUsername.includes("@");
+  const searchField = isEmail ? "email" : "username";
+  
+  const user = await User.findOne({ [searchField]: emailOrUsername });
+
+  if (!user) return sendError(res, "User not found. Register?");
+  
+  const matched = await user.comparePassword(password);
+  
+  if (!matched) return sendError(res, "Wrong email/username or password!");
+
   const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
     expiresIn: "24h",
   });
+
   res.json({
     success: true,
     user: {
@@ -88,6 +96,7 @@ exports.signin = async (req, res) => {
     },
   });
 };
+
 
 // verify email :::
 
