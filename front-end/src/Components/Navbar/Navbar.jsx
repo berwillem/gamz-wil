@@ -12,80 +12,70 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
+//import categoryes from "../../Data/category";
 import subCategoryes from "../../Data/subCategory";
 import axios from "axios";
 import { fetchCategories, getCategories } from "../../Data/category";
-
 const baseURL = import.meta.env.VITE_BASE_URL;
 
 function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
-  // infos ::
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  const username = JSON.parse(localStorage.getItem("user"))?.username || null;
-  const userId = JSON.parse(localStorage.getItem("user"))?.id || null;
-  const infoupdate =
-    JSON.parse(localStorage.getItem("user"))?.infoUpdate || null;
-
-  //* states ::
-
+  //* state
   const [searchText, setSearchText] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
   const [results, setResults] = useState([]);
   const [selectedValue, setSelectedValue] = useState("");
+  const [categories, setCategories] = useState([]);
   const [searchActive, setSearchActive] = useState("search");
   const [image, setImage] = useState(logo);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
-  const [categories, setCategories] = useState([]);
-
-  // refs ::
+  //variable
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const username = JSON.parse(localStorage.getItem("user"))?.username || null;
+  const userId = JSON.parse(localStorage.getItem("user"))?.id || null;
+  const infoupdate =JSON.parse(localStorage.getItem("user"))?.infoUpdate || null;
   const navRef = useRef(null);
   const searchBoxRef = useRef(null);
-
-  // handle functions ::
-
-  const handleCategorySelection = (categoryId) => {
+   //function categorys id 
+   const handleCategorySelection = (categoryId) => {
     onCategoryChange(categoryId);
   };
   const handleSubcategorySelection = (subcategoryId) => {
     onSubcategoryChange(subcategoryId);
   };
+  // respo logo function
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.matchMedia("(max-width: 1240px)").matches;
 
-  const handleSearch = () => {
-    setSearchText(
-      searchBoxRef.current.querySelector('input[type="text"]').value
-    );
-    if (searchActive === "search") {
-      setSearchActive("search active-search");
-    } else {
-      setSearchActive("search");
-    }
-    setSearchCategory(searchBoxRef.current.querySelector("select").value);
-  };
+      if (isMobile) {
+        setImage(logo3);
+      } else {
+        setImage(logo);
+      }
+    };
 
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+// respo menu
   function handleClick2(event) {
     const nextElement = event.target.nextElementSibling;
     if (nextElement) {
       nextElement.classList.toggle("active-ul");
     }
   }
-  const handleMenuScroll = (e) => {
-    e.stopPropagation();
-  };
-  const handleToggleMenu = () => {
+ 
+
+  const toggleMenu = () => {
     setMenuIsOpen(!menuIsOpen);
   };
-  const filterResultsByCategory = (category) => {
-    if (category === "") {
-      return results;
-    } else {
-      return results.filter((result) => {
-        return result.category === category;
-      });
-    }
-  };
-
-  // effects and calls ::
-
+ 
+// categorie respo menu
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -96,25 +86,10 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
         console.error(error);
       }
     };
+
     fetchData();
   }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      const isMobile = window.matchMedia("(max-width: 1240px)").matches;
-      if (isMobile) {
-        setImage(logo3);
-      } else {
-        setImage(logo);
-      }
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
+  // open close respo menu 
   useEffect(() => {
     if (menuIsOpen) {
       document.body.classList.add("menu-open", "overlay");
@@ -122,18 +97,22 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
       document.body.classList.remove("menu-open", "overlay");
     }
   }, [menuIsOpen]);
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (navRef.current && !navRef.current.contains(event.target)) {
         setMenuIsOpen(false);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [navRef]);
+
+  const handleMenuScroll = (e) => {
+    e.stopPropagation();
+  };
 
   useEffect(() => {
     function handleOutsideClick(event) {
@@ -147,21 +126,13 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
       }
     }
     document.addEventListener("click", handleOutsideClick);
+
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
   }, [searchBoxRef]);
 
-  useEffect(() => {
-    fetchData(searchText);
-  }, [searchText]);
-  const handleChange = (event) => {
-    setSearchText(event.target.value);
-    fetchData(event.target.value);
-  };
-
-  // search functionality:
-
+  // api call
   const fetchData = (value) => {
     if (selectedValue == "") {
       axios
@@ -189,6 +160,35 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
           console.log(error);
         });
     }
+  };
+  // function search
+  useEffect(() => {
+    fetchData(searchText);
+  }, [searchText]);
+  const handleChange = (event) => {
+    setSearchText(event.target.value);
+    fetchData(event.target.value);
+  };
+  const filterResultsByCategory = (category) => {
+    if (category === "") {
+      return results;
+    } else {
+      return results.filter((result) => {
+        return result.category === category;
+      });
+    }
+  };
+
+  const handleSearch = () => {
+    setSearchText(
+      searchBoxRef.current.querySelector('input[type="text"]').value
+    );
+    if (searchActive === "search") {
+      setSearchActive("search active-search");
+    } else {
+      setSearchActive("search");
+    }
+    setSearchCategory(searchBoxRef.current.querySelector("select").value);
   };
 
   return (
@@ -283,7 +283,7 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
                   </Link>
                 </ul>
               </div>
-              <HiMenu size={25} onClick={handleToggleMenu} />
+              <HiMenu size={25} onClick={toggleMenu} />
               <div className="logo">
                 <Link to="/">
                   <img
@@ -302,7 +302,7 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
                   className={searchActive}
                   value={searchText}
                   name="searchText"
-                  autoComplete="off"
+                  autocomplete="off"
                   onChange={handleChange}
                 />
                 <div className="results-list">

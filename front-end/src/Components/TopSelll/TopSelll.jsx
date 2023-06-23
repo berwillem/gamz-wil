@@ -38,17 +38,59 @@ function TopSelll() {
       });
   }, []);
 
-  useEffect(() => {
-    // Fetch posts for category "telephone"
-    axios
-      .get(baseURL + "/post/category/644b97091b7633709d2db1d8")
-      .then((response) => {
-        setPostsTelephone(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+ function TopSelll() {
+  //state
+const [postsConsole, setPostsConsole] = useState([]);
+const [postsTelephone, setPostsTelephone] = useState([]);
+const [postsInformatique, setPostsInformatique] = useState([]);
+// variable 
+const boxSlice1 = shuffleArray(postsConsole).slice(0,3)
+const boxSlice2 = shuffleArray(postsInformatique).slice(0,3)
+const boxSlice3 = shuffleArray(postsTelephone).slice(0,3)
+// api call
+useEffect(() => {
+   
+  axios.get(baseURL+`/post/category/644b93f21b7633709d2db121` )
+    .then(response => {
+      // Traiter les données de la réponse
+      setPostsConsole(response.data)
+      
+   
+    })
+    .catch(error => {
+      // Gérer les erreurs
+      console.error(error);
+    });
+}, []);
+useEffect(() => {
+   
+  axios.get(baseURL+`/post/category/644b907d1b7633709d2db0fa` )
+    .then(response => {
+      // Traiter les données de la réponse
+      setPostsInformatique(response.data)
+      
+   
+    })
+    .catch(error => {
+      // Gérer les erreurs
+      console.error(error);
+    });
+}, []);
+useEffect(() => {
+   
+  axios.get(baseURL+`/post/category/644b97091b7633709d2db1d8` )
+    .then(response => {
+      // Traiter les données de la réponse
+      setPostsTelephone(response.data)
+      
+   
+    })
+    .catch(error => {
+      // Gérer les erreurs
+      console.error(error);
+    });
+}, []);
+
 
   const boxSlice1 = shuffleArray(postsConsole).slice(0, 3);
   const boxSlice2 = shuffleArray(postsInformatique).slice(0, 3);

@@ -7,10 +7,11 @@ import { useDispatch } from "react-redux";
 import "./Login.css";
 
 function Login() {
+  //state
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
-
+// function submit
   const handleSubmit = (values) => {
     dispatch(login(values))
       .then(() => {
@@ -21,7 +22,7 @@ function Login() {
         setError(error.response.data.error);
       });
   };
-
+// validation form
   const validate = (values) => {
     const errors = {};
     if (!values.emailOrUsername) {

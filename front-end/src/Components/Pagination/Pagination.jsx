@@ -3,9 +3,10 @@ import Post from "../Post/Post";
 import "./Pagination.css";
 import image from "../../assets/no-result-diadem.webp";
 function Pagination({ posts }) {
+  //state 
   const [pages, setPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-
+// pagination function 
   useEffect(() => {
     setPages(Math.ceil(posts.length / 9));
   }, [posts]);
