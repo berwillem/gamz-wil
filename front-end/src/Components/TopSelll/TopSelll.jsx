@@ -12,9 +12,15 @@ const boxSlice = Box.slice(0,3)
 
 
  function TopSelll() {
+  //state
 const [postsConsole, setPostsConsole] = useState([]);
 const [postsTelephone, setPostsTelephone] = useState([]);
 const [postsInformatique, setPostsInformatique] = useState([]);
+// variable 
+const boxSlice1 = shuffleArray(postsConsole).slice(0,3)
+const boxSlice2 = shuffleArray(postsInformatique).slice(0,3)
+const boxSlice3 = shuffleArray(postsTelephone).slice(0,3)
+// api call
 useEffect(() => {
    
   axios.get(baseURL+`/post/category/644b93f21b7633709d2db121` )
@@ -57,9 +63,7 @@ useEffect(() => {
       console.error(error);
     });
 }, []);
-const boxSlice1 = shuffleArray(postsConsole).slice(0,3)
-const boxSlice2 = shuffleArray(postsInformatique).slice(0,3)
-const boxSlice3 = shuffleArray(postsTelephone).slice(0,3)
+
 
 function shuffleArray(array) {
   const shuffledArray = [...array];

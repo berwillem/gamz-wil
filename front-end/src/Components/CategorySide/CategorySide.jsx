@@ -4,7 +4,7 @@ import subcategoryes from "../../Data/subCategory";
 import subSubCategoryes from "../../Data/subSubCategory";
 import subSubSubCategoryes from "../../Data/subSubSubCategory";
 import subSubSubSubCategoryes from "../../Data/subSubSubSubCategory";
-
+//function id Categorys
 function CategorySide({ onSubcategoryChange }) {
   const handleSubcategorySelection = (subcategoryId) => {
     onSubcategoryChange(subcategoryId);
@@ -40,7 +40,9 @@ function CategorySide({ onSubcategoryChange }) {
                       <ul key={subSubCategory.id}>
                         <li
                           className="drop-down-titel"
-                          onClick={() => handleSubcategorySelection(subSubCategory.id)}
+                          onClick={() =>
+                            handleSubcategorySelection(subSubCategory.id)
+                          }
                         >
                           {subSubCategory.label}
                         </li>
@@ -56,32 +58,43 @@ function CategorySide({ onSubcategoryChange }) {
                             return (
                               <ul key={subSubSubCategory.id}>
                                 <li
-                                  
-                                  onClick={() => handleSubcategorySelection(subSubSubCategory.id)}
+                                  onClick={() =>
+                                    handleSubcategorySelection(
+                                      subSubSubCategory.id
+                                    )
+                                  }
                                 >
                                   {subSubSubCategory.label}
                                 </li>
                                 <div>
-                                  {subSubSubSubCategories.map((subSubSubSubCategory) => (
-                                    <li
-                                      key={subSubSubSubCategory.id}
-                                      onClick={() => handleSubcategorySelection(subSubSubSubCategory.id)}
-                                    >
-                                      {subSubSubSubCategory.label}
-                                    </li>
-                                  ))}
+                                  {subSubSubSubCategories.map(
+                                    (subSubSubSubCategory) => (
+                                      <li
+                                        key={subSubSubSubCategory.id}
+                                        onClick={() =>
+                                          handleSubcategorySelection(
+                                            subSubSubSubCategory.id
+                                          )
+                                        }
+                                      >
+                                        {subSubSubSubCategory.label}
+                                      </li>
+                                    )
+                                  )}
                                 </div>
-                                
                               </ul>
-
                             );
                           })}
                         </div>
-                     
                       </ul>
                     );
                   })}
-                    <img src={subcategorye.src} alt="" className="img-cat" id={subcategorye.label} />
+                  <img
+                    src={subcategorye.src}
+                    alt=""
+                    className="img-cat"
+                    id={subcategorye.label}
+                  />
                 </div>
               </li>
             );

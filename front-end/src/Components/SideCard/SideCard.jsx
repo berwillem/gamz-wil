@@ -6,10 +6,11 @@ import { logout } from "../../redux/reducers/Auth";
 import { useDispatch } from "react-redux";
 
 const SideCard = () => {
+  // variable
   const userId = JSON.parse(localStorage.getItem("user"))?.id || null;
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  //function
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");

@@ -9,6 +9,7 @@ import image from '../../assets/Svg/shape.svg'
 import { Link } from 'react-router-dom'
 
 function Dashboard({users,postCount,userCount}) {
+    //state 
     const [num, setNum] = useState(0)
     const [visitors, setVisitors] = useState(20.5)
     return (

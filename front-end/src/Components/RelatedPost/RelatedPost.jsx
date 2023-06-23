@@ -1,11 +1,9 @@
 import React from "react";
-import { AiOutlineArrowRight} from "react-icons/ai";
+import { AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import "./RelatedPost.css";
 import NotFound from "../../assets/images/Image_not_available.webp";
 function RelatedPost({ post }) {
-  console.log(post);
-
   return (
     <>
       <div key={post._id} className="user-post-container">

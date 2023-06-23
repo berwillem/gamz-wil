@@ -122,7 +122,10 @@ select{
     cursor: pointer;
     outline: none;
     color: #909090;
+  
 }
+
+
 
 .icons {
     display: flex;

@@ -5,13 +5,14 @@ import { register } from "../../redux/reducers/Auth";
 import { useDispatch, useSelector } from "react-redux";
 
 function Register() {
+  //state
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-
+// submuit function
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(register({ username, password, email }))

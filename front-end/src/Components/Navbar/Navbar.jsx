@@ -12,30 +12,41 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
- //import categoryes from "../../Data/category";
+//import categoryes from "../../Data/category";
 import subCategoryes from "../../Data/subCategory";
 import axios from "axios";
 import { fetchCategories, getCategories } from "../../Data/category";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-function Navbar({ p, onCategoryChange,onSubcategoryChange }) {
+function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
+  //* state
+  const [searchText, setSearchText] = useState("");
+  const [searchCategory, setSearchCategory] = useState("");
+  const [results, setResults] = useState([]);
+  const [selectedValue, setSelectedValue] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [searchActive, setSearchActive] = useState("search");
+  const [image, setImage] = useState(logo);
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
+  //variable
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const username = JSON.parse(localStorage.getItem("user"))?.username || null;
   const userId = JSON.parse(localStorage.getItem("user"))?.id || null;
-  const infoupdate =
-    JSON.parse(localStorage.getItem("user"))?.infoUpdate || null;
-  const [searchActive, setSearchActive] = useState("search");
-  const [image, setImage] = useState(logo);
-  const handleCategorySelection = (categoryId) => {
+  const infoupdate =JSON.parse(localStorage.getItem("user"))?.infoUpdate || null;
+  const navRef = useRef(null);
+  const searchBoxRef = useRef(null);
+   //function categorys id 
+   const handleCategorySelection = (categoryId) => {
     onCategoryChange(categoryId);
   };
   const handleSubcategorySelection = (subcategoryId) => {
     onSubcategoryChange(subcategoryId);
   };
+  // respo logo function
   useEffect(() => {
     const handleResize = () => {
-      const isMobile = window.matchMedia('(max-width: 1240px)').matches;
-      
+      const isMobile = window.matchMedia("(max-width: 1240px)").matches;
+
       if (isMobile) {
         setImage(logo3);
       } else {
@@ -45,26 +56,26 @@ function Navbar({ p, onCategoryChange,onSubcategoryChange }) {
 
     handleResize();
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
-
+// respo menu
   function handleClick2(event) {
     const nextElement = event.target.nextElementSibling;
     if (nextElement) {
       nextElement.classList.toggle("active-ul");
     }
   }
-  const [menuIsOpen, setMenuIsOpen] = useState(false);
+ 
 
   const toggleMenu = () => {
     setMenuIsOpen(!menuIsOpen);
   };
-  const [categories, setCategories] = useState([]);
-
+ 
+// categorie respo menu
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -78,6 +89,7 @@ function Navbar({ p, onCategoryChange,onSubcategoryChange }) {
 
     fetchData();
   }, []);
+  // open close respo menu 
   useEffect(() => {
     if (menuIsOpen) {
       document.body.classList.add("menu-open", "overlay");
@@ -85,9 +97,6 @@ function Navbar({ p, onCategoryChange,onSubcategoryChange }) {
       document.body.classList.remove("menu-open", "overlay");
     }
   }, [menuIsOpen]);
-
-  const navRef = useRef(null);
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (navRef.current && !navRef.current.contains(event.target)) {
@@ -105,8 +114,6 @@ function Navbar({ p, onCategoryChange,onSubcategoryChange }) {
     e.stopPropagation();
   };
 
-  const searchBoxRef = useRef(null);
-
   useEffect(() => {
     function handleOutsideClick(event) {
       if (
@@ -118,7 +125,6 @@ function Navbar({ p, onCategoryChange,onSubcategoryChange }) {
         setResults([]);
       }
     }
-
     document.addEventListener("click", handleOutsideClick);
 
     return () => {
@@ -126,46 +132,36 @@ function Navbar({ p, onCategoryChange,onSubcategoryChange }) {
     };
   }, [searchBoxRef]);
 
-  // search function
-
-  //* state
- 
-  
-  const [searchText, setSearchText] = useState("");
-  const [searchCategory, setSearchCategory] = useState("");
-  const [results, setResults] = useState([]);
-  const [selectedValue, setSelectedValue] = useState("");
+  // api call
   const fetchData = (value) => {
-
-    if(selectedValue==''){
+    if (selectedValue == "") {
       axios
-      .get(baseURL+`/post/`)
-      .then((response) => {
-        const results = response.data.filter((post) =>
-          post.title.toLowerCase().includes(value.toLowerCase())
-        );
-        setResults(results);
-     
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .get(baseURL + `/post/`)
+        .then((response) => {
+          const results = response.data.filter((post) =>
+            post.title.toLowerCase().includes(value.toLowerCase())
+          );
+          setResults(results);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      axios
+        .get(baseURL + `/post/category/${selectedValue}`)
+        .then((response) => {
+          console.log(response);
+          const results = response.data.filter((post) =>
+            post.title.toLowerCase().includes(value.toLowerCase())
+          );
+          setResults(results);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
-    else{
-    axios
-      .get(baseURL+`/post/category/${selectedValue}`)
-      .then((response) => {
-    console.log(response);
-        const results = response.data.filter((post) =>
-          post.title.toLowerCase().includes(value.toLowerCase())
-        );
-        setResults(results);
-     
-      })
-      .catch((error) => {
-        console.log(error);
-      });}
   };
+  // function search
   useEffect(() => {
     fetchData(searchText);
   }, [searchText]);
@@ -183,8 +179,6 @@ function Navbar({ p, onCategoryChange,onSubcategoryChange }) {
     }
   };
 
-  //* function
-
   const handleSearch = () => {
     setSearchText(
       searchBoxRef.current.querySelector('input[type="text"]').value
@@ -196,7 +190,7 @@ function Navbar({ p, onCategoryChange,onSubcategoryChange }) {
     }
     setSearchCategory(searchBoxRef.current.querySelector("select").value);
   };
- 
+
   return (
     <>
       <div className="navbar-container">
@@ -221,7 +215,8 @@ function Navbar({ p, onCategoryChange,onSubcategoryChange }) {
                   </div>
                 ) : (
                   <Link to={`/account/${userId}`}>
-                    <CiUser size={23} /> {isLoggedIn ? username : <strong>Mon Compte</strong>}{" "}
+                    <CiUser size={23} />{" "}
+                    {isLoggedIn ? username : <strong>Mon Compte</strong>}{" "}
                   </Link>
                 )}
               </li>
@@ -236,17 +231,17 @@ function Navbar({ p, onCategoryChange,onSubcategoryChange }) {
                 onScroll={handleMenuScroll}
               >
                 <ul className="ul">
-                 { isLoggedIn ?(
-                   <Link to={`/account/${userId}`}>
-                   {" "}
-                   <li className="li-hover">Mon Compte</li>
-                 </Link>
-                 ):(
-                  <Link to={`/account/${userId}`}>
-                   {" "}
-                   <li className="li-hover">connecte toi</li>
-                 </Link>
-                 )}
+                  {isLoggedIn ? (
+                    <Link to={`/account/${userId}`}>
+                      {" "}
+                      <li className="li-hover">Mon Compte</li>
+                    </Link>
+                  ) : (
+                    <Link to={`/account/${userId}`}>
+                      {" "}
+                      <li className="li-hover">connecte toi</li>
+                    </Link>
+                  )}
                   <Link to="/createPost">
                     <li className="li-hover plus-annonce">
                       <BsPlusLg size={13} />
@@ -319,12 +314,16 @@ function Navbar({ p, onCategoryChange,onSubcategoryChange }) {
                     ))}
                 </div>
                 <div style={{ display: "flex" }}>
-                <select id="select" value={selectedValue} onChange={(e) => setSelectedValue(e.target.value)}>
-                <option value="" >Toutes les catégories </option>
-                  {categories.map((i) => (
-                    <option value={i._id} >{i.name}</option>
-                  ))}{" "}
-                </select>
+                  <select
+                    id="select"
+                    value={selectedValue}
+                    onChange={(e) => setSelectedValue(e.target.value)}
+                  >
+                    <option value="">Toutes les catégories </option>
+                    {categories.map((i) => (
+                      <option value={i._id}>{i.name}</option>
+                    ))}{" "}
+                  </select>
                   <div
                     ref={searchBoxRef}
                     className="search-icon"
@@ -358,7 +357,9 @@ function Navbar({ p, onCategoryChange,onSubcategoryChange }) {
                         return (
                           <li
                             key={index}
-                            onClick={() => handleSubcategorySelection(subcategorye.id)}
+                            onClick={() =>
+                              handleSubcategorySelection(subcategorye.id)
+                            }
                           >
                             {subcategorye.label}
                           </li>
