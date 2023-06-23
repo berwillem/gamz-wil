@@ -5,7 +5,7 @@ import Details from "../../Components/Details/Details";
 import Footer from "../../Components/Footer/Footer";
 import Navbar from "../../Components/Navbar/Navbar";
 import axios from "axios";
-import pubImg from "../../assets/images/pub.png";
+import pubImg from "../../assets/images/pub.webp";
 import TopSelll from "../../Components/TopSelll/TopSelll";
 import "./Postdetails.css";
 import { Power3, gsap } from "gsap";

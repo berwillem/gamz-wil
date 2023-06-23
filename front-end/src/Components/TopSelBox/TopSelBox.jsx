@@ -1,7 +1,7 @@
 import React from 'react'
 import './TopSelBox.css'
 import { Link } from 'react-router-dom'
-import notavalible from "../../assets/images/Image_not_available.png";
+import notavalible from "../../assets/images/Image_not_available.webp";
 
 function TopSelBox({i}) {
    

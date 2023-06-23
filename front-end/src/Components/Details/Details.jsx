@@ -11,8 +11,8 @@ import {
   AiOutlineLeft,
 } from "react-icons/ai";
 import RelatedPost from "../RelatedPost/RelatedPost";
-import notavalible from "../../assets/images/Image_not_available.png";
-import defaultAvatar from "../../assets/images/avatar.png"
+import notavalible from "../../assets/images/Image_not_available.webp";
+import defaultAvatar from "../../assets/images/avatar.webp"
 const baseURL = import.meta.env.VITE_BASE_URL;
 
 

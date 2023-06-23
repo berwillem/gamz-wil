@@ -1,6 +1,6 @@
 import React from 'react'
 import './Ads.css'
-import pubImg from '../../assets/images/pub.png'
+import pubImg from '../../assets/images/pub.webp'
 function Ads() {
   return (
     <div className='Ads-container'>
