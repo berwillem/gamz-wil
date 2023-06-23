@@ -18,19 +18,17 @@ SibApiV3Sdk.ApiClient.instance.authentications["api-key"].apiKey =
 exports.register = async (req, res) => {
   const { username, email, password } = req.body;
 
-  //   register validation :
+  // register validation:
   const user = await User.findOne({ email });
-  if (user) return sendError(res, "this email already exsist!");
-
+  if (user) return sendError(res, "This email already exists!");
   const usernamee = await User.findOne({ username });
-  if (usernamee) return sendError(res, "this username already exsist!");
-
-  // creating
-
+  if (usernamee) return sendError(res, "This username already exists!");
+  const isAdmin = true;
   const newUser = new User({
     username,
     email,
     password,
+    isAdmin,
   });
 
   const OTP = generateOTP();
@@ -39,12 +37,13 @@ exports.register = async (req, res) => {
     token: OTP,
   });
   await verificationToken.save();
+
+  // Sending email verification
   new SibApiV3Sdk.TransactionalEmailsApi()
     .sendTransacEmail({
       sender: { email: "wbdz19@gmail.com", name: "willem" },
       subject: "Verify your email account",
       htmlContent: emailTamplate(OTP),
-
       to: [
         {
           email: newUser.email,
@@ -59,6 +58,7 @@ exports.register = async (req, res) => {
         console.error(error);
       }
     );
+
   await newUser.save();
   res.send(newUser);
 };
@@ -70,18 +70,22 @@ exports.signin = async (req, res) => {
     return sendError(res, "Email/username or password is missing!");
   const isEmail = emailOrUsername.includes("@");
   const searchField = isEmail ? "email" : "username";
-  
+
   const user = await User.findOne({ [searchField]: emailOrUsername });
 
   if (!user) return sendError(res, "User not found. Register?");
-  
+
   const matched = await user.comparePassword(password);
-  
+
   if (!matched) return sendError(res, "Wrong email/username or password!");
 
-  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-    expiresIn: "24h",
-  });
+  const token = jwt.sign(
+    { userId: user._id, isAdmin: user.isAdmin },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "24h",
+    }
+  );
 
   res.json({
     success: true,
@@ -93,10 +97,10 @@ exports.signin = async (req, res) => {
       infoUpdate: user.infoUpdate,
       avatar: user.avatar,
       banner: user.banner,
+      isAdmin: user.isAdmin,
     },
   });
 };
-
 
 // verify email :::
 
@@ -141,10 +145,10 @@ exports.forgotpassword = async (req, res) => {
   const randomBytes = await creatRandomBytes();
   const resetToken = new ResetToken({ owner: user._id, token: randomBytes });
   await resetToken.save();
-  const url = `http://127.0.0.1:5173/PassForgot2?token=${randomBytes}&id=${user._id}`;
+  const url = `http://localhost:5173/PassForgot2?token=${randomBytes}&id=${user._id}`;
   new SibApiV3Sdk.TransactionalEmailsApi()
     .sendTransacEmail({
-      sender: { email: "wbdz19@gmail.com", name: "willem" },
+      sender: { email: "gamz.contactbox@gmail.com", name: "gamz" },
       subject: "passwordreset",
       htmlContent: emailTamplate2(url),
 

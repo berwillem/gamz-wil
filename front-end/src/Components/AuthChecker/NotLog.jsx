@@ -18,7 +18,7 @@ const NotLog = () => {
     };
 
     const loginButtonStyle = {
-        backgroundColor: '#007bff',
+        backgroundColor: 'tomato',
         color: '#fff',
         border: 'none',
         borderRadius: '4px',
@@ -29,14 +29,15 @@ const NotLog = () => {
     };
 
     const loginButtonHoverStyle = {
-        backgroundColor: '#0062cc',
+        backgroundColor: 'red',
     };
+  const userId = JSON.parse(localStorage.getItem("user"))?.id || null;
 
     return (
         <div style={containerStyle}>
-           <h1 style={headingStyle}>Please log in with an admin account first</h1>
+           <h1 style={headingStyle}>Please Log in with an Admin account first</h1>
            <Link 
-            to="/account" 
+            to={`/account/${userId}`}
             style={loginButtonStyle} 
             onMouseEnter={(e) => e.target.style.backgroundColor = loginButtonHoverStyle.backgroundColor} 
             onMouseLeave={(e) => e.target.style.backgroundColor = loginButtonStyle.backgroundColor}

@@ -40,7 +40,7 @@ export const {
 export const sendResetLink = (email) => async (dispatch) => {
   try {
     dispatch(sendResetLinkRequest());
-    const response = await axios.post(baseURL + "/forgot-password", { email });
+    const response = await axios.post(baseURL + "/auth/forgot-password", { email });
     console.log("Reset link sent successfully:", response.data);
     dispatch(sendResetLinkSuccess());
   } catch (error) {
