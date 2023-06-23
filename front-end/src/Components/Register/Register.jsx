@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Register.css";
 import { useNavigate } from 'react-router-dom';
 import { register } from "../../redux/reducers/Auth";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 function Register() {
   //state

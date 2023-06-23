@@ -24,8 +24,7 @@ const PassForgot = () => {
         navigate("/");
 
       })
-      .catch(() => {
-        // Show error alert
+      .catch((error) => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',

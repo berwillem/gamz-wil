@@ -22,7 +22,7 @@ const Otp = (p) => {
         title: 'email valid!',
         text: 'thanks for conferming your email'
       });
-      navigate("/Account");
+      navigate("/");
     } catch (error) {
       setError(error.response.data.error);
       console.log(error);
