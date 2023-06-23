@@ -2,7 +2,7 @@ import React from 'react'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import './Post.css'
-import NotFound from '../../assets/images/Image_not_available.png'
+import NotFound from '../../assets/images/Image_not_available.webp'
 function Post( {category,img_post ,name,price,id}) {
 
 

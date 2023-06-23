@@ -1,12 +1,12 @@
 import React from "react";
 import "./User.css";
-import defaultBanner from "../../assets/images/banner.png"
+import defaultBanner from "../../assets/images/banner.webp"
 import { BsPhone } from "react-icons/bs";
 import { ImLocation } from "react-icons/im";
 import { AiOutlineHome } from "react-icons/ai";
 import { MdOutlineLogout } from "react-icons/md";
 import { CiUser } from "react-icons/ci";
-import image1 from "../../assets/images/avatar.png";
+import image1 from "../../assets/images/avatar.webp";
 import UserPost from "../UserPost/UserPost";
 import Ads from "../Ads/Ads";
 import { Link } from "react-router-dom";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BsDiscord, BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
-import Logo from "../../assets/1.png";
-import Logo2 from "../../assets/2.png";
+import Logo from "../../assets/1.webp";
+import Logo2 from "../../assets/2.webp";
 import "./Footer.css";
 import { Link } from "react-router-dom";
 import pdf1 from "../../assets/pdf/Conditions d'utilisation .pdf";
