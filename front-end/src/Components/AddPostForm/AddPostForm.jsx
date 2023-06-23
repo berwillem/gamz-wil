@@ -41,6 +41,9 @@ function AddPostForm({ categories, fetchSubcategories }) {
   const [subcategories2, setSubcategories2] = useState([]);
   const [selectedSubCategory2, setSelectedSubCategory2] = useState([]);
   const [subcategories3, setSubcategories3] = useState([]);
+  const [selectedSubCategory3, setSelectedSubCategory3] = useState([]);
+  const [subcategories4, setSubcategories4] = useState([]);
+  const [selectedSubCategory4, setSelectedSubCategory4] = useState([]);
 
   // form states:
 
@@ -101,7 +104,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
       console.error(error);
     }
   };
-  const handleSubcategory2Change = async (selectedOption) => {
+ const handleSubcategory2Change = async (selectedOption) => {
     setSelectedSubCategory2(selectedOption);
     try {
       if (selectedOption) {
@@ -114,6 +117,24 @@ function AddPostForm({ categories, fetchSubcategories }) {
     } catch (error) {
       console.error(error);
     }
+  };
+  const handleSubcategory3Change = async (selectedOption) => {
+    setSelectedSubCategory3(selectedOption);
+    try {
+      if (selectedOption) {
+        const categoryId = selectedOption.value;
+        const subcategoriesData = await fetchSubcategories(categoryId);
+        setSubcategories4(subcategoriesData);
+      } else {
+        setSubcategories4([]);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleSubcategory4Change = async (selectedOption) => {
+    setSelectedSubCategory4(selectedOption);
+   
   };
 
   // other handlers :
@@ -143,6 +164,12 @@ function AddPostForm({ categories, fetchSubcategories }) {
     }
     if (selectedSubCategory2 && selectedSubCategory2.value) {
       formData.append("subcategories", selectedSubCategory2.value);
+    }
+    if (selectedSubCategory3 && selectedSubCategory3.value) {
+      formData.append("subcategories", selectedSubCategory3.value);
+    }
+    if (selectedSubCategory4 && selectedSubCategory4.value) {
+      formData.append("subcategories", selectedSubCategory4.value);
     }
     formData.append("wilaya", wilaya);
     formData.append("etat", etat);
@@ -306,6 +333,36 @@ function AddPostForm({ categories, fetchSubcategories }) {
                     value={selectedSubCategory2}
                     onChange={handleSubcategory2Change}
                     placeholder="Select a subcategory"
+                    styles={customStyles}
+                  />
+                </div>
+              )}
+              {selectedSubCategory && subcategories3.length > 0 && (
+                <div className="add-category">
+                  <p>: Choisissez votre sous-categories détaillée </p>
+                  <Select
+                    options={subcategories3.map((subcategory) => ({
+                      value: subcategory._id,
+                      label: subcategory.name,
+                    }))}
+                    value={selectedSubCategory3}
+                    onChange={handleSubcategory3Change}
+                    placeholder="Select a subcategory"
+                    styles={customStyles}
+                  />
+                </div>
+              )}
+              {selectedSubCategory && subcategories4.length > 0 && (
+                <div className="add-category">
+                  <p>: Choisissez votre sous-categories détaillée </p>
+                  <Select
+                    options={subcategories4.map((subcategory) => ({
+                      value: subcategory._id,
+                      label: subcategory.name,
+                    }))}
+                    value={selectedSubCategory4}
+                    placeholder="Select a subcategory"
+                    onChange={handleSubcategory4Change}
                     styles={customStyles}
                   />
                 </div>

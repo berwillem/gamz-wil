@@ -26,9 +26,9 @@ function CategorySide({ onSubcategoryChange }) {
             return (
               <li
                 key={subcategorye.id}
-                onClick={() => handleSubcategorySelection(subcategorye.id)}
+               
               >
-                <p>{subcategorye.label}</p>
+                <p  onClick={() => handleSubcategorySelection(subcategorye.id)}>{subcategorye.label}</p>
                 <img src={arrow} alt="arrow" />
                 <div className="hover-drop-down">
                   {subSubCategories.map((subSubCategory) => {
@@ -39,7 +39,7 @@ function CategorySide({ onSubcategoryChange }) {
 
                     return (
                       <ul key={subSubCategory.id}>
-                        <li className="drop-down-titel">
+                        <li className="drop-down-titel" onClick={() => handleSubcategorySelection(subSubCategory.id)} >
                           {subSubCategory.label}
                         </li>
                         <div>
@@ -54,14 +54,12 @@ function CategorySide({ onSubcategoryChange }) {
                             return (
                               <li
                                 key={subSubSubCategory.id}
-                                onClick={() =>
-                                  handleSubcategorySelection(
-                                    subSubSubCategory.id
-                                  )
-                                }
+                                onClick={() => handleSubcategorySelection(subSubSubCategory.id)}
                               >
                                 {subSubSubCategory.label}
+                              
                               </li>
+                              
                             );
                           })}
                         </div>
