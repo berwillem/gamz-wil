@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Post from "../Post/Post";
 import "./Pagination.css";
-
+import image from "../../assets/no-result-diadem.png";
 function Pagination({ posts }) {
   const [pages, setPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,7 +40,7 @@ function Pagination({ posts }) {
         <p>Les annonces récentes</p>
       </div>
 
-      {pages === 0 && <p>Aucune annonce trouvée.</p>}
+      {pages === 0 &&    <img src={image} alt="no post" />}
 
       {pages > 0 && (
         <>
@@ -59,6 +59,7 @@ function Pagination({ posts }) {
 
           <div className="pagination">
             {getPaginationGroup().map((item, index) => (
+           
               <button
                 key={index}
                 onClick={changePage}
