@@ -1,9 +1,9 @@
 import NotLog from "./NotLog";
-import { useSelector } from "react-redux";
 
 const AuthCheck = ({ component: Component }) => {
   const isLoggedIn = localStorage.getItem("isLoggedIn");
-  const isAdmin = useSelector((state) => state.auth.isAdmin);
+  const isAdmin = JSON.parse(localStorage.getItem("user"))?.isAdmin;
+  console.log(isAdmin);
   if (isLoggedIn) {
     if (isAdmin) {
       return <Component />;

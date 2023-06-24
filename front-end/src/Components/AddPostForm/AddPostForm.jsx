@@ -20,6 +20,7 @@ const options = wilaya.map((wilaya) => ({
 const userString = localStorage.getItem("user");
 const user = userString ? JSON.parse(userString) : "";
 const id = user ? user.id : "";
+console.log("iddddd",id);
 const isLoggedIn = localStorage.getItem("isLoggedIn");
 
 // Component start :
@@ -193,9 +194,9 @@ function AddPostForm({ categories, fetchSubcategories }) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "bad request",
+        text: err.response.data.message,
       });
-      console.log("errr:::", err);
+      console.log(err.response.data.message);
     } finally {
       setLoading(false);
     }

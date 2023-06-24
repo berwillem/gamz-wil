@@ -18,6 +18,10 @@ exports.createPost = async (req, res) => {
       author,
     } = req.body;
 
+    if (!author) {
+      return res.status(400).json({ message: "Connectez vous d'abord" });
+    }
+
     const post = new Post({
       title,
       price,
@@ -94,15 +98,16 @@ exports.getAllPosts = async (req, res) => {
     const userId = req.query.userId;
     let posts;
     if (userId) {
-      posts = await Post.find({ user: userId }).populate("category", "name");
+      posts = await Post.find({ user: userId }).sort({ date: -1 }).populate("category", "name");
     } else {
-      posts = await Post.find().populate("category", "name");
+      posts = await Post.find().sort({ date: -1 }).populate("category", "name");
     }
     res.json(posts);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+
 exports.getPostCount = async (req, res) => {
   try {
     const count = await Post.countDocuments();

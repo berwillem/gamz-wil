@@ -29,26 +29,28 @@ function Acount(isDarkMode) {
 
   // api call::
   useEffect(() => {
-    axios
-      .get(baseURL + `/user/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        const userData = response.data;
-        setBanner(userData.banner.url);
-        setAvatar(userData.avatar.url);
-        setNumTel(userData.phone);
-        setAdresse(userData.adress);
-        setUsername(userData.username);
-        setposte(userData.posts);
-        setIsOwner(userData.isOwner);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [userId]);
+    if (isLoggedIn) {
+      axios
+        .get(baseURL + `/user/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          const userData = response.data;
+          setBanner(userData.banner.url);
+          setAvatar(userData.avatar.url);
+          setNumTel(userData.phone);
+          setAdresse(userData.adress);
+          setUsername(userData.username);
+          setposte(userData.posts);
+          setIsOwner(userData.isOwner);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [isLoggedIn, userId, token]);
 
   // jsx :::
 
