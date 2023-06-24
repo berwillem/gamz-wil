@@ -211,7 +211,7 @@ function Details() {
           </div>
           <div className="info">
             <li>
-              <strong>Numéro De Téléphone : {post.num}</strong>
+              <strong>Numéro De Téléphone : 0{post.num}</strong>
             </li>
             <li>
               <strong>willaya : {post.wilaya}</strong>
