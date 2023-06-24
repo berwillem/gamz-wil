@@ -20,7 +20,7 @@ function Post({ category, img_post, name, price, id }) {
       <div className="button-post-container">
         <strong>{price} DA</strong>
         <Link to={`/postDetails/${id}`}>
-          <button>
+          <button className="postbtn">
             <AiOutlineArrowRight size={17} color="#f7f7f7" fontWeight="bold" />
           </button>
         </Link>
