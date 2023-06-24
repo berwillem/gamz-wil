@@ -194,9 +194,9 @@ function AddPostForm({ categories, fetchSubcategories }) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "bad request",
+        text: err.response.data.message,
       });
-      console.log("errr:::", err);
+      console.log(err.response.data.message);
     } finally {
       setLoading(false);
     }
