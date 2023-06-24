@@ -37,7 +37,7 @@ function Register() {
       
       <form onSubmit={handleSubmit}>
         <label htmlFor="">
-          <strong>Nom d'utilisateur ou addresse e-mail *</strong>
+          <strong>Nom d'utilisateur *</strong>
           <input
             name="Username"
             value={username}

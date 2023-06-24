@@ -236,7 +236,14 @@ function SliderPubManage({ disp }) {
     formData.append("cardTwo[redirect]", requestData.cardTwo.redirect);
 
     try {
-      const res = await axios.post(baseURL + "/pub", formData, {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const sessionId = user.sessionId;
+      const config = {
+        headers: {
+          "session-id": sessionId,
+        },
+      };
+      const res = await axios.post(baseURL + "/pub", formData, config, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
@@ -252,161 +259,159 @@ function SliderPubManage({ disp }) {
         text: "Error occurred while submitting the request",
       });
       console.log(err);
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   };
 
   return (
     <>
-     {loading && (
+      {loading && (
         <div className="loader">
           <img src={loader} alt="Loading..." />
         </div>
       )}
-    <form
-      action=""
-      className="slider"
-      style={{
-        backgroundImage: `url(${backgroundImage[index].src})`,
-      }}
-      onSubmit={handleSubmit}
-    >
-      <div className="dot">
-        {disp && (
-          <>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(event) => handleBackgroundChange(event)}
-            />
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleBackgroundChange2}
-            />
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleBackgroundChange3}
-            />
-          </>
-        )}
-        <input
-          type="button"
-          value="enter text 1"
-          onClick={() => handleSubtitleChange(subtitle, setSubtitleValue1)}
-        />
-        <input
-          type="button"
-          value="enter text 2"
-          onClick={() => handleSubtitleChange(subtitle2, setSubtitleValue2)}
-        />
-        <input
-          type="button"
-          value="enter text 3"
-          onClick={() => handleSubtitleChange(subtitle3, setSubtitleValue3)}
-        />
-        <input
-          type="url"
-          placeholder="url 1"
-          value={urlArray[0]}
-          onChange={(event) => handleURLChange(event, 0)}
-        />
-        <input
-          type="url"
-          placeholder="url 2"
-          value={urlArray[1]}
-          onChange={(event) => handleURLChange(event, 1)}
-        />
-        <input
-          type="url"
-          placeholder="url 3"
-          value={urlArray[2]}
-          onChange={(event) => handleURLChange(event, 2)}
-        />
-        <input
-          type="url"
-          placeholder="url 4"
-          value={url4}
-          onChange={handleURL4Change}
-        />
-        <input
-          type="url"
-          placeholder="url 5"
-          value={url5}
-          onChange={handleURL5Change}
-        />
-      </div>
+      <form
+        action=""
+        className="slider"
+        style={{
+          backgroundImage: `url(${backgroundImage[index].src})`,
+        }}
+        onSubmit={handleSubmit}
+      >
+        <div className="dot">
+          {disp && (
+            <>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(event) => handleBackgroundChange(event)}
+              />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleBackgroundChange2}
+              />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleBackgroundChange3}
+              />
+            </>
+          )}
+          <input
+            type="button"
+            value="enter text 1"
+            onClick={() => handleSubtitleChange(subtitle, setSubtitleValue1)}
+          />
+          <input
+            type="button"
+            value="enter text 2"
+            onClick={() => handleSubtitleChange(subtitle2, setSubtitleValue2)}
+          />
+          <input
+            type="button"
+            value="enter text 3"
+            onClick={() => handleSubtitleChange(subtitle3, setSubtitleValue3)}
+          />
+          <input
+            type="url"
+            placeholder="url 1"
+            value={urlArray[0]}
+            onChange={(event) => handleURLChange(event, 0)}
+          />
+          <input
+            type="url"
+            placeholder="url 2"
+            value={urlArray[1]}
+            onChange={(event) => handleURLChange(event, 1)}
+          />
+          <input
+            type="url"
+            placeholder="url 3"
+            value={urlArray[2]}
+            onChange={(event) => handleURLChange(event, 2)}
+          />
+          <input
+            type="url"
+            placeholder="url 4"
+            value={url4}
+            onChange={handleURL4Change}
+          />
+          <input
+            type="url"
+            placeholder="url 5"
+            value={url5}
+            onChange={handleURL5Change}
+          />
+        </div>
 
-      <div className="R-C-sliderPub">
-        <div className="L-slider">
-         
-          <div className="sub-title">
-            <p ref={subtitle}>
-              TIMEPIECES THAT
-              <br />
-              MAKE A STATEMENT
-              <br />
-              UP TO
-              <span>40% OFF</span>
-            </p>
+        <div className="R-C-sliderPub">
+          <div className="L-slider">
+            <div className="sub-title">
+              <p ref={subtitle}>
+                TIMEPIECES THAT
+                <br />
+                MAKE A STATEMENT
+                <br />
+                UP TO
+                <span>40% OFF</span>
+              </p>
+            </div>
+            <div className="buy-button">
+              <button ref={button}>Start buying</button>
+            </div>
           </div>
-          <div className="buy-button">
-            <button ref={button}>Start buying</button>
+          <div className="C-slider"></div>
+        </div>
+        <div className="R-slider">
+          <div
+            ref={cardContainer}
+            className="box"
+            style={{ backgroundImage: `url(${backgroundImage2})` }}
+          >
+            <div className="title-box">
+              <p ref={subtitle2}>
+                CATCH BIG
+                <strong>DEAL</strong>
+                ON
+                <br />
+                THE CONSOLES
+              </p>
+            </div>
+            <div className="sub-title-box">
+              <strong>Shop now</strong>
+              <AiFillRightCircle size={20} color="#e81a2a" />
+              <div className="image-R-slide"></div>
+            </div>
+          </div>
+          <div
+            className="box"
+            style={{ backgroundImage: `url(${backgroundImage3})` }}
+            ref={cardContainer2}
+          >
+            <div className="title-box">
+              <p ref={subtitle3}>
+                CATCH BIG
+                <strong>DEAL</strong>
+                ON
+                <br />
+                THE CONSOLES
+              </p>
+            </div>
+            <div className="sub-title-box">
+              <strong>Shop now</strong>
+              <AiFillRightCircle size={20} color="#e81a2a" />
+              <div className="image-R-slide"></div>
+            </div>
           </div>
         </div>
-        <div className="C-slider"></div>
-      </div>
-      <div className="R-slider">
-        <div
-          ref={cardContainer}
-          className="box"
-          style={{ backgroundImage: `url(${backgroundImage2})` }}
-        >
-          <div className="title-box">
-            <p ref={subtitle2}>
-              CATCH BIG
-              <strong>DEAL</strong>
-              ON
-              <br />
-              THE CONSOLES
-            </p>
-          </div>
-          <div className="sub-title-box">
-            <strong>Shop now</strong>
-            <AiFillRightCircle size={20} color="#e81a2a" />
-            <div className="image-R-slide"></div>
-          </div>
+        <div className="switch">
+          <AiOutlineLeft onClick={switchback2} size={20} color="#fff" />
+          <AiOutlineRight onClick={switchback} size={20} color="#fff" />
         </div>
-        <div
-          className="box"
-          style={{ backgroundImage: `url(${backgroundImage3})` }}
-          ref={cardContainer2}
-        >
-          <div className="title-box">
-            <p ref={subtitle3}>
-              CATCH BIG
-              <strong>DEAL</strong>
-              ON
-              <br />
-              THE CONSOLES
-            </p>
-          </div>
-          <div className="sub-title-box">
-            <strong>Shop now</strong>
-            <AiFillRightCircle size={20} color="#e81a2a" />
-            <div className="image-R-slide"></div>
-          </div>
-        </div>
-      </div>
-      <div className="switch">
-        <AiOutlineLeft onClick={switchback2} size={20} color="#fff" />
-        <AiOutlineRight onClick={switchback} size={20} color="#fff" />
-      </div>
-      <input type="submit" className="btnsub" />
-    </form>
+        <input type="submit" className="btnsub" />
+      </form>
     </>
   );
 }

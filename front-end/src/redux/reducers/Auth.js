@@ -7,7 +7,8 @@ const initialState = {
   isLoading: false,
   user: null,
   isLoggedIn: false,
-  error: null
+  error: null,
+  
 };
 
 export const registrationSlice = createSlice({
@@ -39,7 +40,6 @@ export const registrationSlice = createSlice({
       state.isLoading = false;
       state.user = action.payload.user;
       state.isLoggedIn = true;
-      state.isAdmin = action.payload.user.isAdmin;
       state.error = null;
       localStorage.setItem('user', JSON.stringify(action.payload.user));
       localStorage.setItem('isLoggedIn', 'true');

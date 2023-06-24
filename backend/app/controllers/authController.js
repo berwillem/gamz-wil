@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const { sendError, creatRandomBytes } = require("../helpers/error");
 const User = require("../models/User");
+const Session =require("../models/Session")
+const { v4: uuidv4 } = require("uuid");
 const VerificationToken = require("../models/verifToken");
 const ResetToken = require("../models/resetPassword");
 const { isValidObjectId } = require("mongoose");
@@ -23,12 +25,10 @@ exports.register = async (req, res) => {
   if (user) return sendError(res, "This email already exists!");
   const usernamee = await User.findOne({ username });
   if (usernamee) return sendError(res, "This username already exists!");
-  const isAdmin = true;
   const newUser = new User({
     username,
     email,
     password,
-    isAdmin,
   });
 
   const OTP = generateOTP();
@@ -41,7 +41,7 @@ exports.register = async (req, res) => {
   // Sending email verification
   new SibApiV3Sdk.TransactionalEmailsApi()
     .sendTransacEmail({
-      sender: { email: "wbdz19@gmail.com", name: "willem" },
+      sender: { email: "gamz.contactbox@gmail.com", name: "gamz" },
       subject: "Verify your email account",
       htmlContent: emailTamplate(OTP),
       to: [
@@ -66,8 +66,10 @@ exports.register = async (req, res) => {
 // login ::::
 exports.signin = async (req, res) => {
   const { emailOrUsername, password } = req.body;
+
   if (!emailOrUsername.trim() || !password.trim())
     return sendError(res, "Email/username or password is missing!");
+
   const isEmail = emailOrUsername.includes("@");
   const searchField = isEmail ? "email" : "username";
 
@@ -86,7 +88,20 @@ exports.signin = async (req, res) => {
       expiresIn: "24h",
     }
   );
-
+  let sessionIdentifier = null;
+  if (user.isAdmin) {
+    sessionIdentifier = uuidv4();
+  
+    const session = new Session({
+      sessionId: sessionIdentifier,
+      userId: user._id,
+      isAdmin: user.isAdmin,
+     expiresAt: new Date(Date.now() + 2 * 60 * 60 * 1000)
+    });
+  
+    await session.save();
+  }
+  
   res.json({
     success: true,
     user: {
@@ -98,6 +113,7 @@ exports.signin = async (req, res) => {
       avatar: user.avatar,
       banner: user.banner,
       isAdmin: user.isAdmin,
+      sessionId: sessionIdentifier,
     },
   });
 };

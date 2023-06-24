@@ -1,11 +1,14 @@
 const User = require("../models/User");
+const Post = require("../models/Post");
 // delete user ::::
 exports.deleteUserById = async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.params.id);
+
     if (!deletedUser) {
       return res.status(404).send({ error: "User not found" });
     }
+    await Post.deleteMany({ author: req.params.id });
     res.send(deletedUser);
   } catch (error) {
     console.error(error);
@@ -32,11 +35,11 @@ exports.getUserById = async (req, res) => {
     }
 
     const user = await User.findById(req.params.id).populate({
-      path: 'posts',
-      select: '_id title price category images',
+      path: "posts",
+      select: "_id title price category images",
       populate: {
-        path: 'category',
-        select: '_id name',
+        path: "category",
+        select: "_id name",
       },
     });
 
@@ -56,14 +59,21 @@ exports.getUserById = async (req, res) => {
   }
 };
 
-
-
-
 //  update user
 
 exports.updateUser = async (req, res) => {
-  const { avatar, banner, username, nom, prenom, genre, dateNaissance, adress, phone, id } =
-    req.body;
+  const {
+    avatar,
+    banner,
+    username,
+    nom,
+    prenom,
+    genre,
+    dateNaissance,
+    adress,
+    phone,
+    id,
+  } = req.body;
 
   try {
     let user = await User.findById(id);
@@ -107,12 +117,12 @@ exports.updateUser = async (req, res) => {
     if (avatar.url) {
       user.avatar.url = avatar.url;
       user.avatar.public_id = avatar.public_id;
-    } 
+    }
 
     if (banner.url) {
       user.banner.url = banner.url;
       user.banner.public_id = banner.public_id;
-    } 
+    }
 
     user.infoUpdate = true;
 
@@ -124,14 +134,12 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-
-
 // count users:
 exports.getUserCount = async (req, res) => {
   try {
     const count = await User.countDocuments();
     res.status(200).json({ count });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to retrieve user count' });
+    res.status(500).json({ error: "Failed to retrieve user count" });
   }
 };

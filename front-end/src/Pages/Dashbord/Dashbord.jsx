@@ -2,9 +2,9 @@ import { Power3 } from "gsap";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from 'react-redux'
+import { useDispatch } from "react-redux";
 import Dashboard from "../../Components/Dashbord/Dashboard";
-import { GetAllUsers} from "../../redux/reducers/users";
+import { GetAllUsers } from "../../redux/reducers/users";
 import axios from "axios";
 const baseURL = import.meta.env.VITE_BASE_URL;
 function Dashbord() {
@@ -12,7 +12,7 @@ function Dashbord() {
   const [users, setUsers] = useState([]);
   const [postCount, setPostCount] = useState(0);
   const [userCount, setUserCount] = useState(0);
-  const dispatch= useDispatch()
+  const dispatch = useDispatch();
   const cardContainer = useRef();
   const cardContainer2 = useRef();
   const cardContainer3 = useRef();
@@ -47,9 +47,11 @@ function Dashbord() {
     const getUsers = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
-        const token = user?.token || null;
+        const sessionId = user.sessionId;
         const config = {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            "session-id": sessionId,
+          },
         };
         const res = await axios.get(baseURL + "/user/", config);
         setUsers(res.data);
@@ -60,24 +62,26 @@ function Dashbord() {
     };
     getUsers();
   }, []);
+
   useEffect(() => {
-    axios.get(baseURL+"/post/count")
-      .then(response => {
+    axios
+      .get(baseURL + "/post/count")
+      .then((response) => {
         setPostCount(response.data.count);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
 
-    axios.get(baseURL+"/user/count")
-      .then(response => {
+    axios
+      .get(baseURL + "/user/count")
+      .then((response) => {
         setUserCount(response.data.count);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, []);
-
 
   return (
     <div className="home-container" style={{ height: "100vh" }}>
@@ -89,7 +93,7 @@ function Dashbord() {
         }}
         ref={cardContainer3}
       >
-        <Dashboard users={users} userCount={userCount} postCount={postCount}/>
+        <Dashboard users={users} userCount={userCount} postCount={postCount} />
       </div>
     </div>
   );

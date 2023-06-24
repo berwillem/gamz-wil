@@ -20,6 +20,7 @@ const options = wilaya.map((wilaya) => ({
 const userString = localStorage.getItem("user");
 const user = userString ? JSON.parse(userString) : "";
 const id = user ? user.id : "";
+console.log("iddddd",id);
 const isLoggedIn = localStorage.getItem("isLoggedIn");
 
 // Component start :
