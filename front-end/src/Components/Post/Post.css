@@ -67,7 +67,7 @@ content: 'helllo there';
     box-shadow: 0px 15px 25px -4px rgba(150, 150, 150, 0.24);
 
 }
-.button-post-container>a>button{
+.postbtn{
     display: flex;
     align-items: center;
     justify-content: center;
