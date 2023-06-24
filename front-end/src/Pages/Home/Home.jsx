@@ -25,8 +25,7 @@ const images = [
 
 function Home({ isDarkMode }) {
   const dispatch = useDispatch();
-  const p = isDarkMode.isDarkMode;
-
+  const p = isDarkMode;
   // animations
   gsap.registerPlugin(ScrollTrigger);
   const cardContainer = useRef();

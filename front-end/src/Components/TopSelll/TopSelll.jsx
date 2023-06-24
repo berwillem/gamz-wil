@@ -21,7 +21,7 @@ function TopSelll() {
   // api call
   useEffect(() => {
     axios
-      .get(baseURL + `/post/category/644b93f21b7633709d2db121`)
+      .get(baseURL + `/post/category/6473d62704ebb30a210eb4fa`)
       .then((response) => {
         // Traiter les données de la réponse
         setPostsConsole(response.data);
@@ -33,7 +33,7 @@ function TopSelll() {
   }, []);
   useEffect(() => {
     axios
-      .get(baseURL + `/post/category/644b907d1b7633709d2db0fa`)
+      .get(baseURL + `/post/category/6473e00104ebb30a210eb656`)
       .then((response) => {
         // Traiter les données de la réponse
         setPostsInformatique(response.data);
@@ -45,7 +45,7 @@ function TopSelll() {
   }, []);
   useEffect(() => {
     axios
-      .get(baseURL + `/post/category/644b97091b7633709d2db1d8`)
+      .get(baseURL + `/post/category/6473d58404ebb30a210eb48e`)
       .then((response) => {
         // Traiter les données de la réponse
         setPostsTelephone(response.data);
