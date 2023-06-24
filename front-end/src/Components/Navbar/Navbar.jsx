@@ -19,6 +19,7 @@ import { fetchCategories, getCategories } from "../../Data/category";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
 function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
+  
   //* state
   const [searchText, setSearchText] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
