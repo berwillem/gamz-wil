@@ -5,6 +5,10 @@ import "./Slider.css";
 import { AiFillRightCircle } from "react-icons/ai";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import slide1 from "../../assets/images/SMALL1.webp"
+import slide2 from "../../assets/images/SMALL2.webp"
+import slide from "../../assets/images/telslid.webp"
+
 // default image
 const image1 =
   "https://electro.madrasthemes.com/wp-content/uploads/2016/03/headphonecase.png";
@@ -43,6 +47,7 @@ function Slider() {
   const [card1, setCard1] = useState({});
   const [card2, setCard2] = useState({});
 
+
   //variable
   const imageUrl = backgroundImages[currentImageIndex2];
   const RedirectLink = redirect[currentImageIndex2];
@@ -53,6 +58,24 @@ function Slider() {
   const button = useRef();
   const cardContainer = useRef();
   const cardContainer2 = useRef();
+  const isMobile = window.matchMedia("(max-width: 450px)").matches;
+  //respo
+  const backgroundImage = isMobile
+  ? `url(${slide1})` // Utilisation de l'image statique pour la version téléphone
+  : card1 && card1.cardOneImage && card1.cardOneImage.url
+      ? `url(${card1.cardOneImage.url})` // Utilisation de l'URL de l'image depuis l'API pour la version desktop
+      : '';
+  const backgroundImage2 = isMobile
+  ? `url(${slide2})` // Utilisation de l'image statique pour la version téléphone
+  : card2 && card2.cardTwoImage && card2.cardTwoImage.url
+      ? `url(${card2.cardTwoImage.url})` // Utilisation de l'URL de l'image depuis l'API pour la version desktop
+      : '';
+  const backgroundImage3 = isMobile
+  ? `url(${slide})` // Utilisation de l'image statique pour la version téléphone
+  : card && card.pub && imageUrl
+      ? `url(${imageUrl})` // Utilisation de l'URL de l'image depuis l'API pour la version desktop
+      : '';
+     
   // api call
   useEffect(() => {
     axios
@@ -145,7 +168,7 @@ function Slider() {
     <div
       className="slider"
       style={{
-        backgroundImage: `url(${card && card.pub && imageUrl ? imageUrl : ""})`,
+        backgroundImage: backgroundImage3,
       }}
     >
       <div className="R-C-slider">
@@ -181,11 +204,7 @@ function Slider() {
             ref={cardContainer}
             className="box"
             style={{
-              backgroundImage: `url(${
-                card1 && card1.cardOneImage && card1.cardOneImage.url
-                  ? card1.cardOneImage.url
-                  : ""
-              })`,
+              backgroundImage,
             }}
           >
             <div className="title-box">
@@ -219,11 +238,7 @@ function Slider() {
             className="box"
             ref={cardContainer2}
             style={{
-              backgroundImage: `url(${
-                card2 && card2.cardTwoImage && card2.cardTwoImage.url
-                  ? card2.cardTwoImage.url
-                  : ""
-              })`,
+              backgroundImage: backgroundImage2,
             }}
           >
             <div className="title-box">
