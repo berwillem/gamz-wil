@@ -5,41 +5,12 @@ import "./Slider.css";
 import { AiFillRightCircle } from "react-icons/ai";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import slide1 from "../../assets/images/SMALL1.webp"
-import slide2 from "../../assets/images/SMALL2.webp"
-import slide from "../../assets/images/telslid.webp"
-
-// default image
-const image1 =
-  "https://electro.madrasthemes.com/wp-content/uploads/2016/03/headphonecase.png";
-const image2 =
-  " https://electro.madrasthemes.com/wp-content/uploads/2016/03/usbheadphone.png";
-const image3 =
-  " https://electro.madrasthemes.com/wp-content/uploads/2016/03/cam4k-300x300.png";
-const image4 =
-  " https://electro.madrasthemes.com/wp-content/uploads/2016/03/watch-300x300.png";
+import slide1 from "../../assets/images/SMALL1.webp";
+import slide2 from "../../assets/images/SMALL2.webp";
+import slide from "../../assets/images/telslid.webp";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 function Slider() {
-  //state
-  const [images, setImages] = useState([
-    {
-      id: 0,
-      src: image1,
-    },
-    {
-      id: 1,
-      src: image2,
-    },
-    {
-      id: 2,
-      src: image3,
-    },
-    {
-      id: 3,
-      src: image4,
-    },
-  ]);
   const [backgroundImages, setBackgroundImages] = useState([]);
   const [redirect, setRedirect] = useState([]);
   const [currentImageIndex2, setCurrentImageIndex2] = useState(0);
@@ -47,8 +18,6 @@ function Slider() {
   const [card1, setCard1] = useState({});
   const [card2, setCard2] = useState({});
 
-
-  //variable
   const imageUrl = backgroundImages[currentImageIndex2];
   const RedirectLink = redirect[currentImageIndex2];
   gsap.registerPlugin(ScrollTrigger);
@@ -59,24 +28,23 @@ function Slider() {
   const cardContainer = useRef();
   const cardContainer2 = useRef();
   const isMobile = window.matchMedia("(max-width: 450px)").matches;
-  //respo
+
   const backgroundImage = isMobile
-  ? `url(${slide1})` // Utilisation de l'image statique pour la version téléphone
-  : card1 && card1.cardOneImage && card1.cardOneImage.url
-      ? `url(${card1.cardOneImage.url})` // Utilisation de l'URL de l'image depuis l'API pour la version desktop
-      : '';
+    ? `url(${slide1})`
+    : card1 && card1.cardOneImage && card1.cardOneImage.url
+    ? `url(${card1.cardOneImage.url})`
+    : "";
   const backgroundImage2 = isMobile
-  ? `url(${slide2})` // Utilisation de l'image statique pour la version téléphone
-  : card2 && card2.cardTwoImage && card2.cardTwoImage.url
-      ? `url(${card2.cardTwoImage.url})` // Utilisation de l'URL de l'image depuis l'API pour la version desktop
-      : '';
+    ? `url(${slide2})`
+    : card2 && card2.cardTwoImage && card2.cardTwoImage.url
+    ? `url(${card2.cardTwoImage.url})`
+    : "";
   const backgroundImage3 = isMobile
-  ? `url(${slide})` // Utilisation de l'image statique pour la version téléphone
-  : card && card.pub && imageUrl
-      ? `url(${imageUrl})` // Utilisation de l'URL de l'image depuis l'API pour la version desktop
-      : '';
-     
-  // api call
+    ? `url(${slide})`
+    : card && card.pub && imageUrl
+    ? `url(${imageUrl})`
+    : "";
+
   useEffect(() => {
     axios
       .get(baseURL + "/pub/")
@@ -90,7 +58,7 @@ function Slider() {
         console.error(error);
       });
   }, []);
-  // function card
+
   useEffect(() => {
     if (card.pub && card.pub.length > 0) {
       const pubUrls = card.pub.map((item) => item.url);
@@ -112,7 +80,6 @@ function Slider() {
     };
   }, []);
 
-  //style
   useEffect(() => {
     gsap.to(subtitle.current, {
       y: 0,
@@ -224,12 +191,6 @@ function Slider() {
               <strong>En savoir plus !</strong>
 
               <AiFillRightCircle size={20} color="#e81a2a" />
-              <div className="image-R-slide">
-                <img
-                  src={images[0].src}
-                  alt="image-slide"
-                />
-              </div>
             </div>
           </div>
         </Link>
@@ -255,16 +216,9 @@ function Slider() {
               )}
             </div>
             <div className="sub-title-box">
-
               <strong>En savoir plus !</strong>
 
               <AiFillRightCircle size={20} color="#e81a2a" />
-              <div className="image-R-slide">
-                <img
-                  src={images[1].src}
-                  alt="image-slide"
-                />
-              </div>
             </div>
           </div>
         </Link>
