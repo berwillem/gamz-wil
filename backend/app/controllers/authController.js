@@ -109,6 +109,7 @@ exports.signin = async (req, res) => {
       email: user.email,
       id: user._id,
       token,
+      verified:user.verified,
       infoUpdate: user.infoUpdate,
       avatar: user.avatar,
       banner: user.banner,
@@ -124,7 +125,6 @@ exports.verifyEmail = async (req, res) => {
   const { userId, otp } = req.body;
   if (!userId || !otp.trim())
     return sendError(res, "Invalid request , missing parameters!");
-
   if (!isValidObjectId(userId)) return sendError(res, "Invalid user id");
 
   const user = await User.findById(userId);

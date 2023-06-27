@@ -11,7 +11,13 @@ const Otp = (p) => {
   const dispatch = useDispatch();
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
-  const userId = JSON.parse(localStorage.getItem('user'))?._id || null;
+  const userString = localStorage.getItem("user");
+  const user = userString ? JSON.parse(userString) : "";
+  const id = user ? user.id : null;
+  const id2 = JSON.parse(localStorage.getItem('user'))?._id || null;
+  let userId=null;
+  userId = id ? id : (id2 ? id2 : (id && id2 ? id : null));
+
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -11,18 +11,25 @@ function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
-// function submit
+  // function submit
   const handleSubmit = (values) => {
     dispatch(login(values))
       .then(() => {
-        navigate("/");
+        const user = JSON.parse(localStorage.getItem("user"));
+        const isVerified = user?.verified || false; 
+        if (isVerified) {
+          navigate("/");
+        } else {
+          localStorage.setItem('isLoggedIn', 'false');
+          navigate("/otp");
+        }
       })
       .catch((error) => {
         console.log("Registration error:", error.response.data.error);
         setError(error.response.data.error);
       });
   };
-// validation form
+  // validation form
   const validate = (values) => {
     const errors = {};
     if (!values.emailOrUsername) {
@@ -70,11 +77,7 @@ function Login() {
                 name="password"
                 placeholder="Entrez votre mot de passe"
               />
-              <ErrorMessage
-                name="password"
-                component="div"
-                className="error"
-              />
+              <ErrorMessage name="password" component="div" className="error" />
             </label>
 
             <div className="check-box-login">
