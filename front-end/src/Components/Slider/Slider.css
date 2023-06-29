@@ -246,6 +246,11 @@ button.active {
 
 }
 @media screen and (max-width: 414px) {
+  .buy-button {
+ 
+    top: 300px;
+    
+  }
  
   .slider{
     padding: 30px !important;
@@ -258,6 +263,7 @@ button.active {
   }
 }
 @media screen and (max-width: 325px) {
+ 
 }
 @media screen and (max-width: 250px) {
 }
