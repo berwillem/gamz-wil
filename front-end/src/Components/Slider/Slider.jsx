@@ -7,7 +7,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import slide1 from "../../assets/images/SMALL1.webp";
 import slide2 from "../../assets/images/SMALL2.webp";
-import slide from "../../assets/images/telslid.webp";
+import slide from "../../assets/images/telslide.webp";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 function Slider() {
