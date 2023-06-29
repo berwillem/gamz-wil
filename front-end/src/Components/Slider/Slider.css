@@ -160,9 +160,9 @@ button.active {
   padding: 20px 10px;
   opacity: 0;
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  transform: translateX(50px);
+  background-size: contain;
+ background-position: center;
+  transform:  translateX(50px);
 }
 
 .title-box {
@@ -172,11 +172,13 @@ button.active {
   color: var(--text-color);
 }
 
-.sub-title-box {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  color: var(--text-color);
+.sub-title-box{
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    color: var(--text-color);
+   
+  
 }
 .R-slider a {
   font-size: medium;
@@ -207,14 +209,17 @@ button.active {
   .C-slider {
     width: 300px;
   }
-  .R-slider {
-    display: flex;
-    width: 100%;
+ 
+  .R-slider a {
+    width: 50%;
   }
 }
 @media screen and (max-width: 1070px) {
 }
 @media screen and (max-width: 820px) {
+  .R-slider a {
+    width: 100%;
+  }
   .buy-button {
     top: 320px;
     left: 50%;
@@ -224,6 +229,7 @@ button.active {
     flex-direction: column;
     margin-top: 300px;
   }
+  
   .slider {
     height: 800px;
   }
@@ -233,9 +239,20 @@ button.active {
 @media screen and (max-width: 590px) {
 }
 @media screen and (max-width: 480px) {
+ 
+  .R-slider .box {
+    height: 100px;
+   }
+
 }
 @media screen and (max-width: 414px) {
-  .slider {
+  .buy-button {
+ 
+    top: 300px;
+    
+  }
+ 
+  .slider{
     padding: 30px !important;
   }
   .R-C-slider {
@@ -246,6 +263,7 @@ button.active {
   }
 }
 @media screen and (max-width: 325px) {
+ 
 }
 @media screen and (max-width: 250px) {
 }
