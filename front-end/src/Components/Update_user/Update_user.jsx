@@ -263,7 +263,7 @@ function Update_user() {
                     checked={genre === "Non definié"}
                     onChange={(e) => setGenre(e.target.value)}
                   />
-                  <label htmlFor="non definie">Non definié</label>
+                  <label htmlFor="non definie">Non défini</label>
                 </div>
               </label>
               <button>sumbit</button>
