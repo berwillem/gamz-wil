@@ -3,11 +3,11 @@
     flex-direction: column;
     background-color: var(--background-color);
     width: 100%;
-
 }
 .post-details-l{
     opacity: 0;
     transform: translateY(100px);
+    margin-top: 100px;
 }
 .user-avatar a{
     display: flex;
@@ -40,8 +40,8 @@ padding: 20px;
 padding: 20px;
 }
 .big-image  img {
-    height: 250px;
-    width: 350px;
+    height: 300px;
+    width: 400px;
     object-fit: fill;
     border-radius: 5%;
 }
@@ -63,10 +63,11 @@ padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
 }
+
 .images{
-    height: 10vh;
+    height: 12vh;
     border: 2px solid  #a7a7a7;
     border-radius: 5px;
 
