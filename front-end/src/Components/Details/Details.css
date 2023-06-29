@@ -115,7 +115,7 @@ padding: 20px;
 .post-details-price {
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+   
     align-items: center;
 }
 .post-details-price > p {

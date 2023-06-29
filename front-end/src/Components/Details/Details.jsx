@@ -207,7 +207,7 @@ function Details() {
             <p> {post.description}</p>
           </div>
           <div className="post-details-price">
-            <p>{post.price} DA</p>
+            <p> Prix:{post.price} DA</p>
           </div>
           <div className="info">
             <li>

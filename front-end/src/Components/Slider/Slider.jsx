@@ -187,11 +187,7 @@ function Slider() {
                 </p>
               )}
             </div>
-            <div className="sub-title-box">
-              <strong>En savoir plus !</strong>
-
-              <AiFillRightCircle size={20} color="#e81a2a" />
-            </div>
+           
           </div>
         </Link>
         <Link to={card2.redirect} target="_blank">
@@ -215,11 +211,7 @@ function Slider() {
                 </p>
               )}
             </div>
-            <div className="sub-title-box">
-              <strong>En savoir plus !</strong>
-
-              <AiFillRightCircle size={20} color="#e81a2a" />
-            </div>
+           
           </div>
         </Link>
       </div>
