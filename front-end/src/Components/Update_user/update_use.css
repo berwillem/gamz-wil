@@ -93,6 +93,9 @@
 .banner,.avatar{
     position: relative;
 }
+.banner img,.avatar img{
+   object-fit: fill;
+}
 .edit{
     position: absolute;
     top: 45%;

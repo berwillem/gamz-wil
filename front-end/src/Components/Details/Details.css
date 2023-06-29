@@ -48,7 +48,7 @@ padding: 20px;
 
 
 .big-image{
-    border-bottom: 1px solid #cccccc;
+  
     display: flex;
     align-items: center;
     width: 400px;
@@ -181,7 +181,8 @@ padding: 20px;
 }
 .sub-images img{
 
-    width: 100px;
+    width: 150px;
+    height: 100px;
     object-fit: fill;
 }
 
@@ -203,11 +204,13 @@ padding: 20px;
 @media screen and (max-width: 1070px) {
 .sub-images{
     width: 100%;
+    
 }
 .sub-images img{
 
     width: 100px;
     object-fit: fill;
+    height: 80px;
 }
 .post-details-l,.post-details-r{
     width: 100%;

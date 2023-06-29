@@ -160,9 +160,9 @@ button.active {
   padding: 20px 10px;
   opacity: 0;
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  transform: translateX(50px);
+  background-size: contain;
+ background-position: center;
+  transform:  translateX(50px);
 }
 
 .title-box {
@@ -172,11 +172,12 @@ button.active {
   color: var(--text-color);
 }
 
-.sub-title-box {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  color: var(--text-color);
+.sub-title-box{
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    color: var(--text-color);
+  
 }
 .R-slider a {
   font-size: medium;
@@ -233,9 +234,11 @@ button.active {
 @media screen and (max-width: 590px) {
 }
 @media screen and (max-width: 480px) {
+
 }
 @media screen and (max-width: 414px) {
-  .slider {
+ 
+  .slider{
     padding: 30px !important;
   }
   .R-C-slider {
