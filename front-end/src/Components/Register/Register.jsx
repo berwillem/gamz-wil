@@ -47,7 +47,7 @@ function Register() {
           />
         </label>
         <label>
-          <strong>addresse e-mail *</strong>
+          <strong>adresse e-mail *</strong>
           <input
             name="Email"
             value={email}
