@@ -86,8 +86,8 @@ function UsersList({ number, id, date, name, email, order }) {
       <li>{date}</li>
       <li>{name}</li>
       <li>{email}</li>
-      <li className="action-li" onClick={handelaction}>
-        <AiOutlineMore />
+      <li className="action-li" >
+        <AiOutlineMore onClick={handelaction}/>
 
         <div className={action}>
           <span className="dashbord-ic" onClick={() => navigate(`/account/${id}`)}>

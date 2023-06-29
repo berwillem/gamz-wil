@@ -102,6 +102,7 @@
 .action{
     display: flex;
     flex-direction: column;
+    gap: 20PX;
   
 }
 .action-li{
@@ -116,6 +117,8 @@
 }
 .action span{
     display: flex;
+   
+
     align-items: center;
 }
 .action-li svg{
