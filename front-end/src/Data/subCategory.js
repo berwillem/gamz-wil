@@ -82,7 +82,7 @@ const subcategories = [
     },
     {
       id: "6473deed04ebb30a210eb62e",
-      label: "gift cards",
+      label: "Gift cards",
       parentCategoryId: "6473deeb04ebb30a210eb5ff",
       src:null
     },
