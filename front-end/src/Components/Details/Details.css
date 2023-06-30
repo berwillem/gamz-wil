@@ -37,7 +37,7 @@ padding: 20px;
     width: 100%;
     gap: 20px;
     justify-content: center;
-padding: 20px;
+
 }
 .big-image  img {
     height: 300px;
@@ -51,11 +51,12 @@ padding: 20px;
   
     display: flex;
     align-items: center;
-    width: 400px;
+    width: 550px;
+    justify-content: space-between;
 }
 .big-image svg{
-    height: 30px;
-    width: 30px;
+    height: 60px;
+    width: 60px;
 }
 
 .sub-images {
@@ -182,8 +183,8 @@ padding: 20px;
 }
 .sub-images img{
 
-    width: 150px;
-    height: 100px;
+    width: 190px;
+    height: 150px;
     object-fit: fill;
 }
 
