@@ -4,6 +4,7 @@
     justify-content: center;
     /* align-items: center; */
     flex-direction: column;
+    padding: 10px;
   
 }
 
@@ -17,7 +18,7 @@ content: 'helllo there';
 }
 .user-post-name{
     text-align: center;
-    height: 40px;
+    height: auto;
 }
 
 .user-post-category{
