@@ -9,6 +9,8 @@ import logo2 from "../../assets/2.webp";
 import logo3 from "../../assets/logorespo.webp";
 import UpdateInfo from "../UpdateInfo/UpdateInfo";
 import { Link } from "react-router-dom";
+import {animateScroll as scroll } from "react-scroll";
+
 import { useState } from "react";
 import { useRef } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
@@ -63,8 +65,16 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  //GG
+ const handleScroll = () => {
+  setMenuIsOpen(!menuIsOpen);
+
+  scroll.scrollMore(900); 
+};
+
 // respo menu
   function handleClick2(event) {
+    console.log("hi");
     const nextElement = event.target.nextElementSibling;
     if (nextElement) {
       nextElement.classList.toggle("active-ul");
@@ -225,7 +235,7 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
           </div>
           {isLoggedIn ? infoupdate ? <div></div> : <UpdateInfo /> : <div></div>}
           <div className="navbar-center">
-            <div className="menu-logo">
+            <div className="menu-logo" >
               <div
                 className={`menu ${menuIsOpen ? "open" : ""}`}
                 ref={navRef}
@@ -251,23 +261,25 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
                   </Link>
                   {categories.map((categorie, index) => (
                     <div key={index}>
-                      <li
+                      <li className="barre"
                         onClick={() => {
                           handleClick2(event);
                           handleCategorySelection(categorie._id);
                         }}
                       >
-                        {categorie.name} <AiFillCaretDown />
+                      <div onClick={handleScroll}>  {categorie.name}</div>  <AiFillCaretDown  />
                       </li>
                       <ul className="ul2">
                         {subCategoryes.map((subcategorye, index) => {
                           if (subcategorye.parentCategoryId === categorie._id) {
                             return (
-                              <li
+                              <li 
+                            
                                 key={index}
-                                onClick={() =>
-                                  handleSubcategorySelection(subcategorye.id)
-                                }
+                                onClick={() => {
+                                  handleSubcategorySelection(subcategorye.id);
+                                  handleScroll();
+                                }}
                               >
                                 {subcategorye.label}
                               </li>

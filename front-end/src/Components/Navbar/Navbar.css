@@ -226,6 +226,28 @@ a{
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 2;
 }  
+.barre{
+    display: flex;
+    z-index: 2;
+    position: relative;
+
+}
+.barre div{
+   width: 80%;
+   z-index: 3;
+   position: relative;
+   border-right:solid 2px #e3e9ef ;
+   height: 50px;
+   display: flex;
+   align-items: center;
+}
+.barre svg{
+    z-index: 1;
+    position: relative;
+    width: 20%;
+  pointer-events: none;
+    
+}
 
  .ul{
     display: flex;
