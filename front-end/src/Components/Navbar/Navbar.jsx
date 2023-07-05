@@ -65,7 +65,7 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  //GG
+  //scroll on click
  const handleScroll = () => {
   setMenuIsOpen(!menuIsOpen);
 
@@ -74,7 +74,7 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
 
 // respo menu
   function handleClick2(event) {
-    console.log("hi");
+  
     const nextElement = event.target.nextElementSibling;
     if (nextElement) {
       nextElement.classList.toggle("active-ul");
@@ -259,6 +259,13 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
                       Deposer une annonce
                     </li>
                   </Link>
+                  <li   onClick={() => {
+                         handleScroll();
+                          handleCategorySelection("");
+                        }}>
+                     
+                     Toutes les catégories 
+                    </li>
                   {categories.map((categorie, index) => (
                     <div key={index}>
                       <li className="barre"
