@@ -35,7 +35,7 @@
 
 .principal-image{
     display: flex;
-    justify-content: center;
+    
 }
 .principal-image > img {
    
@@ -79,7 +79,7 @@
 }
 .images-sub {
     display: flex;
-    justify-content: center;
+   
     align-items: center;
     gap: 30px;
 }
@@ -274,6 +274,9 @@
 }
 /*respo*/
 @media screen and (max-width: 1240px) {
+    .principal-image,.images-sub{
+        justify-content: center;
+       }
     .user-l{
         display: none;
     }
@@ -289,7 +292,7 @@
       }
       }
       @media screen and (max-width: 1070px) {
-    
+      
       
       
       
@@ -301,6 +304,7 @@
        .images-sub img{
         width: 120px !important;
        }
+       
       }
       @media screen and (max-width: 750px) {
       
