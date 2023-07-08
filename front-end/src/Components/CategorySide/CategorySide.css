@@ -76,7 +76,7 @@
     position:absolute;
     height: auto;
     min-height: 200px;
-    width: 500px;
+    width: 450px;
     background-color:var(--background-color);
     left: 93%;
     
@@ -91,7 +91,7 @@
 transform: scaleX(1);
     
     border-top: 2px solid #e81a2a ;
-    border-right: 2px solid #e81a2a ;
+   
     border-bottom: 2px solid #e81a2a ;
     clip-path: inset(100% 100% 0 0);
     transition: 0.5s;
@@ -164,10 +164,10 @@ li#\36 473d58404ebb30a210eb494 {
  
 }
 img#\ Abonnements\ «\ Code\ Digital\ »\ {
-  height: 140px !important;
+  height: 131px !important;
   width: auto !important;
-  top: 57px ;
-  left: 166px;
+  top: 68px ;
+  left: 138px;
 }
 img#PC\ Bureau {
   top:180px ;
@@ -178,26 +178,26 @@ img#Jeux\ Vidéos\ Digital{
   height: 140px !important;
   width: auto !important;
   top: 58px ;
-  left: 166px;
+  left: 117px;
 }
 
 img#Jeux\ Vidéos\ physique\ Nintendo{
   height: 150px !important;
   width: auto !important;
   top: 47px ;
-  left: 142px;
+  left: 92px;
 }
 img#Tablettes{
   height: 150px !important;
   width: auto !important;
   top: 50px ;
-  left: 150px;
+  left: 100px;
 }
 img#Jeux\ Vidéos\ physique\ xbox{
   height: 150px !important;
   width: auto !important;
   top: 47px ;
-  left: 142px;
+  left: 95px;
 }
 
 

@@ -110,7 +110,7 @@
 
 .logo-footer > img {
     height: 10vh;
-    width: 150px;
+    width: 180px;
 }
 
 .copy-right{
@@ -133,9 +133,11 @@
     .categories,.R-footer{
         display: none;
       }
+      
       .footer-content{
         justify-content: center;
         align-items: center;
+        margin-left: 0;
     }
     .logo-footer img{
         width: 200PX !important;
