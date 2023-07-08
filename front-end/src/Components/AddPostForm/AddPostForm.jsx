@@ -429,7 +429,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
               />
             </div>
             <div className="add-price">
-              <p>willaya</p>
+              <p>Wilaya</p>
 
               <Select
                 value={wilaya.value}
