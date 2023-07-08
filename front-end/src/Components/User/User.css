@@ -105,7 +105,7 @@
 .user-post{
     margin-top: 20px;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto;
     gap: 20px;
 

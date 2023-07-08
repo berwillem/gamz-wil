@@ -39,7 +39,8 @@ function CategorySide({ onSubcategoryChange }) {
                     return (
                       <ul key={subSubCategory.id}>
                         <li
-                          className="drop-down-titel"
+                          className="drop-down-titel "
+                          id={subSubCategory.id}
                           onClick={() =>
                             handleSubcategorySelection(subSubCategory.id)
                           }

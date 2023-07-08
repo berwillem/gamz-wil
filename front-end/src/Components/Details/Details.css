@@ -247,11 +247,13 @@ padding: 20px;
 }
 @media screen and (max-width: 750px) {
 .user-post{
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
 }
 }
 @media screen and (max-width: 590px) {
-
+    .user-post{
+        grid-template-columns: 1fr ;
+    }
 }
 @media screen and (max-width: 480px) {
     .big-image img{
@@ -259,6 +261,7 @@ padding: 20px;
         width: 250px;
         object-fit: fill;
     }
+    
 }
 @media screen and (max-width: 414px) {
 

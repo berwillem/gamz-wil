@@ -6,15 +6,23 @@
     align-items: center;
     gap:10px; 
     padding: 15px;
+    height: 80px;
+    width: 300px;
     background-color: var(--background-color);
 }
 .Top-sal-box-container a{
-    width: 30%;
+    width: 100%;
 }
+.Top-sal-box-container a strong{
+   height: 40px;
+   width: 100%;
+
+}
+
 .sal-box-L{
     display: flex;
     align-items: center;
-    width: 100%;
+    width: 50%;
 }
 
 #box-image{
@@ -27,13 +35,19 @@
   border-radius: 10%;
 
 }
-
+.box-name{
+    width: 100%;
+}
 .sal-box-R{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 2px;
     align-items: start;
     width: 100%;
+    height: 60PX;
+    justify-content: center;
+
+    
 }
 .box-price{
     width: 70px;

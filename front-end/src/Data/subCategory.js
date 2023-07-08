@@ -5,6 +5,7 @@ import cat_img4 from "../assets/images/PICS/img4.webp";
 import cat_img5 from "../assets/images/PICS/img5.webp";
 import cat_img6 from "../assets/images/PICS/img6.webp";
 import cat_img7 from "../assets/images/PICS/img7.webp";
+import cat_img8 from "../assets/images/PICS/img8.webp";
 const subcategories = [
   {
     id: "6473d58604ebb30a210eb4de",
@@ -97,7 +98,7 @@ const subcategories = [
       id: "6473e00304ebb30a210eb69a",
       label: "Tablettes",
       parentCategoryId: "6473e00104ebb30a210eb656",
-      src:null
+      src:cat_img8
     },
     {
       id: "6473e00304ebb30a210eb6a6",
