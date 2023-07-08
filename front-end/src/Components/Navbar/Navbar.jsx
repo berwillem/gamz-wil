@@ -71,6 +71,11 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
 
   scroll.scrollMore(900); 
 };
+ const handleScroll2 = () => {
+ 
+
+  scroll.scrollMore(400); 
+};
 
 // respo menu
   function handleClick2(event) {
@@ -363,11 +368,16 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
           </div>
           <div className="navbarDown">
             <div className="down">
+            <div className="catnav" onClick={() => {
+                         handleScroll2();
+                          handleCategorySelection("");
+                        }}>Toutes les catégories </div>
               {categories.map((categorie, index) => (
                 <div className="catnav">
                   <li
                     key={index}
-                    onClick={() => handleCategorySelection(categorie._id)}
+                    onClick={() => {handleCategorySelection(categorie._id);
+                      handleScroll2();}}
                   >
                     {categorie.name}
                   </li>
