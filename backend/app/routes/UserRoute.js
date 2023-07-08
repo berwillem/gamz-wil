@@ -7,19 +7,22 @@ const {
   getUserById,
   getUserCount,
 } = require("../controllers/userController");
-const { verifyTokenAndOwner, sessionMiddleware } = require("../middlewares/authval");
+const {
+  verifyTokenAndOwner,
+  sessionMiddleware,
+} = require("../middlewares/authval");
 
 // GET all users
-router.get("/", sessionMiddleware,getAllUsers);
+router.get("/", sessionMiddleware, getAllUsers);
 
 // GET user count
-router.get("/count",getUserCount);
+router.get("/count", getUserCount);
 
 // GET user by ID
-router.get("/:id", verifyTokenAndOwner,getUserById);
+router.get("/:id", verifyTokenAndOwner, getUserById);
 
 // DELETE user by username
-router.delete("/:id", sessionMiddleware,deleteUserById);
+router.delete("/:id", deleteUserById);
 
 // UPDATE user
 router.put("/", uploadImages("users"), updateUser);

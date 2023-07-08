@@ -35,9 +35,6 @@ function Dashboard({users,postCount,userCount}) {
                         <CiUser/>
                         </Link>
                     </li>
-                    <li>Logout
-                        <MdOutlineLogout/>
-                    </li>
                 </div>
 
             </div>

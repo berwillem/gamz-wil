@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./PassForgot2.css";
 import Swal from "sweetalert2";
 const baseURL = import.meta.env.VITE_BASE_URL;
@@ -12,28 +12,30 @@ const PassForgot2 = () => {
   const searchParams = new URLSearchParams(location.search);
   const token = searchParams.get("token");
   const userId = searchParams.get("id");
+  const navigate=useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       Swal.fire({
-        icon: 'error',
+        icon: "error",
         title: "Le mot de passe n'est pas identique !",
-        text: 'rentrez a nouveau le mot de pass!',
-      })
+        text: "rentrez a nouveau le mot de pass!",
+      });
       return;
     }
     try {
       const response = await axios.post(
-        baseURL+`/auth/reset-password?token=${token}&id=${userId}`,
+        baseURL + `/auth/reset-password?token=${token}&id=${userId}`,
         { password }
       );
-      Swal.fire(
-        'opération réussite!',
-        'mot de pass mis a jour!',
-        'success'
-      )
+      Swal.fire("opération réussite!", "mot de pass mis a jour!", "success");
+      navigate("/")
     } catch (error) {
-      console.error("Password reset failed:", error);
+      Swal.fire({
+        icon: "error",
+        title: "erreur : !",
+        text: error.response.data.error,
+      });
     }
   };
 

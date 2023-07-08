@@ -240,7 +240,7 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
                   ) : (
                     <Link to={`/account/${userId}`}>
                       {" "}
-                      <li className="li-hover">connecte toi</li>
+                      <li className="li-hover">Connexion</li>
                     </Link>
                   )}
                   <Link to="/createPost">
