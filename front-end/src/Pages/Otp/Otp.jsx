@@ -14,9 +14,9 @@ const Otp = (p) => {
   const userString = localStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : "";
   const id = user ? user.id : null;
-  const id2 = JSON.parse(localStorage.getItem('user'))?._id || null;
-  let userId=null;
-  userId = id ? id : (id2 ? id2 : (id && id2 ? id : null));
+  const id2 = JSON.parse(localStorage.getItem("user"))?._id || null;
+  let userId = null;
+  userId = id ? id : id2 ? id2 : id && id2 ? id : null;
 
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -24,9 +24,9 @@ const Otp = (p) => {
     try {
       await dispatch(confirmEmail(userId, otp));
       Swal.fire({
-        icon: 'success',
-        title: 'email valid!',
-        text: 'thanks for conferming your email'
+        icon: "success",
+        title: "email valid!",
+        text: "thanks for conferming your email",
       });
       navigate("/");
     } catch (error) {
@@ -38,7 +38,7 @@ const Otp = (p) => {
   return (
     <div className="otp-page">
       <div className="logo">
-      <img src={p.isDarkMode ? logo2:logo} alt="" className="logo-gamz" />
+        <img src={p.isDarkMode ? logo2 : logo} alt="" className="logo-gamz" />
       </div>
       <div className="otp-form">
         <form onSubmit={handleSubmit}>

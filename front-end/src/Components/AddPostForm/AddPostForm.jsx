@@ -78,6 +78,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
 
   const handleCategoryChange = async (selectedOption) => {
     setSelectedCategory(selectedOption);
+    setSelectedSubCategory(null);
     try {
       if (selectedOption) {
         const categoryId = selectedOption.value;
@@ -92,6 +93,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
   };
   const handleSubcategoryChange = async (selectedOption) => {
     setSelectedSubCategory(selectedOption);
+    setSelectedSubCategory2(null);
     try {
       if (selectedOption) {
         const categoryId = selectedOption.value;
@@ -104,8 +106,9 @@ function AddPostForm({ categories, fetchSubcategories }) {
       console.error(error);
     }
   };
- const handleSubcategory2Change = async (selectedOption) => {
+  const handleSubcategory2Change = async (selectedOption) => {
     setSelectedSubCategory2(selectedOption);
+    setSelectedSubCategory3(null);
     try {
       if (selectedOption) {
         const categoryId = selectedOption.value;
@@ -120,6 +123,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
   };
   const handleSubcategory3Change = async (selectedOption) => {
     setSelectedSubCategory3(selectedOption);
+    setSelectedSubCategory4(null);
     try {
       if (selectedOption) {
         const categoryId = selectedOption.value;
@@ -134,7 +138,6 @@ function AddPostForm({ categories, fetchSubcategories }) {
   };
   const handleSubcategory4Change = async (selectedOption) => {
     setSelectedSubCategory4(selectedOption);
-   
   };
 
   // other handlers :
@@ -426,7 +429,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
               />
             </div>
             <div className="add-price">
-              <p>willaya</p>
+              <p>Wilaya</p>
 
               <Select
                 value={wilaya.value}
