@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { sendError, creatRandomBytes } = require("../helpers/error");
 const User = require("../models/User");
-const Session =require("../models/Session")
+const Session = require("../models/Session");
 const { v4: uuidv4 } = require("uuid");
 const VerificationToken = require("../models/verifToken");
 const ResetToken = require("../models/resetPassword");
@@ -91,17 +91,17 @@ exports.signin = async (req, res) => {
   let sessionIdentifier = null;
   if (user.isAdmin) {
     sessionIdentifier = uuidv4();
-  
+
     const session = new Session({
       sessionId: sessionIdentifier,
       userId: user._id,
       isAdmin: user.isAdmin,
-     expiresAt: new Date(Date.now() + 2 * 60 * 60 * 1000)
+      expiresAt: new Date(Date.now() + 2 * 60 * 60 * 1000),
     });
-  
+
     await session.save();
   }
-  
+
   res.json({
     success: true,
     user: {
@@ -109,7 +109,7 @@ exports.signin = async (req, res) => {
       email: user.email,
       id: user._id,
       token,
-      verified:user.verified,
+      verified: user.verified,
       infoUpdate: user.infoUpdate,
       avatar: user.avatar,
       banner: user.banner,
