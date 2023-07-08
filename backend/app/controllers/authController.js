@@ -161,7 +161,7 @@ exports.forgotpassword = async (req, res) => {
   const randomBytes = await creatRandomBytes();
   const resetToken = new ResetToken({ owner: user._id, token: randomBytes });
   await resetToken.save();
-  const url = `http://localhost:5173/PassForgot2?token=${randomBytes}&id=${user._id}`;
+  const url = `https://gamz-dz.com/PassForgot2?token=${randomBytes}&id=${user._id}`;
   new SibApiV3Sdk.TransactionalEmailsApi()
     .sendTransacEmail({
       sender: { email: "gamz.contactbox@gmail.com", name: "gamz" },
