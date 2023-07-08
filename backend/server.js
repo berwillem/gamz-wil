@@ -5,7 +5,7 @@ const authRoute = require("./app/routes/AuthRoute");
 const CategoryRoute = require("./app/routes/CategoryRoute");
 const postRoute = require("./app/routes/PostRoute");
 const UserRoute = require("./app/routes/UserRoute");
-const PubRoute =require("./app/routes/PubRoute")
+const PubRoute = require("./app/routes/PubRoute");
 
 const cors = require("cors");
 require("dotenv").config();

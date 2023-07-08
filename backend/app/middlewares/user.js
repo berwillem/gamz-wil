@@ -5,7 +5,6 @@ const User=require("../models/User")
 
 exports.isResetTokenValid = async (req, res, next) => {
   const { token, id } = req.query;
-  
 
   if (!token || !id) return sendError(res, "Invalid Request!");
   if (!isValidObjectId(id)) return sendError(res, "invalid user");

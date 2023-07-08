@@ -214,10 +214,10 @@ function Details() {
               <strong>Numéro De Téléphone : 0{post.num}</strong>
             </li>
             <li>
-              <strong>willaya : {post.wilaya}</strong>
+              <strong>Wilaya : {post.wilaya}</strong>
             </li>
             <li>
-              <strong>état : {post.etat}</strong>
+              <strong>Etat : {post.etat}</strong>
             </li>
           </div>
         </div>

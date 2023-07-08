@@ -1,18 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 const baseURL = import.meta.env.VITE_BASE_URL;
-
 
 const initialState = {
   isLoading: false,
   user: null,
   isLoggedIn: false,
   error: null,
-  
 };
 
 export const registrationSlice = createSlice({
-  name: 'registration',
+  name: "registration",
   initialState,
   reducers: {
     registrationRequest: (state) => {
@@ -24,7 +22,7 @@ export const registrationSlice = createSlice({
       state.isLoading = false;
       state.user = action.payload;
       state.error = null;
-      localStorage.setItem('user', JSON.stringify(action.payload));
+      localStorage.setItem("user", JSON.stringify(action.payload));
     },
     registrationFailure: (state, action) => {
       state.isLoading = false;
@@ -41,19 +39,18 @@ export const registrationSlice = createSlice({
       state.user = action.payload.user;
       state.isLoggedIn = true;
       state.error = null;
-      localStorage.setItem('user', JSON.stringify(action.payload.user));
-      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem("user", JSON.stringify(action.payload.user));
+      localStorage.setItem("isLoggedIn", "true");
     },
-  
-    
-     logout: (state) => {
+
+    logout: (state) => {
       state.isLoading = false;
       state.user = null;
       state.isLoggedIn = false;
       state.error = null;
 
-      localStorage.removeItem('user');
-      localStorage.setItem('isLoggedIn', 'false');
+      localStorage.removeItem("user");
+      localStorage.setItem("isLoggedIn", "false");
     },
     loginFailure: (state, action) => {
       state.isLoading = false;
@@ -69,14 +66,14 @@ export const registrationSlice = createSlice({
       state.isLoading = false;
       state.user = action.payload.user;
       state.error = null;
-      localStorage.removeItem('user');
+      localStorage.removeItem("user");
     },
     emailConfirmationFailure: (state, action) => {
       state.isLoading = false;
       state.user = null;
       state.error = action.payload.response.data.error;
-    }
-  }
+    },
+  },
 });
 
 export const {
@@ -95,31 +92,33 @@ export const {
 export const register = (userData) => async (dispatch) => {
   try {
     dispatch(registrationRequest());
-    const response = await axios.post(baseURL+"/auth/register", userData);
+    const response = await axios.post(baseURL + "/auth/register", userData);
     dispatch(registrationSuccess(response.data));
   } catch (error) {
     dispatch(registrationFailure(error));
-    throw error
+    throw error;
   }
 };
 
 export const login = (userData) => async (dispatch) => {
   try {
     dispatch(loginRequest());
-    const response = await axios.post(baseURL+ "/auth/signin", userData);
-    console.log("Login Success:", response.data);
+    const response = await axios.post(baseURL + "/auth/signin", userData);
+
     dispatch(loginSuccess(response.data));
   } catch (error) {
     dispatch(loginFailure(error));
-    throw error
+    throw error;
   }
 };
 
 export const confirmEmail = (userId, otp) => async (dispatch) => {
   try {
     dispatch(emailConfirmationRequest());
-    const response = await axios.post(baseURL + "/auth/verify-email", { userId, otp });
-    console.log("Email Confirmation Success:", response.data);
+    const response = await axios.post(baseURL + "/auth/verify-email", {
+      userId,
+      otp,
+    });
     dispatch(emailConfirmationSuccess(response.data));
   } catch (error) {
     dispatch(emailConfirmationFailure(error));

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { AiOutlineMore, AiFillDelete, AiOutlineUser } from 'react-icons/ai';
-import './UserList.css';
-import axios from 'axios';
-import Modal from 'react-modal';
+import React, { useState } from "react";
+import { AiOutlineMore, AiFillDelete, AiOutlineUser } from "react-icons/ai";
+import "./UserList.css";
+import axios from "axios";
+import Modal from "react-modal";
+import { useNavigate } from "react-router-dom";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 const modalStyles = {
@@ -48,14 +49,15 @@ const modalStyles = {
 };
 
 function UsersList({ number, id, date, name, email, order }) {
-  const [action, setAction] = useState('action active-action');
+  const [action, setAction] = useState("action active-action");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const navigate = useNavigate();
 
   const handelaction = () => {
-    if (action === 'action active-action') {
-      setAction('action');
+    if (action === "action active-action") {
+      setAction("action");
     } else {
-      setAction('action active-action');
+      setAction("action active-action");
     }
   };
 
@@ -86,11 +88,14 @@ function UsersList({ number, id, date, name, email, order }) {
       <li>{date}</li>
       <li>{name}</li>
       <li>{email}</li>
-      <li className="action-li" >
-        <AiOutlineMore onClick={handelaction}/>
+      <li className="action-li">
+        <AiOutlineMore onClick={handelaction} />
 
         <div className={action}>
-          <span className="dashbord-ic" onClick={() => navigate(`/account/${id}`)}>
+          <span
+            className="dashbord-ic"
+            onClick={() => navigate(`/account/${id}`)}
+          >
             <AiOutlineUser /> User
           </span>
           <span className="dashbord-ic" onClick={() => deleteUser(id)}>

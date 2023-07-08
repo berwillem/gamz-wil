@@ -22,9 +22,8 @@ function Footer({ p, onCategoryChange }) {
       behavior: "smooth",
     });
   };
- 
- 
-// fetch data
+
+  // fetch data
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -91,10 +90,10 @@ function Footer({ p, onCategoryChange }) {
           <Link to="/contact" className="sp-li">
             <li>Contact</li>
           </Link>
-          <a href={pdf1} download>
+          <a href={pdf1} target="_blank">
             <li className="sp-li">Conditions d'utilisation</li>
           </a>
-          <a href={pdf2} download>
+          <a href={pdf2} target="_blank">
             <li className="sp-li">Politique de confidentialité </li>
           </a>
         </div>
