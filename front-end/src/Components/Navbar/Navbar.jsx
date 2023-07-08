@@ -266,7 +266,8 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
                   </Link>
                   <li   onClick={() => {
                          handleScroll();
-                          handleCategorySelection("");
+                         handleCategorySelection("");
+                         handleSubcategorySelection("");
                         }}>
                      
                      Toutes les catégories 
@@ -371,6 +372,7 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
             <div className="catnav" onClick={() => {
                          handleScroll2();
                           handleCategorySelection("");
+                          handleSubcategorySelection("");
                         }}>Toutes les catégories </div>
               {categories.map((categorie, index) => (
                 <div className="catnav">
