@@ -5,12 +5,17 @@ import { login } from "../../redux/reducers/Auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import "./Login.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+
 
 function Login() {
   //state
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
   // function submit
   const handleSubmit = (values) => {
     dispatch(login(values))
@@ -72,11 +77,19 @@ function Login() {
             </label>
             <label>
               <strong>Mot de passe *</strong>
-              <Field
-                type="password"
+             <div className="password-input">
+             <Field
+               type={passwordVisible ? "text" : "password"}
                 name="password"
                 placeholder="Entrez votre mot de passe"
+                
               />
+              <FontAwesomeIcon
+      icon={passwordVisible ? faEyeSlash : faEye}
+      onClick={() => setPasswordVisible(!passwordVisible)}
+      className="password-icon"
+    />
+             </div>
               <ErrorMessage name="password" component="div" className="error" />
             </label>
 

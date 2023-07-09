@@ -268,7 +268,7 @@ function SliderPubManage({ disp }) {
     <>
       {loading && (
         <div className="loader">
-          <img src={loader} alt="Loading..." />
+         <span class="loader"></span>
         </div>
       )}
       <form

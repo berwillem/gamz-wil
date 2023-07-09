@@ -97,7 +97,7 @@ function Update_user() {
     <>
       {loading && (
         <div className="loader">
-          <img src={loader} alt="Loading..." />
+         <span class="loader"></span>
         </div>
       )}
       <form onSubmit={handleSubmit} encType="multipart/form-data">
