@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import { Box } from "../../Data/Box";
 import "./Details.css";
+import {animateScroll as scroll } from "react-scroll";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Power3 } from "gsap";
@@ -61,6 +62,16 @@ function Details() {
       setIndex(index - 1);
     }
   }
+  //scrol
+ 
+    useEffect(() => {
+      const isMobile = window.matchMedia("(max-width: 480px)").matches;
+      if (isMobile) {
+        scroll.scrollToTop();
+      }
+      
+    }, []);
+ 
   // api call :::
   const fetchPostDetails = async () => {
     try {

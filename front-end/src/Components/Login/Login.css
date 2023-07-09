@@ -60,6 +60,14 @@
     outline: none;
     border: 1px solid #a7a7a7;
 }
+.login-container > form >label> div input{
+    width: 85%;
+    margin-left: 10px;
+    padding: 10px;
+    border-radius: 50px;
+    outline: none;
+    border: 1px solid #a7a7a7;
+}
 
 .check-box-login{
     display: flex;
@@ -79,6 +87,14 @@
 a{
     color: var(--text-color);
 }
+.password-input {
+ display: flex;
+ align-items: center;
+ gap: 10PX;
+}
+
+
+
 /*respo*/
 @media screen and (max-width: 1240px) {
    

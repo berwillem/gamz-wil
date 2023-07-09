@@ -3,6 +3,8 @@ import "./Register.css";
 import { useNavigate } from 'react-router-dom';
 import { register } from "../../redux/reducers/Auth";
 import { useDispatch } from "react-redux";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 function Register() {
   //state
@@ -12,6 +14,7 @@ function Register() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [passwordVisible, setPasswordVisible] = useState(false);
 // submuit function
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,13 +61,20 @@ function Register() {
         </label>
         <label>
           <strong>Mot de passe *</strong>
+          <div className="password-input">
           <input
             name="password"
             value={password}
-            type="password"
+            type={passwordVisible ? "text" : "password"}
             placeholder="écrirvez votre mot de passe"
             onChange={(e) => setPassword(e.target.value)}
           />
+      <FontAwesomeIcon
+      icon={passwordVisible ? faEyeSlash : faEye}
+      onClick={() => setPasswordVisible(!passwordVisible)}
+      className="password-icon"
+    />
+          </div>
         </label>
         <div className="check-box-login">
               <input type="checkbox" name="rememberMe"  required/>
