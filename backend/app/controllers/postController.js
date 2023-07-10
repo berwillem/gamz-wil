@@ -18,10 +18,6 @@ exports.createPost = async (req, res) => {
       author,
     } = req.body;
 
-    if (!author) {
-      return res.status(400).json({ message: "Connectez vous d'abord" });
-    }
-
     const post = new Post({
       title,
       price,
