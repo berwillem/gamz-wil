@@ -252,10 +252,10 @@
     color: var(--text-color) !important;
 }
 .loader {
-    position: relative;
+    position: fixed;
     height: 40px;
     width: 6px;
-    color: #FFF;
+    color: #de3500;
     animation: paddles 0.75s ease-out infinite;
   }
   .loader:before {
