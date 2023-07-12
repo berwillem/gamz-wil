@@ -1,15 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import "./UserPost.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { AiOutlineDelete } from "react-icons/ai";
 import notavalible from "../../assets/images/Image_not_available.webp";
 import image from "../../assets/no-result-diadem.webp";
 import Modal from "react-modal";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
-
 const modalStyles = {
   overlay: {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -56,6 +55,19 @@ function UserPost({ posts, owner }) {
   const [deletedPosts, setDeletedPosts] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    const fetchIsAdmin = async () => {
+      try {
+        const user = JSON.parse(localStorage.getItem("user"));
+        setIsAdmin(user?.isAdmin || false);
+      } catch (error) {
+        console.error("Error fetching isAdmin value:", error);
+      }
+    };
+
+    fetchIsAdmin();
+  }, []);
 
   const handlePostDelete = (postId) => {
     setShowDeleteModal(true);
@@ -86,9 +98,9 @@ function UserPost({ posts, owner }) {
             <div className="user-post-container" key={post._id}>
               <div className="user-post-category">
                 <p>{post.category.name}</p>
-                {owner && (
+                {isAdmin || owner ? (
                   <AiOutlineDelete onClick={() => handlePostDelete(post._id)} />
-                )}
+                ) : null}
               </div>
               <div className="user-post-name">
                 <strong>{post.title}</strong>

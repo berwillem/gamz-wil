@@ -124,29 +124,32 @@ exports.signin = async (req, res) => {
 exports.verifyEmail = async (req, res) => {
   const { userId, otp } = req.body;
   if (!userId || !otp.trim())
-    return sendError(res, "Invalid request , missing parameters!");
-  if (!isValidObjectId(userId)) return sendError(res, "Invalid user id");
+    return sendError(res, "Invalid request, missing parameters!");
+  if (!isValidObjectId(userId)) return sendError(res, "Invalid user ID");
 
   const user = await User.findById(userId);
-
   if (!user) return sendError(res, "User not found!");
 
-  if (user.verified) return sendError(res, "this acount is already verified");
+  if (user.verified) return sendError(res, "This account is already verified");
+
   const token = await VerificationToken.findOne({ owner: user._id });
+  if (!token) return sendError(res, "Token not found!");
 
-  if (!token) return sendError(res, "User not found!");
+  const match = await token.compareToken(otp);
+  if (!match) return sendError(res, "Please provide a valid code");
 
-  const Match = await token.compareToken(otp);
-
-  if (!Match) return sendError(res, "please provide a valid code");
-  user.verified = true;
-  await VerificationToken.findByIdAndDelete(token._id);
-  await user.save();
-  res.json({
-    success: true,
-    message: "your email is verified",
-    user: { username: user.username, email: user.email, id: user._id },
-  });
+  try {
+    user.verified = true;
+    await user.save();
+    res.json({
+      success: true,
+      message: "Your email is verified",
+      user: { username: user.username, email: user.email, id: user._id },
+    });
+  } catch (error) {
+    console.error(error);
+    sendError(res, "Error occurred while saving user");
+  }
 };
 
 // forgot password :::
