@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Ads from "../Ads/Ads";
 import "./AddPostForm.css";
 import image from "../../assets/ADDPHOTO.webp";
@@ -9,7 +9,6 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { options_state } from "../../Data/etat";
-import loader from "../../assets/images/loader.gif";
 
 // needs befor :::
 const baseURL = import.meta.env.VITE_BASE_URL;
@@ -17,11 +16,7 @@ const options = wilaya.map((wilaya) => ({
   value: wilaya.name,
   label: wilaya.name,
 }));
-const userString = localStorage.getItem("user");
-const user = userString ? JSON.parse(userString) : "";
-const id = user ? user.id : "";
 const isLoggedIn = localStorage.getItem("isLoggedIn");
-
 // Component start :
 
 function AddPostForm({ categories, fetchSubcategories }) {
@@ -54,7 +49,15 @@ function AddPostForm({ categories, fetchSubcategories }) {
   const [wilaya, setWilaya] = useState("");
   const [etat, setEtat] = useState("");
   const [loading, setLoading] = useState(false);
+  const [id, setId] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const userString = localStorage.getItem("user");
+    const user = userString ? JSON.parse(userString) : "";
+    const id = user ? user.id : null;
+    setId(id);
+  }, []);
 
   // ***HANDELE FUNCTIONS ***
 
@@ -157,6 +160,32 @@ function AddPostForm({ categories, fetchSubcategories }) {
     e.preventDefault();
     setLoading(true);
     window.scrollTo({ top: 300 });
+    if (!id) {
+      setLoading(false);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "connectez vous d'abord !",
+      });
+    }
+    if (
+      !title ||
+      !description ||
+      !phone ||
+      !price ||
+      !selectedCategory ||
+      !wilaya ||
+      !etat
+    ) {
+      setLoading(false);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please fill in all the required fields",
+      });
+      return;
+    }
+
     const formData = new FormData();
     formData.append("title", title);
     formData.append("price", price);
@@ -196,9 +225,9 @@ function AddPostForm({ categories, fetchSubcategories }) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: err.response.data.message,
+        text: "connectez vous d'abord",
       });
-      console.log(err.response.data.message);
+      console.log(err);
     } finally {
       setLoading(false);
     }
@@ -309,6 +338,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
                 onChange={handleCategoryChange}
                 placeholder="Select a category"
                 styles={customStyles}
+                required
               />
               {selectedCategory && subcategories.length > 0 && (
                 <div className="add-category">
@@ -378,6 +408,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
                   options={options_state}
                   placeholder="select a state "
                   styles={customStyles}
+                  required
                 />
               </div>
             </div>
@@ -390,6 +421,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
                 id=""
                 placeholder="write title for your product"
                 onChange={(e) => setTitle(e.target.value)}
+                required
               />
             </div>
             <div className="add-description">
@@ -402,6 +434,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
                 rows="10"
                 placeholder="write some lines to describe your product "
                 onChange={(e) => setDescription(e.target.value)}
+                required
               ></textarea>
             </div>
             <div className="add-title">
@@ -414,6 +447,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
                 value={phone}
                 placeholder="Numéro de téléphone"
                 onChange={(e) => setPhone(e.target.value)}
+                required
               />
             </div>
 
@@ -426,6 +460,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 id=""
+                required
               />
             </div>
             <div className="add-price">
@@ -438,6 +473,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
                 isMulti={false}
                 placeholder="Select wilaya"
                 styles={customStyles}
+                required
               />
             </div>
             <button type="submit" className="btn-submit">

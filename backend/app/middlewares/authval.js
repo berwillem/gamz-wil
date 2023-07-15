@@ -67,5 +67,46 @@ const sessionMiddleware = async (req, res, next) => {
     return sendError(res, "Internal server error");
   }
 };
+const adminAuthMiddleware = async (req, res, next) => {
+  const isAdmin = req.headers["is-admin"];
 
-module.exports = { verifyToken, sessionMiddleware, verifyTokenAndOwner };
+  if (isAdmin === "true") {
+    try {
+      const sessionId = req.headers["session-id"] || req.query.sessionId;
+
+      if (!sessionId) {
+        return sendError(res, "Session ID is missing!");
+      }
+
+      const session = await Session.findOne({ sessionId });
+
+      if (!session) {
+        return sendError(res, "Invalid session!");
+      }
+
+      if (session.expiresAt < Date.now()) {
+        return sendError(res, "Session has expired!");
+      }
+
+      req.session = session;
+      req.user = {
+        userId: session.userId,
+        isAdmin: session.isAdmin,
+      };
+
+      next();
+    } catch (error) {
+      console.error("Session middleware error:", error);
+      return sendError(res, "Internal server error");
+    }
+  } else {
+    next();
+  }
+};
+
+module.exports = {
+  verifyToken,
+  sessionMiddleware,
+  verifyTokenAndOwner,
+  adminAuthMiddleware,
+};
