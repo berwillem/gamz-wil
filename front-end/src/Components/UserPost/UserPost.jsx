@@ -75,8 +75,18 @@ function UserPost({ posts, owner }) {
   };
 
   const confirmPostDelete = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const sessionId = user.sessionId;
+    const isAdmin = user.isAdmin;
+    const config = {
+      headers: {
+        "session-id": sessionId,
+        "is-admin": isAdmin,
+      },
+    };
+
     axios
-      .delete(`${baseURL}/post/${postIdToDelete}`)
+      .delete(`${baseURL}/post/${postIdToDelete}`, config)
       .then((response) => {
         setDeletedPosts([...deletedPosts, postIdToDelete]);
         setShowDeleteModal(false);
