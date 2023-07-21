@@ -12,8 +12,24 @@ import RelatedPost from "../RelatedPost/RelatedPost";
 import notavalible from "../../assets/images/Image_not_available.webp";
 import defaultAvatar from "../../assets/images/avatar.webp";
 const baseURL = import.meta.env.VITE_BASE_URL;
+import LightGallery from 'lightgallery/react';
+
+// import styles
+import 'lightgallery/css/lightgallery.css';
+import 'lightgallery/css/lg-zoom.css';
+import 'lightgallery/css/lg-thumbnail.css';
+
+// If you want you can use SCSS instead of css
+import 'lightgallery/scss/lightgallery.scss';
+import 'lightgallery/scss/lg-zoom.scss';
+
+// import plugins if you need
+import lgThumbnail from 'lightgallery/plugins/thumbnail';
+import lgZoom from 'lightgallery/plugins/zoom';
 
 function Details() {
+ 
+  
   // state
   const [post, setPost] = useState("");
   const [id, setId] = useState("");
@@ -174,17 +190,26 @@ function Details() {
         </div>
       )}
       <div className="details">
-        <div className="post-details-l" ref={cardContainer}>
-          <div className="big-image">
-            <AiOutlineLeft onClick={handelleft} />
-            <a href={imageslide[index]} target="_blank">
+        <div className="post-details-l" ref={cardContainer}  >
+          <AiOutlineLeft onClick={handelleft}/>
+        <LightGallery
+            
+
+               speed={500}
+               plugins={[lgThumbnail, lgZoom]}
+           >
+               
+            <a href={imageslide[index]} className="big-image" 
+            style={{ gridRow: '1 / 2', gridColumn: '1 / 3' }}>
               {" "}
               <img src={imageslide[index]} alt="post-image" />
             </a>
-            <AiOutlineRight onClick={handelright} />
-          </div>
-          <div className="sub-images">
-            <a href={imageslide[index2]} target="_blank">
+           
+          
+        
+            <a href={imageslide[index2]} className="sub-images" 
+            le={{ gridRow: '2 / 3', gridColumn: '1 / 2' }}
+            >
               {" "}
               <img
                 src={imageslide[index2]}
@@ -193,7 +218,9 @@ function Details() {
                 // Switch positions with the clicked sub-image
               />
             </a>
-            <a href={imageslide[index3]} target="_blank">
+            <a href={imageslide[index3]} className="sub-images" 
+            le={{ gridRow: '2 / 3', gridColumn: '2 / 3' }}
+            >
               <img
                 src={imageslide[index3]}
                 alt="post-image"
@@ -201,9 +228,12 @@ function Details() {
                 // Switch positions with the clicked sub-image
               />
             </a>
-          </div>
+        
+           </LightGallery>
+           <AiOutlineRight onClick={handelright}/>
+     
         </div>
-
+       
         <div className="post-details-r" ref={cardContainer2}>
           {post && post.category && (
             <div className="post-details-category">

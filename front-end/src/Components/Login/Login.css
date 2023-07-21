@@ -92,12 +92,35 @@ a{
  align-items: center;
  gap: 10PX;
 }
-
+.reseau{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10PX;
+    margin-right: 50px;
+}
+.reseau div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70PX;
+}
+.reseau div svg{
+  color: #0C89EF;
+  transition: 0.2s;
+}
+.reseau div svg:hover{
+    transform: scale(1.1);
+   
+}
 
 
 /*respo*/
 @media screen and (max-width: 1240px) {
-   
+    .reseau{
+       
+        margin:0;
+    }
   
 }
 @media screen and (max-width: 1070px) {
