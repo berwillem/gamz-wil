@@ -8,6 +8,7 @@ const UserRoute = require("./app/routes/UserRoute");
 const PubRoute = require("./app/routes/PubRoute");
 
 const cors = require("cors");
+
 require("dotenv").config();
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));

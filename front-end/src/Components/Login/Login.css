@@ -1,156 +1,144 @@
-.login-container{
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    
-
+.login-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
 }
 
-.title-login{
-    width: 100%;
-    display: flex;
-    align-items: center;
-   position: relative;
+.title-login {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
 }
-.title-login::after{
-    position: absolute;
-    content: '';
-    width: 85%;
-    height: 1px;
-    bottom: 1px;
-    background-color: #a7a7a7;
-    z-index: -2;
-
+.title-login::after {
+  position: absolute;
+  content: "";
+  width: 85%;
+  height: 1px;
+  bottom: 1px;
+  background-color: #a7a7a7;
+  z-index: -2;
 }
 .title-login > p {
-    font-size: 30px;
-    font-weight: 400;
-    width: auto;
-    height: 100%;
-    border-bottom: 3.5px solid #e81a2a;
+  font-size: 30px;
+  font-weight: 400;
+  width: auto;
+  height: 100%;
+  border-bottom: 3.5px solid #e81a2a;
 }
 
-
-.sub-title-login{
-    padding:  30px 0;
+.sub-title-login {
+  padding: 30px 0;
 }
 
-.sub-title-login > p{
-    font-size: 14px;
-    font-weight: 500;
+.sub-title-login > p {
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .login-container > form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.login-container > form >label{
-    gap: 5px;
-    display: flex;
-    flex-direction: column;
+.login-container > form > label {
+  gap: 5px;
+  display: flex;
+  flex-direction: column;
 }
 
-.login-container > form >label>input{
-    width: 85%;
-    margin-left: 10px;
-    padding: 10px;
-    border-radius: 50px;
-    outline: none;
-    border: 1px solid #a7a7a7;
+.login-container > form > label > input {
+  width: 85%;
+  margin-left: 10px;
+  padding: 10px;
+  border-radius: 50px;
+  outline: none;
+  border: 1px solid #a7a7a7;
 }
-.login-container > form >label> div input{
-    width: 85%;
-    margin-left: 10px;
-    padding: 10px;
-    border-radius: 50px;
-    outline: none;
-    border: 1px solid #a7a7a7;
-}
-
-.check-box-login{
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.login-container > form > label > div input {
+  width: 85%;
+  margin-left: 10px;
+  padding: 10px;
+  border-radius: 50px;
+  outline: none;
+  border: 1px solid #a7a7a7;
 }
 
-.login-container > form >button{
-    padding: 10px;
-    width: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50px;
-    border: 1px solid #a7a7a7;
+.check-box-login {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-a{
-    color: var(--text-color);
+
+.login-container > form > button {
+  padding: 10px;
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  border: 1px solid #a7a7a7;
+}
+a {
+  color: var(--text-color);
 }
 .password-input {
- display: flex;
- align-items: center;
- gap: 10PX;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-.reseau{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10PX;
-    margin-right: 50px;
+.reseau {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-right: 50px;
 }
-.reseau div{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 70PX;
+.reseau div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 70px;
 }
-.reseau div svg{
-  color: #0C89EF;
+.reseau-icon {
+  width: 25px;
+  height: 25px;
+}
+.reseau div svg {
+  color: #0c89ef;
   transition: 0.2s;
 }
-.reseau div svg:hover{
-    transform: scale(1.1);
-   
+.reseau div svg:hover {
+  transform: scale(1.2);
+  cursor: pointer;
 }
-
 
 /*respo*/
 @media screen and (max-width: 1240px) {
-    .reseau{
-       
-        margin:0;
-    }
-  
+  .reseau {
+    margin: 0;
+  }
 }
 @media screen and (max-width: 1070px) {
-
-
 }
 @media screen and (max-width: 820px) {
-    .login-container > form >button{
-      
-        width: 30%;
-       ;
-    }
+  .login-container > form > button {
+    width: 30%;
+  }
 }
 @media screen and (max-width: 750px) {
-.login-container{
+  .login-container {
     width: 100%;
-}
+  }
 }
 @media screen and (max-width: 590px) {
-
 }
 @media screen and (max-width: 480px) {
-
 }
 @media screen and (max-width: 414px) {
-
 }
 @media screen and (max-width: 325px) {
-
 }
 @media screen and (max-width: 250px) {
-
 }

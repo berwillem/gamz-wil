@@ -5,11 +5,10 @@ import { login } from "../../redux/reducers/Auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import "./Login.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { BsFacebook,BsTwitter } from "react-icons/bs";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { BsFacebook } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
-
 
 function Login() {
   //state
@@ -23,11 +22,11 @@ function Login() {
     dispatch(login(values))
       .then(() => {
         const user = JSON.parse(localStorage.getItem("user"));
-        const isVerified = user?.verified || false; 
+        const isVerified = user?.verified || false;
         if (isVerified) {
           navigate("/");
         } else {
-          localStorage.setItem('isLoggedIn', 'false');
+          localStorage.setItem("isLoggedIn", "false");
           navigate("/otp");
         }
       })
@@ -64,14 +63,13 @@ function Login() {
       >
         {() => (
           <Form>
-             <div className="reseau">
+            <div className="reseau">
               <strong>Connectez vous avec </strong>
-           <div > 
-            <BsFacebook/>
-            <FcGoogle/>
-          
-            </div>
-            <strong>ou </strong>
+              <div>
+                <BsFacebook className="reseau-icon" />
+                <FcGoogle className="reseau-icon" />
+              </div>
+              <strong>ou </strong>
             </div>
             <label htmlFor="emailOrUsername">
               <strong>Nom d'utilisateur ou adresse e-mail *</strong>
@@ -88,19 +86,18 @@ function Login() {
             </label>
             <label>
               <strong>Mot de passe *</strong>
-             <div className="password-input">
-             <Field
-               type={passwordVisible ? "text" : "password"}
-                name="password"
-                placeholder="Entrez votre mot de passe"
-                
-              />
-              <FontAwesomeIcon
-      icon={passwordVisible ? faEyeSlash : faEye}
-      onClick={() => setPasswordVisible(!passwordVisible)}
-      className="password-icon"
-    />
-             </div>
+              <div className="password-input">
+                <Field
+                  type={passwordVisible ? "text" : "password"}
+                  name="password"
+                  placeholder="Entrez votre mot de passe"
+                />
+                <FontAwesomeIcon
+                  icon={passwordVisible ? faEyeSlash : faEye}
+                  onClick={() => setPasswordVisible(!passwordVisible)}
+                  className="password-icon"
+                />
+              </div>
               <ErrorMessage name="password" component="div" className="error" />
             </label>
 
@@ -108,7 +105,7 @@ function Login() {
               <Field type="checkbox" name="rememberMe" />
               <strong>Se rappeler de moi</strong>
             </div>
-           
+
             <button type="submit">
               <strong>Connexion</strong>
             </button>
