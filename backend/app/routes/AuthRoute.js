@@ -7,6 +7,10 @@ const {
   forgotpassword,
   resetpassword,
 } = require("../controllers/authController");
+const {
+  googleAuthMiddleware,
+  googleAuthCallback,
+} = require("../controllers/authSocialController");
 const { isResetTokenValid } = require("../middlewares/user.js");
 const { validateUser, validate } = require("../middlewares/validator.js");
 
@@ -23,5 +27,8 @@ router.post("/reset-password", isResetTokenValid, resetpassword);
 router.get("/verify-token", isResetTokenValid, (req, res) => {
   res.json({ success: true });
 });
+// Google authentication routes
+router.get("/google", googleAuthMiddleware);
+router.get("/google/callback", googleAuthCallback);
 
 module.exports = router;

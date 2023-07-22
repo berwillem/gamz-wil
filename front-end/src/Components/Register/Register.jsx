@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import "./Register.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { register } from "../../redux/reducers/Auth";
 import { useDispatch } from "react-redux";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { BsFacebook,BsTwitter } from "react-icons/bs";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { BsFacebook } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
+import axios from "axios";
+
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 function Register() {
   //state
@@ -17,18 +20,29 @@ function Register() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const [passwordVisible, setPasswordVisible] = useState(false);
-// submuit function
+  // submuit function
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(register({ username, password, email }))
       .then(() => {
-        navigate('/otp');
+        navigate("/otp");
       })
       .catch((error) => {
         setError(error.response.data.error);
       });
   };
-  
+  const handleGoogleAuth = () => {
+    axios
+      .get(`${baseURL}/auth/google`)
+      .then((response) => {
+        // Redirect the user to the Google login page
+        window.location.href = response.data.authUrl;
+      })
+      .catch((error) => {
+        console.error("Error initiating Google authentication:", error);
+      });
+  };
+
   return (
     <div className="register-container">
       <div className="title-register">
@@ -38,18 +52,17 @@ function Register() {
         <p>Bienvenue, créez votre compte.</p>
       </div>
 
-      {error && <div className="error-message">{error}</div>} 
-      
+      {error && <div className="error-message">{error}</div>}
+
       <form onSubmit={handleSubmit}>
-      <div className="reseau">
-              <strong>Inscrivez vous avec </strong>
-           <div > 
-            <BsFacebook/>
-            <FcGoogle/>
-          
-            </div>
-            <strong>ou </strong>
-            </div>
+        <div className="reseau">
+          <strong>Inscrivez vous avec </strong>
+          <div>
+            <BsFacebook className="reseau-icon" />
+            <FcGoogle onClick={handleGoogleAuth} className="reseau-icon" />
+          </div>
+          <strong>ou </strong>
+        </div>
         <label htmlFor="">
           <strong>Nom d'utilisateur *</strong>
           <input
@@ -73,38 +86,41 @@ function Register() {
         <label>
           <strong>Mot de passe *</strong>
           <div className="password-input">
-          <input
-            name="password"
-            value={password}
-            type={passwordVisible ? "text" : "password"}
-            placeholder="écrirvez votre mot de passe"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-      <FontAwesomeIcon
-      icon={passwordVisible ? faEyeSlash : faEye}
-      onClick={() => setPasswordVisible(!passwordVisible)}
-      className="password-icon"
-    />
+            <input
+              name="password"
+              value={password}
+              type={passwordVisible ? "text" : "password"}
+              placeholder="écrirvez votre mot de passe"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <FontAwesomeIcon
+              icon={passwordVisible ? faEyeSlash : faEye}
+              onClick={() => setPasswordVisible(!passwordVisible)}
+              className="password-icon"
+            />
           </div>
         </label>
         <div className="check-box-login">
-              <input type="checkbox" name="rememberMe"  required/>
-              <strong> J’accepte les conditions d'utilisation et la politique de confidentialité   </strong>
-            </div>
+          <input type="checkbox" name="rememberMe" required />
+          <strong>
+            {" "}
+            J’accepte les conditions d'utilisation et la politique de
+            confidentialité{" "}
+          </strong>
+        </div>
         <div className="sub-text-register">
           <small>
-           Vos données personnelles seront utilisées pour soutenir votre expérience sur ce site Web pour gérer l'accés à votre compte et à d'autres fins décrites dans votre politique de confidentialité.
+            Vos données personnelles seront utilisées pour soutenir votre
+            expérience sur ce site Web pour gérer l'accés à votre compte et à
+            d'autres fins décrites dans votre politique de confidentialité.
           </small>
         </div>
         <button type="submit">
-        
-            <strong>Inscription</strong>
-          
+          <strong>Inscription</strong>
         </button>
       </form>
     </div>
   );
 }
-
 
 export default Register;
