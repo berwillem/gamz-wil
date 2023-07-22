@@ -201,7 +201,8 @@ button.active {
   .slider {
     display: flex;
     flex-direction: column;
-    height: 600px;
+    align-items: center;
+    justify-content: center;
   }
   .L-slider {
     width: 400px;
@@ -215,11 +216,38 @@ button.active {
   }
 }
 @media screen and (max-width: 1070px) {
+  .slider {
+    height: 800px !important;
+  }
+  .buy-button {
+    top: 450px;
+    left: 50%;
+    right: 50%;
+  }
+  .R-slider{
+    margin-top: 370px;
+  }
+  .R-slider a{
+    height: 70px;
+  }
 }
 @media screen and (max-width: 820px) {
   .R-slider a {
     width: 100%;
+
   }
+  
+  
+  
+}
+@media screen and (max-width: 750px) {
+ 
+}
+@media screen and (max-width: 590px) {
+ 
+  
+}
+@media screen and (max-width: 480px) {
   .buy-button {
     top: 320px;
     left: 50%;
@@ -229,23 +257,17 @@ button.active {
     flex-direction: column;
     margin-top: 300px;
   }
-  
-  .slider {
-    height: 800px;
+  .R-slider a {
+    height: auto !important;
+
   }
-}
-@media screen and (max-width: 750px) {
-}
-@media screen and (max-width: 590px) {
-}
-@media screen and (max-width: 480px) {
- 
   .R-slider .box {
     height: 100px;
    }
 
 }
 @media screen and (max-width: 414px) {
+  
   .buy-button {
  
     top: 300px;

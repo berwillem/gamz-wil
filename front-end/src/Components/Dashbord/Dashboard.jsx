@@ -43,6 +43,19 @@ function Dashboard({ users, postCount, userCount }) {
           </li>
           <li>
             <Link
+              to="/pub-manage-mobile"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+              }}
+            >
+              pub managment mobile
+              <AiOutlineDashboard />
+            </Link>
+          </li>
+          <li>
+            <Link
               to="/Details"
               style={{
                 display: "flex",

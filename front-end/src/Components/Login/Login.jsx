@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import "./Login.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { BsFacebook,BsTwitter } from "react-icons/bs";
+import { FcGoogle } from "react-icons/fc";
 
 
 function Login() {
@@ -62,6 +64,15 @@ function Login() {
       >
         {() => (
           <Form>
+             <div className="reseau">
+              <strong>Connectez vous avec </strong>
+           <div > 
+            <BsFacebook/>
+            <FcGoogle/>
+          
+            </div>
+            <strong>ou </strong>
+            </div>
             <label htmlFor="emailOrUsername">
               <strong>Nom d'utilisateur ou adresse e-mail *</strong>
               <Field
@@ -97,6 +108,7 @@ function Login() {
               <Field type="checkbox" name="rememberMe" />
               <strong>Se rappeler de moi</strong>
             </div>
+           
             <button type="submit">
               <strong>Connexion</strong>
             </button>

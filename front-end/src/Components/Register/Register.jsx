@@ -5,6 +5,8 @@ import { register } from "../../redux/reducers/Auth";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { BsFacebook,BsTwitter } from "react-icons/bs";
+import { FcGoogle } from "react-icons/fc";
 
 function Register() {
   //state
@@ -39,6 +41,15 @@ function Register() {
       {error && <div className="error-message">{error}</div>} 
       
       <form onSubmit={handleSubmit}>
+      <div className="reseau">
+              <strong>Inscrivez vous avec </strong>
+           <div > 
+            <BsFacebook/>
+            <FcGoogle/>
+          
+            </div>
+            <strong>ou </strong>
+            </div>
         <label htmlFor="">
           <strong>Nom d'utilisateur *</strong>
           <input

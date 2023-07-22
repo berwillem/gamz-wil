@@ -15,6 +15,7 @@ import Contact from "./Pages/Contact/Contact";
 import Page404 from "./Pages/page404/Page404";
 import PubManage from "./Pages/PubManage/PubManage";
 import AuthCheck from "./Components/AuthChecker/AuthCheck";
+import PubManageMobile from "./Components/PubManageMobile/PubManageMobile";
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -50,6 +51,10 @@ function App() {
         <Route
           path="/pub-manage"
           element={<AuthCheck  component={PubManage} />}
+        />
+        <Route
+          path="/pub-manage-mobile"
+          element={<AuthCheck  component={PubManageMobile} />}
         />
 
         <Route path="/PassForgot" element={<PassForgot />} />

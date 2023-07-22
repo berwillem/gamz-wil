@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import slide1 from "../../assets/images/SMALL1.webp";
 import slide2 from "../../assets/images/SMALL2.webp";
 import slide from "../../assets/images/telslide.webp";
+import slidepad from "../../assets/images/ipadslide.webp";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 function Slider() {
@@ -28,6 +29,7 @@ function Slider() {
   const cardContainer = useRef();
   const cardContainer2 = useRef();
   const isMobile = window.matchMedia("(max-width: 450px)").matches;
+  const isTablette = window.matchMedia("(max-width: 1070px)").matches;
 
   const backgroundImage = isMobile
     ? `url(${slide1})`
@@ -39,11 +41,12 @@ function Slider() {
     : card2 && card2.cardTwoImage && card2.cardTwoImage.url
     ? `url(${card2.cardTwoImage.url})`
     : "";
-  const backgroundImage3 = isMobile
-    ? `url(${slide})`
+  const backgroundImage3 = isTablette
+    ? isMobile? `url(${slide})`: `url(${slidepad})`
     : card && card.pub && imageUrl
     ? `url(${imageUrl})`
     : "";
+    
 
   useEffect(() => {
     axios
