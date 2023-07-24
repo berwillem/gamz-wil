@@ -290,6 +290,7 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
                             
                                 key={index}
                                 onClick={() => {
+                                  handleCategorySelection("");
                                   handleSubcategorySelection(subcategorye.id);
                                   handleScroll();
                                 }}
@@ -389,8 +390,11 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
                         return (
                           <li
                             key={index}
-                            onClick={() =>
+                            onClick={() =>{
+                              handleCategorySelection("");
                               handleSubcategorySelection(subcategorye.id)
+                            }
+                             
                             }
                           >
                             {subcategorye.label}

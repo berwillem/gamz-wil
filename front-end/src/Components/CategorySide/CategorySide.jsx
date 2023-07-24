@@ -5,11 +5,14 @@ import subSubCategoryes from "../../Data/subSubCategory";
 import subSubSubCategoryes from "../../Data/subSubSubCategory";
 import subSubSubSubCategoryes from "../../Data/subSubSubSubCategory";
 //function id Categorys
-function CategorySide({ onSubcategoryChange }) {
+function CategorySide({ onSubcategoryChange,onCategoryChange }) {
   const handleSubcategorySelection = (subcategoryId) => {
     onSubcategoryChange(subcategoryId);
   };
-
+ //function categorys id 
+ const handleCategorySelection = (categoryId) => {
+  onCategoryChange(categoryId);
+};
   return (
     <div className="category-side-container">
       <div className="category-side-title">
@@ -25,7 +28,7 @@ function CategorySide({ onSubcategoryChange }) {
           if (subSubCategories.length > 0) {
             return (
               <li key={subcategorye.id}>
-                <p onClick={() => handleSubcategorySelection(subcategorye.id)}>
+                <p onClick={() => {  handleCategorySelection("");handleSubcategorySelection(subcategorye.id)}}>
                   {subcategorye.label}
                 </p>
                 <img src={arrow} alt="arrow" />
@@ -42,7 +45,7 @@ function CategorySide({ onSubcategoryChange }) {
                           className="drop-down-titel "
                           id={subSubCategory.id}
                           onClick={() =>
-                            handleSubcategorySelection(subSubCategory.id)
+                           { handleCategorySelection("");handleSubcategorySelection(subSubCategory.id)}
                           }
                         >
                           {subSubCategory.label}
@@ -60,9 +63,10 @@ function CategorySide({ onSubcategoryChange }) {
                               <ul key={subSubSubCategory.id}>
                                 <li
                                   onClick={() =>
-                                    handleSubcategorySelection(
-                                      subSubSubCategory.id
-                                    )
+                                  {  handleCategorySelection("");
+                                  handleSubcategorySelection(
+                                    subSubSubCategory.id
+                                  )}
                                   }
                                 >
                                   {subSubSubCategory.label}
@@ -73,9 +77,10 @@ function CategorySide({ onSubcategoryChange }) {
                                       <li
                                         key={subSubSubSubCategory.id}
                                         onClick={() =>
+                                         { handleCategorySelection("");
                                           handleSubcategorySelection(
                                             subSubSubSubCategory.id
-                                          )
+                                          )}
                                         }
                                       >
                                         {subSubSubSubCategory.label}
