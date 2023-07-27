@@ -101,7 +101,7 @@ function Home({ isDarkMode }) {
       <Slider />
       <div className="home-center">
         <div className="Ads-category " ref={cardContainer2}>
-          <CategorySide onSubcategoryChange={handleSubcategoryChange} />
+          <CategorySide onCategoryChange={handleCategoryChange} onSubcategoryChange={handleSubcategoryChange} />
           <Ads uri={pubImg} />
         </div>
         <div

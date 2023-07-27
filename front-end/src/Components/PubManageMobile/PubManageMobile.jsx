@@ -10,19 +10,30 @@ import iphone from "../../assets/images/iphone.webp";
 import slide1 from "../../assets/images/SMALL1.webp";
 import slide2 from "../../assets/images/SMALL2.webp";
 import slide from "../../assets/images/telslide.webp";
-
+import {
+  AiOutlineRight,
+  AiOutlineLeft,
+} from "react-icons/ai";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 function PubManageMobile({ disp }) {
   // State variables
-  const [backgroundImage, setBackgroundImage] = useState(slide);
+  const [backgroundImage, setBackgroundImage] = useState([
+    { src: slide },
+    { src: slide },
+    { src: slide },
+  ]);
   const [backgroundImage2, setBackgroundImage2] = useState(slide1);
   const [backgroundImage3, setBackgroundImage3] = useState(slide2);
   const [urlArray, setUrlArray] = useState(["", "", ""]);
-
+  const [principalImagesFile, setPrincipalImagesFile] = useState([]);
+  const [index, setIndex] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [url4, setUrl4] = useState("");
+  const [url5, setUrl5] = useState("");
+  console.log(url4,url5);
   // Refs
- console.log(urlArray[0],urlArray[1],urlArray[2]);
+ 
 
   const title = useRef();
   const dot = useRef();
@@ -34,9 +45,35 @@ function PubManageMobile({ disp }) {
   const handleBackgroundChange = (event) => {
    
     const file = event.target.files[0];
-    setBackgroundImage(URL.createObjectURL(file));
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const imageUrl = event.target.result;
+        const newImage = { src: imageUrl };
+        const updatedImages = [...backgroundImage];
+        updatedImages[index] = newImage;
+        setBackgroundImage(updatedImages);
+
+        const newImageFiles = [...principalImagesFile];
+        newImageFiles[index] = file;
+        setPrincipalImagesFile(newImageFiles);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+    // Switch to the next background image
+  const switchback = () => {
+    setIndex((index) =>
+      index < backgroundImage.length - 1
+        ? index + 1
+        : backgroundImage.length - 1
+    );
   };
 
+  // Switch to the previous background image
+  const switchback2 = () => {
+    setIndex((index) => (index > 0 ? index - 1 : 0));
+  };
   // Change the background image of the first card
   const handleBackgroundChange2 = (event) => {
     const file = event.target.files[0];
@@ -131,7 +168,17 @@ function PubManageMobile({ disp }) {
     updatedUrls[index] = value;
     setUrlArray(updatedUrls);
   };
+ // Handle the URL4 change
+ const handleURL4Change = (event) => {
+  const { value } = event.target;
+  setUrl4(value);
+};
 
+// Handle the URL5 change
+const handleURL5Change = (event) => {
+  const { value } = event.target;
+  setUrl5(value);
+};
 
 
 
@@ -150,6 +197,10 @@ function PubManageMobile({ disp }) {
       
       >
         <img src={iphone} className="iphone" alt="" />
+        <div className="switch2">
+          <AiOutlineLeft onClick={switchback2} size={20} color="#fff" />
+          <AiOutlineRight onClick={switchback} size={20} color="#fff" />
+        </div>
         <div className="dot">
           <input
             type="file"
@@ -167,7 +218,7 @@ function PubManageMobile({ disp }) {
             onChange={handleBackgroundChange3}
           />
       
-          <input
+      <input
             type="url"
             placeholder="url 1"
             value={urlArray[0]}
@@ -185,14 +236,26 @@ function PubManageMobile({ disp }) {
             value={urlArray[2]}
             onChange={(event) => handleURLChange(event, 2)}
           />
+          <input
+            type="url"
+            placeholder="url 4"
+            value={url4}
+            onChange={handleURL4Change}
+          />
+          <input
+            type="url"
+            placeholder="url 5"
+            value={url5}
+            onChange={handleURL5Change}
+          />
         </div>
 
         <div className="mobile">
           <div
             className="slider"
             style={{
-                backgroundImage: `url(${backgroundImage})`,
-              }}
+              backgroundImage: `url(${backgroundImage[index].src})`,
+            }}
           >
             <div className="R-C-slider">
               <div className="L-slider">
