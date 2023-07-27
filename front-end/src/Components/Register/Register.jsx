@@ -35,7 +35,6 @@ function Register() {
     axios
       .get(`${baseURL}/auth/google`)
       .then((response) => {
-        // Redirect the user to the Google login page
         window.location.href = response.data.authUrl;
       })
       .catch((error) => {
