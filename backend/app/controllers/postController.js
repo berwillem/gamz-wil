@@ -94,7 +94,9 @@ exports.getAllPosts = async (req, res) => {
     const userId = req.query.userId;
     let posts;
     if (userId) {
-      posts = await Post.find({ user: userId }).sort({ date: -1 }).populate("category", "name");
+      posts = await Post.find({ user: userId })
+        .sort({ date: -1 })
+        .populate("category", "name");
     } else {
       posts = await Post.find().sort({ date: -1 }).populate("category", "name");
     }

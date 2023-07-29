@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const passport = require("passport");
 
 const {
   register,
@@ -29,6 +30,10 @@ router.get("/verify-token", isResetTokenValid, (req, res) => {
 });
 // Google authentication routes
 router.get("/google", googleAuthMiddleware);
-router.get("/google/callback", googleAuthCallback);
+router.get(
+  "/google/callback",
+  passport.authenticate("google"),
+  googleAuthCallback
+);
 
 module.exports = router;

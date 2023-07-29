@@ -32,14 +32,7 @@ function Register() {
       });
   };
   const handleGoogleAuth = () => {
-    axios
-      .get(`${baseURL}/auth/google`)
-      .then((response) => {
-        window.location.href = response.data.authUrl;
-      })
-      .catch((error) => {
-        console.error("Error initiating Google authentication:", error);
-      });
+    window.open("http://localhost:5000/api/v1/auth/google", "_self");
   };
 
   return (
