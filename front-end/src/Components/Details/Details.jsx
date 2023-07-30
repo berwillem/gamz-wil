@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import { Box } from "../../Data/Box";
 import "./Details.css";
-import {animateScroll as scroll } from "react-scroll";
+import { animateScroll as scroll } from "react-scroll";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Power3 } from "gsap";
@@ -12,24 +12,22 @@ import RelatedPost from "../RelatedPost/RelatedPost";
 import notavalible from "../../assets/images/Image_not_available.webp";
 import defaultAvatar from "../../assets/images/avatar.webp";
 const baseURL = import.meta.env.VITE_BASE_URL;
-import LightGallery from 'lightgallery/react';
-
+import LightGallery from "lightgallery/react";
+import moment from "moment";
 // import styles
-import 'lightgallery/css/lightgallery.css';
-import 'lightgallery/css/lg-zoom.css';
-import 'lightgallery/css/lg-thumbnail.css';
+import "lightgallery/css/lightgallery.css";
+import "lightgallery/css/lg-zoom.css";
+import "lightgallery/css/lg-thumbnail.css";
 
 // If you want you can use SCSS instead of css
-import 'lightgallery/scss/lightgallery.scss';
-import 'lightgallery/scss/lg-zoom.scss';
+import "lightgallery/scss/lightgallery.scss";
+import "lightgallery/scss/lg-zoom.scss";
 
 // import plugins if you need
-import lgThumbnail from 'lightgallery/plugins/thumbnail';
-import lgZoom from 'lightgallery/plugins/zoom';
+import lgThumbnail from "lightgallery/plugins/thumbnail";
+import lgZoom from "lightgallery/plugins/zoom";
 
 function Details() {
- 
-  
   // state
   const [post, setPost] = useState("");
   const [id, setId] = useState("");
@@ -79,15 +77,14 @@ function Details() {
     }
   }
   //scrol
- 
-    useEffect(() => {
-      const isMobile = window.matchMedia("(max-width: 480px)").matches;
-      if (isMobile) {
-        scroll.scrollToTop();
-      }
-      
-    }, []);
- 
+
+  useEffect(() => {
+    const isMobile = window.matchMedia("(max-width: 480px)").matches;
+    if (isMobile) {
+      scroll.scrollToTop();
+    }
+  }, []);
+
   // api call :::
   const fetchPostDetails = async () => {
     try {
@@ -173,7 +170,9 @@ function Details() {
     }
     return shuffledArray;
   }
-
+  const formattedDate = moment(post.createdAt)
+    .locale("fr")
+    .format("MMMM Do YYYY, h:mm:ss ");
   return (
     <div className="details-container">
       {post && post.author && (
@@ -190,25 +189,22 @@ function Details() {
         </div>
       )}
       <div className="details">
-        <div className="post-details-l" ref={cardContainer}  >
-          <AiOutlineLeft onClick={handelleft}/>
-        <LightGallery
-            
-
-               speed={500}
-               plugins={[lgThumbnail, lgZoom]}
-           >
-               
-            <a href={imageslide[index]} className="big-image" 
-            style={{ gridRow: '1 / 2', gridColumn: '1 / 3' }}>
+        <div className="post-details-l" ref={cardContainer}>
+          <AiOutlineLeft onClick={handelleft} />
+          <LightGallery speed={500} plugins={[lgThumbnail, lgZoom]}>
+            <a
+              href={imageslide[index]}
+              className="big-image"
+              style={{ gridRow: "1 / 2", gridColumn: "1 / 3" }}
+            >
               {" "}
               <img src={imageslide[index]} alt="post-image" />
             </a>
-           
-          
-        
-            <a href={imageslide[index2]} className="sub-images" 
-            le={{ gridRow: '2 / 3', gridColumn: '1 / 2' }}
+
+            <a
+              href={imageslide[index2]}
+              className="sub-images"
+              le={{ gridRow: "2 / 3", gridColumn: "1 / 2" }}
             >
               {" "}
               <img
@@ -218,8 +214,10 @@ function Details() {
                 // Switch positions with the clicked sub-image
               />
             </a>
-            <a href={imageslide[index3]} className="sub-images" 
-            le={{ gridRow: '2 / 3', gridColumn: '2 / 3' }}
+            <a
+              href={imageslide[index3]}
+              className="sub-images"
+              le={{ gridRow: "2 / 3", gridColumn: "2 / 3" }}
             >
               <img
                 src={imageslide[index3]}
@@ -228,12 +226,10 @@ function Details() {
                 // Switch positions with the clicked sub-image
               />
             </a>
-        
-           </LightGallery>
-           <AiOutlineRight onClick={handelright}/>
-     
+          </LightGallery>
+          <AiOutlineRight onClick={handelright} />
         </div>
-       
+
         <div className="post-details-r" ref={cardContainer2}>
           {post && post.category && (
             <div className="post-details-category">
@@ -256,6 +252,9 @@ function Details() {
             </li>
             <li>
               <strong>Wilaya : {post.wilaya}</strong>
+            </li>
+            <li>
+              <strong>Date : {formattedDate}</strong>
             </li>
             <li>
               <strong>Etat : {post.etat}</strong>

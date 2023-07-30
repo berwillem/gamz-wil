@@ -35,6 +35,9 @@ function Login() {
         setError(error.response.data.error);
       });
   };
+  const handleGoogleAuth = () => {
+    window.open("http://localhost:5000/api/v1/auth/google", "_self");
+  };
   // validation form
   const validate = (values) => {
     const errors = {};
@@ -67,7 +70,7 @@ function Login() {
               <strong>Connectez vous avec </strong>
               <div>
                 <BsFacebook className="reseau-icon" />
-                <FcGoogle className="reseau-icon" />
+                <FcGoogle className="reseau-icon" onClick={handleGoogleAuth} />
               </div>
               <strong>ou </strong>
             </div>

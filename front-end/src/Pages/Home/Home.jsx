@@ -13,6 +13,7 @@ import "./Home.css";
 import TopSelll from "../../Components/TopSelll/TopSelll";
 import CategorySide from "../../Components/CategorySide/CategorySide";
 import { GetAllPosts } from "../../redux/reducers/Posts";
+import { loginSuccess } from "../../redux/reducers/Auth";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -58,6 +59,23 @@ function Home({ isDarkMode }) {
       scrollTrigger: cardContainer.current,
     });
   }, []);
+  useEffect(() => {
+    const getQueryParams = () => {
+      const queryParamsString = window.location.search.substring(1);
+      const queryParams = new URLSearchParams(queryParamsString);
+      return Object.fromEntries(queryParams.entries());
+    };
+    const userData = getQueryParams().user;
+    if (userData) {
+      try {
+        const parsedUserData = JSON.parse(decodeURIComponent(userData));
+
+        dispatch(loginSuccess({ user: parsedUserData }));
+      } catch (error) {
+        console.error("Error parsing user data:", error);
+      }
+    }
+  }, [dispatch]);
 
   // states
   const [posts, setPosts] = useState([]);
@@ -94,14 +112,20 @@ function Home({ isDarkMode }) {
     fetchPosts();
   }, [categoryId, subcategoryId]);
 
-
   return (
     <div>
-      <Navbar  p={p} onCategoryChange={handleCategoryChange} onSubcategoryChange={handleSubcategoryChange} />
+      <Navbar
+        p={p}
+        onCategoryChange={handleCategoryChange}
+        onSubcategoryChange={handleSubcategoryChange}
+      />
       <Slider />
       <div className="home-center">
         <div className="Ads-category " ref={cardContainer2}>
-          <CategorySide onCategoryChange={handleCategoryChange} onSubcategoryChange={handleSubcategoryChange} />
+          <CategorySide
+            onCategoryChange={handleCategoryChange}
+            onSubcategoryChange={handleSubcategoryChange}
+          />
           <Ads uri={pubImg} />
         </div>
         <div

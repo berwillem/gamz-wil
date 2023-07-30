@@ -10,13 +10,10 @@ import iphone from "../../assets/images/iphone.webp";
 import slide1 from "../../assets/images/SMALL1.webp";
 import slide2 from "../../assets/images/SMALL2.webp";
 import slide from "../../assets/images/telslide.webp";
-import {
-  AiOutlineRight,
-  AiOutlineLeft,
-} from "react-icons/ai";
+import { AiOutlineRight, AiOutlineLeft } from "react-icons/ai";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
-function PubManageMobile({ disp }) {
+function PubManageMobile({}) {
   // State variables
   const [backgroundImage, setBackgroundImage] = useState([
     { src: slide },
@@ -31,9 +28,8 @@ function PubManageMobile({ disp }) {
   const [loading, setLoading] = useState(false);
   const [url4, setUrl4] = useState("");
   const [url5, setUrl5] = useState("");
-  console.log(url4,url5);
+  console.log(url4, url5);
   // Refs
- 
 
   const title = useRef();
   const dot = useRef();
@@ -43,7 +39,6 @@ function PubManageMobile({ disp }) {
 
   // Change the background image of the slider
   const handleBackgroundChange = (event) => {
-   
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -61,7 +56,7 @@ function PubManageMobile({ disp }) {
       reader.readAsDataURL(file);
     }
   };
-    // Switch to the next background image
+  // Switch to the next background image
   const switchback = () => {
     setIndex((index) =>
       index < backgroundImage.length - 1
@@ -107,7 +102,7 @@ function PubManageMobile({ disp }) {
   useEffect(() => {
     // Animation effects using gsap and ScrollTrigger
     gsap.registerPlugin(ScrollTrigger);
-   
+
     gsap.to(dot.current, {
       y: 0,
       delay: 0.2,
@@ -160,7 +155,6 @@ function PubManageMobile({ disp }) {
     });
   }, []);
 
-
   // Handle the URL change
   const handleURLChange = (event, index) => {
     const { value } = event.target;
@@ -168,34 +162,88 @@ function PubManageMobile({ disp }) {
     updatedUrls[index] = value;
     setUrlArray(updatedUrls);
   };
- // Handle the URL4 change
- const handleURL4Change = (event) => {
-  const { value } = event.target;
-  setUrl4(value);
-};
+  // Handle the URL4 change
+  const handleURL4Change = (event) => {
+    const { value } = event.target;
+    setUrl4(value);
+  };
 
-// Handle the URL5 change
-const handleURL5Change = (event) => {
-  const { value } = event.target;
-  setUrl5(value);
-};
+  // Handle the URL5 change
+  const handleURL5Change = (event) => {
+    const { value } = event.target;
+    setUrl5(value);
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    window.scrollTo({ top: 300 });
+    const requestData = {
+      pub: principalImagesFile,
+      title: subtitleValue1,
+      redirectUrls: urlArray.map((url) => ({ url })),
+      cardOne: {
+        title: subtitleValue2,
+        cardOneImage: pub1,
+        redirect: url4,
+      },
+      cardTwo: {
+        title: subtitleValue3,
+        cardTwoImage: pub2,
+        redirect: url5,
+      },
+    };
 
+    const formData = new FormData();
+    formData.append("pub", requestData.pub[0]);
+    formData.append("pub", requestData.pub[1]);
+    formData.append("pub", requestData.pub[2]);
+    formData.append("title", requestData.title);
+    formData.append("redirectUrls", JSON.stringify(requestData.redirectUrls));
+    formData.append("cardOne[title]", requestData.cardOne.title);
+    formData.append("cardOneImage", requestData.cardOne.cardOneImage);
+    formData.append("cardOne[redirect]", requestData.cardOne.redirect);
+    formData.append("cardTwo[title]", requestData.cardTwo.title);
+    formData.append("cardTwoImage", requestData.cardTwo.cardTwoImage);
+    formData.append("cardTwo[redirect]", requestData.cardTwo.redirect);
 
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const sessionId = user.sessionId;
+      const config = {
+        headers: {
+          "session-id": sessionId,
+        },
+      };
+      const res = await axios.post(baseURL + "/pub/mobil", formData, config, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Your request has been submitted successfully!",
+      });
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Error occurred while submitting the request",
+      });
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <>
-    <Navbar/>
+      <Navbar />
       {loading && (
         <div className="loader">
-         <span className="loader"></span>
+          <span className="loader"></span>
         </div>
       )}
-      <form
-        action=""
-        className="manage"
-      
-      >
+      <form action="" className="manage" onSubmit={handleSubmit}>
         <img src={iphone} className="iphone" alt="" />
         <div className="switch2">
           <AiOutlineLeft onClick={switchback2} size={20} color="#fff" />
@@ -217,8 +265,8 @@ const handleURL5Change = (event) => {
             accept="image/*"
             onChange={handleBackgroundChange3}
           />
-      
-      <input
+
+          <input
             type="url"
             placeholder="url 1"
             value={urlArray[0]}
@@ -259,7 +307,6 @@ const handleURL5Change = (event) => {
           >
             <div className="R-C-slider">
               <div className="L-slider">
-               
                 <div className="buy-button">
                   <Link target="_blank">
                     <button ref={button}>En savoir plus !</button>
@@ -275,9 +322,7 @@ const handleURL5Change = (event) => {
                   style={{
                     backgroundImage: `url(${backgroundImage2})`,
                   }}
-                >
-                 
-                </div>
+                ></div>
               </Link>
               <Link target="_blank">
                 <div
@@ -287,9 +332,7 @@ const handleURL5Change = (event) => {
                     backgroundImage: `url(${backgroundImage3})`,
                   }}
                 >
-                  <div className="title-box">
-                   
-                  </div>
+                  <div className="title-box"></div>
                 </div>
               </Link>
             </div>
