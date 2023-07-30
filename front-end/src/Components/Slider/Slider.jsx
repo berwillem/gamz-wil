@@ -29,16 +29,13 @@ function Slider() {
   const cardContainer = useRef();
   const cardContainer2 = useRef();
   const isMobile = window.matchMedia("(max-width: 450px)").matches;
-  const isTablette = window.matchMedia("(max-width: 1070px)").matches;
+  const isTablette = window.matchMedia("(min-width: 451px) and (max-width: 1070px)").matches;
 
-  const backgroundImage = isMobile
-    ? `url(${slide1})`
-    : card1 && card1.cardOneImage && card1.cardOneImage.url
+
+  const backgroundImage =  card1 && card1.cardOneImage && card1.cardOneImage.url
     ? `url(${card1.cardOneImage.url})`
     : "";
-  const backgroundImage2 = isMobile
-    ? `url(${slide2})`
-    : card2 && card2.cardTwoImage && card2.cardTwoImage.url
+  const backgroundImage2 =  card2 && card2.cardTwoImage && card2.cardTwoImage.url
     ? `url(${card2.cardTwoImage.url})`
     : "";
   const backgroundImage3 = isTablette
@@ -47,20 +44,22 @@ function Slider() {
     ? `url(${imageUrl})`
     : "";
     
-
-  useEffect(() => {
-    axios
-      .get(baseURL + "/pub/")
-      .then((response) => {
-        const { cardOne, cardTwo, pub } = response.data;
-        setCard(response.data);
-        setCard1(cardOne);
-        setCard2(cardTwo);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+   
+    useEffect(() => {
+      const url = isMobile ? baseURL + "/pub/mobil" : baseURL + "/pub/";
+    
+      axios
+        .get(url)
+        .then((response) => {
+          const { cardOne, cardTwo, pub } = response.data;
+          setCard(response.data);
+          setCard1(cardOne);
+          setCard2(cardTwo);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, [isMobile]);
 
   useEffect(() => {
     if (card.pub && card.pub.length > 0) {
