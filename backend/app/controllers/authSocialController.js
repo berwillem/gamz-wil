@@ -17,11 +17,12 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user.emails[0].value);
 });
-passport.deserializeUser(async (id, done) => {
+
+passport.deserializeUser(async (email, done) => {
   try {
-    const user = await User.findById(id);
+    const user = await User.findOne({ email: email });
 
     if (user) {
       done(null, user);
