@@ -50,12 +50,13 @@ const sessionMiddleware = async (req, res, next) => {
     if (!session) {
       return sendError(res, "Invalid session!");
     }
+
     // Check if the session has expired
     if (session.expiresAt < Date.now()) {
       return sendError(res, "Session has expired!");
     }
-    // Attach the session and user information to the request object
-    req.session = session;
+
+    // Attach the user information to the request object
     req.user = {
       userId: session.userId,
       isAdmin: session.isAdmin,
@@ -67,6 +68,7 @@ const sessionMiddleware = async (req, res, next) => {
     return sendError(res, "Internal server error");
   }
 };
+
 const adminAuthMiddleware = async (req, res, next) => {
   const isAdmin = req.headers["is-admin"];
 
@@ -88,7 +90,6 @@ const adminAuthMiddleware = async (req, res, next) => {
         return sendError(res, "Session has expired!");
       }
 
-      req.session = session;
       req.user = {
         userId: session.userId,
         isAdmin: session.isAdmin,

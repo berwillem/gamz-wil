@@ -9,7 +9,6 @@ import {
 import Swal from "sweetalert2";
 import "./SliderPubManage.css";
 import axios from "axios";
-import loader from "../../assets/images/loader.gif";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 const defaultBackground =
@@ -268,7 +267,7 @@ function SliderPubManage({ disp }) {
     <>
       {loading && (
         <div className="loader">
-         <span class="loader"></span>
+          <span class="loader"></span>
         </div>
       )}
       <form
