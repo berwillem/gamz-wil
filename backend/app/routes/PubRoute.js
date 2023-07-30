@@ -10,6 +10,6 @@ const uploadImages = require("../middlewares/cloudinary");
 router.post("/", sessionMiddleware, uploadImages("pubs"), createPub);
 router.get("/", getPub);
 router.post("/mobil", uploadImages("pubs"), createPubMobil);
-router.get("/mobil", sessionMiddleware, getPubMobil);
+router.get("/mobil", getPubMobil);
 
 module.exports = router;
