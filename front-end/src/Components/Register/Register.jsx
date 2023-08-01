@@ -32,7 +32,7 @@ function Register() {
       });
   };
   const handleGoogleAuth = () => {
-    window.open("http://localhost:5000/api/v1/auth/google", "_self");
+    window.open("https://gamz-dz.com:5000/api/v1/auth/google", "_self");
   };
 
   return (
@@ -50,7 +50,7 @@ function Register() {
         <div className="reseau">
           <strong>Inscrivez vous avec </strong>
           <div>
-            <BsFacebook className="reseau-icon" />
+            {/* <BsFacebook className="reseau-icon" /> */}
             <FcGoogle onClick={handleGoogleAuth} className="reseau-icon" />
           </div>
           <strong>ou </strong>

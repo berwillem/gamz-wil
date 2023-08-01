@@ -8,7 +8,7 @@ passport.use(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: "http://localhost:5000/api/v1/auth/google/callback",
+      callbackURL: "https://gamz-dz.com:5000/api/v1/auth/google/callback",
     },
     (accessToken, refreshToken, profile, done) => {
       return done(null, profile);
@@ -74,7 +74,7 @@ exports.googleAuthCallback = async (req, res) => {
     );
 
     const redirectUrl =
-      "http://localhost:5173/?user=" +
+      "https://gamz-dz.com:5173/?user=" +
       encodeURIComponent(
         JSON.stringify({
           username: user.username,
