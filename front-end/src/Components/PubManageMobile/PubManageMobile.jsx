@@ -24,13 +24,19 @@ function PubManageMobile({}) {
   const [backgroundImage3, setBackgroundImage3] = useState(slide2);
   const [urlArray, setUrlArray] = useState(["", "", ""]);
   const [principalImagesFile, setPrincipalImagesFile] = useState([]);
+  const [pub1, setPub1] = useState(null);
+  const [pub2, setPub2] = useState(null);
+  const [subtitleValue1, setSubtitleValue1] = useState("");
+  const [subtitleValue2, setSubtitleValue2] = useState("");
+  const [subtitleValue3, setSubtitleValue3] = useState("");
   const [index, setIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const [url4, setUrl4] = useState("");
   const [url5, setUrl5] = useState("");
-  console.log(url4, url5);
   // Refs
-
+  const subtitle = useRef();
+  const subtitle2 = useRef();
+  const subtitle3 = useRef();
   const title = useRef();
   const dot = useRef();
   const button = useRef();
@@ -155,6 +161,14 @@ function PubManageMobile({}) {
     });
   }, []);
 
+   // Handle the subtitle change for a specific ref
+   const handleSubtitleChange = (ref, setSubtitleValue) => {
+    const newSubtitle = prompt("Enter a new subtitle:");
+    if (newSubtitle) {
+     
+      setSubtitleValue(newSubtitle);
+    }
+  };
   // Handle the URL change
   const handleURLChange = (event, index) => {
     const { value } = event.target;
@@ -235,6 +249,9 @@ function PubManageMobile({}) {
       setLoading(false);
     }
   };
+
+
+  console.log(subtitleValue1);
   return (
     <>
       <Navbar />
@@ -265,7 +282,21 @@ function PubManageMobile({}) {
             accept="image/*"
             onChange={handleBackgroundChange3}
           />
-
+  <input
+            type="button"
+            value="enter text 1"
+            onClick={() => handleSubtitleChange(subtitle, setSubtitleValue1)}
+          />
+          <input
+            type="button"
+            value="enter text 2"
+            onClick={() => handleSubtitleChange(subtitle2, setSubtitleValue2)}
+          />
+          <input
+            type="button"
+            value="enter text 3"
+            onClick={() => handleSubtitleChange(subtitle3, setSubtitleValue3)}
+          />
           <input
             type="url"
             placeholder="url 1"
