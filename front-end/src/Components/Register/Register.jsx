@@ -47,14 +47,14 @@ function Register() {
       {error && <div className="error-message">{error}</div>}
 
       <form onSubmit={handleSubmit}>
-        <div className="reseau">
+        {/* <div className="reseau">
           <strong>Inscrivez vous avec </strong>
           <div>
-            {/* <BsFacebook className="reseau-icon" /> */}
+            <BsFacebook className="reseau-icon" />
             <FcGoogle onClick={handleGoogleAuth} className="reseau-icon" />
           </div>
           <strong>ou </strong>
-        </div>
+        </div> */}
         <label htmlFor="">
           <strong>Nom d'utilisateur *</strong>
           <input
