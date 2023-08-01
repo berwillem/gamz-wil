@@ -43,6 +43,7 @@ function Details() {
   const [posts, setPosts] = useState([]);
   const slicedData = useMemo(() => shuffleArray(posts).slice(0, 3), [posts]);
   //function switch image
+  console.log("images:", imageslide);
   useEffect(() => {
     switch (index) {
       case 0:
@@ -94,20 +95,27 @@ function Details() {
         setId(response.data.category._id);
       }
       if (response.data.images && response.data.images.length > 0) {
-        setPricipalImage(response.data.images[0].url);
+        setPricipalImage(
+          response.data.images[0].url.replace("http://", "https://")
+        );
       }
 
       if (response.data.images && response.data.images.length > 1) {
-        setSecondImage(response.data.images[1].url);
+        setSecondImage(
+          response.data.images[1].url.replace("http://", "https://")
+        );
       }
 
       if (response.data.images && response.data.images.length > 2) {
-        setThirdImage(response.data.images[2].url);
+        setThirdImage(
+          response.data.images[2].url.replace("http://", "https://")
+        );
       }
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     fetchPostDetails();
   }, [postId]);

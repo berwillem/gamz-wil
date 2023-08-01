@@ -10,7 +10,7 @@ passport.use(
       clientSecret: process.env.CLIENT_SECRET,
       callbackURL: "https://gamz-dz.com:5000/api/v1/auth/google/callback",
     },
-    (accessToken, refreshToken, profile, done) => {
+    (profile, done) => {
       return done(null, profile);
     }
   )
