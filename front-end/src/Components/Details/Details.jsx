@@ -90,18 +90,24 @@ function Details() {
     try {
       const response = await axios.get(baseURL + `/post/${postId}`);
       setPost(response.data);
+      setPricipalImage(notavalible);
+      setSecondImage(notavalible);
+      setThirdImage(notavalible);
       if (response.data.category) {
         setId(response.data.category._id);
       }
       if (response.data.images && response.data.images.length > 0) {
+       
         setPricipalImage(response.data.images[0].url);
       }
 
       if (response.data.images && response.data.images.length > 1) {
+      
         setSecondImage(response.data.images[1].url);
       }
 
       if (response.data.images && response.data.images.length > 2) {
+       
         setThirdImage(response.data.images[2].url);
       }
     } catch (error) {
