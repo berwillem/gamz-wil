@@ -90,6 +90,9 @@ function Details() {
   // api call :::
   const fetchPostDetails = async () => {
     try {
+      setPricipalImage(notavalible);
+      setSecondImage(notavalible);
+      setThirdImage(notavalible);
       const response = await axios.get(baseURL + `/post/${postId}`);
       setPost(response.data);
       if (response.data.category) {
