@@ -11,7 +11,7 @@ const UserRoute = require("./app/routes/UserRoute");
 const PubRoute = require("./app/routes/PubRoute");
 const cors = require("cors");
 require("dotenv").config();
-app.use(cors());
+app.use(cors({ origin: "https://gamz-dz.com:5173" }));
 app.use(
   session({
     secret: process.env.CLIENT_SECRET,
