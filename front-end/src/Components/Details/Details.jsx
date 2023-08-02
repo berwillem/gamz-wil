@@ -14,6 +14,7 @@ import defaultAvatar from "../../assets/images/avatar.webp";
 const baseURL = import.meta.env.VITE_BASE_URL;
 import LightGallery from "lightgallery/react";
 import moment from "moment";
+import "moment/locale/fr";
 // import styles
 import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
@@ -43,7 +44,7 @@ function Details() {
   const [posts, setPosts] = useState([]);
   const slicedData = useMemo(() => shuffleArray(posts).slice(0, 3), [posts]);
   //function switch image
-  console.log("images:", imageslide);
+
   useEffect(() => {
     switch (index) {
       case 0:
@@ -178,9 +179,8 @@ function Details() {
     }
     return shuffledArray;
   }
-  const formattedDate = moment(post.createdAt)
-    .locale("fr")
-    .format("MMMM Do YYYY, h:mm:ss ");
+  const formattedDate = moment(post.createdAt).format("DD/MM/YYYY HH:mm");
+
   return (
     <div className="details-container">
       {post && post.author && (
@@ -256,16 +256,16 @@ function Details() {
           </div>
           <div className="info">
             <li>
-              <strong>Numéro De Téléphone : 0{post.num}</strong>
+              <strong>Date : {formattedDate}</strong>
+            </li>
+            <li>
+              <strong>Etat : {post.etat}</strong>
             </li>
             <li>
               <strong>Wilaya : {post.wilaya}</strong>
             </li>
             <li>
-              <strong>Date : {formattedDate}</strong>
-            </li>
-            <li>
-              <strong>Etat : {post.etat}</strong>
+              <strong>Numéro De Téléphone : 0{post.num}</strong>
             </li>
           </div>
         </div>

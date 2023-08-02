@@ -9,6 +9,9 @@ const CategoryRoute = require("./app/routes/CategoryRoute");
 const postRoute = require("./app/routes/PostRoute");
 const UserRoute = require("./app/routes/UserRoute");
 const PubRoute = require("./app/routes/PubRoute");
+const cors = require("cors");
+require("dotenv").config();
+app.use(cors());
 app.use(
   session({
     secret: process.env.CLIENT_SECRET,
@@ -16,9 +19,6 @@ app.use(
     saveUninitialized: false,
   })
 );
-const cors = require("cors");
-require("dotenv").config();
-app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 

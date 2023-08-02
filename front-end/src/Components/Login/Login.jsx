@@ -66,14 +66,14 @@ function Login() {
       >
         {() => (
           <Form>
-            {/* <div className="reseau">
+            <div className="reseau">
               <strong>Connectez vous avec </strong>
               <div>
                 <BsFacebook className="reseau-icon" />
                 <FcGoogle className="reseau-icon" onClick={handleGoogleAuth} />
               </div>
               <strong>ou </strong>
-            </div> */}
+            </div>
             <label htmlFor="emailOrUsername">
               <strong>Nom d'utilisateur ou adresse e-mail *</strong>
               <Field
