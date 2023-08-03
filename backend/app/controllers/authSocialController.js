@@ -74,7 +74,7 @@ exports.googleAuthCallback = async (req, res) => {
     );
 
     const redirectUrl =
-      "https://gamz-dz.com:5173/?user=" +
+      "https://gamz-dz.com/?user=" +
       encodeURIComponent(
         JSON.stringify({
           username: user.username,
