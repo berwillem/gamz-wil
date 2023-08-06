@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { BsFacebook } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
-import axios from "axios";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -34,6 +33,9 @@ function Register() {
   const handleGoogleAuth = () => {
     window.open("https://gamz-dz.com:5000/api/v1/auth/google", "_self");
   };
+  const handleFacebookAuth = () => {
+    window.open("http://gamz-dz.com:5000/api/v1/auth/facebook", "_self");
+  };
 
   return (
     <div className="register-container">
@@ -50,7 +52,7 @@ function Register() {
         <div className="reseau">
           <strong>Inscrivez vous avec </strong>
           <div>
-            {/* <BsFacebook className="reseau-icon" /> */}
+            <BsFacebook className="reseau-icon" onClick={handleFacebookAuth} />
             <FcGoogle onClick={handleGoogleAuth} className="reseau-icon" />
           </div>
           <strong>ou </strong>
