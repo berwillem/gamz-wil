@@ -39,7 +39,7 @@ function Login() {
     window.open("https://gamz-dz.com:5000/api/v1/auth/google", "_self");
   };
   const handleFacebookAuth = () => {
-    window.open("http://gamz-dz.com:5000/api/v1/auth/facebook", "_self");
+    window.open("https://gamz-dz.com:5000/api/v1/auth/facebook", "_self");
   };
   // validation form
   const validate = (values) => {
