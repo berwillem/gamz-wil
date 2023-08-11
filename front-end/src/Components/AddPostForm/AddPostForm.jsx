@@ -294,7 +294,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
               </div>
             </div>
             <div className="add-images">
-              <p>Choisissez votre photo principale</p>
+              <p>Choisissez votre photo Secondaire</p>
               <div className="images-sub">
                 {[0, 1].map((index) => (
                   <div key={index}>
