@@ -23,7 +23,7 @@ passport.use(
     {
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: "https://gamz-dz.com:5000/facebook/callback",
+      callbackURL: "https://gamz-dz.com:5000/api/v1/facebook/callback",
       profileFields: ["id", "displayName", "email"],
     },
     (accessToken, refreshToken, profile, done) => {
