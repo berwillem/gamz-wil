@@ -72,10 +72,10 @@ function Login() {
             <div className="reseau">
               <strong>Connectez vous avec </strong>
               <div>
-                {/* <BsFacebook
+                <BsFacebook
                   className="reseau-icon"
                   onClick={handleFacebookAuth}
-                /> */}
+                />
                 <FcGoogle className="reseau-icon" onClick={handleGoogleAuth} />
               </div>
               <strong>ou </strong>

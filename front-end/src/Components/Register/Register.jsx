@@ -52,7 +52,7 @@ function Register() {
         <div className="reseau">
           <strong>Inscrivez vous avec </strong>
           <div>
-            {/* <BsFacebook className="reseau-icon" onClick={handleFacebookAuth} /> */}
+            <BsFacebook className="reseau-icon" onClick={handleFacebookAuth} />
             <FcGoogle onClick={handleGoogleAuth} className="reseau-icon" />
           </div>
           <strong>ou </strong>
