@@ -95,10 +95,14 @@ function Details() {
       setThirdImage(notavalible);
       const response = await axios.get(baseURL + `/post/${postId}`);
       setPost(response.data);
+      setPricipalImage(notavalible);
+      setSecondImage(notavalible);
+      setThirdImage(notavalible);
       if (response.data.category) {
         setId(response.data.category._id);
       }
       if (response.data.images && response.data.images.length > 0) {
+
         setPricipalImage(
           response.data.images[0].url.replace("http://", "https://")
         );
@@ -114,6 +118,7 @@ function Details() {
         setThirdImage(
           response.data.images[2].url.replace("http://", "https://")
         );
+
       }
     } catch (error) {
       console.log(error);
