@@ -14,6 +14,7 @@ import defaultAvatar from "../../assets/images/avatar.webp";
 const baseURL = import.meta.env.VITE_BASE_URL;
 import LightGallery from "lightgallery/react";
 import moment from "moment";
+import "moment/locale/fr";
 // import styles
 import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
@@ -43,6 +44,7 @@ function Details() {
   const [posts, setPosts] = useState([]);
   const slicedData = useMemo(() => shuffleArray(posts).slice(0, 3), [posts]);
   //function switch image
+
   useEffect(() => {
     switch (index) {
       case 0:
@@ -88,6 +90,9 @@ function Details() {
   // api call :::
   const fetchPostDetails = async () => {
     try {
+      setPricipalImage(notavalible);
+      setSecondImage(notavalible);
+      setThirdImage(notavalible);
       const response = await axios.get(baseURL + `/post/${postId}`);
       setPost(response.data);
       setPricipalImage(notavalible);
@@ -97,23 +102,29 @@ function Details() {
         setId(response.data.category._id);
       }
       if (response.data.images && response.data.images.length > 0) {
-       
-        setPricipalImage(response.data.images[0].url);
+
+        setPricipalImage(
+          response.data.images[0].url.replace("http://", "https://")
+        );
       }
 
       if (response.data.images && response.data.images.length > 1) {
-      
-        setSecondImage(response.data.images[1].url);
+        setSecondImage(
+          response.data.images[1].url.replace("http://", "https://")
+        );
       }
 
       if (response.data.images && response.data.images.length > 2) {
-       
-        setThirdImage(response.data.images[2].url);
+        setThirdImage(
+          response.data.images[2].url.replace("http://", "https://")
+        );
+
       }
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     fetchPostDetails();
   }, [postId]);
@@ -176,9 +187,8 @@ function Details() {
     }
     return shuffledArray;
   }
-  const formattedDate = moment(post.createdAt)
-    .locale("fr")
-    .format("MMMM Do YYYY, h:mm:ss ");
+  const formattedDate = moment(post.createdAt).format("DD/MM/YYYY HH:mm");
+
   return (
     <div className="details-container">
       {post && post.author && (
@@ -254,16 +264,16 @@ function Details() {
           </div>
           <div className="info">
             <li>
-              <strong>Numéro De Téléphone : 0{post.num}</strong>
+              <strong>Date : {formattedDate}</strong>
+            </li>
+            <li>
+              <strong>Etat : {post.etat}</strong>
             </li>
             <li>
               <strong>Wilaya : {post.wilaya}</strong>
             </li>
             <li>
-              <strong>Date : {formattedDate}</strong>
-            </li>
-            <li>
-              <strong>Etat : {post.etat}</strong>
+              <strong>Numéro De Téléphone : 0{post.num}</strong>
             </li>
           </div>
         </div>

@@ -6,11 +6,12 @@ import "./Dashboard.css";
 import UsersList from "../Users_list/UsersList";
 import image from "../../assets/Svg/shape.svg";
 import { Link } from "react-router-dom";
+import DashboardCardStat from "../DashboardCard/DashboardCardStat";
 
 function Dashboard({ users, postCount, userCount }) {
   //state
   const [num, setNum] = useState(10);
-  const [visitors, setVisitors] = useState(10);
+
   return (
     <div className="dashboard-container">
       <div className="dashboard_l">
@@ -71,10 +72,9 @@ function Dashboard({ users, postCount, userCount }) {
       </div>
       <div className="user_dashboard_right">
         <div className="dashboard_card_container">
-          <DashboardCard title="visitors" number={visitors} url={image} />
           <DashboardCard title="total Users" number={userCount} url={image} />
           <DashboardCard title="Post number" number={postCount} url={image} />
-          <DashboardCard title="active" number="+150" url={image} />
+          <DashboardCardStat ></DashboardCardStat>
         </div>
         <div className="dashboard_container">
           <div className="dashboard_title">

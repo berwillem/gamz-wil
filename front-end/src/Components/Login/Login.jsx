@@ -36,7 +36,10 @@ function Login() {
       });
   };
   const handleGoogleAuth = () => {
-    window.open("http://localhost:5000/api/v1/auth/google", "_self");
+    window.open("https://gamz-dz.com:5000/api/v1/auth/google", "_self");
+  };
+  const handleFacebookAuth = () => {
+    window.open("https://gamz-dz.com:5000/api/v1/auth/facebook", "_self");
   };
   // validation form
   const validate = (values) => {
@@ -69,7 +72,10 @@ function Login() {
             <div className="reseau">
               <strong>Connectez vous avec </strong>
               <div>
-                <BsFacebook className="reseau-icon" />
+                {/* <BsFacebook
+                  className="reseau-icon"
+                  onClick={handleFacebookAuth}
+                /> */}
                 <FcGoogle className="reseau-icon" onClick={handleGoogleAuth} />
               </div>
               <strong>ou </strong>

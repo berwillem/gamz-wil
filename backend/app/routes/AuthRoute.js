@@ -11,6 +11,8 @@ const {
 const {
   googleAuthMiddleware,
   googleAuthCallback,
+  facebookAuthMiddleware,
+  facebookAuthCallback,
 } = require("../controllers/authSocialController");
 const { isResetTokenValid } = require("../middlewares/user.js");
 const { validateUser, validate } = require("../middlewares/validator.js");
@@ -34,6 +36,13 @@ router.get(
   "/google/callback",
   passport.authenticate("google"),
   googleAuthCallback
+);
+router.get("/facebook", facebookAuthMiddleware);
+
+router.get(
+  "/facebook/callback",
+  passport.authenticate("facebook"),
+  facebookAuthCallback
 );
 
 module.exports = router;
