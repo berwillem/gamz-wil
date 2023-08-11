@@ -8,13 +8,14 @@ const NotLog = () => {
         justifyContent: 'center',
         alignItems: 'center',
         minHeight: '100vh',
-        backgroundColor: '#f0f0f0',
+        backgroundColor: 'var(--background-color)',
     };
 
     const headingStyle = {
         fontSize: '2rem',
         marginBottom: '2rem',
         textAlign: 'center',
+       color: 'var(--text-color)',
     };
 
     const loginButtonStyle = {
