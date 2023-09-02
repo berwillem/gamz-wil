@@ -346,7 +346,7 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
                     value={selectedValue}
                     onChange={(e) => setSelectedValue(e.target.value)}
                   >
-                    <option value="">Toutes les catégories </option>
+                    <option value="">Toutes les Catégories </option>
                     {categories.map((i) => (
                       <option value={i._id}>{i.name}</option>
                     ))}{" "}
