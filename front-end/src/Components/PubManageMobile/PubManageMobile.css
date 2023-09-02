@@ -1,13 +1,10 @@
-
-.manage{
-    display: flex;
-    width: 100%;
-    height: 850px;
-    padding: 30px;
-    
-  
+.manage {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  padding: 30px;
 }
-.manage .dot{
+.manage .dot {
   position: relative !important;
   grid-template-columns: auto auto auto;
   grid-template-rows: 70px 70px 70px 70px;
@@ -23,8 +20,7 @@
   left: 250px;
   top: 120px;
 }
-.manage .btnsub{
-
+.manage .btnsub {
   top: 750px;
   left: 438px;
   z-index: 1000;
@@ -37,94 +33,83 @@
   left: 1020px;
   top: 950px;
 }
-.switch2 svg{
+.switch2 svg {
   color: black !important;
   width: 40px;
   height: 40px;
 }
-.mobile{
-    width: 300px;
-    height: 622px;
-   top: 320px;
-    position: absolute;
-    left: 900px;
-   
-
+.mobile {
+  width: 300px;
+  height: 622px;
+  top: 320px;
+  position: absolute;
+  left: 900px;
 }
 
-  .mobile .slider{
-    display: flex;
-   flex-direction: column;
-  
-    padding: 30px !important;
-    width: 314px;
-    height: 622px;
-    border: solid 1px black;
-    border-radius: 15px;
-   
-   }
-   .mobile .L-slider{
-  
-   width:500px ;
-  }
-  .mobile .C-slider{
-   width: 300px;
-  }
-  .mobile .R-slider{
+.mobile .slider {
+  display: flex;
+  flex-direction: column;
+
+  padding: 30px !important;
+  width: 314px;
+  height: 622px;
+  border: solid 1px black;
+  border-radius: 15px;
+}
+.mobile .L-slider {
+  width: 500px;
+}
+.mobile .C-slider {
+  width: 300px;
+}
+.mobile .R-slider {
   display: flex;
   width: 100%;
   flex-direction: column;
-  }
+}
 
-.mobile .R-C-slider{
-    width:100% ;
-    margin-bottom: 250px;
-   }
-.mobile .buy-button{
-    width:10% ;
-    top: 250px;
-    left: 47%;
-    height: 3%;
-   }
-   .mobile .box{
-    height: 94px;
-    width: 322;
-    padding: 20px 10px;
-   }
-   .iphone{
+.mobile .R-C-slider {
+  width: 100%;
+  margin-bottom: 250px;
+}
+.mobile .buy-button {
+  width: 10%;
+  top: 250px;
+  left: 47%;
+  height: 3%;
+}
+.mobile .box {
+  height: 94px;
+  width: 322;
+  padding: 20px 10px;
+}
+.iphone {
+  position: absolute;
+  left: 882.5px;
+  z-index: 2;
+  width: 350px;
+  height: 652px;
+}
+
+@media screen and (max-width: 1240px) {
+  .mobile {
+    width: 300px;
+    height: 622px;
+    top: 120px;
     position: absolute;
-    left: 882.5px;
-    z-index: 2;
-    width: 350px;
-    height: 652px;
-   }
-   
-   @media screen and (max-width: 1240px) {
-    .mobile{
-      width: 300px;
-      height: 622px;
-     top: 120px;
-      position: absolute;
-      left: 900px;
-     
-  
+    left: 900px;
   }
-  .manage .btnsub{
-
+  .manage .btnsub {
     top: 500px;
     left: 438px;
   }
-  .mobile .R-slider a{
+  .mobile .R-slider a {
     width: 100%;
   }
   .mobile .R-slider {
-   margin: 0 !important;
+    margin: 0 !important;
   }
   .mobile .slider {
     height: 622px !important;
   }
-  }
- 
-
-  
-  
+}
