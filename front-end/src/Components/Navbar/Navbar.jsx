@@ -270,7 +270,7 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
                          handleSubcategorySelection("");
                         }}>
                      
-                     Toutes les catégories 
+                     Toutes les Catégories 
                     </li>
                   {categories.map((categorie, index) => (
                     <div key={index}>
