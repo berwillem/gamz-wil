@@ -1,18 +1,9 @@
-
-
-.manage{
-    display: flex;
-    width: 100%;
-    height: 850px;
-    padding: 30px;
-    height: 100vh;
-  
 .manage {
   display: flex;
   width: 100%;
-  height: 100vh;
+  height: 850px;
   padding: 30px;
-
+  height: 100vh;
 }
 .manage .dot {
   position: relative !important;
