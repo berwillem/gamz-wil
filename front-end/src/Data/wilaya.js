@@ -1,4 +1,4 @@
- export const wilaya=[
+export const wilaya = [
   { id: "1", name: "Adrar" },
   { id: "2", name: "Chlef" },
   { id: "3", name: "Laghouat" },
@@ -18,7 +18,7 @@
   { id: "17", name: "Djelfa" },
   { id: "18", name: "Jijel" },
   { id: "19", name: "Setif" },
-  { id: "20", name: "Saefda" },
+  { id: "20", name: "Saida" },
   { id: "21", name: "Skikda" },
   { id: "22", name: "Sidi Bel Abbes" },
   { id: "23", name: "Annaba" },
@@ -45,7 +45,7 @@
   { id: "44", name: "Ain Defla" },
   { id: "45", name: "Naama" },
   { id: "46", name: "Ain Temouchent" },
-  { id: "47", name: "Ghardaefa" },
+  { id: "47", name: "Ghardaia" },
   { id: "48", name: "Relizane" },
   { id: "49", name: "El M'ghair" },
   { id: "50", name: "El Menia" },

@@ -16,12 +16,16 @@ import Page404 from "./Pages/page404/Page404";
 import PubManage from "./Pages/PubManage/PubManage";
 import AuthCheck from "./Components/AuthChecker/AuthCheck";
 import PubManageMobile from "./Components/PubManageMobile/PubManageMobile";
+import { useLocation } from "react-router-dom";
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
   };
+  const location = useLocation();
+  const excludePaths = ["/pub-manage", "/pub-manage-mobile", "/dashboard"];
+  const shouldDisplayMode = !excludePaths.includes(location.pathname);
 
   return (
     <div
@@ -34,7 +38,10 @@ function App() {
     >
       <Routes>
         <Route path="/" element={<Home isDarkMode={isDarkMode} />} />
-        <Route path="/Account/:userId" element={<Acount isDarkMode={isDarkMode} />} />
+        <Route
+          path="/Account/:userId"
+          element={<Acount isDarkMode={isDarkMode} />}
+        />
         <Route
           path="/postDetails/:id"
           element={<Postdetails isDarkMode={isDarkMode} />}
@@ -44,17 +51,14 @@ function App() {
           element={<ADdPost isDarkMode={isDarkMode} />}
         />
         <Route path="/otp" element={<Otp isDarkMode={isDarkMode} />} />
-        <Route
-          path="/dashboard"
-          element={<AuthCheck  component={Dashbord} />}
-        />
+        <Route path="/dashboard" element={<AuthCheck component={Dashbord} />} />
         <Route
           path="/pub-manage"
-          element={<AuthCheck  component={PubManage} />}
+          element={<AuthCheck component={PubManage} />}
         />
         <Route
           path="/pub-manage-mobile"
-          element={<AuthCheck  component={PubManageMobile} />}
+          element={<AuthCheck component={PubManageMobile} />}
         />
 
         <Route path="/PassForgot" element={<PassForgot />} />
@@ -66,9 +70,7 @@ function App() {
         />
         <Route path="*" element={<Page404 isDarkMode={isDarkMode} s />} />
       </Routes>
-      {!window.location.pathname.includes("/pub-manage") && (
-        <Mode toggleDarkMode={toggleDarkMode} />
-      )}
+      {shouldDisplayMode && <Mode toggleDarkMode={toggleDarkMode} />}
     </div>
   );
 }
