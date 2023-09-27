@@ -10,7 +10,7 @@ import DashboardCardStat from "../DashboardCard/DashboardCardStat";
 
 function Dashboard({ users, postCount, userCount }) {
   //state
-  const [num, setNum] = useState(10);
+  const [num, setNum] = useState(0);
 
   return (
     <div className="dashboard-container">
@@ -74,7 +74,7 @@ function Dashboard({ users, postCount, userCount }) {
         <div className="dashboard_card_container">
           <DashboardCard title="total Users" number={userCount} url={image} />
           <DashboardCard title="Post number" number={postCount} url={image} />
-          <DashboardCardStat ></DashboardCardStat>
+          <DashboardCardStat></DashboardCardStat>
         </div>
         <div className="dashboard_container">
           <div className="dashboard_title">
