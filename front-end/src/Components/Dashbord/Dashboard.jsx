@@ -9,8 +9,19 @@ import { Link } from "react-router-dom";
 import DashboardCardStat from "../DashboardCard/DashboardCardStat";
 
 function Dashboard({ users, postCount, userCount }) {
-  //state
-  const [num, setNum] = useState(0);
+  // State for pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 15; // Number of users to display per page
+
+  // Calculate the index of the first and last user on the current page
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+
+  // Function to handle page changes
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div className="dashboard-container">
@@ -38,7 +49,7 @@ function Dashboard({ users, postCount, userCount }) {
                 width: "100%",
               }}
             >
-              pub managment
+              pub management
               <AiOutlineDashboard />
             </Link>
           </li>
@@ -51,7 +62,7 @@ function Dashboard({ users, postCount, userCount }) {
                 width: "100%",
               }}
             >
-              pub managment mobile
+              pub management mobile
               <AiOutlineDashboard />
             </Link>
           </li>
@@ -72,7 +83,7 @@ function Dashboard({ users, postCount, userCount }) {
       </div>
       <div className="user_dashboard_right">
         <div className="dashboard_card_container">
-          <DashboardCard title="total Users" number={userCount} url={image} />
+          <DashboardCard title="Total Users" number={userCount} url={image} />
           <DashboardCard title="Post number" number={postCount} url={image} />
           <DashboardCardStat></DashboardCardStat>
         </div>
@@ -85,21 +96,36 @@ function Dashboard({ users, postCount, userCount }) {
             <li>ID</li>
             <li>Date</li>
             <li>Name</li>
-            <li>email</li>
-
-            <li>action</li>
+            <li>Email</li>
+            <li>Action</li>
           </div>
 
           <div className="dashboard_users">
-            {users.map((item, index) => (
+            {currentUsers.map((item, index) => (
               <UsersList
+                key={item._id}
                 name={item.username}
-                number={num + 1}
+                number={index + 1 + indexOfFirstUser}
                 id={item._id}
                 date={item.createdAt.slice(0, 10)}
                 email={item.email}
               />
             ))}
+          </div>
+          <div className="pagination">
+            {/* Generate pagination buttons */}
+            {Array.from(
+              { length: Math.ceil(users.length / usersPerPage) },
+              (_, i) => (
+                <button
+                  key={i}
+                  onClick={() => paginate(i + 1)}
+                  className={currentPage === i + 1 ? "active" : ""}
+                >
+                  {i + 1}
+                </button>
+              )
+            )}
           </div>
         </div>
       </div>
