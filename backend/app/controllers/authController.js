@@ -137,19 +137,14 @@ exports.verifyEmail = async (req, res) => {
 
   const match = await token.compareToken(otp);
   if (!match) return sendError(res, "Please provide a valid code");
-
-  try {
-    user.verified = true;
-    await user.save();
-    res.json({
-      success: true,
-      message: "Your email is verified",
-      user: { username: user.username, email: user.email, id: user._id },
-    });
-  } catch (error) {
-    console.error(error);
-    sendError(res, "Error occurred while saving user");
-  }
+  user.verified = true;
+  await user.save();
+  await VerificationToken.deleteOne({ _id: token._id });
+  res.json({
+    success: true,
+    message: "Your email is verified",
+    user: { username: user.username, email: user.email, id: user._id },
+  });
 };
 
 // forgot password :::
