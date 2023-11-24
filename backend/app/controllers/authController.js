@@ -3,7 +3,6 @@ const { sendError, creatRandomBytes } = require("../helpers/error");
 const User = require("../models/User");
 const Session = require("../models/Session");
 const { v4: uuidv4 } = require("uuid");
-const VerificationToken = require("../models/verifToken");
 const ResetToken = require("../models/resetPassword");
 const { isValidObjectId } = require("mongoose");
 const {
