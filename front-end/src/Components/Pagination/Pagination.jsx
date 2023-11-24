@@ -3,10 +3,10 @@ import Post from "../Post/Post";
 import "./Pagination.css";
 import image from "../../assets/no-result-diadem.webp";
 function Pagination({ posts }) {
-  //state 
+  //state
   const [pages, setPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-// pagination function 
+  // pagination function
   useEffect(() => {
     setPages(Math.ceil(posts.length / 9));
   }, [posts]);
@@ -35,13 +35,32 @@ function Pagination({ posts }) {
     );
   };
 
+  function changePage(event) {
+    const action = event.target.dataset.action;
+    let newPage = currentPage;
+
+    if (action === "prev" && currentPage > 1) {
+      newPage = currentPage - 1;
+    } else if (action === "next" && currentPage < pages) {
+      newPage = currentPage + 1;
+    } else {
+      const pageNumber = Number(event.target.textContent);
+      newPage = pageNumber;
+    }
+
+    // Ensure the newPage is within valid bounds
+    if (newPage >= 1 && newPage <= pages) {
+      setCurrentPage(newPage);
+    }
+  }
+
   return (
     <div className="pagination-container">
       <div id="pagination-title">
         <p>Les annonces récentes</p>
       </div>
 
-      {pages === 0 &&    <img src={image} alt="no post" />}
+      {pages === 0 && <img src={image} alt="no post" />}
 
       {pages > 0 && (
         <>
@@ -59,8 +78,15 @@ function Pagination({ posts }) {
           </div>
 
           <div className="pagination">
+            <button
+              onClick={changePage}
+              data-action="prev"
+              className="paginationItem"
+            >
+              &lt;
+            </button>
+
             {getPaginationGroup().map((item, index) => (
-           
               <button
                 key={index}
                 onClick={changePage}
@@ -71,6 +97,14 @@ function Pagination({ posts }) {
                 <span>{item}</span>
               </button>
             ))}
+
+            <button
+              onClick={changePage}
+              data-action="next"
+              className="paginationItem"
+            >
+              &gt;
+            </button>
           </div>
         </>
       )}

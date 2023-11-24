@@ -422,6 +422,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
                 placeholder="write title for your product"
                 onChange={(e) => setTitle(e.target.value)}
                 required
+                minLength="6"
               />
             </div>
             <div className="add-description">
@@ -461,6 +462,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
                 onChange={(e) => setPrice(e.target.value)}
                 id=""
                 required
+                min="1"
               />
             </div>
             <div className="add-price">

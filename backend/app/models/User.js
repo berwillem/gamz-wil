@@ -49,6 +49,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    otp: { type: String },
     avatar: {
       url: {
         type: String,

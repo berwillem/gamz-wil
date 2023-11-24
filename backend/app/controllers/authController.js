@@ -25,18 +25,13 @@ exports.register = async (req, res) => {
   if (user) return sendError(res, "This email already exists!");
   const usernamee = await User.findOne({ username });
   if (usernamee) return sendError(res, "This username already exists!");
+  const OTP = generateOTP();
   const newUser = new User({
     username,
     email,
     password,
+    otp: OTP,
   });
-
-  const OTP = generateOTP();
-  const verificationToken = new VerificationToken({
-    owner: newUser._id,
-    token: OTP,
-  });
-  await verificationToken.save();
 
   // Sending email verification
   new SibApiV3Sdk.TransactionalEmailsApi()
@@ -122,29 +117,31 @@ exports.signin = async (req, res) => {
 // verify email :::
 
 exports.verifyEmail = async (req, res) => {
-  const { userId, otp } = req.body;
-  if (!userId || !otp.trim())
-    return sendError(res, "Invalid request, missing parameters!");
-  if (!isValidObjectId(userId)) return sendError(res, "Invalid user ID");
+  try {
+    const { userId, otp } = req.body;
 
-  const user = await User.findById(userId);
-  if (!user) return sendError(res, "User not found!");
-
-  if (user.verified) return sendError(res, "This account is already verified");
-
-  const token = await VerificationToken.findOne({ owner: user._id });
-  if (!token) return sendError(res, "Token not found!");
-
-  const match = await token.compareToken(otp);
-  if (!match) return sendError(res, "Please provide a valid code");
-  user.verified = true;
-  await user.save();
-  await VerificationToken.deleteOne({ _id: token._id });
-  res.json({
-    success: true,
-    message: "Your email is verified",
-    user: { username: user.username, email: user.email, id: user._id },
-  });
+    if (!userId || !otp.trim())
+      return sendError(res, "Invalid request, missing parameters!");
+    if (!isValidObjectId(userId)) return sendError(res, "Invalid user ID");
+    const user = await User.findById(userId);
+    if (!user) return sendError(res, "User not found!");
+    if (user.verified)
+      return sendError(res, "This account is already verified");
+    if (user.otp === otp) {
+      user.verified = true;
+      await user.save();
+      res.json({
+        success: true,
+        message: "Your email is verified",
+        user: { username: user.username, email: user.email, id: user._id },
+      });
+    } else {
+      return sendError(res, "Please provide a valid code");
+    }
+  } catch (error) {
+    console.error("Error during email verification:", error);
+    return sendError(res, "Error during email verification");
+  }
 };
 
 // forgot password :::
