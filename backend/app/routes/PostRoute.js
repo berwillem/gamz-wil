@@ -8,10 +8,10 @@ const {
   getPostsBySubcategory,
   deletePost,
 } = require("../controllers/postController");
-const uploadImages = require("../middlewares/cloudinary");
+const uploadImagesLocal = require("../middlewares/uploadImageLocal");
 const { adminAuthMiddleware } = require("../middlewares/authval");
 
-router.post("/create", uploadImages("posts"), createPost);
+router.post("/create", uploadImagesLocal("posts"), createPost);
 router.get("/subcategory/:subcategoryId", getPostsBySubcategory);
 router.get("/count", getPostCount);
 router.get("/:id", getPostById);
