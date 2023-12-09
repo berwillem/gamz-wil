@@ -4,10 +4,13 @@ const mongoose = require("mongoose");
 const Product = require("./app/models/Post");
 
 // Connect to MongoDB
-mongoose.connect("mongodb://127.0.0.1:27017/gamz", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  "mongodb+srv://willem:pdOlsME5bnhqnxOL@cluster66.ouukkrz.mongodb.net/gamz?authMechanism=DEFAULT",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 const localAssetsPath = path.join(__dirname, "../front-end/assets/posts");
 
