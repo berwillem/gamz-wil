@@ -6,7 +6,7 @@ cloudinary.config({
   api_key: process.env.CLOUD_KEY,
   api_secret: process.env.CLOUD_KEY_SECRET,
 });
-
+// fixes: 
 const storage = multer.diskStorage({
   limits: {
     fileSize: 50  * 1024 * 1024, 
