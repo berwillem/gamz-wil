@@ -27,10 +27,6 @@ app.use(
   "/images/posts",
   express.static(path.join(__dirname, "assets", "posts"))
 );
-app.use(
-  "/images/users",
-  express.static(path.join(__dirname, "assets", "users"))
-);
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/category", CategoryRoute);
 app.use("/api/v1/post", postRoute);

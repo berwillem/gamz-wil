@@ -6,7 +6,11 @@ const uploadImagesLocal = (folderName) => {
   // Define storage for multer
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      const destination = path.join(__dirname, "../../", "assets", folderName);
+      const destination = path.join(
+        __dirname,
+        "../../../front-end/assets",
+        folderName
+      );
 
       if (!fs.existsSync(destination)) {
         const error = new Error(`Folder not found: ${destination}`);
@@ -28,13 +32,12 @@ const uploadImagesLocal = (folderName) => {
 
       uploadMiddleware(req, res, (err) => {
         if (err) {
-          // Check if res is defined before responding
           if (res) {
             res.status(500).json({ error: err.message });
           }
         } else {
           const localImages = req.files.map((file) => ({
-            url: `http://localhost:5000/images/${folderName}/${file.originalname}`,
+            url: `/assets/${folderName}/${file.originalname}`,
           }));
 
           req.body.images = localImages;
@@ -43,7 +46,6 @@ const uploadImagesLocal = (folderName) => {
         }
       });
     } catch (error) {
-      // Check if res is defined before responding
       if (res) {
         res.status(500).json({ error: error.message });
       }

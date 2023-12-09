@@ -4,27 +4,12 @@ const mongoose = require("mongoose");
 const Product = require("./app/models/Post");
 
 // Connect to MongoDB
-const db = mongoose.connection;
-
-// Log MongoDB connection events
-db.on("error", (error) => {
-  console.error("MongoDB connection error:", error);
-});
-
-db.once("open", () => {
-  console.log("Connected to MongoDB successfully");
-});
-
-db.on("disconnected", () => {
-  console.log("Disconnected from MongoDB");
-});
-
 mongoose.connect("mongodb://127.0.0.1:27017/gamz", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-const localAssetsPath = path.join(__dirname, "assets", "posts");
+const localAssetsPath = path.join(__dirname, "../front-end/assets/posts");
 
 async function updateRecords() {
   try {
@@ -39,9 +24,10 @@ async function updateRecords() {
         if (fs.existsSync(localFilePath)) {
           console.log(`Updating image URL for product ${product._id}`);
           console.log(`Before: ${image.url}`);
-          console.log(`After: ${localFilePath}`);
-
-          image.url = `http://localhost:5000/images/posts/${localFilename}`;
+          console.log(`After: /assets/posts/${localFilename}`);
+          image.url = `/assets/posts/${localFilename}`;
+        } else {
+          console.error(`Local file not found: ${localFilePath}`);
         }
       }
 
