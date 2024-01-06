@@ -9,9 +9,9 @@ const {
   deletePost,
 } = require("../controllers/postController");
 const { adminAuthMiddleware } = require("../middlewares/authval");
-const uploadImagesLocal = require("../middlewares/uploadImageLocal");
+const uploadImagesRemote = require("../middlewares/uploadImagesRemote");
 
-router.post("/create", uploadImagesLocal("posts"), createPost);
+router.post("/create", uploadImagesRemote("posts"), createPost);
 router.get("/subcategory/:subcategoryId", getPostsBySubcategory);
 router.get("/count", getPostCount);
 router.get("/:id", getPostById);

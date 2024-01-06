@@ -2,14 +2,13 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
-const uploadImagesLocal = (folderName) => {
+const uploadImagesRemote = (folderName) => {
   // Define storage for multer
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
       const destination = path.join(
         __dirname,
-        "../../../front-end/assets",
-        folderName
+        `../../../front-end/assets/${folderName}`
       );
 
       if (!fs.existsSync(destination)) {
@@ -36,11 +35,11 @@ const uploadImagesLocal = (folderName) => {
             res.status(500).json({ error: err.message });
           }
         } else {
-          const localImages = req.files.map((file) => ({
-            url: `/assets/${folderName}/${file.originalname}`,
+          const remoteImages = req.files.map((file) => ({
+            url: `https://gamz-dz.com/assets/posts/${file.originalname}`,
           }));
 
-          req.body.images = localImages;
+          req.body.images = remoteImages;
 
           next();
         }
@@ -53,4 +52,4 @@ const uploadImagesLocal = (folderName) => {
   };
 };
 
-module.exports = uploadImagesLocal;
+module.exports = uploadImagesRemote;
