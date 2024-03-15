@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { confirmEmail } from "../../redux/reducers/Auth";
 import "./Otp.css";

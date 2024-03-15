@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AiOutlineDashboard, AiOutlineHome } from "react-icons/ai";
 import { CiUser } from "react-icons/ci";
 import DashboardCard from "../DashboardCard/DashboardCard";

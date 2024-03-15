@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { gsap, Power3 } from "gsap";
 import Navbar from "../Navbar/Navbar";
@@ -161,11 +161,10 @@ function PubManageMobile({}) {
     });
   }, []);
 
-   // Handle the subtitle change for a specific ref
-   const handleSubtitleChange = (ref, setSubtitleValue) => {
+  // Handle the subtitle change for a specific ref
+  const handleSubtitleChange = (ref, setSubtitleValue) => {
     const newSubtitle = prompt("Enter a new subtitle:");
     if (newSubtitle) {
-     
       setSubtitleValue(newSubtitle);
     }
   };
@@ -250,7 +249,6 @@ function PubManageMobile({}) {
     }
   };
 
-
   console.log(subtitleValue1);
   return (
     <>
@@ -282,7 +280,7 @@ function PubManageMobile({}) {
             accept="image/*"
             onChange={handleBackgroundChange3}
           />
-  <input
+          <input
             type="button"
             value="enter text 1"
             onClick={() => handleSubtitleChange(subtitle, setSubtitleValue1)}

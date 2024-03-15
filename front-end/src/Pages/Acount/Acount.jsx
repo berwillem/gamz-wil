@@ -1,4 +1,3 @@
-import React from "react";
 import Ads from "../../Components/Ads/Ads";
 import Footer from "../../Components/Footer/Footer";
 import Login from "../../Components/Login/Login";

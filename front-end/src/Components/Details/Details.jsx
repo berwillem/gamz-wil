@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { Box } from "../../Data/Box";
 import "./Details.css";
 import { animateScroll as scroll } from "react-scroll";
@@ -102,7 +102,6 @@ function Details() {
         setId(response.data.category._id);
       }
       if (response.data.images && response.data.images.length > 0) {
-
         setPricipalImage(
           response.data.images[0].url.replace("http://", "https://")
         );
@@ -118,7 +117,6 @@ function Details() {
         setThirdImage(
           response.data.images[2].url.replace("http://", "https://")
         );
-
       }
     } catch (error) {
       console.log(error);

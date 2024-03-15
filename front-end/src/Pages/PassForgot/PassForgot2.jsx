@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./PassForgot2.css";
@@ -12,7 +12,7 @@ const PassForgot2 = () => {
   const searchParams = new URLSearchParams(location.search);
   const token = searchParams.get("token");
   const userId = searchParams.get("id");
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -29,7 +29,7 @@ const PassForgot2 = () => {
         { password }
       );
       Swal.fire("opération réussite!", "mot de pass mis a jour!", "success");
-      navigate("/")
+      navigate("/");
     } catch (error) {
       Swal.fire({
         icon: "error",

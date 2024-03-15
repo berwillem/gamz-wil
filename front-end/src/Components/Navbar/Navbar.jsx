@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import "./Navbar.css";
 import { BsPlusLg } from "react-icons/bs";
 import { CiUser } from "react-icons/ci";
@@ -9,7 +9,7 @@ import logo2 from "../../assets/2.webp";
 import logo3 from "../../assets/logorespo.webp";
 import UpdateInfo from "../UpdateInfo/UpdateInfo";
 import { Link } from "react-router-dom";
-import {animateScroll as scroll } from "react-scroll";
+import { animateScroll as scroll } from "react-scroll";
 
 import { useState } from "react";
 import { useRef } from "react";
@@ -21,7 +21,6 @@ import { fetchCategories, getCategories } from "../../Data/category";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
 function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
-  
   //* state
   const [searchText, setSearchText] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
@@ -35,11 +34,12 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const username = JSON.parse(localStorage.getItem("user"))?.username || null;
   const userId = JSON.parse(localStorage.getItem("user"))?.id || null;
-  const infoupdate =JSON.parse(localStorage.getItem("user"))?.infoUpdate || null;
+  const infoupdate =
+    JSON.parse(localStorage.getItem("user"))?.infoUpdate || null;
   const navRef = useRef(null);
   const searchBoxRef = useRef(null);
-   //function categorys id 
-   const handleCategorySelection = (categoryId) => {
+  //function categorys id
+  const handleCategorySelection = (categoryId) => {
     onCategoryChange(categoryId);
   };
   const handleSubcategorySelection = (subcategoryId) => {
@@ -66,32 +66,28 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
     };
   }, []);
   //scroll on click
- const handleScroll = () => {
-  setMenuIsOpen(!menuIsOpen);
+  const handleScroll = () => {
+    setMenuIsOpen(!menuIsOpen);
 
-  scroll.scrollMore(900); 
-};
- const handleScroll2 = () => {
- 
+    scroll.scrollMore(900);
+  };
+  const handleScroll2 = () => {
+    scroll.scrollMore(400);
+  };
 
-  scroll.scrollMore(400); 
-};
-
-// respo menu
+  // respo menu
   function handleClick2(event) {
-  
     const nextElement = event.target.nextElementSibling;
     if (nextElement) {
       nextElement.classList.toggle("active-ul");
     }
   }
- 
 
   const toggleMenu = () => {
     setMenuIsOpen(!menuIsOpen);
   };
- 
-// categorie respo menu
+
+  // categorie respo menu
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -105,7 +101,7 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
 
     fetchData();
   }, []);
-  // open close respo menu 
+  // open close respo menu
   useEffect(() => {
     if (menuIsOpen) {
       document.body.classList.add("menu-open", "overlay");
@@ -240,7 +236,7 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
           </div>
           {isLoggedIn ? infoupdate ? <div></div> : <UpdateInfo /> : <div></div>}
           <div className="navbar-center">
-            <div className="menu-logo" >
+            <div className="menu-logo">
               <div
                 className={`menu ${menuIsOpen ? "open" : ""}`}
                 ref={navRef}
@@ -264,30 +260,32 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
                       Deposer une annonce
                     </li>
                   </Link>
-                  <li   onClick={() => {
-                         handleScroll();
-                         handleCategorySelection("");
-                         handleSubcategorySelection("");
-                        }}>
-                     
-                     Toutes les Catégories 
-                    </li>
+                  <li
+                    onClick={() => {
+                      handleScroll();
+                      handleCategorySelection("");
+                      handleSubcategorySelection("");
+                    }}
+                  >
+                    Toutes les Catégories
+                  </li>
                   {categories.map((categorie, index) => (
                     <div key={index}>
-                      <li className="barre"
+                      <li
+                        className="barre"
                         onClick={() => {
                           handleClick2(event);
                           handleCategorySelection(categorie._id);
                         }}
                       >
-                      <div onClick={handleScroll}>  {categorie.name}</div>  <AiFillCaretDown  />
+                        <div onClick={handleScroll}> {categorie.name}</div>{" "}
+                        <AiFillCaretDown />
                       </li>
                       <ul className="ul2">
                         {subCategoryes.map((subcategorye, index) => {
                           if (subcategorye.parentCategoryId === categorie._id) {
                             return (
-                              <li 
-                            
+                              <li
                                 key={index}
                                 onClick={() => {
                                   handleCategorySelection("");
@@ -370,17 +368,24 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
           </div>
           <div className="navbarDown">
             <div className="down">
-            <div className="catnav" onClick={() => {
-                         handleScroll2();
-                          handleCategorySelection("");
-                          handleSubcategorySelection("");
-                        }}>Toutes les catégories </div>
+              <div
+                className="catnav"
+                onClick={() => {
+                  handleScroll2();
+                  handleCategorySelection("");
+                  handleSubcategorySelection("");
+                }}
+              >
+                Toutes les catégories{" "}
+              </div>
               {categories.map((categorie, index) => (
                 <div className="catnav">
                   <li
                     key={index}
-                    onClick={() => {handleCategorySelection(categorie._id);
-                      handleScroll2();}}
+                    onClick={() => {
+                      handleCategorySelection(categorie._id);
+                      handleScroll2();
+                    }}
                   >
                     {categorie.name}
                   </li>
@@ -390,12 +395,10 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
                         return (
                           <li
                             key={index}
-                            onClick={() =>{
+                            onClick={() => {
                               handleCategorySelection("");
-                              handleSubcategorySelection(subcategorye.id)
-                            }
-                             
-                            }
+                              handleSubcategorySelection(subcategorye.id);
+                            }}
                           >
                             {subcategorye.label}
                           </li>

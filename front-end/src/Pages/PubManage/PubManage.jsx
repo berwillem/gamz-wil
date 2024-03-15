@@ -1,19 +1,14 @@
-import React from 'react'
-import './PubManage.css'
-import Navbar from '../../Components/Navbar/Navbar'
-import SliderPubManage from '../../Components/SliderPubManage/SliderPubManage'
-
-
+import "./PubManage.css";
+import Navbar from "../../Components/Navbar/Navbar";
+import SliderPubManage from "../../Components/SliderPubManage/SliderPubManage";
 
 function PubManage() {
-   
   return (
     <div>
-        <Navbar  />
-            <SliderPubManage disp={true}/>
-        
+      <Navbar />
+      <SliderPubManage disp={true} />
     </div>
-  )
+  );
 }
 
-export default PubManage
+export default PubManage;

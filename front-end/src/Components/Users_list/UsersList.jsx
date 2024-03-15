@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AiOutlineMore, AiFillDelete, AiOutlineUser } from "react-icons/ai";
 import "./UserList.css";
 import axios from "axios";

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BsDiscord, BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
 import Logo from "../../assets/1.webp";
 import Logo2 from "../../assets/2.webp";

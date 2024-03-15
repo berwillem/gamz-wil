@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./update_use.css";
@@ -97,7 +97,7 @@ function Update_user() {
     <>
       {loading && (
         <div className="loader">
-         <span class="loader"></span>
+          <span class="loader"></span>
         </div>
       )}
       <form onSubmit={handleSubmit} encType="multipart/form-data">

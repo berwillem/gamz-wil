@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Ads from "../../Components/Ads/Ads";
 import CategorySide from "../../Components/CategorySide/CategorySide";
 import Details from "../../Components/Details/Details";
@@ -52,7 +52,7 @@ function Postdetails(isDarkMode) {
   const postId = location.pathname.split("/").pop();
   useEffect(() => {
     axios
-      .get(baseURL+`/post/${postId}`)
+      .get(baseURL + `/post/${postId}`)
       .then((res) => setPost(res.data))
       .catch((err) => console.log(err));
   }, [postId]);
@@ -66,7 +66,7 @@ function Postdetails(isDarkMode) {
           <Ads uri={pubImg} />
         </div>
         <div className="post-details">
-          <Details postinfo={post}/>
+          <Details postinfo={post} />
         </div>
       </div>
       <div className="home-bottom">

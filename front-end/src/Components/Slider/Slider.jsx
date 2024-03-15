@@ -1,12 +1,9 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { gsap, Power3 } from "gsap";
 import "./Slider.css";
-import { AiFillRightCircle } from "react-icons/ai";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import slide1 from "../../assets/images/SMALL1.webp";
-import slide2 from "../../assets/images/SMALL2.webp";
 import slide from "../../assets/images/telslide.webp";
 import slidepad from "../../assets/images/ipadslide.webp";
 
@@ -29,37 +26,41 @@ function Slider() {
   const cardContainer = useRef();
   const cardContainer2 = useRef();
   const isMobile = window.matchMedia("(max-width: 450px)").matches;
-  const isTablette = window.matchMedia("(min-width: 451px) and (max-width: 1070px)").matches;
+  const isTablette = window.matchMedia(
+    "(min-width: 451px) and (max-width: 1070px)"
+  ).matches;
 
-
-  const backgroundImage =  card1 && card1.cardOneImage && card1.cardOneImage.url
-    ? `url(${card1.cardOneImage.url})`
-    : "";
-  const backgroundImage2 =  card2 && card2.cardTwoImage && card2.cardTwoImage.url
-    ? `url(${card2.cardTwoImage.url})`
-    : "";
+  const backgroundImage =
+    card1 && card1.cardOneImage && card1.cardOneImage.url
+      ? `url(${card1.cardOneImage.url})`
+      : "";
+  const backgroundImage2 =
+    card2 && card2.cardTwoImage && card2.cardTwoImage.url
+      ? `url(${card2.cardTwoImage.url})`
+      : "";
   const backgroundImage3 = isTablette
-    ? isMobile? `url(${slide})`: `url(${slidepad})`
+    ? isMobile
+      ? `url(${slide})`
+      : `url(${slidepad})`
     : card && card.pub && imageUrl
     ? `url(${imageUrl})`
     : "";
-    
-   
-    useEffect(() => {
-      const url = isMobile ? baseURL + "/pub/mobil" : baseURL + "/pub/";
-    
-      axios
-        .get(url)
-        .then((response) => {
-          const { cardOne, cardTwo, pub } = response.data;
-          setCard(response.data);
-          setCard1(cardOne);
-          setCard2(cardTwo);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }, [isMobile]);
+
+  useEffect(() => {
+    const url = isMobile ? baseURL + "/pub/mobil" : baseURL + "/pub/";
+
+    axios
+      .get(url)
+      .then((response) => {
+        const { cardOne, cardTwo, pub } = response.data;
+        setCard(response.data);
+        setCard1(cardOne);
+        setCard2(cardTwo);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [isMobile]);
 
   useEffect(() => {
     if (card.pub && card.pub.length > 0) {
@@ -75,7 +76,7 @@ function Slider() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex2((prevIndex) => (prevIndex + 1) % 3);
-    }, 5000);
+    }, 7000);
 
     return () => {
       clearInterval(interval);
@@ -189,7 +190,6 @@ function Slider() {
                 </p>
               )}
             </div>
-           
           </div>
         </Link>
         <Link to={card2.redirect} target="_blank">
@@ -213,7 +213,6 @@ function Slider() {
                 </p>
               )}
             </div>
-           
           </div>
         </Link>
       </div>

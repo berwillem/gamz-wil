@@ -1,7 +1,7 @@
 import { Power3 } from "gsap";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import Dashboard from "../../Components/Dashbord/Dashboard";
 import { GetAllUsers } from "../../redux/reducers/users";

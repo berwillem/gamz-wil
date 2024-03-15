@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import { useState } from "react";
 import Home from "./Pages/Home/Home";
 import { Route, Routes } from "react-router-dom";
 import Acount from "./Pages/Acount/Acount";
