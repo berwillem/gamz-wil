@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useMemo } from "react";
-import { Box } from "../../Data/Box";
+
 import "./Details.css";
 import { animateScroll as scroll } from "react-scroll";
 import { gsap } from "gsap";
@@ -139,7 +139,7 @@ function Details() {
       });
   }, [id]);
   //   style ::
-  const boxSlice = Box.slice(0, 3);
+
   gsap.registerPlugin(ScrollTrigger);
 
   const cardContainer = useRef();

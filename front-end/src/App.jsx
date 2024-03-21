@@ -1,22 +1,28 @@
 import "./App.css";
-import { useState } from "react";
-import Home from "./Pages/Home/Home";
+import { useState, lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import Acount from "./Pages/Acount/Acount";
-import Postdetails from "./Pages/PostDetails/Postdetails";
-import ADdPost from "./Pages/ADdPost/ADdPost";
-import Dashbord from "./Pages/Dashbord/Dashbord";
-import Otp from "./Pages/Otp/Otp";
-import PassForgot from "./Pages/PassForgot/PassForgot";
-import Account_details from "./Pages/Acount_details/Account_details";
-import PassForgot2 from "./Pages/PassForgot/PassForgot2";
-import Mode from "./Components/Mode/Mode";
-import Contact from "./Pages/Contact/Contact";
-import Page404 from "./Pages/page404/Page404";
-import PubManage from "./Pages/PubManage/PubManage";
-import AuthCheck from "./Components/AuthChecker/AuthCheck";
-import PubManageMobile from "./Components/PubManageMobile/PubManageMobile";
 import { useLocation } from "react-router-dom";
+import Mode from "./Components/Mode/Mode";
+
+// Lazy load components for routes
+const Home = lazy(() => import("./Pages/Home/Home"));
+const Account = lazy(() => import("./Pages/Acount/Acount"));
+const Postdetails = lazy(() => import("./Pages/PostDetails/Postdetails"));
+const AddPost = lazy(() => import("./Pages/ADdPost/ADdPost"));
+const Dashboard = lazy(() => import("./Pages/Dashbord/Dashbord"));
+const Otp = lazy(() => import("./Pages/Otp/Otp"));
+const PassForgot = lazy(() => import("./Pages/PassForgot/PassForgot"));
+const AccountDetails = lazy(() =>
+  import("./Pages/Acount_details/Account_details")
+);
+const PassForgot2 = lazy(() => import("./Pages/PassForgot/PassForgot2"));
+const Contact = lazy(() => import("./Pages/Contact/Contact"));
+const Page404 = lazy(() => import("./Pages/page404/Page404"));
+const PubManage = lazy(() => import("./Pages/PubManage/PubManage"));
+const AuthCheck = lazy(() => import("./Components/AuthChecker/AuthCheck"));
+const PubManageMobile = lazy(() =>
+  import("./Components/PubManageMobile/PubManageMobile")
+);
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -36,40 +42,47 @@ function App() {
         fill: `var(--text-color)`,
       }}
     >
-      <Routes>
-        <Route path="/" element={<Home isDarkMode={isDarkMode} />} />
-        <Route
-          path="/Account/:userId"
-          element={<Acount isDarkMode={isDarkMode} />}
-        />
-        <Route
-          path="/postDetails/:id"
-          element={<Postdetails isDarkMode={isDarkMode} />}
-        />
-        <Route
-          path="/createPost"
-          element={<ADdPost isDarkMode={isDarkMode} />}
-        />
-        <Route path="/otp" element={<Otp isDarkMode={isDarkMode} />} />
-        <Route path="/dashboard" element={<AuthCheck component={Dashbord} />} />
-        <Route
-          path="/pub-manage"
-          element={<AuthCheck component={PubManage} />}
-        />
-        <Route
-          path="/pub-manage-mobile"
-          element={<AuthCheck component={PubManageMobile} />}
-        />
-
-        <Route path="/PassForgot" element={<PassForgot />} />
-        <Route path="/PassForgot2" element={<PassForgot2 />} />
-        <Route path="/contact" element={<Contact isDarkMode={isDarkMode} />} />
-        <Route
-          path="/Details"
-          element={<Account_details isDarkMode={isDarkMode} />}
-        />
-        <Route path="*" element={<Page404 isDarkMode={isDarkMode} s />} />
-      </Routes>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Home isDarkMode={isDarkMode} />} />
+          <Route
+            path="/Account/:userId"
+            element={<Account isDarkMode={isDarkMode} />}
+          />
+          <Route
+            path="/postDetails/:id"
+            element={<Postdetails isDarkMode={isDarkMode} />}
+          />
+          <Route
+            path="/createPost"
+            element={<AddPost isDarkMode={isDarkMode} />}
+          />
+          <Route path="/otp" element={<Otp isDarkMode={isDarkMode} />} />
+          <Route
+            path="/dashboard"
+            element={<AuthCheck component={<Dashboard />} />}
+          />
+          <Route
+            path="/pub-manage"
+            element={<AuthCheck component={<PubManage />} />}
+          />
+          <Route
+            path="/pub-manage-mobile"
+            element={<AuthCheck component={<PubManageMobile />} />}
+          />
+          <Route path="/PassForgot" element={<PassForgot />} />
+          <Route path="/PassForgot2" element={<PassForgot2 />} />
+          <Route
+            path="/contact"
+            element={<Contact isDarkMode={isDarkMode} />}
+          />
+          <Route
+            path="/Details"
+            element={<AccountDetails isDarkMode={isDarkMode} />}
+          />
+          <Route path="*" element={<Page404 isDarkMode={isDarkMode} />} />
+        </Routes>
+      </Suspense>
       {shouldDisplayMode && <Mode toggleDarkMode={toggleDarkMode} />}
     </div>
   );

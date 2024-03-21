@@ -15,7 +15,7 @@ function Post({ category, img_post, name, price, id }) {
       <div className="post-name">
         <p>{name}</p>
       </div>
-      <img src={imageUrl} alt="post-image" />
+      <img src={imageUrl} alt="post-image" loading="lazy" />
       <div className="button-post-container">
         <strong>{price} DA</strong>
         <Link to={`/postDetails/${id}`}>

@@ -17,13 +17,6 @@ import { loginSuccess } from "../../redux/reducers/Auth";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-const images = [
-  "https://picsum.photos/800/600?random=1",
-  "https://picsum.photos/800/600?random=2",
-  "https://picsum.photos/800/600?random=3",
-  "https://picsum.photos/800/600?random=4",
-];
-
 function Home({ isDarkMode }) {
   const dispatch = useDispatch();
   const p = isDarkMode;

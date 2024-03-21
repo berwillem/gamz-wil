@@ -2,12 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { gsap, Power3 } from "gsap";
 import "./TopSelll.css";
-import { Box } from "../../Data/Box";
 import TopSelBox from "../TopSelBox/TopSelBox";
 import axios from "axios";
 const baseURL = import.meta.env.VITE_BASE_URL;
-
-const boxSlice = Box.slice(0, 3);
 
 function TopSelll() {
   //state
