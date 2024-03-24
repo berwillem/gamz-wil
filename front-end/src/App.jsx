@@ -1,22 +1,23 @@
 import "./App.css";
-import { useState, lazy, Suspense } from "react"; // Import Suspense
+import { useState, lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Mode from "./Components/Mode/Mode";
-import Home from "./Pages/Home/Home";
-import Account from "./Pages/Acount/Acount";
-import Postdetails from "./Pages/PostDetails/Postdetails";
-import AddPost from "./Pages/ADdPost/ADdPost";
-import PubManage from "./Pages/PubManage/PubManage";
+
+const Home = lazy(() => import("./Pages/Home/Home"));
+const Account = lazy(() => import("./Pages/Acount/Acount"));
+const Postdetails = lazy(() => import("./Pages/PostDetails/Postdetails"));
+const AddPost = lazy(() => import("./Pages/ADdPost/ADdPost"));
+const Dashboard = lazy(() => import("./Pages/Dashbord/Dashbord"));
+const Otp = lazy(() => import("./Pages/Otp/Otp"));
+const PassForgot = lazy(() => import("./Pages/PassForgot/PassForgot"));
 const AccountDetails = lazy(() =>
   import("./Pages/Acount_details/Account_details")
 );
-const Otp = lazy(() => import("./Pages/Otp/Otp"));
-const Dashboard = lazy(() => import("./Pages/Dashbord/Dashbord"));
-const PassForgot = lazy(() => import("./Pages/PassForgot/PassForgot"));
 const PassForgot2 = lazy(() => import("./Pages/PassForgot/PassForgot2"));
 const Contact = lazy(() => import("./Pages/Contact/Contact"));
 const Page404 = lazy(() => import("./Pages/page404/Page404"));
+const PubManage = lazy(() => import("./Pages/PubManage/PubManage"));
 const AuthCheck = lazy(() => import("./Components/AuthChecker/AuthCheck"));
 const PubManageMobile = lazy(() =>
   import("./Components/PubManageMobile/PubManageMobile")
@@ -41,8 +42,6 @@ function App() {
       }}
     >
       <Suspense fallback={<div>Loading...</div>}>
-        {" "}
-        {/* Wrap Routes with Suspense */}
         <Routes>
           <Route path="/" element={<Home isDarkMode={isDarkMode} />} />
           <Route
@@ -83,7 +82,6 @@ function App() {
           <Route path="*" element={<Page404 isDarkMode={isDarkMode} />} />
         </Routes>
       </Suspense>
-
       {shouldDisplayMode && <Mode toggleDarkMode={toggleDarkMode} />}
     </div>
   );
