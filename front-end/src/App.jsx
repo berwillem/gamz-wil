@@ -1,20 +1,21 @@
 import "./App.css";
-import { useState, lazy, Suspense } from "react";
+import { useState, Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Mode from "./Components/Mode/Mode";
+// Importing components without lazy loading
+import Home from "./Pages/Home/Home";
+import Account from "./Pages/Acount/Acount";
+import Postdetails from "./Pages/PostDetails/Postdetails";
+import AddPost from "./Pages/ADdPost/ADdPost";
 
 // Lazy load components for routes
-const Home = lazy(() => import("./Pages/Home/Home"));
-const Account = lazy(() => import("./Pages/Acount/Acount"));
-const Postdetails = lazy(() => import("./Pages/PostDetails/Postdetails"));
-const AddPost = lazy(() => import("./Pages/ADdPost/ADdPost"));
-const Dashboard = lazy(() => import("./Pages/Dashbord/Dashbord"));
-const Otp = lazy(() => import("./Pages/Otp/Otp"));
-const PassForgot = lazy(() => import("./Pages/PassForgot/PassForgot"));
 const AccountDetails = lazy(() =>
   import("./Pages/Acount_details/Account_details")
 );
+const Otp = lazy(() => import("./Pages/Otp/Otp"));
+const Dashboard = lazy(() => import("./Pages/Dashbord/Dashbord"));
+const PassForgot = lazy(() => import("./Pages/PassForgot/PassForgot"));
 const PassForgot2 = lazy(() => import("./Pages/PassForgot/PassForgot2"));
 const Contact = lazy(() => import("./Pages/Contact/Contact"));
 const Page404 = lazy(() => import("./Pages/page404/Page404"));
