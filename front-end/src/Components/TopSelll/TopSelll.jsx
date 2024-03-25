@@ -92,18 +92,18 @@ function TopSelll() {
           </div>
           <div className="topSell-content" ref={cardContainer}>
             <div className="grid">
-              {boxSlice1.map((i, key) => (
-                <TopSelBox i={i} />
+              {boxSlice1.map((i, index) => (
+                <TopSelBox key={index} i={i} />
               ))}
             </div>
             <div className="grid">
-              {boxSlice2.map((i, key) => (
-                <TopSelBox i={i} />
+              {boxSlice2.map((i, index) => (
+                <TopSelBox key={index} i={i} />
               ))}
             </div>
             <div className="grid">
-              {boxSlice3.map((i, key) => (
-                <TopSelBox i={i} />
+              {boxSlice3.map((i, index) => (
+                <TopSelBox key={index} i={i} />
               ))}
             </div>
           </div>

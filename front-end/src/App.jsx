@@ -3,25 +3,20 @@ import { useState, lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Mode from "./Components/Mode/Mode";
-
-const Home = lazy(() => import("./Pages/Home/Home"));
-const Account = lazy(() => import("./Pages/Acount/Acount"));
-const Postdetails = lazy(() => import("./Pages/PostDetails/Postdetails"));
-const AddPost = lazy(() => import("./Pages/ADdPost/ADdPost"));
-const Dashboard = lazy(() => import("./Pages/Dashbord/Dashbord"));
-const Otp = lazy(() => import("./Pages/Otp/Otp"));
-const PassForgot = lazy(() => import("./Pages/PassForgot/PassForgot"));
-const AccountDetails = lazy(() =>
-  import("./Pages/Acount_details/Account_details")
-);
-const PassForgot2 = lazy(() => import("./Pages/PassForgot/PassForgot2"));
-const Contact = lazy(() => import("./Pages/Contact/Contact"));
-const Page404 = lazy(() => import("./Pages/page404/Page404"));
-const PubManage = lazy(() => import("./Pages/PubManage/PubManage"));
-const AuthCheck = lazy(() => import("./Components/AuthChecker/AuthCheck"));
-const PubManageMobile = lazy(() =>
-  import("./Components/PubManageMobile/PubManageMobile")
-);
+import Home from "./Pages/Home/Home";
+import Account from "./Pages/Acount/Acount";
+import Postdetails from "./Pages/PostDetails/Postdetails";
+import AddPost from "./Pages/ADdPost/ADdPost";
+import Dashboard from "./Pages/Dashbord/Dashbord";
+import PubManage from "./Pages/PubManage/PubManage";
+import AccountDetails from "./Pages/Acount_details/Account_details";
+import PubManageMobile from "./Components/PubManageMobile/PubManageMobile";
+import Otp from "./Pages/Otp/Otp";
+import PassForgot from "./Pages/PassForgot/PassForgot";
+import PassForgot2 from "./Pages/PassForgot/PassForgot2";
+import Page404 from "./Pages/page404/Page404";
+import Contact from "./Pages/Contact/Contact";
+import AuthCheck from "./Components/AuthChecker/AuthCheck";
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);

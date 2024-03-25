@@ -327,7 +327,7 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
                   className={searchActive}
                   value={searchText}
                   name="searchText"
-                  autocomplete="off"
+                  autoComplete="off"
                   onChange={handleChange}
                 />
                 <div className="results-list">

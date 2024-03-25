@@ -21,7 +21,7 @@ function Slider() {
   gsap.registerPlugin(ScrollTrigger);
   const subtitle = useRef();
   const title = useRef();
-  const dot = useRef();
+
   const button = useRef();
   const cardContainer = useRef();
   const cardContainer2 = useRef();
@@ -91,14 +91,6 @@ function Slider() {
       duration: 1,
       ease: Power3.easeOut,
       scrollTrigger: subtitle.current,
-    });
-    gsap.to(dot.current, {
-      y: 0,
-      delay: 0.2,
-      opacity: 1,
-      duration: 1,
-      ease: Power3.easeOut,
-      scrollTrigger: dot.current,
     });
     gsap.to(button.current, {
       y: 0,
