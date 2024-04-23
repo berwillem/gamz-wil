@@ -54,16 +54,17 @@ function App() {
           <Route path="/otp" element={<Otp isDarkMode={isDarkMode} />} />
           <Route
             path="/dashboard"
-            element={<AuthCheck component={<Dashboard />} />}
+            element={<AuthCheck component={Dashboard} />}
           />
           <Route
             path="/pub-manage"
-            element={<AuthCheck component={<PubManage />} />}
+            element={<AuthCheck component={PubManage} />}
           />
           <Route
             path="/pub-manage-mobile"
-            element={<AuthCheck component={<PubManageMobile />} />}
+            element={<AuthCheck component={PubManageMobile} />}
           />
+
           <Route path="/PassForgot" element={<PassForgot />} />
           <Route path="/PassForgot2" element={<PassForgot2 />} />
           <Route
