@@ -22,7 +22,7 @@ router.post("/register", validateUser, validate, register);
 // Login endpoint
 router.post("/signin", signin);
 // verification email endpoint
-router.post("/verify-email", verifyEmail);
+// router.post("/verify-email", verifyEmail);
 // password forgot endpoint
 router.post("/forgot-password", forgotpassword);
 // reset password

@@ -11,7 +11,7 @@ import Dashboard from "./Pages/Dashbord/Dashbord";
 import PubManage from "./Pages/PubManage/PubManage";
 import AccountDetails from "./Pages/Acount_details/Account_details";
 import PubManageMobile from "./Components/PubManageMobile/PubManageMobile";
-import Otp from "./Pages/Otp/Otp";
+// import Otp from "./Pages/Otp/Otp";
 import PassForgot from "./Pages/PassForgot/PassForgot";
 import PassForgot2 from "./Pages/PassForgot/PassForgot2";
 import Page404 from "./Pages/page404/Page404";
@@ -51,7 +51,7 @@ function App() {
             path="/createPost"
             element={<AddPost isDarkMode={isDarkMode} />}
           />
-          <Route path="/otp" element={<Otp isDarkMode={isDarkMode} />} />
+          {/* <Route path="/otp" element={<Otp isDarkMode={isDarkMode} />} /> */}
           <Route
             path="/dashboard"
             element={<AuthCheck component={Dashboard} />}

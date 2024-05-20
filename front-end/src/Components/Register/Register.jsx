@@ -5,8 +5,8 @@ import { register } from "../../redux/reducers/Auth";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { BsFacebook } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
+import Swal from "sweetalert2";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -24,7 +24,8 @@ function Register() {
     e.preventDefault();
     dispatch(register({ username, password, email }))
       .then(() => {
-        navigate("/otp");
+        navigate("/");
+        Swal.fire("Votre Compte a bien été crée", "connectez vous", "success");
       })
       .catch((error) => {
         setError(error.response.data.error);

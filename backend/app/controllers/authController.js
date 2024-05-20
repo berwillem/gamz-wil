@@ -24,34 +24,33 @@ exports.register = async (req, res) => {
   if (user) return sendError(res, "This email already exists!");
   const usernamee = await User.findOne({ username });
   if (usernamee) return sendError(res, "This username already exists!");
-  const OTP = generateOTP();
+  // const OTP = generateOTP();
   const newUser = new User({
     username,
     email,
     password,
-    otp: OTP,
   });
 
   // Sending email verification
-  new SibApiV3Sdk.TransactionalEmailsApi()
-    .sendTransacEmail({
-      sender: { email: "gamz.contactbox@gmail.com", name: "gamz" },
-      subject: "Verify your email account",
-      htmlContent: emailTamplate(OTP),
-      to: [
-        {
-          email: newUser.email,
-        },
-      ],
-    })
-    .then(
-      function (data) {
-        console.log(data);
-      },
-      function (error) {
-        console.error(error);
-      }
-    );
+  // new SibApiV3Sdk.TransactionalEmailsApi()
+  //   .sendTransacEmail({
+  //     sender: { email: "gamz.contactbox@gmail.com", name: "gamz" },
+  //     subject: "Verify your email account",
+  //     htmlContent: emailTamplate(OTP),
+  //     to: [
+  //       {
+  //         email: newUser.email,
+  //       },
+  //     ],
+  //   })
+  //   .then(
+  //     function (data) {
+  //       console.log(data);
+  //     },
+  //     function (error) {
+  //       console.error(error);
+  //     }
+  //   );
 
   await newUser.save();
   res.send(newUser);
@@ -115,33 +114,33 @@ exports.signin = async (req, res) => {
 
 // verify email :::
 
-exports.verifyEmail = async (req, res) => {
-  try {
-    const { userId, otp } = req.body;
+// exports.verifyEmail = async (req, res) => {
+//   try {
+//     const { userId, otp } = req.body;
 
-    if (!userId || !otp.trim())
-      return sendError(res, "Invalid request, missing parameters!");
-    if (!isValidObjectId(userId)) return sendError(res, "Invalid user ID");
-    const user = await User.findById(userId);
-    if (!user) return sendError(res, "User not found!");
-    if (user.verified)
-      return sendError(res, "This account is already verified");
-    if (user.otp === otp) {
-      user.verified = true;
-      await user.save();
-      res.json({
-        success: true,
-        message: "Your email is verified",
-        user: { username: user.username, email: user.email, id: user._id },
-      });
-    } else {
-      return sendError(res, "Please provide a valid code");
-    }
-  } catch (error) {
-    console.error("Error during email verification:", error);
-    return sendError(res, "Error during email verification");
-  }
-};
+//     if (!userId || !otp.trim())
+//       return sendError(res, "Invalid request, missing parameters!");
+//     if (!isValidObjectId(userId)) return sendError(res, "Invalid user ID");
+//     const user = await User.findById(userId);
+//     if (!user) return sendError(res, "User not found!");
+//     if (user.verified)
+//       return sendError(res, "This account is already verified");
+//     if (user.otp === otp) {
+//       user.verified = true;
+//       await user.save();
+//       res.json({
+//         success: true,
+//         message: "Your email is verified",
+//         user: { username: user.username, email: user.email, id: user._id },
+//       });
+//     } else {
+//       return sendError(res, "Please provide a valid code");
+//     }
+//   } catch (error) {
+//     console.error("Error during email verification:", error);
+//     return sendError(res, "Error during email verification");
+//   }
+// };
 
 // forgot password :::
 exports.forgotpassword = async (req, res) => {
