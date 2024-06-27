@@ -12,7 +12,7 @@ function Pagination({ posts }) {
   }, [posts]);
 
   useEffect(() => {
-    window.scrollTo({ behavior: "smooth", top: "0px" });
+    window.scrollTo({ behavior: "smooth", top: "400" });
   }, [currentPage]);
 
   function changePage(event) {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { confirmEmail } from "../../redux/reducers/Auth";
 import "./Otp.css";
 import logo from "../../assets/1.webp";
@@ -7,7 +7,8 @@ import logo2 from "../../assets/2.webp";
 import security from "../../assets/Svg/undraw_security_on_re_e491.svg";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-const Otp = (p) => {
+const Otp = () => {
+  const light = useSelector((state) => state.light.value);
   const dispatch = useDispatch();
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
@@ -38,7 +39,7 @@ const Otp = (p) => {
   return (
     <div className="otp-page">
       <div className="logo">
-        <img src={p.isDarkMode ? logo2 : logo} alt="" className="logo-gamz" />
+        <img src={light ? logo2 : logo} alt="" className="logo-gamz" />
       </div>
       <div className="otp-form">
         <form onSubmit={handleSubmit}>

@@ -1,5 +1,5 @@
 import "./CategorySide.css";
-import arrow from "../../assets/Svg/arrow.svg";
+import { IoIosArrowForward } from "react-icons/io";
 import subcategoryes from "../../Data/subCategory";
 import subSubCategoryes from "../../Data/subSubCategory";
 import subSubSubCategoryes from "../../Data/subSubSubCategory";
@@ -31,7 +31,7 @@ function CategorySide({ onSubcategoryChange,onCategoryChange }) {
                 <p onClick={() => {  handleCategorySelection("");handleSubcategorySelection(subcategorye.id)}}>
                   {subcategorye.label}
                 </p>
-                <img src={arrow} alt="arrow" />
+              <IoIosArrowForward/>
                 <div className="hover-drop-down">
                   {subSubCategories.map((subSubCategory) => {
                     const subSubSubCategories = subSubSubCategoryes.filter(

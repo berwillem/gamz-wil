@@ -17,9 +17,9 @@ import { loginSuccess } from "../../redux/reducers/Auth";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-function Home({ isDarkMode }) {
+function Home() {
   const dispatch = useDispatch();
-  const p = isDarkMode;
+ 
   // animations
   gsap.registerPlugin(ScrollTrigger);
   const cardContainer = useRef();
@@ -107,11 +107,7 @@ function Home({ isDarkMode }) {
 
   return (
     <div>
-      <Navbar
-        p={p}
-        onCategoryChange={handleCategoryChange}
-        onSubcategoryChange={handleSubcategoryChange}
-      />
+   
       <Slider />
       <div className="home-center">
         <div className="Ads-category " ref={cardContainer2}>
@@ -137,7 +133,7 @@ function Home({ isDarkMode }) {
         <TopSelll />
         <Ads uri={pubImg} />
       </div>
-      <Footer onCategoryChange={handleCategoryChange} p={p} />
+    
     </div>
   );
 }

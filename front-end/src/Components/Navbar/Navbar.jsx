@@ -18,10 +18,12 @@ import { AiFillCaretDown } from "react-icons/ai";
 import subCategoryes from "../../Data/subCategory";
 import axios from "axios";
 import { fetchCategories, getCategories } from "../../Data/category";
+import { useSelector } from "react-redux";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
+function Navbar({ onCategoryChange, onSubcategoryChange }) {
   //* state
+  const light = useSelector((state) => state.light.value);;
   const [searchText, setSearchText] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
   const [results, setResults] = useState([]);
@@ -312,7 +314,7 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
               <div className="logo">
                 <Link to="/">
                   <img
-                    src={p ? logo2 : image}
+                    src={light ? logo2 : image}
                     alt=""
                     className="logo-gamz-nav"
                   />
