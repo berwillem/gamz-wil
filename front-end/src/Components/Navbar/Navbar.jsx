@@ -18,10 +18,11 @@ import { AiFillCaretDown } from "react-icons/ai";
 import subCategoryes from "../../Data/subCategory";
 import axios from "axios";
 import { fetchCategories, getCategories } from "../../Data/category";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategory, setSubCategory } from "../../redux/reducers/filters";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-function Navbar({ onCategoryChange, onSubcategoryChange }) {
+function Navbar() {
   //* state
   const light = useSelector((state) => state.light.value);;
   const [searchText, setSearchText] = useState("");
@@ -40,12 +41,13 @@ function Navbar({ onCategoryChange, onSubcategoryChange }) {
     JSON.parse(localStorage.getItem("user"))?.infoUpdate || null;
   const navRef = useRef(null);
   const searchBoxRef = useRef(null);
+  const dispatch = useDispatch();
   //function categorys id
   const handleCategorySelection = (categoryId) => {
-    onCategoryChange(categoryId);
+    dispatch(setCategory(categoryId));
   };
   const handleSubcategorySelection = (subcategoryId) => {
-    onSubcategoryChange(subcategoryId);
+    dispatch(setSubCategory(subcategoryId));
   };
   // respo logo function
   useEffect(() => {

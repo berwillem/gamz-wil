@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { gsap, Power3 } from "gsap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Navbar from "../../Components/Navbar/Navbar";
 import Slider from "../../Components/Slider/Slider";
@@ -16,6 +16,8 @@ import { GetAllPosts } from "../../redux/reducers/Posts";
 import { loginSuccess } from "../../redux/reducers/Auth";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
+import subcategories from './../../Data/subCategory';
+import { setCategory, setSubCategory } from "../../redux/reducers/filters";
 
 function Home() {
   const dispatch = useDispatch();
@@ -72,15 +74,18 @@ function Home() {
 
   // states
   const [posts, setPosts] = useState([]);
-  const [categoryId, setCategoryId] = useState(null);
-  const [subcategoryId, setSubcategoryId] = useState(null);
+  // const [categoryId, setCategoryId] = useState(null);
+  // const [subcategoryId, setSubcategoryId] = useState(null);
+  const categoryId = useSelector((state)=> state.filters.category)
+  const subcategoryId = useSelector((state)=> state.filters.subcategory)
 
   const handleCategoryChange = (categoryId) => {
-    setCategoryId(categoryId);
+    console.log("category change called", categoryId);
+    dispatch(setCategory(categoryId));
   };
 
   const handleSubcategoryChange = (subcategoryId) => {
-    setSubcategoryId(subcategoryId);
+    dispatch(setSubCategory(subcategoryId));
   };
 
   useEffect(() => {
