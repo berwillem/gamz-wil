@@ -5,7 +5,7 @@ import SliderPubManage from "../../Components/SliderPubManage/SliderPubManage";
 function PubManage() {
   return (
     <div>
-      <Navbar />
+   
       <SliderPubManage disp={true} />
     </div>
   );
