@@ -20,7 +20,7 @@ function Dashbord() {
       scrollTrigger: cardContainer2.current,
     });
     gsap.to(cardContainer3.current, {
-      y: 10,
+    
       delay: 0.2,
       opacity: 1,
       duration: 1,
@@ -38,12 +38,12 @@ function Dashbord() {
   }, []);
 
   return (
-    <div className="home-container" style={{ height: "100vh" }}>
+    <div className="home-container" >
       <div
         style={{
           opacity: 0,
-          transform: 'translateY("100px")',
           width: "100%",
+        
         }}
         ref={cardContainer3}
       >

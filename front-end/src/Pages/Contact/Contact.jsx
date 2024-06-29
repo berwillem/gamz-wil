@@ -5,8 +5,8 @@ import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer";
 import Swal from "sweetalert2";
 
-const Contact = (isDarkMode) => {
-  const p = isDarkMode.isDarkMode;
+const Contact = () => {
+  
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -44,7 +44,7 @@ const Contact = (isDarkMode) => {
 
   return (
     <>
-      <Navbar p={p} />
+    
       <div className="Contact-page">
         <div className="title_contact">
           <h1>Contactez Gamz</h1>
@@ -92,7 +92,7 @@ const Contact = (isDarkMode) => {
           <button type="submit">Envoyez votre message</button>
         </form>
       </div>
-      <Footer p={p} />
+    
     </>
   );
 };

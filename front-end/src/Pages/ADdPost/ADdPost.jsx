@@ -5,17 +5,17 @@ import Navbar from "../../Components/Navbar/Navbar";
 import TopSelll from "../../Components/TopSelll/TopSelll";
 
 
-function ADdPost(isDarkMode) {
-  const p = isDarkMode.isDarkMode;
+function ADdPost() {
+ 
   return (
     <div>
-      <Navbar p={p} />
+    
       <AddPost />
       <div className="home-bottom">
         <TopSelll />
         <Ads />
       </div>
-      <Footer p={p} />
+  
     </div>
   );
 }

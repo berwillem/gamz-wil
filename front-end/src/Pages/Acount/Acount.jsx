@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import Ads from "../../Components/Ads/Ads";
 import Footer from "../../Components/Footer/Footer";
 import Login from "../../Components/Login/Login";
@@ -11,7 +12,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-function Acount(isDarkMode) {
+function Acount() {
   // data::
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const token = JSON.parse(localStorage.getItem("user"))?.token || null;
@@ -24,7 +25,7 @@ function Acount(isDarkMode) {
   const [Username, setUsername] = useState("");
   const [poste, setposte] = useState([]);
   const [isOwner, setIsOwner] = useState(false);
-  const p = isDarkMode.isDarkMode;
+  
 
   // api call::
   useEffect(() => {
@@ -55,7 +56,7 @@ function Acount(isDarkMode) {
 
   return (
     <div className="account-container">
-      <Navbar p={p} />
+    
       {isLoggedIn ? (
         <div>
           <div className="account-center">
@@ -86,7 +87,7 @@ function Acount(isDarkMode) {
           <Register />
         </div>
       )}
-      <Footer p={p} />
+     
     </div>
   );
 }

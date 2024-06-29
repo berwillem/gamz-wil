@@ -1,23 +1,20 @@
+import { useDispatch, useSelector } from "react-redux";
 import "./Mode.css";
 import { useState } from "react";
-function Mode(props) {
+import { toggleLight } from "../../redux/reducers/LightSlice";
+function Mode() {
+  const dispatch = useDispatch();
+  const light = useSelector((state) => state.light.value);
+
   //state
-  const [divClass, setDivClass] = useState("toggle");
-  function handleDivClick() {
-    // mode function
-    if (divClass === "toggle") {
-      setDivClass("toggle active2");
-      props.toggleDarkMode();
-    } else {
-      setDivClass("toggle");
-      props.toggleDarkMode();
-    }
-  }
+  const handleToggle = () => {
+    dispatch(toggleLight());
+  };
 
   return (
-    <div className="mode" onClick={handleDivClick}>
+    <div className="mode" onClick={handleToggle}>
       <span className="light">Clair</span>
-      <span className={divClass}></span>
+      <span className={!light?'toggle':"toggle active2"}></span>
 
       <span className="dark">Sombre</span>
     </div>

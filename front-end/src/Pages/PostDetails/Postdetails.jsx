@@ -13,8 +13,8 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useLocation } from "react-router-dom";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-function Postdetails(isDarkMode) {
-  // style and animation ::
+function Postdetails() {
+
   gsap.registerPlugin(ScrollTrigger);
   const cardContainer = useRef();
   const cardContainer2 = useRef();
@@ -45,7 +45,7 @@ function Postdetails(isDarkMode) {
       scrollTrigger: cardContainer.current,
     });
   }, []);
-  const p = isDarkMode.isDarkMode;
+  
   // api call:
   const [post, setPost] = useState(null);
   const location = useLocation();
@@ -59,7 +59,7 @@ function Postdetails(isDarkMode) {
 
   return (
     <div className="post-details-container">
-      <Navbar p={p} />
+   
       <div className="post-details-center">
         <div className="Ads-category" ref={cardContainer2}>
           <CategorySide />
@@ -73,7 +73,7 @@ function Postdetails(isDarkMode) {
         <TopSelll />
         <Ads uri={pubImg} />
       </div>
-      <Footer p={p} />
+    
     </div>
   );
 }
