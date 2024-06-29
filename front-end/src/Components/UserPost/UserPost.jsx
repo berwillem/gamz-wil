@@ -19,7 +19,7 @@ const modalStyles = {
   content: {
     maxWidth: "400px",
     width: "80%",
-    height: "170px",
+    height: "max-content",
     margin: "auto",
     padding: "20px",
     border: "none",
@@ -55,7 +55,18 @@ function UserPost({ posts, owner }) {
   const [deletedPosts, setDeletedPosts] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState("");
+  const [autres, setAutres] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [selectedValue, setSelectedValue] = useState('');
+  const [textareaValue, setTextareaValue] = useState('');
+
+  const handleRadioChange = (event) => {
+    setAutres(event.target.value === 'autres');
+    setSelectedValue(event.target.value);
+  };
+  const handleTextareaChange = (event) => {
+    setTextareaValue(event.target.value);
+  };
   useEffect(() => {
     const fetchIsAdmin = async () => {
       try {
@@ -156,19 +167,72 @@ function UserPost({ posts, owner }) {
         onRequestClose={() => setShowDeleteModal(false)}
         style={modalStyles}
       >
-        <h2>Confirm Delete</h2>
-        <p>Are you sure you want to delete this post?</p>
+       <form action="" onSubmit={confirmPostDelete}>
+       <h2>Confirm Delete</h2>
+        <p>pourquoi voulais vous le supprimer?</p>
+       <div className="qst">
+       <div>
+          <input
+            type="radio"
+            id="vendu avec gamz"
+            name="options"
+            required
+            value="vendu avec gamz"
+            checked={selectedValue === 'vendu avec gamz'}
+            onChange={handleRadioChange}
+          />
+          <label htmlFor="vendu avec gamz">vendu avec gamz</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="je veux plus le vendre"
+            name="options"
+            value="je veux plus le vendre"
+            checked={selectedValue === 'je veux plus le vendre'}
+            onChange={handleRadioChange}
+            required
+          />
+          <label htmlFor="opje veux plus le vendretion2">je veux plus le vendre</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="vendu autres part"
+            name="options"
+            value="vendu autres part"
+            checked={selectedValue === 'vendu autres part'}
+            onChange={handleRadioChange}
+            required
+          />
+          <label htmlFor="endu autres part">vendu autres part</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="autres"
+            name="options"
+            value="autres"
+            checked={selectedValue === 'autres'}
+            onChange={handleRadioChange}  required
+          />
+          <label htmlFor="autres">autres</label>
+        </div>
+        {autres && <textarea className="area" type="text" placeholder="autre" onChange={handleTextareaChange}   />}
+       </div>
         <div style={modalStyles.buttonsContainer}>
-          <button onClick={confirmPostDelete} style={modalStyles.confirmButton}>
+          <button   type="submit"  style={modalStyles.confirmButton}>
             Yes, delete
           </button>
           <button
+        
             onClick={() => setShowDeleteModal(false)}
             style={modalStyles.cancelButton}
           >
             Cancel
           </button>
         </div>
+       </form>
       </Modal>
     </>
   );

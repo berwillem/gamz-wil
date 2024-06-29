@@ -104,7 +104,7 @@ function Home() {
         }
         const res = await axios.get(url);
         setPosts(res.data.posts);
-      
+  
         SetTotalPage(res.data.nbrPage)
    
      
@@ -168,14 +168,15 @@ function Home() {
           <Pagination   sx={{
             padding:'30px 0',
         '& .MuiPaginationItem-root': {
-          backgroundColor: 'red',
-          color: 'white',
+        border:"1px solid",
+          color: 'red',
         },
         '& .MuiPaginationItem-root:hover': {
-          backgroundColor: 'darkred',
+          backgroundColor: 'red',
+          color:"white"
         },
         '& .MuiPaginationItem-root.Mui-selected': {
-          backgroundColor: 'darkred',
+          backgroundColor: 'red',
           color: 'white',
         }, }}  count={totalPage} page={page} onChange={handlePageChange}  />
         </>
