@@ -6,8 +6,8 @@ import "./Footer.css";
 import { Link } from "react-router-dom";
 import pdf1 from "../../assets/pdf/Conditions d'utilisation .pdf";
 import pdf2 from "../../assets/pdf/Politique de confidentialité .pdf";
-import { fetchCategories, getCategories } from "../../Data/category";
 import { useSelector } from "react-redux";
+import { getCategories } from "../../services/Category";
 
 function Footer({  onCategoryChange }) {
   //state
@@ -29,9 +29,9 @@ function Footer({  onCategoryChange }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await fetchCategories();
-        const fetchedCategories = getCategories();
-        setCategories(fetchedCategories);
+        
+        const fetchedCategories = await getCategories()
+        setCategories(fetchedCategories.data);
       } catch (error) {
         console.error(error);
       }

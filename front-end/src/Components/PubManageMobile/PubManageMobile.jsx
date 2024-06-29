@@ -11,6 +11,7 @@ import slide1 from "../../assets/images/SMALL1.webp";
 import slide2 from "../../assets/images/SMALL2.webp";
 import slide from "../../assets/images/telslide.webp";
 import { AiOutlineRight, AiOutlineLeft } from "react-icons/ai";
+import { createPubMobil } from "../../services/Pubs";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 function PubManageMobile({}) {
@@ -223,14 +224,9 @@ function PubManageMobile({}) {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const sessionId = user.sessionId;
-      const config = {
-        headers: {
-          "session-id": sessionId,
-        },
-      };
-      const res = await axios.post(baseURL + "/pub/mobil", formData, config, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      
+      //TODO: test it
+      const res = await createPubMobil(formData, sessionId);
 
       Swal.fire({
         icon: "success",

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { confirmEmailRequest, loginRequestService, registerRequest } from "../../services/Auth";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
 const initialState = {
@@ -92,7 +93,8 @@ export const {
 export const register = (userData) => async (dispatch) => {
   try {
     dispatch(registrationRequest());
-    const response = await axios.post(baseURL + "/auth/register", userData);
+    //TODO: test it
+    const response = await registerRequest(userData)
     dispatch(registrationSuccess(response.data));
   } catch (error) {
     dispatch(registrationFailure(error));
@@ -103,7 +105,8 @@ export const register = (userData) => async (dispatch) => {
 export const login = (userData) => async (dispatch) => {
   try {
     dispatch(loginRequest());
-    const response = await axios.post(baseURL + "/auth/signin", userData);
+    //TODO: test it
+    const response = await loginRequestService(userData);
 
     dispatch(loginSuccess(response.data));
   } catch (error) {
@@ -115,10 +118,8 @@ export const login = (userData) => async (dispatch) => {
 export const confirmEmail = (userId, otp) => async (dispatch) => {
   try {
     dispatch(emailConfirmationRequest());
-    const response = await axios.post(baseURL + "/auth/verify-email", {
-      userId,
-      otp,
-    });
+    //TODO: test it
+    const response = await confirmEmailRequest(userId, otp);
     dispatch(emailConfirmationSuccess(response.data));
   } catch (error) {
     dispatch(emailConfirmationFailure(error));
