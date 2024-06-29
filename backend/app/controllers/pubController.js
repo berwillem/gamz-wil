@@ -48,12 +48,12 @@ exports.createPub = async (req, res) => {
 
 exports.getPub = async (req, res) => {
   try {
-    // Find the pub document
     const pub = await Pub.findOne();
 
     if (!pub) {
       return res.status(404).json({ message: "Pub not found" });
     }
+    res.set("Cache-Control", "public, max-age=7200");
 
     res.status(200).json(pub);
   } catch (err) {

@@ -22,9 +22,7 @@ import { setCategory, setSubCategory } from "../../redux/reducers/filters";
 import { getCategories } from "../../services/Category";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-
 function Navbar() {
-
   const light = useSelector((state) => state.light.value);
 
   //* state
@@ -56,9 +54,9 @@ function Navbar() {
   useEffect(() => {
     const handleResize = () => {
       const isMobile = window.matchMedia("(max-width: 1240px)").matches;
-console.log('====================================');
-console.log(isMobile);
-console.log('====================================');
+      console.log("====================================");
+      console.log(isMobile);
+      console.log("====================================");
       if (isMobile) {
         setImage(logo3);
       } else {
@@ -100,12 +98,9 @@ console.log('====================================');
   useEffect(() => {
     const fetchData = async () => {
       try {
-
-        
-        const fetchedCategories = await getCategories()
-        console.log(fetchedCategories)
+        const fetchedCategories = await getCategories();
+        console.log(fetchedCategories);
         setCategories(fetchedCategories.data);
-
       } catch (error) {
         console.error(error);
       }
@@ -162,7 +157,6 @@ console.log('====================================');
       axios
         .get(baseURL + `/post/`)
         .then((response) => {
-     
           const results = response.data.posts.filter((post) =>
             post.title.toLowerCase().includes(value.toLowerCase())
           );
