@@ -21,9 +21,9 @@ import { fetchCategories, getCategories } from "../../Data/category";
 import { useSelector } from "react-redux";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-function Navbar({ onCategoryChange, onSubcategoryChange }) {
+function Navbar({  onCategoryChange, onSubcategoryChange }) {
+  const light = useSelector((state) => state.light.value);
   //* state
-  const light = useSelector((state) => state.light.value);;
   const [searchText, setSearchText] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
   const [results, setResults] = useState([]);
@@ -51,7 +51,9 @@ function Navbar({ onCategoryChange, onSubcategoryChange }) {
   useEffect(() => {
     const handleResize = () => {
       const isMobile = window.matchMedia("(max-width: 1240px)").matches;
-
+console.log('====================================');
+console.log(isMobile);
+console.log('====================================');
       if (isMobile) {
         setImage(logo3);
       } else {
@@ -95,6 +97,9 @@ function Navbar({ onCategoryChange, onSubcategoryChange }) {
       try {
         await fetchCategories();
         const fetchedCategories = getCategories();
+        console.log('====================================');
+   
+        console.log('====================================');
         setCategories(fetchedCategories);
       } catch (error) {
         console.error(error);
@@ -152,7 +157,8 @@ function Navbar({ onCategoryChange, onSubcategoryChange }) {
       axios
         .get(baseURL + `/post/`)
         .then((response) => {
-          const results = response.data.filter((post) =>
+     
+          const results = response.data.posts.filter((post) =>
             post.title.toLowerCase().includes(value.toLowerCase())
           );
           setResults(results);
@@ -165,7 +171,7 @@ function Navbar({ onCategoryChange, onSubcategoryChange }) {
         .get(baseURL + `/post/category/${selectedValue}`)
         .then((response) => {
           console.log(response);
-          const results = response.data.filter((post) =>
+          const results = response.data.posts.filter((post) =>
             post.title.toLowerCase().includes(value.toLowerCase())
           );
           setResults(results);

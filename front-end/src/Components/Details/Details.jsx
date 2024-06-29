@@ -131,7 +131,7 @@ function Details() {
       .get(baseURL + `/post/category/${id}`)
       .then((response) => {
         // Traiter les données de la réponse
-        setPosts(response.data);
+        setPosts(response.data.posts);
       })
       .catch((error) => {
         // Gérer les erreurs

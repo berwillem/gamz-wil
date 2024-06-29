@@ -7,13 +7,15 @@ import Navbar from "../../Components/Navbar/Navbar";
 import Slider from "../../Components/Slider/Slider";
 import pubImg from "../../assets/images/pub.webp";
 import Footer from "../../Components/Footer/Footer";
-import Pagination from "../../Components/Pagination/Pagination";
+import { Pagination } from "@mui/material";
 import Ads from "../../Components/Ads/Ads";
 import "./Home.css";
 import TopSelll from "../../Components/TopSelll/TopSelll";
 import CategorySide from "../../Components/CategorySide/CategorySide";
 import { GetAllPosts } from "../../redux/reducers/Posts";
 import { loginSuccess } from "../../redux/reducers/Auth";
+import Post from "../../Components/Post/Post";
+import image from "../../assets/no-result-diadem.webp";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -74,6 +76,8 @@ function Home() {
   const [posts, setPosts] = useState([]);
   const [categoryId, setCategoryId] = useState(null);
   const [subcategoryId, setSubcategoryId] = useState(null);
+  const [page, SetPage] = useState(1);
+  const [totalPage, SetTotalPage] = useState(1);
 
   const handleCategoryChange = (categoryId) => {
     setCategoryId(categoryId);
@@ -84,18 +88,27 @@ function Home() {
   };
 
   useEffect(() => {
+  
+    SetPage(1)
+  }, [categoryId, subcategoryId]);
+  useEffect(() => {
     const fetchPosts = async () => {
       try {
-        let url = `${baseURL}/post/`;
+        let url = `${baseURL}/post?page=${page}`;
 
         if (categoryId) {
-          url = `${baseURL}/post/category/${categoryId}`;
+          url = `${baseURL}/post/category/${categoryId}?page=${page}/`;
         } else if (subcategoryId) {
-          url = `${baseURL}/post/subcategory/${subcategoryId}`;
+          url = `${baseURL}/post/subcategory/${subcategoryId}?page=${page}`;
         }
+      
 
         const res = await axios.get(url);
-        setPosts(res.data);
+        setPosts(res.data.posts);
+      
+        SetTotalPage(res.data.nbrPage)
+   
+     
         dispatch(GetAllPosts(res.data));
       } catch (err) {
         console.log(err);
@@ -103,7 +116,12 @@ function Home() {
     };
 
     fetchPosts();
-  }, [categoryId, subcategoryId]);
+  }, [categoryId, subcategoryId,page]);
+  
+  const handlePageChange = (event, value) => {
+    SetPage(value);
+    window.scrollTo({ behavior: "smooth", top: "400" });
+  };
 
   return (
     <div>
@@ -126,7 +144,44 @@ function Home() {
           }}
           ref={cardContainer3}
         >
-          <Pagination posts={posts} />
+         <div className="pagination-container">
+      <div id="pagination-title">
+        <p>Les annonces récentes</p>
+      </div>
+
+      {totalPage === 0 && <img src={image} alt="no post" />}
+
+      {totalPage > 0 && (
+        <>
+          <div className="dataContainer">
+            {posts.map((item, index) => (
+              <Post
+                key={index}
+                category={item.category.name}
+                img_post={item.images[0]}
+                name={item.title}
+                price={item.price}
+                id={item._id}
+              />
+            ))}
+          </div>
+
+          <Pagination   sx={{
+            padding:'30px 0',
+        '& .MuiPaginationItem-root': {
+          backgroundColor: 'red',
+          color: 'white',
+        },
+        '& .MuiPaginationItem-root:hover': {
+          backgroundColor: 'darkred',
+        },
+        '& .MuiPaginationItem-root.Mui-selected': {
+          backgroundColor: 'darkred',
+          color: 'white',
+        }, }}  count={totalPage} page={page} onChange={handlePageChange}  />
+        </>
+      )}
+    </div>
         </div>
       </div>
       <div className="home-bottom">
