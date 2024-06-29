@@ -125,7 +125,8 @@ function Details() {
     axios
       .get(`${baseURL}/post/category/${id}`)
       .then((response) => {
-        setPosts(response.data);
+        setPosts(response.data.posts);
+
       })
       .catch((error) => {
         console.error(error);
