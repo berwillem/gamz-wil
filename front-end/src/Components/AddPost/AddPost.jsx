@@ -13,7 +13,7 @@ const AddPost = () => {
     try {
       
       const fetchedCategories = await getCategories()
-      setCategories(fetchedCategories);
+      setCategories(fetchedCategories.data);
     } catch (error) {
       console.error(error);
     }

@@ -220,7 +220,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
     try {
       //TODO: Test it
       dispatch(createPostStart())
-      const response = await createPost(fd)
+      const response = await createPost(formData)
       dispatch(createPostSuccess(response.data))
       Swal.fire({
         icon: "success",
