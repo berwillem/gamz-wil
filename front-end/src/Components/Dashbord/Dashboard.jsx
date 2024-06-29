@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineDashboard, AiOutlineHome } from "react-icons/ai";
 import { CiUser } from "react-icons/ci";
 import DashboardCard from "../DashboardCard/DashboardCard";
@@ -7,22 +7,60 @@ import UsersList from "../Users_list/UsersList";
 import image from "../../assets/Svg/shape.svg";
 import { Link } from "react-router-dom";
 import DashboardCardStat from "../DashboardCard/DashboardCardStat";
+import axios from "axios";
+import Pagination from "@mui/material/Pagination";
 
-function Dashboard({ users, postCount, userCount }) {
-  // State for pagination
-  const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 15; // Number of users to display per page
+const baseURL = import.meta.env.VITE_BASE_URL;
 
-  // Calculate the index of the first and last user on the current page
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
-
-  // Function to handle page changes
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
+function Dashboard() {
+  const [postCount, setPostCount] = useState(0);
+  const [userCount, setUserCount] = useState(0);
+  const [users, setUsers] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [page, setPage] = useState(1);
+  const getUsers = async (page) => {
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const sessionId = user.sessionId;
+      const config = {
+        headers: {
+          "session-id": sessionId,
+        },
+      };
+      const res = await axios.get(`${baseURL}/user?page=${page}`, config);
+      setUsers(res.data.users);
+      setTotalPages(res.data.totalPages);
+    } catch (err) {
+      console.log(err);
+    }
   };
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
+  useEffect(() => {
+    getUsers(page);
+  }, [page]);
 
+  useEffect(() => {
+    axios
+      .get(baseURL + "/post/count")
+      .then((response) => {
+        setPostCount(response.data.count);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios
+      .get(baseURL + "/user/count")
+      .then((response) => {
+        setUserCount(response.data.count);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+  console.log(users);
   return (
     <div className="dashboard-container">
       <div className="dashboard_l">
@@ -92,41 +130,28 @@ function Dashboard({ users, postCount, userCount }) {
             <p>Users List</p>
           </div>
           <div className="dashboard_titles">
-            <li>No</li>
             <li>ID</li>
             <li>Date</li>
             <li>Name</li>
             <li>Email</li>
             <li>Action</li>
           </div>
-
           <div className="dashboard_users">
-            {currentUsers.map((item, index) => (
+            {users?.map((item, index) => (
               <UsersList
                 key={item._id}
                 name={item.username}
-                number={index + 1 + indexOfFirstUser}
                 id={item._id}
                 date={item.createdAt.slice(0, 10)}
                 email={item.email}
               />
             ))}
           </div>
-          <div className="pagination">
-            {/* Generate pagination buttons */}
-            {Array.from(
-              { length: Math.ceil(users.length / usersPerPage) },
-              (_, i) => (
-                <button
-                  key={i}
-                  onClick={() => paginate(i + 1)}
-                  className={currentPage === i + 1 ? "active" : ""}
-                >
-                  {i + 1}
-                </button>
-              )
-            )}
-          </div>
+          <Pagination
+            count={totalPages}
+            page={page}
+            onChange={handlePageChange}
+          />
         </div>
       </div>
     </div>

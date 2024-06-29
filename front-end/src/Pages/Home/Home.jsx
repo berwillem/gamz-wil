@@ -87,13 +87,11 @@ function Home({ isDarkMode }) {
     const fetchPosts = async () => {
       try {
         let url = `${baseURL}/post/`;
-
         if (categoryId) {
           url = `${baseURL}/post/category/${categoryId}`;
         } else if (subcategoryId) {
           url = `${baseURL}/post/subcategory/${subcategoryId}`;
         }
-
         const res = await axios.get(url);
         setPosts(res.data);
         dispatch(GetAllPosts(res.data));
