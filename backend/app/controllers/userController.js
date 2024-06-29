@@ -19,11 +19,16 @@ exports.deleteUserById = async (req, res) => {
 // get ALL users  :::
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.find();
-    res.send(users);
+    const page = req.query.page || 1;
+    const pageSize = 20;
+    const totalCount = await User.countDocuments();
+    const totalPages = Math.ceil(totalCount / pageSize);
+    const users = await User.find()
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
+    return res.status(200).json({ users, totalPages });
   } catch (error) {
-    console.error(error);
-    res.status(500).send({ error: "Server error" });
+    res.status(500).json({ error: error.message });
   }
 };
 

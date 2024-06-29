@@ -21,7 +21,7 @@ function TopSelll() {
       .get(baseURL + `/post/category/6473d62704ebb30a210eb4fa`)
       .then((response) => {
         // Traiter les données de la réponse
-        setPostsConsole(response.data);
+        setPostsConsole(response.data.posts);
       })
       .catch((error) => {
         // Gérer les erreurs
@@ -33,7 +33,7 @@ function TopSelll() {
       .get(baseURL + `/post/category/6473e00104ebb30a210eb656`)
       .then((response) => {
         // Traiter les données de la réponse
-        setPostsInformatique(response.data);
+        setPostsInformatique(response.data.posts);
       })
       .catch((error) => {
         // Gérer les erreurs
@@ -45,7 +45,7 @@ function TopSelll() {
       .get(baseURL + `/post/category/6473d58404ebb30a210eb48e`)
       .then((response) => {
         // Traiter les données de la réponse
-        setPostsTelephone(response.data);
+        setPostsTelephone(response.data.posts);
       })
       .catch((error) => {
         // Gérer les erreurs

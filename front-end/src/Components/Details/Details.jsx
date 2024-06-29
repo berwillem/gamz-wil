@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, useMemo } from "react";
-
 import "./Details.css";
 import { animateScroll as scroll } from "react-scroll";
 import { gsap } from "gsap";
@@ -15,22 +14,16 @@ const baseURL = import.meta.env.VITE_BASE_URL;
 import LightGallery from "lightgallery/react";
 import moment from "moment";
 import "moment/locale/fr";
-// import styles
 import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
 import "lightgallery/css/lg-thumbnail.css";
-
-// If you want you can use SCSS instead of css
 import "lightgallery/scss/lightgallery.scss";
 import "lightgallery/scss/lg-zoom.scss";
-
-// import plugins if you need
 import lgThumbnail from "lightgallery/plugins/thumbnail";
 import lgZoom from "lightgallery/plugins/zoom";
 import { getPost } from "../../services/Posts";
 
 function Details() {
-  // state
   const [post, setPost] = useState("");
   const [id, setId] = useState("");
   const [pricipalImage, setPricipalImage] = useState(notavalible);
@@ -43,8 +36,15 @@ function Details() {
   const [index3, setIndex3] = useState(2);
   const postId = location.pathname.split("/")[2];
   const [posts, setPosts] = useState([]);
-  const slicedData = useMemo(() => shuffleArray(posts).slice(0, 3), [posts]);
-  //function switch image
+
+  const filteredPosts = useMemo(
+    () => posts.filter((p) => p._id !== postId),
+    [posts, postId]
+  );
+  const slicedData = useMemo(
+    () => shuffleArray(filteredPosts).slice(0, 3),
+    [filteredPosts]
+  );
 
   useEffect(() => {
     switch (index) {
@@ -66,20 +66,20 @@ function Details() {
   }, [index]);
 
   function handelright() {
-    if (index == 2) {
+    if (index === 2) {
       setIndex(0);
     } else {
       setIndex(index + 1);
     }
   }
+
   function handelleft() {
-    if (index == 0) {
+    if (index === 0) {
       setIndex(2);
     } else {
       setIndex(index - 1);
     }
   }
-  //scrol
 
   useEffect(() => {
     const isMobile = window.matchMedia("(max-width: 480px)").matches;
@@ -88,19 +88,17 @@ function Details() {
     }
   }, []);
 
-  // api call :::
   const fetchPostDetails = async () => {
     try {
       setPricipalImage(notavalible);
       setSecondImage(notavalible);
       setThirdImage(notavalible);
+
       //TODO: test it
 
       const response = await getPost(postId);
+
       setPost(response.data);
-      setPricipalImage(notavalible);
-      setSecondImage(notavalible);
-      setThirdImage(notavalible);
       if (response.data.category) {
         setId(response.data.category._id);
       }
@@ -109,13 +107,11 @@ function Details() {
           response.data.images[0].url.replace("http://", "https://")
         );
       }
-
       if (response.data.images && response.data.images.length > 1) {
         setSecondImage(
           response.data.images[1].url.replace("http://", "https://")
         );
       }
-
       if (response.data.images && response.data.images.length > 2) {
         setThirdImage(
           response.data.images[2].url.replace("http://", "https://")
@@ -129,25 +125,25 @@ function Details() {
   useEffect(() => {
     fetchPostDetails();
   }, [postId]);
+
   useEffect(() => {
     axios
-      .get(baseURL + `/post/category/${id}`)
+      .get(`${baseURL}/post/category/${id}`)
       .then((response) => {
-        // Traiter les données de la réponse
-        setPosts(response.data);
+        setPosts(response.data.posts);
+
       })
       .catch((error) => {
-        // Gérer les erreurs
         console.error(error);
       });
   }, [id]);
-  //   style ::
 
   gsap.registerPlugin(ScrollTrigger);
 
   const cardContainer = useRef();
   const cardContainer2 = useRef();
   const cardContainer3 = useRef();
+
   useEffect(() => {
     gsap.to(cardContainer.current, {
       y: 0,
@@ -176,7 +172,6 @@ function Details() {
     });
   }, []);
 
-  // Fonction pour mélanger les éléments d'un tableau
   function shuffleArray(array) {
     const shuffledArray = [...array];
     for (let i = shuffledArray.length - 1; i > 0; i--) {
@@ -188,6 +183,7 @@ function Details() {
     }
     return shuffledArray;
   }
+
   const formattedDate = moment(post.createdAt).format("DD/MM/YYYY HH:mm");
 
   return (
@@ -214,33 +210,28 @@ function Details() {
               className="big-image"
               style={{ gridRow: "1 / 2", gridColumn: "1 / 3" }}
             >
-              {" "}
               <img src={imageslide[index]} alt="post-image" />
             </a>
-
             <a
               href={imageslide[index2]}
               className="sub-images"
-              le={{ gridRow: "2 / 3", gridColumn: "1 / 2" }}
+              style={{ gridRow: "2 / 3", gridColumn: "1 / 2" }}
             >
-              {" "}
               <img
                 src={imageslide[index2]}
                 alt="post-image"
                 className="images"
-                // Switch positions with the clicked sub-image
               />
             </a>
             <a
               href={imageslide[index3]}
               className="sub-images"
-              le={{ gridRow: "2 / 3", gridColumn: "2 / 3" }}
+              style={{ gridRow: "2 / 3", gridColumn: "2 / 3" }}
             >
               <img
                 src={imageslide[index3]}
                 alt="post-image"
                 className="images"
-                // Switch positions with the clicked sub-image
               />
             </a>
           </LightGallery>
@@ -253,47 +244,43 @@ function Details() {
               <p>{post.category.name}</p>
             </div>
           )}
-
           <div className="post-details-title">
             <p>{post.title}</p>
           </div>
           <div className="post-details-description">
-            <p> {post.description}</p>
+            <p>{post.description}</p>
           </div>
           <div className="post-details-price">
-            <p> Prix:{post.price} DA</p>
+            <p>Prix: {post.price} DA</p>
           </div>
           <div className="info">
             <li>
-              <strong>Date : {formattedDate}</strong>
+              <strong>Date: {formattedDate}</strong>
             </li>
             <li>
-              <strong>Etat : {post.etat}</strong>
+              <strong>Etat: {post.etat}</strong>
             </li>
             <li>
-              <strong>Wilaya : {post.wilaya}</strong>
+              <strong>Wilaya: {post.wilaya}</strong>
             </li>
             <li>
-              <strong>Numéro De Téléphone : 0{post.num}</strong>
+              <strong>Numéro De Téléphone: 0{post.num}</strong>
             </li>
           </div>
         </div>
       </div>
 
-      {/* related post section  */}
-      {slicedData ? (
+      {slicedData.length > 0 && (
         <div className="related-post" ref={cardContainer3}>
           <div className="related-title">
             <p>Annonces similaires</p>
           </div>
-          <div className="user-post ">
+          <div className="user-post">
             {slicedData.map((post) => (
-              <RelatedPost post={post} />
+              <RelatedPost post={post} key={post._id} />
             ))}
           </div>
         </div>
-      ) : (
-        ""
       )}
     </div>
   );
