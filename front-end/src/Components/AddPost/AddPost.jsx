@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import AddPostForm from "../AddPostForm/AddPostForm";
-import { fetchCategories, getCategories } from "../../Data/category";
 const baseURL = import.meta.env.VITE_BASE_URL;
 import axios from "axios";
+import { getCategories, getSubcategories } from "../../services/Category";
 
 const AddPost = () => {
   // states::
@@ -11,16 +11,17 @@ const AddPost = () => {
   //functions:
   const fetchData = async () => {
     try {
-      await fetchCategories();
-      const fetchedCategories = getCategories();
+      
+      const fetchedCategories = await getCategories()
       setCategories(fetchedCategories);
     } catch (error) {
       console.error(error);
     }
   };
   const fetchSubcategories = async (categoryId) => {
+    //TODO: Test it
     try {
-      const response = await axios.get(baseURL+`/category/${categoryId}`);
+      const response = await getSubcategories(categoryId)
       return response.data;
     } catch (error) {
       console.error(error);

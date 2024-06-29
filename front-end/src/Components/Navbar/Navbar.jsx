@@ -17,9 +17,9 @@ import { AiFillCaretDown } from "react-icons/ai";
 //import categoryes from "../../Data/category";
 import subCategoryes from "../../Data/subCategory";
 import axios from "axios";
-import { fetchCategories, getCategories } from "../../Data/category";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategory, setSubCategory } from "../../redux/reducers/filters";
+import { getCategories } from "../../services/Category";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
 function Navbar() {
@@ -95,9 +95,10 @@ function Navbar() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await fetchCategories();
-        const fetchedCategories = getCategories();
-        setCategories(fetchedCategories);
+        
+        const fetchedCategories = await getCategories()
+        console.log(fetchedCategories)
+        setCategories(fetchedCategories.data);
       } catch (error) {
         console.error(error);
       }

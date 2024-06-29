@@ -9,6 +9,9 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { options_state } from "../../Data/etat";
+import { createPost } from "../../services/Posts";
+import { useDispatch } from "react-redux";
+import { createPostFailure, createPostStart, createPostSuccess } from "../../redux/reducers/Posts";
 
 // needs befor :::
 const baseURL = import.meta.env.VITE_BASE_URL;
@@ -39,7 +42,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
   const [selectedSubCategory3, setSelectedSubCategory3] = useState([]);
   const [subcategories4, setSubcategories4] = useState([]);
   const [selectedSubCategory4, setSelectedSubCategory4] = useState([]);
-
+  
   // form states:
 
   const [title, setTitle] = useState("");
@@ -58,6 +61,8 @@ function AddPostForm({ categories, fetchSubcategories }) {
     const id = user ? user.id : null;
     setId(id);
   }, []);
+
+  const dispatch = useDispatch()
 
   // ***HANDELE FUNCTIONS ***
 
@@ -205,6 +210,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
     }
     formData.append("wilaya", wilaya);
     formData.append("etat", etat);
+    //FIXME: commune constante  
     formData.append("commune", "alger");
     formData.append("num", phone);
     formData.append("author", id);
@@ -212,9 +218,10 @@ function AddPostForm({ categories, fetchSubcategories }) {
     formData.append("images", otherImagesFile[0]);
     formData.append("images", otherImagesFile[1]);
     try {
-      const res = await axios.post(baseURL + `/post/create`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      //TODO: Test it
+      dispatch(createPostStart())
+      const response = await createPost(fd)
+      dispatch(createPostSuccess(response.data))
       Swal.fire({
         icon: "success",
         title: "Success",
@@ -228,6 +235,8 @@ function AddPostForm({ categories, fetchSubcategories }) {
         text: "connectez vous d'abord",
       });
       console.log(err);
+
+      dispatch(createPostFailure(err.message))
     } finally {
       setLoading(false);
     }

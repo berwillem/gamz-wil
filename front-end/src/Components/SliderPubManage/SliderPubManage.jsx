@@ -237,14 +237,8 @@ function SliderPubManage({ disp }) {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const sessionId = user.sessionId;
-      const config = {
-        headers: {
-          "session-id": sessionId,
-        },
-      };
-      const res = await axios.post(baseURL + "/pub", formData, config, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      //TODO: Test it
+      const res = await createPub(formData, sessionId)
 
       Swal.fire({
         icon: "success",

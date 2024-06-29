@@ -18,6 +18,7 @@ import { loginSuccess } from "../../redux/reducers/Auth";
 const baseURL = import.meta.env.VITE_BASE_URL;
 import subcategories from './../../Data/subCategory';
 import { setCategory, setSubCategory } from "../../redux/reducers/filters";
+import { getPosts, getPostsByCategory, getPostsBySubcategory } from "../../services/Posts";
 
 function Home() {
   const dispatch = useDispatch();
@@ -91,15 +92,17 @@ function Home() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        let url = `${baseURL}/post/`;
+        var res;
 
         if (categoryId) {
-          url = `${baseURL}/post/category/${categoryId}`;
+          res = await getPostsByCategory(categoryId)
         } else if (subcategoryId) {
-          url = `${baseURL}/post/subcategory/${subcategoryId}`;
+          res = await getPostsBySubcategory(subcategoryId)
+        }else{
+          res = await getPosts()
         }
-
-        const res = await axios.get(url);
+        //TODO: test it
+        
         setPosts(res.data);
         dispatch(GetAllPosts(res.data));
       } catch (err) {
