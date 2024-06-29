@@ -94,6 +94,7 @@ function Home() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
+
         let url = `${baseURL}/post?page=${page}`;
 
         if (categoryId) {
@@ -101,8 +102,6 @@ function Home() {
         } else if (subcategoryId) {
           url = `${baseURL}/post/subcategory/${subcategoryId}?page=${page}`;
         }
-      
-
         const res = await axios.get(url);
         setPosts(res.data.posts);
       
