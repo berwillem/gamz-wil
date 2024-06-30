@@ -16,7 +16,7 @@ export default function SliderPubManage() {
     {image:image,title:"title",seconde:{image:image2,title:"title"},third:{image:image3,title:"title"}}])
     const [pub2, setPub2] = useState([
       {image:image,title:"title",seconde:{image:image2,title:"title"},third:{image:image3,title:"title"}}])
-      console.log(pub);
+  
     const addSlide=()=>{
       setPub([...pub,{image:image,title:"title",seconde:{image:image2,title:"title"},third:{image:image3,title:"title"}}])
       setPub2([...pub2,{image:image,title:"title",seconde:{image:image2,title:"title"},third:{image:image3,title:"title"}}])

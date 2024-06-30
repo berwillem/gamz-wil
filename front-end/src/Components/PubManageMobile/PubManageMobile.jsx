@@ -113,7 +113,7 @@ export default function PubManageMobile() {
           </li>
           <li>
             <Link
-              to="/pub-manage-mobile"
+              to="/sidePub"
               style={{
                 display: "flex",
                 justifyContent: "space-between",
