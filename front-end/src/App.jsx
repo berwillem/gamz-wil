@@ -18,6 +18,7 @@ import Contact from "./Pages/Contact/Contact";
 import AuthCheck from "./Components/AuthChecker/AuthCheck";
 import { useSelector } from "react-redux";
 import MainLayout from "./Layout/MainLayout";
+import SidePub from "./Pages/SidePub/SidePub";
  // Importez votre layout
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
           <Route path="/dashboard" element={<AuthCheck component={Dashboard} />} />
           <Route path="/pub-manage" element={<AuthCheck component={PubManage} />} />
           <Route path="/pub-manage-mobile" element={<AuthCheck component={PubManageMobile} />} />
+          <Route path="/sidePub" element={<AuthCheck component={SidePub} />} />
         </Routes>
       </Suspense>
       {shouldDisplayMode && <Mode />}

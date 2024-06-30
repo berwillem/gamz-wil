@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { gsap, Power3 } from "gsap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Navbar from "../../Components/Navbar/Navbar";
 import Slider from "../../Components/Slider/Slider";
@@ -18,6 +18,9 @@ import Post from "../../Components/Post/Post";
 import image from "../../assets/no-result-diadem.webp";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
+import subcategories from './../../Data/subCategory';
+import { setCategory, setSubCategory } from "../../redux/reducers/filters";
+import { getPosts, getPostsByCategory, getPostsBySubcategory } from "../../services/Posts";
 
 function Home() {
   const dispatch = useDispatch();
@@ -74,17 +77,21 @@ function Home() {
 
   // states
   const [posts, setPosts] = useState([]);
-  const [categoryId, setCategoryId] = useState(null);
-  const [subcategoryId, setSubcategoryId] = useState(null);
+
+  const categoryId = useSelector((state)=> state.filters.category)
+  const subcategoryId = useSelector((state)=> state.filters.subcategory)
+
   const [page, SetPage] = useState(1);
   const [totalPage, SetTotalPage] = useState(1);
 
+
   const handleCategoryChange = (categoryId) => {
-    setCategoryId(categoryId);
+    console.log("category change called", categoryId);
+    dispatch(setCategory(categoryId));
   };
 
   const handleSubcategoryChange = (subcategoryId) => {
-    setSubcategoryId(subcategoryId);
+    dispatch(setSubCategory(subcategoryId));
   };
 
   useEffect(() => {
@@ -95,19 +102,26 @@ function Home() {
     const fetchPosts = async () => {
       try {
 
-        let url = `${baseURL}/post?page=${page}`;
+        var res;
 
         if (categoryId) {
-          url = `${baseURL}/post/category/${categoryId}?page=${page}/`;
+          res = await getPostsByCategory(categoryId, page)
         } else if (subcategoryId) {
-          url = `${baseURL}/post/subcategory/${subcategoryId}?page=${page}`;
+          res = await getPostsBySubcategory(subcategoryId, page)
+        }else{
+          res = await getPosts(page)
         }
-        const res = await axios.get(url);
+        //TODO: test it
+
+
+
+       
         setPosts(res.data.posts);
   
         SetTotalPage(res.data.nbrPage)
    
      
+
         dispatch(GetAllPosts(res.data));
       } catch (err) {
         console.log(err);

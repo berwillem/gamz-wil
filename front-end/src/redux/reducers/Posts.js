@@ -37,6 +37,7 @@ export const { createPostStart, GetAllPosts,createPostSuccess, createPostFailure
 export const createPost = (postData) => async (dispatch) => {
   try {
     dispatch(createPostStart());
+    //TODO: test it
     const response = await axios.post(baseURL+'/post/create', postData);
     dispatch(createPostSuccess(response.data));
   } catch (error) {

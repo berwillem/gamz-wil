@@ -169,21 +169,26 @@ exports.getPostById = async (req, res) => {
 };
 exports.getAllPosts = async (req, res) => {
   try {
-    const page=req.query.page||1;
-    const pageSize=12;
+    const page = req.query.page || 1;
+    const pageSize = 12;
     const nbrposts = await Post.countDocuments();
-    const nbrPage=Math.ceil(nbrposts/pageSize)
+    const nbrPage = Math.ceil(nbrposts / pageSize);
     const userId = req.query.userId;
     let posts;
     if (userId) {
       posts = await Post.find({ user: userId })
         .sort({ date: -1 })
-        .populate("category", "name").skip((page-1)*pageSize).limit(12);
-        
+        .populate("category", "name")
+        .skip((page - 1) * pageSize)
+        .limit(12);
     } else {
-      posts = await Post.find().sort({ date: -1 }).populate("category", "name").skip((page-1)*pageSize).limit(12);;
+      posts = await Post.find()
+        .sort({ date: -1 })
+        .populate("category", "name")
+        .skip((page - 1) * pageSize)
+        .limit(12);
     }
-    res.json({posts,nbrPage});
+    res.json({ posts, nbrPage });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -200,13 +205,15 @@ exports.getPostCount = async (req, res) => {
 exports.getPostsByCategoryId = async (req, res) => {
   try {
     const categoryId = req.params.categoryId;
-    const page=req.query.page||1;
-    const pageSize=12;
+    const page = req.query.page || 1;
+    const pageSize = 12;
     const nbrposts = await Post.countDocuments({ category: categoryId });
-    const nbrPage=Math.ceil(nbrposts/pageSize)
+    const nbrPage = Math.ceil(nbrposts / pageSize);
 
-    const posts = await Post.find({ category: categoryId }).skip((page-1)*pageSize).limit(pageSize);
-    res.json({posts,nbrPage});
+    const posts = await Post.find({ category: categoryId })
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
+    res.json({ posts, nbrPage });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -215,17 +222,57 @@ exports.getPostsByCategoryId = async (req, res) => {
 exports.getPostsBySubcategory = async (req, res) => {
   try {
     const subcategoryId = req.params.subcategoryId;
-    const page=req.query.page||1;
-    const pageSize=12;
-    const nbrposts = await Post.countDocuments({subcategories: subcategoryId,});
-    const nbrPage=Math.ceil(nbrposts/pageSize)
-   
+    const page = req.query.page || 1;
+    const pageSize = 12;
+    const nbrposts = await Post.countDocuments({
+      subcategories: subcategoryId,
+    });
+    const nbrPage = Math.ceil(nbrposts / pageSize);
+
     const posts = await Post.find({
       subcategories: subcategoryId,
     })
       .populate("author", "username avatar")
-      .populate("category", "name").skip((page-1)*pageSize).limit(pageSize);
-    res.json({posts,nbrPage});
+      .populate("category", "name")
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
+    res.json({ posts, nbrPage });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+exports.getPostsCountByCategory = async (req, res) => {
+  try {
+    const counts = await Post.aggregate([
+      {
+        $group: {
+          _id: "$category",
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "_id",
+          foreignField: "_id",
+          as: "category",
+        },
+      },
+      {
+        $unwind: "$category",
+      },
+      {
+        $project: {
+          _id: 0,
+          categoryId: "$category._id",
+          categoryName: "$category.name",
+          count: 1,
+        },
+      },
+    ]);
+
+    res.status(200).json(counts);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
