@@ -7,6 +7,7 @@ let categories = [];
 
 export const fetchCategories = async () => {
   try {
+    //TODO: test it
     const response = await axios.get(baseURL+'/category');
     categories = response.data;
     return categories;

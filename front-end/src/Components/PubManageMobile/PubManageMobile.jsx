@@ -5,6 +5,7 @@ import image2 from "../../assets/images/SMALL1.webp"
 import image3 from "../../assets/images/SMALL2.webp"
 import "./PubManageMobile.css"
 import iphone from "../../assets/images/iphone.webp";
+
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -20,53 +21,53 @@ export default function PubManageMobile() {
     const addSlide=()=>{
       setPub([...pub,{image:image,title:"title",seconde:{image:image2,title:"title"},third:{image:image3,title:"title"}}])
       setPub2([...pub2,{image:image,title:"title",seconde:{image:image2,title:"title"},third:{image:image3,title:"title"}}])
-    }
 
+    }
 
     const deletePub = (index) => {
       setPub(pub.filter((_, i) => i !== index));
       setPub2(pub2.filter((_, i) => i !== index));
     };
-    const handleFileChange = (index, type, subIndex, event) => {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const newPub = [...pub];
-          const newPub2 = [...pub2];
-          if (type === 'main') {
-            newPub[index].image = reader.result;
-            newPub2[index].image = file;
-          } else if (type === 'seconde') {
-            newPub[index].seconde.image = reader.result;
-            newPub2[index].seconde.image = file;
-          } else if (type === 'third') {
-            newPub[index].third.image = reader.result;
-            newPub2[index].third.image = file;
-          }
-          setPub(newPub);
-          setPub2(newPub2);
-        };
-        reader.readAsDataURL(file);
-      }
-    };
-    const handleTitleChange = (index, type, event) => {
-      const newPub = [...pub];
-      const newPub2 = [...pub2];
-      if (type === 'main') {
-        newPub[index].title = event.target.value;
-        newPub2[index].title = event.target.value;
-      } else if (type === 'seconde') {
-        newPub[index].seconde.title = event.target.value;
-        newPub2[index].seconde.title = event.target.value;
-      } else if (type === 'third') {
-        newPub[index].third.title = event.target.value;
-        newPub2[index].third.title = event.target.value;
-      }
-      setPub(newPub);
-      setPub2(newPub2);
-    };
- 
+
+
+    const formData = new FormData();
+    formData.append("pub", requestData.pub[0]);
+    formData.append("pub", requestData.pub[1]);
+    formData.append("pub", requestData.pub[2]);
+    formData.append("title", requestData.title);
+    formData.append("redirectUrls", JSON.stringify(requestData.redirectUrls));
+    formData.append("cardOne[title]", requestData.cardOne.title);
+    formData.append("cardOneImage", requestData.cardOne.cardOneImage);
+    formData.append("cardOne[redirect]", requestData.cardOne.redirect);
+    formData.append("cardTwo[title]", requestData.cardTwo.title);
+    formData.append("cardTwoImage", requestData.cardTwo.cardTwoImage);
+    formData.append("cardTwo[redirect]", requestData.cardTwo.redirect);
+
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const sessionId = user.sessionId;
+      
+      //TODO: test it
+      const res = await createPubMobil(formData, sessionId);
+
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Your request has been submitted successfully!",
+      });
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Error occurred while submitting the request",
+      });
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
   return (
     <div className="dashboard-container">
 

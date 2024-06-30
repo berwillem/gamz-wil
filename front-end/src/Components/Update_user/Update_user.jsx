@@ -7,6 +7,7 @@ import bannerImage from "../../assets/images/banner.webp";
 import Swal from "sweetalert2";
 import { AiFillEdit } from "react-icons/ai";
 import loader from "../../assets/images/loader.gif";
+import { updateUser } from "../../services/User";
 const baseURL = import.meta.env.VITE_BASE_URL;
 function Update_user() {
   const navigate = useNavigate();
@@ -67,9 +68,8 @@ function Update_user() {
     formData.append("banner", bannerFile);
 
     try {
-      const res = await axios.put(baseURL + `/user/`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      //TODO: Test it
+      const res = await updateUser(formData);
 
       // Update the user object with the new values
       user.avatar.url = res.data.avatar.url;

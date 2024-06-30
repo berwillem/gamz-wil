@@ -67,6 +67,7 @@ export default function SliderPubManage() {
       setPub2(newPub2);
     };
  
+
   return (
     <div className="dashboard-container">
 

@@ -48,13 +48,11 @@ exports.createPubMobil = async (req, res) => {
 
 exports.getPubMobil = async (req, res) => {
   try {
-    // Find the pub document
     const pub = await pubmobil.findOne();
-
     if (!pub) {
       return res.status(404).json({ message: "Pub not found" });
     }
-
+    res.set("Cache-Control", "public, max-age=7200");
     res.status(200).json(pub);
   } catch (err) {
     res.status(500).json({ message: err.message });

@@ -47,13 +47,8 @@ const sessionMiddleware = async (req, res, next) => {
     // Find the session in the database
     const session = await Session.findOne({ sessionId });
 
-    if (!session) {
-      return sendError(res, "Invalid session!");
-    }
-
-    // Check if the session has expired
-    if (session.expiresAt < Date.now()) {
-      return sendError(res, "Session has expired!");
+    if (!session || session.expiresAt < Date.now()) {
+      return res.status(401).send("Invalid session!");
     }
 
     // Attach the user information to the request object
