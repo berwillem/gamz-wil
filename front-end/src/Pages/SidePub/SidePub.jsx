@@ -22,7 +22,7 @@ export default function SidePub() {
         const newPub = [...pub];
         const newPub2 = [...pub2];
         newPub[index].image = reader.result;
-        newPub[index].image = file;
+        newPub2[index].image = file;
         setPub(newPub);
         setPub2(newPub2);
       };
