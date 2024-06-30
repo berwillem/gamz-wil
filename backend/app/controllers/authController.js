@@ -4,12 +4,7 @@ const User = require("../models/User");
 const Session = require("../models/Session");
 const { v4: uuidv4 } = require("uuid");
 const ResetToken = require("../models/resetPassword");
-const { isValidObjectId } = require("mongoose");
-const {
-  generateOTP,
-  emailTamplate,
-  emailTamplate2,
-} = require("../helpers/mail");
+const { emailTamplate2 } = require("../helpers/mail");
 require("dotenv").config();
 const SibApiV3Sdk = require("sib-api-v3-sdk");
 SibApiV3Sdk.ApiClient.instance.authentications["api-key"].apiKey =

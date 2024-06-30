@@ -5,11 +5,12 @@ import DashboardCard from "../DashboardCard/DashboardCard";
 import "./Dashboard.css";
 import UsersList from "../Users_list/UsersList";
 import image from "../../assets/Svg/shape.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DashboardCardStat from "../DashboardCard/DashboardCardStat";
 import axios from "axios";
 import Pagination from "@mui/material/Pagination";
-
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/reducers/Auth";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
 function Dashboard() {
@@ -18,6 +19,9 @@ function Dashboard() {
   const [users, setUsers] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const getUsers = async (page) => {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
@@ -31,7 +35,10 @@ function Dashboard() {
       setUsers(res.data.users);
       setTotalPages(res.data.totalPages);
     } catch (err) {
-      console.log(err);
+      if (err.response.status === 401) {
+        dispatch(logout());
+        navigate("/");
+      }
     }
   };
   const handlePageChange = (event, value) => {
