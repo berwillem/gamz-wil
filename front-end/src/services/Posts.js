@@ -23,3 +23,6 @@ export const getPostsBySubcategory = async (subcategoryId, page) => {
 export const getPostsBycategoryCount = async () => {
   return axios.get(`${baseURL}/post/category/count`);
 };
+export const getArchive = async () => {
+  return axios.post(`${baseURL}/post/archive`);
+};

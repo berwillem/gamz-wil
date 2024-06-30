@@ -25,6 +25,9 @@
 flex-direction: column;
 align-items: center;
 justify-content: flex-end;
+height: 100%;
+padding:50px 0 ;
+gap: 10px;
 
 }
 .mobil .info_rights{
@@ -34,6 +37,9 @@ padding: 0%;
 
 }
 .mobil .delete{
+ top: 15PX;
+}
+.mobil .linkIcon{
  top: 15PX;
 }
 
