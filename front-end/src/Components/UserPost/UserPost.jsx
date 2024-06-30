@@ -90,6 +90,9 @@ function UserPost({ posts, owner }) {
     const sessionId = user.sessionId;
     const isAdmin = user.isAdmin;
     const config = {
+      params:{
+        reason: selectedValue
+      },
       headers: {
         "session-id": sessionId,
         "is-admin": isAdmin,
@@ -177,13 +180,13 @@ function UserPost({ posts, owner }) {
             id="vendu avec gamz"
             name="options"
             required
-            value="vendu avec gamz"
-            checked={selectedValue === 'vendu avec gamz'}
+            value="sold_in"
+            checked={selectedValue === 'sold_in'}
             onChange={handleRadioChange}
           />
           <label htmlFor="vendu avec gamz">vendu avec gamz</label>
         </div>
-        <div>
+        {/* <div>
           <input
             type="radio"
             id="je veux plus le vendre"
@@ -194,14 +197,14 @@ function UserPost({ posts, owner }) {
             required
           />
           <label htmlFor="opje veux plus le vendretion2">je veux plus le vendre</label>
-        </div>
+        </div> */}
         <div>
           <input
             type="radio"
             id="vendu autres part"
             name="options"
-            value="vendu autres part"
-            checked={selectedValue === 'vendu autres part'}
+            value="sold_out"
+            checked={selectedValue === 'sold_out'}
             onChange={handleRadioChange}
             required
           />
@@ -212,8 +215,8 @@ function UserPost({ posts, owner }) {
             type="radio"
             id="autres"
             name="options"
-            value="autres"
-            checked={selectedValue === 'autres'}
+            value="other"
+            checked={selectedValue === 'other'}
             onChange={handleRadioChange}  required
           />
           <label htmlFor="autres">autres</label>
