@@ -54,9 +54,6 @@ function Navbar() {
   useEffect(() => {
     const handleResize = () => {
       const isMobile = window.matchMedia("(max-width: 1240px)").matches;
-      console.log("====================================");
-      console.log(isMobile);
-      console.log("====================================");
       if (isMobile) {
         setImage(logo3);
       } else {
