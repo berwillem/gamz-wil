@@ -1,0 +1,30 @@
+.side{
+   
+  
+    justify-content: center;
+    align-items: center;
+
+}
+.pubCrad{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+.side .Ads-container{
+ height: 300px;
+ display: block !important;
+ position: relative;
+
+}
+.side .Ads-container img{
+object-fit: cover;
+
+}
+.sid {
+position: absolute;
+height: 100%;
+width: 100%;
+top: 0%;
+left: 0;
+opacity: 0;
+}
