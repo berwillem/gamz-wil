@@ -16,6 +16,7 @@ const {
 router.get("/", sessionMiddleware, getAllUsers);
 
 // GET user count
+//TODO: Secure this route, info ta3 admin hadi
 router.get("/count", getUserCount);
 
 // GET user by ID
