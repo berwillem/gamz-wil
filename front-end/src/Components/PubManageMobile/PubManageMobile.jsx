@@ -27,7 +27,7 @@ export default function PubManageMobile() {
       setPub(pub.filter((_, i) => i !== index));
       setPub2(pub2.filter((_, i) => i !== index));
     };
-    const handleFileChange = (index, type, event) => {
+    const handleFileChange = (index, type, subIndex, event) => {
       const file = event.target.files[0];
       if (file) {
         const reader = new FileReader();
@@ -113,7 +113,7 @@ export default function PubManageMobile() {
           </li>
           <li>
             <Link
-              to="/sidePub"
+              to="/pub-manage-mobile"
               style={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -134,7 +134,7 @@ export default function PubManageMobile() {
       <button >valider le slide</button>
       </div>
      <div className="iphoneContent">
-     <img className='iphone' src={iphone} alt="" />
+       <img className='iphone' src={iphone} alt="" />
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper mobil">
        {pub.map((pub,index)=>(
          <SwiperSlide key={index}>

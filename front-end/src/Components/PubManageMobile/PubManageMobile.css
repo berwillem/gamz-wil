@@ -17,8 +17,8 @@
   justify-content: center;
 }
 .mobil{
-  width: 290px;
-  height: 600px;
+  width: 297px;
+  height: 607px;
 
 }
 .mobil .infos{
@@ -34,6 +34,6 @@ padding: 0%;
 
 }
 .mobil .delete{
- top: 10PX;
+ top: 15PX;
 }
 
