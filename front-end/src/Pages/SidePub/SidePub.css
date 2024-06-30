@@ -11,18 +11,21 @@
     justify-content: center;
 }
 .side .Ads-container{
- height: 300px;
- display: block !important;
+ height: auto;
+ display: flex !important;
  position: relative;
+align-items: center;
+flex-direction: column;
 
 }
 .side .Ads-container img{
 object-fit: cover;
+height: 300px;
 
 }
 .sid {
 position: absolute;
-height: 100%;
+height: 300px;
 width: 100%;
 top: 0%;
 left: 0;

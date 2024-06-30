@@ -186,7 +186,7 @@ function Dashboard() {
                       cornerRadius: 5,
                     },
                   ]}
-                  width={300}
+                  width={700}
                   height={200}
                 />
               </div>

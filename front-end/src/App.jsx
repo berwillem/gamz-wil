@@ -24,8 +24,8 @@ import SidePub from "./Pages/SidePub/SidePub";
 function App() {
   const light = useSelector((state) => state.light.value);
   const location = useLocation();
-  const excludePaths = ["/pub-manage", "/pub-manage-mobile", "/dashboard"];
-  const shouldDisplayMode = !excludePaths.includes(location.pathname);
+  const excludePaths = ["/pub-manage", "/pub-manage-mobile", "/dashboard","/sidePub"];
+  const shouldDisplayMode = !excludePaths.includes(location.pathname.toLowerCase());
 
   return (
     <div
