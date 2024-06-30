@@ -201,6 +201,7 @@ function Dashboard() {
                   { data: otherData, label: "Other" },
                 ]}
                 xAxis={[{ scaleType: "point", data: xLabels }]}
+                yAxis={[{ min: 0 }]}
               />
             </div>
           </div>
