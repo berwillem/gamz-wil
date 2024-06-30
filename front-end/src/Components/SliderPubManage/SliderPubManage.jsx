@@ -17,6 +17,7 @@ export default function SliderPubManage() {
     const [pub2, setPub2] = useState([
       {image:image,title:"title",seconde:{image:image2,title:"title"},third:{image:image3,title:"title"}}])
     const addSlide=()=>{
+    
       setPub([...pub,{image:image,title:"title",seconde:{image:image2,title:"title"},third:{image:image3,title:"title"}}])
       setPub2([...pub2,{image:image,title:"title",seconde:{image:image2,title:"title"},third:{image:image3,title:"title"}}])
     }
@@ -26,7 +27,7 @@ export default function SliderPubManage() {
       setPub(pub.filter((_, i) => i !== index));
       setPub2(pub2.filter((_, i) => i !== index));
     };
-    const handleFileChange = (index, type, subIndex, event) => {
+    const handleFileChange = (index, type, event) => {
       const file = event.target.files[0];
       if (file) {
         const reader = new FileReader();
@@ -73,7 +74,7 @@ export default function SliderPubManage() {
         <div className="user-l-dashboard">
           <li>
             <Link
-              to="/"
+              to="/Dashboard"
               style={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -112,7 +113,7 @@ export default function SliderPubManage() {
           </li>
           <li>
             <Link
-              to="/pub-manage-mobile"
+              to="/sidePub"
               style={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -129,7 +130,7 @@ export default function SliderPubManage() {
       </div>
       <form className="user_dashboard_right">
       <div className="btn">
-      <button onClick={addSlide}>addSlide</button>
+      <button type='button' onClick={addSlide}>addSlide</button>
       <button >valider le slide</button>
       </div>
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
