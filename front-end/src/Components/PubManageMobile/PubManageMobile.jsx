@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import image from "../../assets/images.png";
+import image from "../../assets/images/banner.webp";
 import image2 from "../../assets/images/SMALL1.webp";
 import image3 from "../../assets/images/SMALL2.webp";
 import "./PubManageMobile.css";
@@ -12,31 +12,60 @@ import { Navigation } from "swiper/modules";
 import { AiOutlineDashboard, AiOutlineHome } from "react-icons/ai";
 import { CiUser } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import Modal from "@mui/material/Modal";
+import { Box, Typography } from "@mui/material";
+import { FaLink } from "react-icons/fa";
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  p: 4,
+  borderRadius: "10px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "10px",
+};
 export default function PubManageMobile() {
+  const [open, setOpen] = useState(false);
+  const [linkType, setLinkType] = useState({ index: null, type: null });
+  const handleOpen = (index, type) => {
+    setLinkType({ index, type });
+    setOpen(true);
+  };
+
+  const handleClose = () => setOpen(false);
   const [pub, setPub] = useState([
     {
       image: image,
       title: "title",
-      seconde: { image: image2, title: "title" },
-      third: { image: image3, title: "title" },
+      link: "",
+      seconde: { image: image2, title: "title", link: "" },
+      third: { image: image3, title: "title", link: "" },
     },
   ]);
   const [pub2, setPub2] = useState([
     {
       image: image,
       title: "title",
-      seconde: { image: image2, title: "title" },
-      third: { image: image3, title: "title" },
+      link: "",
+      seconde: { image: image2, title: "title", link: "" },
+      third: { image: image3, title: "title", link: "" },
     },
   ]);
+
   const addSlide = () => {
     setPub([
       ...pub,
       {
         image: image,
         title: "title",
-        seconde: { image: image2, title: "title" },
-        third: { image: image3, title: "title" },
+        link: "",
+        seconde: { image: image2, title: "title", link: "" },
+        third: { image: image3, title: "title", link: "" },
       },
     ]);
     setPub2([
@@ -44,8 +73,9 @@ export default function PubManageMobile() {
       {
         image: image,
         title: "title",
-        seconde: { image: image2, title: "title" },
-        third: { image: image3, title: "title" },
+        link: "",
+        seconde: { image: image2, title: "title", link: "" },
+        third: { image: image3, title: "title", link: "" },
       },
     ]);
   };
@@ -93,9 +123,38 @@ export default function PubManageMobile() {
     setPub(newPub);
     setPub2(newPub2);
   };
+  const handleLinkChange = (event) => {
+    const { index, type } = linkType;
+    const newPub = [...pub];
+    const newPub2 = [...pub2];
+    if (type === "main") {
+      newPub[index].link = event.target.value;
+      newPub2[index].link = event.target.value;
+    } else if (type === "seconde") {
+      newPub[index].seconde.link = event.target.value;
+      newPub2[index].seconde.link = event.target.value;
+    } else if (type === "third") {
+      newPub[index].third.link = event.target.value;
+      newPub2[index].third.link = event.target.value;
+    }
+    setPub(newPub);
+    setPub2(newPub2);
+  };
 
   return (
-    <div className="dashboard-container ">
+    <div className="dashboard-container">
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className="boxModel" sx={style}>
+          <label htmlFor="">Enter votre Url</label>
+          <input type="text" id="link-input" onChange={handleLinkChange} />
+          <button onClick={handleClose}>Valid</button>
+        </Box>
+      </Modal>
       <div className="dashboard_l">
         <div className="user-l-dashboard">
           <li>
@@ -168,6 +227,10 @@ export default function PubManageMobile() {
           >
             {pub.map((pub, index) => (
               <SwiperSlide key={index}>
+                <FaLink
+                  className="linkIcon"
+                  onClick={() => handleOpen(index, "main")}
+                />
                 <input
                   type="file"
                   className="bigimage"
@@ -185,10 +248,14 @@ export default function PubManageMobile() {
                       onChange={(e) => handleTitleChange(index, "main", e)}
                       placeholder="Main Title"
                     />
+                    <button className="btnPlus">En savoir plus !</button>
                   </div>
                   <div className="info_rights">
                     <div className="div">
-                      {" "}
+                      <FaLink
+                        className="linkIcon"
+                        onClick={() => handleOpen(index, "seconde")}
+                      />
                       <img src={pub.seconde.image} alt="" />{" "}
                       <input
                         type="file"
@@ -204,6 +271,10 @@ export default function PubManageMobile() {
                     </div>
 
                     <div className="div">
+                      <FaLink
+                        className="linkIcon"
+                        onClick={() => handleOpen(index, "third")}
+                      />
                       <img src={pub.third.image} alt="" />
                       <input
                         type="file"

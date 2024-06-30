@@ -1,100 +1,131 @@
-import React, { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "./SliderPubManage.css";
-import image from "../../assets/images.png";
-import image2 from "../../assets/images/SMALL1.webp";
-import image3 from "../../assets/images/SMALL2.webp";
+import React, { useState } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react';
+import "./SliderPubManage.css"
+import image from "../../assets/images/banner.webp"
+import image2 from "../../assets/images/SMALL1.webp"
+import image3 from "../../assets/images/SMALL2.webp"
+import { FaLink } from "react-icons/fa";
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { Navigation } from 'swiper/modules';
 import { AiOutlineDashboard, AiOutlineHome } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import Modal from '@mui/material/Modal';
+import { Box, Typography } from '@mui/material';
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  p: 4,
+  borderRadius:"10px",
+  display:"flex",
+  flexDirection:"column",
+  alignItems:"center",
+  gap:"10px"
+};
+
 export default function SliderPubManage() {
+  const [open, setOpen] = useState(false);
+  const [linkType, setLinkType] = useState({ index: null, type: null });
+  const handleOpen = (index, type) => {
+    setLinkType({ index, type });
+    setOpen(true);
+  };
+
+  const handleClose = () => setOpen(false);
   const [pub, setPub] = useState([
-    {
-      image: image,
-      title: "title",
-      seconde: { image: image2, title: "title" },
-      third: { image: image3, title: "title" },
-    },
+    { image: image, title: "title", link: '', seconde: { image: image2, title: "title", link: '' }, third: { image: image3, title: "title", link: '' } }
   ]);
   const [pub2, setPub2] = useState([
-    {
-      image: image,
-      title: "title",
-      seconde: { image: image2, title: "title" },
-      third: { image: image3, title: "title" },
-    },
+    { image: image, title: "title", link: '', seconde: { image: image2, title: "title", link: '' }, third: { image: image3, title: "title", link: '' } }
   ]);
 
   const addSlide = () => {
-    setPub([
-      ...pub,
-      {
-        image: image,
-        title: "title",
-        seconde: { image: image2, title: "title" },
-        third: { image: image3, title: "title" },
-      },
-    ]);
-    setPub2([
-      ...pub2,
-      {
-        image: image,
-        title: "title",
-        seconde: { image: image2, title: "title" },
-        third: { image: image3, title: "title" },
-      },
-    ]);
+    setPub([...pub, { image: image, title: "title", link: '', seconde: { image: image2, title: "title", link: '' }, third: { image: image3, title: "title", link: '' } }]);
+    setPub2([...pub2, { image: image, title: "title", link: '', seconde: { image: image2, title: "title", link: '' }, third: { image: image3, title: "title", link: '' } }]);
   };
 
-  const deletePub = (index) => {
-    setPub(pub.filter((_, i) => i !== index));
-    setPub2(pub2.filter((_, i) => i !== index));
-  };
-  const handleFileChange = (index, type, subIndex, event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const newPub = [...pub];
-        const newPub2 = [...pub2];
-        if (type === "main") {
-          newPub[index].image = reader.result;
-          newPub2[index].image = file;
-        } else if (type === "seconde") {
-          newPub[index].seconde.image = reader.result;
-          newPub2[index].seconde.image = file;
-        } else if (type === "third") {
-          newPub[index].third.image = reader.result;
-          newPub2[index].third.image = file;
-        }
-        setPub(newPub);
-        setPub2(newPub2);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-  const handleTitleChange = (index, type, event) => {
-    const newPub = [...pub];
-    const newPub2 = [...pub2];
-    if (type === "main") {
-      newPub[index].title = event.target.value;
-      newPub2[index].title = event.target.value;
-    } else if (type === "seconde") {
-      newPub[index].seconde.title = event.target.value;
-      newPub2[index].seconde.title = event.target.value;
-    } else if (type === "third") {
-      newPub[index].third.title = event.target.value;
-      newPub2[index].third.title = event.target.value;
-    }
-    setPub(newPub);
-    setPub2(newPub2);
-  };
-
+  
+    const deletePub = (index) => {
+      setPub(pub.filter((_, i) => i !== index));
+      setPub2(pub2.filter((_, i) => i !== index));
+    };
+    const handleFileChange = (index, type, subIndex, event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const newPub = [...pub];
+          const newPub2 = [...pub2];
+          if (type === 'main') {
+            newPub[index].image = reader.result;
+            newPub2[index].image = file;
+          } else if (type === 'seconde') {
+            newPub[index].seconde.image = reader.result;
+            newPub2[index].seconde.image = file;
+          } else if (type === 'third') {
+            newPub[index].third.image = reader.result;
+            newPub2[index].third.image = file;
+          }
+          setPub(newPub);
+          setPub2(newPub2);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    const handleTitleChange = (index, type, event) => {
+      const newPub = [...pub];
+      const newPub2 = [...pub2];
+      if (type === 'main') {
+        newPub[index].title = event.target.value;
+        newPub2[index].title = event.target.value;
+      } else if (type === 'seconde') {
+        newPub[index].seconde.title = event.target.value;
+        newPub2[index].seconde.title = event.target.value;
+      } else if (type === 'third') {
+        newPub[index].third.title = event.target.value;
+        newPub2[index].third.title = event.target.value;
+      }
+      setPub(newPub);
+      setPub2(newPub2);
+    };
+    const handleLinkChange = (event) => {
+      const { index, type } = linkType;
+      const newPub = [...pub];
+      const newPub2 = [...pub2];
+      if (type === 'main') {
+        newPub[index].link = event.target.value;
+        newPub2[index].link = event.target.value;
+      } else if (type === 'seconde') {
+        newPub[index].seconde.link = event.target.value;
+        newPub2[index].seconde.link = event.target.value;
+      } else if (type === 'third') {
+        newPub[index].third.link = event.target.value;
+        newPub2[index].third.link = event.target.value;
+      }
+      setPub(newPub);
+      setPub2(newPub2);
+    };
   return (
-    <div className="dashboard-container">
+    <div className="dashboard-container dash-pub">
+
+<Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+      <Box className='boxModel' sx={style}>
+        <label htmlFor="">Enter votre Url</label>
+        <input type="text" id="link-input" onChange={handleLinkChange} />
+        <button onClick={handleClose}>Valid</button>
+        </Box>
+      </Modal>
+      <form className="user_dashboard_right">
       <div className="dashboard_l">
         <div className="user-l-dashboard">
           <li>
@@ -145,73 +176,71 @@ export default function SliderPubManage() {
                 width: "100%",
               }}
             >
-              side pub management
+              side pub management 
               <AiOutlineDashboard />
             </Link>
           </li>
+      
         </div>
+       
       </div>
-      <form className="user_dashboard_right">
-        <div className="btn">
-          <button type="button" onClick={addSlide}>
-            addSlide
-          </button>
-          <button>valider le slide</button>
-        </div>
-        <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
-          {pub.map((pub, index) => (
-            <SwiperSlide key={index}>
-              <input
-                type="file"
-                className="bigimage"
-                onChange={(e) => handleFileChange(index, "main", null, e)}
-              />
-              <span onClick={() => deletePub(index)} className="delete">
-                delete
-              </span>
-              <img src={pub.image} alt="" />
-              <div className="infos">
-                <div className="info_lefts">
-                  <input
-                    type="text"
-                    value={pub.title}
-                    onChange={(e) => handleTitleChange(index, "main", e)}
+    
+      <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
+       {pub.map((pub,index)=>(
+         <SwiperSlide key={index}>
+           <FaLink className="linkIcon" onClick={() => handleOpen(index, 'main')} />
+         <input type="file" className='bigimage' onChange={(e) => handleFileChange(index, 'main', null, e)} />
+          <span onClick={()=>deletePub(index)} className='delete'>delete</span>
+          <img src={pub.image} alt="" />
+            <div className="infos">
+          <div className="info_lefts">
+          <input 
+                    type="text" 
+                    value={pub.title} 
+                    onChange={(e) => handleTitleChange(index, 'main', e)} 
                     placeholder="Main Title"
                   />
-                </div>
-                <div className="info_rights">
-                  <div className="div">
-                    {" "}
-                    <img src={pub.seconde.image} alt="" />{" "}
-                    <input
-                      type="file"
-                      onChange={(e) => handleFileChange(index, "seconde", 0, e)}
+                    <button className='btnPlus' >En savoir plus !</button>
+          </div>
+          <div className="info_rights">
+        
+          <div className="div">
+          <FaLink className="linkIcon" onClick={() => handleOpen(index, 'seconde')} />
+             <img src={pub.seconde.image} alt="" />    <input type="file" onChange={(e) => handleFileChange(index, 'seconde', 0, e)} />
+          <input 
+                      type="text" 
+                      value={pub.seconde.title} 
+                      onChange={(e) => handleTitleChange(index, 'seconde', e)} 
+                   
                     />
-                    <input
-                      type="text"
-                      value={pub.seconde.title}
-                      onChange={(e) => handleTitleChange(index, "seconde", e)}
+          </div>
+        
+            <div className="div">
+            <FaLink className="linkIcon" onClick={() => handleOpen(index, 'third')} />
+              <img src={pub.third.image} alt="" />        
+             <input type="file" onChange={(e) => handleFileChange(index, 'third', 0, e)} />
+             <input 
+                      type="text" 
+                      value={pub.third.title} 
+                      onChange={(e) => handleTitleChange(index, 'third', e)} 
+               
                     />
-                  </div>
-
-                  <div className="div">
-                    <img src={pub.third.image} alt="" />
-                    <input
-                      type="file"
-                      onChange={(e) => handleFileChange(index, "third", 0, e)}
-                    />
-                    <input
-                      type="text"
-                      value={pub.third.title}
-                      onChange={(e) => handleTitleChange(index, "third", e)}
-                    />
-                  </div>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+             </div>
+          </div>
+          </div>
+         </SwiperSlide>
+      
+       ))}
+      </Swiper>
+      <div className="btn">
+        
+        <button type='button' onClick={addSlide}>addSlide</button>
+        <button >valider le slide</button>
+      
+        </div>
       </form>
+      
+     
     </div>
-  );
+  )
 }
