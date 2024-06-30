@@ -52,7 +52,7 @@
   display: flex;
   justify-content: space-between;
  padding: 0 50px;
-  align-items: flex-end;
+  align-items: center;
 }
 .info_rights,.info_lefts{
   display: flex;
@@ -76,8 +76,8 @@ text-transform: uppercase;
   display: flex;
   flex-direction: column;
   align-items: center;
-  
- 
+  padding: 0%;
+ width: auto;
   gap: 20px;
 }
 .info_lefts{
