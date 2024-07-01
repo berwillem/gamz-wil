@@ -47,6 +47,7 @@
  transition: 0.4s;
  cursor: ho;
 }
+
 .btn button:hover{
 
  background-color: white;
@@ -161,10 +162,12 @@
     border-radius: 10px;
    border: 1px solid #afafaf;
     height: 150px;
+    width:350px ;
     padding: 15px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    overflow: hidden;
 
 }
 .statPage{
@@ -220,6 +223,7 @@
     border-radius: 10px;
     border: 1px solid #afafaf;
     height: 260px;
+   
     padding: 15px;
     align-items: center;
     justify-content: center;
