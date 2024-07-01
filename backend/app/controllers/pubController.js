@@ -5,9 +5,11 @@ exports.createPub = async (req, res) => {
     const {
       pub,
       title,
-      redirectUrls,
-      cardOne,
-      cardTwo,
+      links,
+      cardOneTitle,
+      cardOneLink,
+      cardTwoTitle,
+      cardTwoLink,
       cardOneImage,
       cardTwoImage,
     } = req.body;
@@ -20,22 +22,22 @@ exports.createPub = async (req, res) => {
     await Pub.deleteMany();
 
     // Parse redirectUrls from JSON string to an array of objects
-    const parsedRedirectUrls = JSON.parse(redirectUrls);
 
     // Create the pub data object
+    console.log(links);
     const pubData = new Pub({
       pub: pub,
       title,
-      redirectUrls: parsedRedirectUrls,
+      redirectUrls: Array.isArray(links) ? links.map(link=>{url:link}): {url:links},
       cardOne: {
-        title: cardOne.title,
+        title: cardOneTitle,
         cardOneImage: cardOneImage,
-        redirect: cardOne.redirect,
+        redirect: cardOneLink,
       },
       cardTwo: {
-        title: cardTwo.title,
+        title: cardTwoTitle,
         cardTwoImage: cardTwoImage,
-        redirect: cardTwo.redirect,
+        redirect: cardTwoLink,
       },
     });
 
@@ -55,6 +57,18 @@ exports.getPub = async (req, res) => {
     }
     res.set("Cache-Control", "public, max-age=7200");
 
+    res.status(200).json(pub);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+exports.getPubNoCach = async (req, res) => {
+  try {
+    const pub = await Pub.findOne();
+
+    if (!pub) {
+      return res.status(404).json({ message: "Pub not found" });
+    }
     res.status(200).json(pub);
   } catch (err) {
     res.status(500).json({ message: err.message });
