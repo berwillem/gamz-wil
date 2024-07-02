@@ -12,3 +12,6 @@ export const createPub = async (formData, sessionId) => {
     headers: { "session-id": sessionId },
   });
 };
+export const getPubCache = async () => {
+  return axios.get(baseURL + "/pub/noCache");
+};
