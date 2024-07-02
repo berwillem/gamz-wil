@@ -217,6 +217,15 @@ function AddPostForm({ categories, fetchSubcategories }) {
     formData.append("images", principalImageFile);
     formData.append("images", otherImagesFile[0]);
     formData.append("images", otherImagesFile[1]);
+    if (!principalImageFile) {
+      setLoading(false);
+      Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Please upload the principal image",
+      });
+      return;
+  }
     try {
       //TODO: Test it
       dispatch(createPostStart())
@@ -270,7 +279,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
         <div className="account-center">
           <div className="user-l">
             {isLoggedIn === "true" ? <SideCard /> : null}
-            <Ads />
+            <Ads ad= {1} />
           </div>
           <div className="add-content">
             <div className="add-post-l">

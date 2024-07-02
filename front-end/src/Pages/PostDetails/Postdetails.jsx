@@ -60,7 +60,7 @@ function Postdetails() {
       <div className="post-details-center">
         <div className="Ads-category" ref={cardContainer2}>
           <CategorySide />
-          <Ads uri={pubImg} />
+          <Ads ad = {1} />
         </div>
         <div className="post-details">
           <Details postinfo={post} />
@@ -68,7 +68,7 @@ function Postdetails() {
       </div>
       <div className="home-bottom">
         <TopSelll />
-        <Ads uri={pubImg} />
+        <Ads ad = {2} />
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ function ADdPost() {
         <AddPost />
         <div className="home-bottom">
           <TopSelll />
-          <Ads />
+          <Ads ad={1} />
         </div>
       </div>
     </>
