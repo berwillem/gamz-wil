@@ -44,8 +44,8 @@
 }
 .user-l .Ads-container img{
     height: 400px;
-    width: 250px;
-    object-fit:fill;
+    /* width: 250px; */
+    object-fit:cover;
   }
 /*respo*/
 @media screen and (max-width: 1240px) {
