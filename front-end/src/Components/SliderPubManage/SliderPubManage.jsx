@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "./SliderPubManage.css";
 import image from "../../assets/images/banner.webp";
-import image2 from "../../assets/images/SMALL1.webp";
-import image3 from "../../assets/images/SMALL2.webp";
 import { FaLink } from "react-icons/fa";
 // Import Swiper styles
 import "swiper/css";
@@ -51,17 +49,13 @@ export default function SliderPubManage() {
    getPubCache().then((response) => {
     setPubs(response.data);
     setPubs2(response.data);
-
-
   })
   .catch((error) => {
     console.error(error);
   });
- 
-  
+
  }, [])
- console.log(pubs);
- console.log(pubs2);
+
  
   const addNewPub = () => {
     const newPub = {

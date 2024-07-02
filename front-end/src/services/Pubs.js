@@ -15,6 +15,9 @@ export const createPub = async (formData, sessionId) => {
 export const getPubCache = async () => {
   return axios.get(baseURL + "/pub/noCache");
 };
+export const getNoCacheMobile = async () => {
+  return axios.get(baseURL + "/pub/noCacheMobile");
+};
 
 export const createSidePub = async (formData, sessionId) => {
   return axios.post(baseURL + "/pub/side", formData, {

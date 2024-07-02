@@ -1,8 +1,5 @@
-import { useSelector } from "react-redux";
 import Ads from "../../Components/Ads/Ads";
-import Footer from "../../Components/Footer/Footer";
 import Login from "../../Components/Login/Login";
-import Navbar from "../../Components/Navbar/Navbar";
 import Register from "../../Components/Register/Register";
 import TopSelll from "../../Components/TopSelll/TopSelll";
 import User from "../../Components/User/User";
@@ -25,7 +22,6 @@ function Acount() {
   const [Username, setUsername] = useState("");
   const [poste, setposte] = useState([]);
   const [isOwner, setIsOwner] = useState(false);
-  
 
   // api call::
   useEffect(() => {
@@ -56,7 +52,6 @@ function Acount() {
 
   return (
     <div className="account-container">
-    
       {isLoggedIn ? (
         <div>
           <div className="account-center">
@@ -87,7 +82,6 @@ function Acount() {
           <Register />
         </div>
       )}
-     
     </div>
   );
 }

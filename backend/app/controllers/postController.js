@@ -51,8 +51,8 @@ exports.createPost = async (req, res) => {
 exports.deletePost = async (req, res) => {
   try {
     const postId = req.params.id;
-    console.log(req.query)
-    
+    console.log(req.query);
+
     const deletedPost = await Post.findById(postId);
     if (!deletedPost) {
       return res.status(404).json({ message: "Post not found" });
@@ -60,16 +60,16 @@ exports.deletePost = async (req, res) => {
 
     const archive = new Archive({
       title: deletedPost.title,
-      reason: req.query.reason
-    })
+      reason: req.query.reason,
+    });
 
-    const document = await archive.save()
-    console.log(document)
-    await deletedPost.deleteOne()
+    const document = await archive.save();
+    console.log(document);
+    await deletedPost.deleteOne();
 
     res.json({ message: "Post deleted successfully" });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.status(500).json({ message: err.message });
   }
 };
@@ -82,15 +82,15 @@ exports.getMonthlyArchiveCounts = async (req, res) => {
         $project: {
           year: { $year: "$createdAt" },
           month: { $month: "$createdAt" },
-          reason: 1
-        }
+          reason: 1,
+        },
       },
       {
         // Group by year, month, and reason and count the number of archives
         $group: {
           _id: { year: "$year", month: "$month", reason: "$reason" },
-          count: { $sum: 1 }
-        }
+          count: { $sum: 1 },
+        },
       },
       {
         // Group by year and month and accumulate counts for each reason
@@ -98,27 +98,27 @@ exports.getMonthlyArchiveCounts = async (req, res) => {
           _id: { year: "$_id.year", month: "$_id.month" },
           sold_in: {
             $sum: {
-              $cond: [{ $eq: ["$_id.reason", "sold_in"] }, "$count", 0]
-            }
+              $cond: [{ $eq: ["$_id.reason", "sold_in"] }, "$count", 0],
+            },
           },
           sold_out: {
             $sum: {
-              $cond: [{ $eq: ["$_id.reason", "sold_out"] }, "$count", 0]
-            }
+              $cond: [{ $eq: ["$_id.reason", "sold_out"] }, "$count", 0],
+            },
           },
           other: {
             $sum: {
-              $cond: [{ $eq: ["$_id.reason", "other"] }, "$count", 0]
-            }
-          }
-        }
+              $cond: [{ $eq: ["$_id.reason", "other"] }, "$count", 0],
+            },
+          },
+        },
       },
       {
         // Sort by year and month
         $sort: {
           "_id.year": 1,
-          "_id.month": 1
-        }
+          "_id.month": 1,
+        },
       },
       {
         // Project the final output format
@@ -126,9 +126,9 @@ exports.getMonthlyArchiveCounts = async (req, res) => {
           _id: 0,
           sold_in: 1,
           sold_out: 1,
-          other: 1
-        }
-      }
+          other: 1,
+        },
+      },
     ]);
 
     res.status(200).json(archiveCounts);
@@ -171,23 +171,32 @@ exports.getAllPosts = async (req, res) => {
   try {
     const page = req.query.page || 1;
     const pageSize = 12;
-    const nbrposts = await Post.countDocuments();
-    const nbrPage = Math.ceil(nbrposts / pageSize);
     const userId = req.query.userId;
-    let posts;
+    const searchTerm = req.query.searchTerm;
+    const searchRegex = new RegExp(searchTerm, "i");
+    let query = {};
+
     if (userId) {
-      posts = await Post.find({ user: userId })
-        .sort({ date: -1 })
-        .populate("category", "name")
-        .skip((page - 1) * pageSize)
-        .limit(12);
-    } else {
-      posts = await Post.find()
-        .sort({ date: -1 })
-        .populate("category", "name")
-        .skip((page - 1) * pageSize)
-        .limit(12);
+      query.user = userId;
     }
+
+    if (searchTerm) {
+      query.$or = [
+        { title: searchRegex },
+        { category: searchRegex },
+        { subcategory: searchRegex },
+      ];
+    }
+
+    const nbrposts = await Post.countDocuments(query);
+    const nbrPage = Math.ceil(nbrposts / pageSize);
+
+    const posts = await Post.find(query)
+      .sort({ date: -1 })
+      .populate("category", "name")
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
+
     res.json({ posts, nbrPage });
   } catch (err) {
     res.status(500).json({ message: err.message });

@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import image from "../../assets/images/banner.webp";
-import image2 from "../../assets/images/SMALL1.webp";
-import image3 from "../../assets/images/SMALL2.webp";
+
 import "./PubManageMobile.css";
 import iphone from "../../assets/images/iphone.webp";
 // Import Swiper styles
@@ -10,12 +9,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { AiOutlineDashboard, AiOutlineHome } from "react-icons/ai";
-import { CiUser } from "react-icons/ci";
+
 import { Link } from "react-router-dom";
 import Modal from "@mui/material/Modal";
 import { Box, Typography } from "@mui/material";
 import { FaLink } from "react-icons/fa";
-import { createPubMobil } from "../../services/Pubs";
+import { createPubMobil, getNoCacheMobile } from "../../services/Pubs";
 import Swal from 'sweetalert2';
 const style = {
   position: "absolute",
@@ -34,113 +33,135 @@ const style = {
 export default function PubManageMobile() {
   const [open, setOpen] = useState(false);
   const [linkType, setLinkType] = useState({ index: null, type: null });
+  const [imagePub, setImagePub] = useState([]);
+  const [imagePub1, setImagePub1] = useState();
+  const [imagePub2, setImagePub2] = useState();
   const handleOpen = (index, type) => {
     setLinkType({ index, type });
     setOpen(true);
   };
 
   const handleClose = () => setOpen(false);
-  const [pub, setPub] = useState([
-    {
-      image: image,
-      title: "title",
-      link: "",
-      seconde: { image: image2, title: "title", link: "" },
-      third: { image: image3, title: "title", link: "" },
-    },
-  ]);
-  const [pub2, setPub2] = useState([
-    {
-      image: image,
-      title: "title",
-      link: "",
-      seconde: { image: image2, title: "title", link: "" },
-      third: { image: image3, title: "title", link: "" },
-    },
-  ]);
+  const [pubs, setPubs] = useState({})
+  const [pubs2, setPubs2] = useState({})
+  
+ 
+ useEffect(() => {
+  getNoCacheMobile().then((response) => {
+    setPubs(response.data);
+    setPubs2(response.data);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 
-  const addSlide = () => {
-    setPub([
-      ...pub,
-      {
-        image: image,
-        title: "title",
-        link: "",
-        seconde: { image: image2, title: "title", link: "" },
-        third: { image: image3, title: "title", link: "" },
-      },
-    ]);
-    setPub2([
-      ...pub2,
-      {
-        image: image,
-        title: "title",
-        link: "",
-        seconde: { image: image2, title: "title", link: "" },
-        third: { image: image3, title: "title", link: "" },
-      },
-    ]);
+ }, [])
+
+ 
+  const addNewPub = () => {
+    const newPub = {
+      url: image,
+      publicId: 'pubs/newad'
+    };
+
+    setPubs((prevPubs) => ({
+      ...prevPubs,
+      pub: [...prevPubs.pub, newPub]
+    }));
+    setPubs2((prevPubs2) => ({
+      ...prevPubs2,
+      pub: [...prevPubs2.pub, newPub]
+    }));
   };
-
-  const deletePub = (index) => {
-    setPub(pub.filter((_, i) => i !== index));
-    setPub2(pub2.filter((_, i) => i !== index));
+  const deleteAd = (index) => {
+    setPubs((prevPubs) => ({
+      ...prevPubs,
+      pub: prevPubs.pub.filter((_, i) => i !== index)
+    }));
+    setPubs2((prevPubs) => ({
+      ...prevPubs,
+      pub: prevPubs.pub.filter((_, i) => i !== index)
+    }));
   };
   const handleFileChange = (index, type, subIndex, event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        const newPub = [...pub];
-        const newPub2 = [...pub2];
+ 
+        const newPubs = { ...pubs };
+        
+   
+  
         if (type === "main") {
-          newPub[index].image = reader.result;
-          newPub2[index].image = file;
+          newPubs.pub[index].url = reader.result;
+          setImagePub((prevImagePub) => [...prevImagePub, file]);
+   
+      
         } else if (type === "seconde") {
-          newPub[index].seconde.image = reader.result;
-          newPub2[index].seconde.image = file;
+          newPubs.cardOne.cardOneImage.url = reader.result;
+          setImagePub1(file);
+    
         } else if (type === "third") {
-          newPub[index].third.image = reader.result;
-          newPub2[index].third.image = file;
+          newPubs.cardTwo.cardTwoImage.url = reader.result;
+          setImagePub2(file);
+      
+     
         }
-        setPub(newPub);
-        setPub2(newPub2);
+  
+      
+      
+        setPubs(newPubs); 
+       
+        
+    
+        
+    
       };
-      reader.readAsDataURL(file);
+  
+      reader.readAsDataURL(file); 
     }
   };
   const handleTitleChange = (index, type, event) => {
-    const newPub = [...pub];
-    const newPub2 = [...pub2];
+  
+    const newPubs = { ...pubs };
+    const newPubs2 = { ...pubs2 };
     if (type === "main") {
-      newPub[index].title = event.target.value;
-      newPub2[index].title = event.target.value;
+    
+      newPubs.title = event.target.value;
+      newPubs2.title = event.target.value;
     } else if (type === "seconde") {
-      newPub[index].seconde.title = event.target.value;
-      newPub2[index].seconde.title = event.target.value;
+   
+      newPubs.cardOne.title = event.target.value;
+      newPubs2.cardOne.title = event.target.value;
     } else if (type === "third") {
-      newPub[index].third.title = event.target.value;
-      newPub2[index].third.title = event.target.value;
+      newPubs.cardTwo.title = event.target.value;
+      newPubs2.cardTwo.title = event.target.value;
     }
-    setPub(newPub);
-    setPub2(newPub2);
+    setPubs(newPubs);
+    setPubs2(newPubs2);
+   
   };
   const handleLinkChange = (event) => {
     const { index, type } = linkType;
-    const newPub = [...pub];
-    const newPub2 = [...pub2];
+    const newPubs = { ...pubs };
+    const newPubs2 = { ...pubs2 };
     if (type === "main") {
-      newPub[index].link = event.target.value;
-      newPub2[index].link = event.target.value;
+
+      newPubs.redirectUrls[index].url = event.target.value;
+      newPubs2.redirectUrls[index].url = event.target.value;
     } else if (type === "seconde") {
-      newPub[index].seconde.link = event.target.value;
-      newPub2[index].seconde.link = event.target.value;
+  
+      newPubs.cardOne.redirect = event.target.value;
+      newPubs2.cardOne.redirect = event.target.value;
     } else if (type === "third") {
-      newPub[index].third.link = event.target.value;
-      newPub2[index].third.link = event.target.value;
+  
+      newPubs.cardTwo.redirect = event.target.value;
+      newPubs2.cardTwo.redirect = event.target.value;
     }
-    setPub(newPub);
-    setPub2(newPub2);
+    setPubs(newPubs);
+    setPubs2(newPubs2);
+   
   };
 
   const handleSubmit = (e) => {
@@ -148,18 +169,24 @@ export default function PubManageMobile() {
     const user = JSON.parse(localStorage.getItem("user"))
     const sessionId = user.sessionId
     const fd = new FormData()
-    pub2.forEach((pub, index) => {
-      fd.append("pub", pub.image)
-      fd.append("title", pub2[0].title)
-      fd.append("links", pub.link)
+    imagePub.forEach((pub, index) => {
+      fd.append("pub", pub)
+    
+     
     })
-    fd.append("cardOneImage", pub2[0].seconde.image)
-    fd.append("cardOneTitle", pub2[0].seconde.title)
-    fd.append("cardOneLink", pub2[0].seconde.link)
+    fd.append("title", pubs.title)
+    pubs.redirectUrls.forEach((redirectUrls, index) => {
+      fd.append("links", redirectUrls.url)
+     
+    })
+    fd.append("cardOneImage", imagePub1)
+    fd.append("cardOneTitle", pubs.cardOne.title)
+    fd.append("cardOneLink", pubs.cardOne.redirect)
 
-    fd.append("cardTwoImage", pub2[0].third.image)
-    fd.append("cardTwoTitle", pub2[0].third.title)
-    fd.append("cardTwoLink", pub2[0].third.link)
+    fd.append("cardTwoImage",imagePub2)
+    fd.append("cardTwoTitle", pubs.cardTwo.title)
+    fd.append("cardTwoLink", pubs.cardTwo.redirect)
+
     createPubMobil(fd, sessionId)
     .then(()=> {
       Swal.fire({
@@ -252,7 +279,7 @@ export default function PubManageMobile() {
       </div>
       <form className="user_dashboard_right">
         <div className="btn">
-          <button type="button" onClick={addSlide}>
+          <button type="button" onClick={addNewPub}>
             addSlide
           </button>
           <button onClick={handleSubmit}>valider le slide</button>
@@ -264,7 +291,7 @@ export default function PubManageMobile() {
             modules={[Navigation]}
             className="mySwiper mobil"
           >
-            {pub.map((pub, index) => (
+            {pubs?.pub?.map((pub, index) => (
               <SwiperSlide key={index}>
                 <FaLink
                   className="linkIcon"
@@ -275,15 +302,15 @@ export default function PubManageMobile() {
                   className="bigimage"
                   onChange={(e) => handleFileChange(index, "main", null, e)}
                 />
-                <span onClick={() => deletePub(index)} className="delete">
+                <span onClick={() => deleteAd(index)} className="delete">
                   delete
                 </span>
-                <img src={pub.image} alt="" />
+                <img src={pub?.url} alt="" />
                 <div className="infos">
                   <div className="info_lefts">
                     <input
                       type="text"
-                      value={pub.title}
+                      value={pubs?.title}
                       onChange={(e) => handleTitleChange(index, "main", e)}
                       placeholder="Main Title"
                     />
@@ -295,7 +322,7 @@ export default function PubManageMobile() {
                         className="linkIcon"
                         onClick={() => handleOpen(index, "seconde")}
                       />
-                      <img src={pub.seconde.image} alt="" />{" "}
+                      <img src={pubs?.cardOne?.cardOneImage.url}  alt="" />{" "}
                       <input
                         type="file"
                         onChange={(e) =>
@@ -304,7 +331,7 @@ export default function PubManageMobile() {
                       />
                       <input
                         type="text"
-                        value={pub.seconde.title}
+                        value={pubs?.cardOne?.title}
                         onChange={(e) => handleTitleChange(index, "seconde", e)}
                       />
                     </div>
@@ -314,14 +341,14 @@ export default function PubManageMobile() {
                         className="linkIcon"
                         onClick={() => handleOpen(index, "third")}
                       />
-                      <img src={pub.third.image} alt="" />
+                        <img src={pubs?.cardTwo?.cardTwoImage.url} alt="" />{" "}
                       <input
                         type="file"
                         onChange={(e) => handleFileChange(index, "third", 0, e)}
                       />
                       <input
                         type="text"
-                        value={pub.third.title}
+                        value={pubs?.cardTwo?.title}
                         onChange={(e) => handleTitleChange(index, "third", e)}
                       />
                     </div>

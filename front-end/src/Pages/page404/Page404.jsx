@@ -1,4 +1,4 @@
-import Navbar from "../../Components/Navbar/Navbar";
+
 import Error404 from "../../Components/404/Error404";
 
 const Page404 = () => {
