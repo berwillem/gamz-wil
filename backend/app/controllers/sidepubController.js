@@ -2,15 +2,16 @@ const Sidepub = require("../models/sidepub");
 
 exports.createSidepub = async (req, res) => {
   try {
-    const {cardOneImage, cardOneLink, cardTwoImage, cardTwoLink} = req.body;
+    const {cardOneImage, cardOneLink, cardTwoImage, cardTwoLink, cloudinaryImage1, cloudinaryImage2} = req.body;
+    console.log(cardOneImage, cardOneLink, cardTwoImage, cardTwoLink)
     await Sidepub.deleteMany({});
     const sidepub = new Sidepub({
       image1: {
-        url: cardOneImage.url,
+        url: cloudinaryImage1 ? cloudinaryImage1: cardOneImage.url? cardOneImage.url : cardOneImage,
         redirect: cardOneLink
       },
       image2: {
-        url: cardTwoImage.url,
+        url: cloudinaryImage2 ? cloudinaryImage2: cardTwoImage.url ? cardTwoImage.url : cardTwoImage,
         redirect: cardTwoLink
       }
     })

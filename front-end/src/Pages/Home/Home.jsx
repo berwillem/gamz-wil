@@ -18,6 +18,8 @@ import {
   getPostsByCategory,
   getPostsBySubcategory,
 } from "../../services/Posts";
+import { Helmet } from "react-helmet";
+
 
 function Home() {
   const dispatch = useDispatch();
