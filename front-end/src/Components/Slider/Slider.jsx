@@ -75,7 +75,7 @@ function Slider() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex2((prevIndex) => (prevIndex + 1) % 3);
+      setCurrentImageIndex2((prevIndex) => (prevIndex + 1) % backgroundImages.length);
     }, 7000);
 
     return () => {
