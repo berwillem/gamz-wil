@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import "./UserPost.css";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AiOutlineDelete } from "react-icons/ai";
 import notavalible from "../../assets/images/Image_not_available.webp";
 import image from "../../assets/no-result-diadem.webp";
@@ -57,11 +57,11 @@ function UserPost({ posts, owner }) {
   const [postIdToDelete, setPostIdToDelete] = useState("");
   const [autres, setAutres] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [selectedValue, setSelectedValue] = useState('');
-  const [textareaValue, setTextareaValue] = useState('');
+  const [selectedValue, setSelectedValue] = useState("");
+  const [textareaValue, setTextareaValue] = useState("");
 
   const handleRadioChange = (event) => {
-    setAutres(event.target.value === 'autres');
+    setAutres(event.target.value === "autres");
     setSelectedValue(event.target.value);
   };
   const handleTextareaChange = (event) => {
@@ -90,8 +90,8 @@ function UserPost({ posts, owner }) {
     const sessionId = user.sessionId;
     const isAdmin = user.isAdmin;
     const config = {
-      params:{
-        reason: selectedValue
+      params: {
+        reason: selectedValue,
       },
       headers: {
         "session-id": sessionId,
@@ -170,23 +170,23 @@ function UserPost({ posts, owner }) {
         onRequestClose={() => setShowDeleteModal(false)}
         style={modalStyles}
       >
-       <form action="" onSubmit={confirmPostDelete}>
-       <h2>Confirm Delete</h2>
-        <p>pourquoi voulais vous le supprimer?</p>
-       <div className="qst">
-       <div>
-          <input
-            type="radio"
-            id="vendu avec gamz"
-            name="options"
-            required
-            value="sold_in"
-            checked={selectedValue === 'sold_in'}
-            onChange={handleRadioChange}
-          />
-          <label htmlFor="vendu avec gamz">vendu avec gamz</label>
-        </div>
-        {/* <div>
+        <form action="" onSubmit={confirmPostDelete}>
+          <h2>Confirm Delete</h2>
+          <p>pourquoi voulais vous le supprimer?</p>
+          <div className="qst">
+            <div>
+              <input
+                type="radio"
+                id="vendu avec gamz"
+                name="options"
+                required
+                value="sold_in"
+                checked={selectedValue === "sold_in"}
+                onChange={handleRadioChange}
+              />
+              <label htmlFor="vendu avec gamz">vendu avec gamz</label>
+            </div>
+            {/* <div>
           <input
             type="radio"
             id="je veux plus le vendre"
@@ -198,44 +198,51 @@ function UserPost({ posts, owner }) {
           />
           <label htmlFor="opje veux plus le vendretion2">je veux plus le vendre</label>
         </div> */}
-        <div>
-          <input
-            type="radio"
-            id="vendu autres part"
-            name="options"
-            value="sold_out"
-            checked={selectedValue === 'sold_out'}
-            onChange={handleRadioChange}
-            required
-          />
-          <label htmlFor="endu autres part">vendu autres part</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            id="autres"
-            name="options"
-            value="other"
-            checked={selectedValue === 'other'}
-            onChange={handleRadioChange}  required
-          />
-          <label htmlFor="autres">autres</label>
-        </div>
-        {autres && <textarea className="area" type="text" placeholder="autre" onChange={handleTextareaChange}   />}
-       </div>
-        <div style={modalStyles.buttonsContainer}>
-          <button   type="submit"  style={modalStyles.confirmButton}>
-            Yes, delete
-          </button>
-          <button
-        
-            onClick={() => setShowDeleteModal(false)}
-            style={modalStyles.cancelButton}
-          >
-            Cancel
-          </button>
-        </div>
-       </form>
+            <div>
+              <input
+                type="radio"
+                id="vendu autres part"
+                name="options"
+                value="sold_out"
+                checked={selectedValue === "sold_out"}
+                onChange={handleRadioChange}
+                required
+              />
+              <label htmlFor="endu autres part">vendu autres part</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="autres"
+                name="options"
+                value="other"
+                checked={selectedValue === "other"}
+                onChange={handleRadioChange}
+                required
+              />
+              <label htmlFor="autres">autres</label>
+            </div>
+            {autres && (
+              <textarea
+                className="area"
+                type="text"
+                placeholder="autre"
+                onChange={handleTextareaChange}
+              />
+            )}
+          </div>
+          <div style={modalStyles.buttonsContainer}>
+            <button type="submit" style={modalStyles.confirmButton}>
+              Yes, delete
+            </button>
+            <button
+              onClick={() => setShowDeleteModal(false)}
+              style={modalStyles.cancelButton}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
       </Modal>
     </>
   );

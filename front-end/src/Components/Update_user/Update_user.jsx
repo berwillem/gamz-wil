@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import "./update_use.css";
 import avatarImage from "../../assets/images/avatar.webp";
 import bannerImage from "../../assets/images/banner.webp";
 import Swal from "sweetalert2";
 import { AiFillEdit } from "react-icons/ai";
-import loader from "../../assets/images/loader.gif";
 import { updateUser } from "../../services/User";
-const baseURL = import.meta.env.VITE_BASE_URL;
+
 function Update_user() {
   const navigate = useNavigate();
   // states:

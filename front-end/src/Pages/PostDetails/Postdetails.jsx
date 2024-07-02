@@ -2,8 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Ads from "../../Components/Ads/Ads";
 import CategorySide from "../../Components/CategorySide/CategorySide";
 import Details from "../../Components/Details/Details";
-import Footer from "../../Components/Footer/Footer";
-import Navbar from "../../Components/Navbar/Navbar";
+
 import axios from "axios";
 import pubImg from "../../assets/images/pub.webp";
 import TopSelll from "../../Components/TopSelll/TopSelll";
@@ -14,7 +13,6 @@ import { useLocation } from "react-router-dom";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
 function Postdetails() {
-
   gsap.registerPlugin(ScrollTrigger);
   const cardContainer = useRef();
   const cardContainer2 = useRef();
@@ -45,7 +43,7 @@ function Postdetails() {
       scrollTrigger: cardContainer.current,
     });
   }, []);
-  
+
   // api call:
   const [post, setPost] = useState(null);
   const location = useLocation();
@@ -59,7 +57,6 @@ function Postdetails() {
 
   return (
     <div className="post-details-container">
-   
       <div className="post-details-center">
         <div className="Ads-category" ref={cardContainer2}>
           <CategorySide />
@@ -73,7 +70,6 @@ function Postdetails() {
         <TopSelll />
         <Ads uri={pubImg} />
       </div>
-    
     </div>
   );
 }
