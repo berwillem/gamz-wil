@@ -72,7 +72,7 @@ function Slider() {
       setRedirect(redirectUrls);
     }
   }, [card]);
-
+console.log(backgroundImages.length);
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex2((prevIndex) => (prevIndex + 1) % backgroundImages.length);
@@ -80,8 +80,9 @@ function Slider() {
 
     return () => {
       clearInterval(interval);
+      
     };
-  }, []);
+  }, [backgroundImages]);
 
   useEffect(() => {
     gsap.to(subtitle.current, {
