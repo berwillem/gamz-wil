@@ -12,3 +12,13 @@ export const createPub = async (formData, sessionId) => {
     headers: { "session-id": sessionId },
   });
 };
+
+export const createSidePub = async (formData, sessionId) => {
+  return axios.post(baseURL + "/pub/side", formData, {
+    headers: { "session-id": sessionId },
+  });
+}
+
+export const getSidePub = async (num) => {
+  return axios.get(baseURL + `/pub/side/${num}`);
+}
