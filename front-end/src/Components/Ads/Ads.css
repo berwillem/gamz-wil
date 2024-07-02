@@ -2,12 +2,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 270px;
+    /* width: 270px; */
     height: 420px;
 }
 
-.Ads-container > img{
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
+.Ads-container > a > img{
+    height: 420px;
+    /* width: 100%; */
 }

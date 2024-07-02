@@ -3,6 +3,8 @@ import pubImg from "../../assets/images/pub.webp";
 import './SidePub.css';
 import { AiOutlineDashboard, AiOutlineHome } from "react-icons/ai";
 import { Link } from 'react-router-dom';
+import { createSidePub } from '../../services/Pubs';
+import Swal from 'sweetalert2';
 
 export default function SidePub() {
   const [pub, setPub] = useState([
@@ -38,6 +40,24 @@ export default function SidePub() {
     setPub(newPub);
     setPub2(newPub2);
   };
+
+  const handleSubmit = () => {
+    const fd =  new FormData()
+    fd.append("cardOneImage", pub2[0].image)
+    fd.append("cardTwoImage", pub2[1].image)
+    fd.append("cardOneLink", pub2[0].url)
+    fd.append("cardTwoLink", pub2[1].url)
+    const user = JSON.parse(localStorage.getItem("user"));
+    const sessionId = user.sessionId;
+    createSidePub(fd, sessionId)
+    .then(()=> {
+      Swal.fire("Success", "Side Pub created successfully", "success")
+    })
+    .catch((err)=> {
+      console.error(err)
+      Swal.fire("Error", "Something went wrong", "error")
+    })
+  }
 
   return (
     <div className="dashboard-container">
@@ -117,7 +137,7 @@ export default function SidePub() {
           ))}
         </div>
         <div className="btn">
-          <button type="button">Valider</button>
+          <button type="button" onClick={handleSubmit}>Valider</button>
         </div>
       </form>
     </div>

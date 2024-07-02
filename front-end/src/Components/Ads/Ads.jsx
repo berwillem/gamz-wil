@@ -1,9 +1,22 @@
 import "./Ads.css";
 import pubImg from "../../assets/images/pub.webp";
-function Ads() {
+import { useEffect, useState } from "react";
+import { getSidePub } from "../../services/Pubs";
+function Ads({ad}) {
+  const [image, setImage] = useState(undefined)
+  const [url, setUrl] = useState(undefined)
+  useEffect(()=> {
+    getSidePub(ad).then(res => {
+      setImage(res.data.url)
+      setUrl(res.data.redirect)
+    })
+  }, [])
   return (
     <div className="Ads-container">
-      <img src={pubImg} alt="pub-image" />
+      <a href={url}>
+
+      <img src={image} alt="pub-image" />
+      </a>
     </div>
   );
 }

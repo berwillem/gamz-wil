@@ -146,7 +146,7 @@ function Home() {
             onCategoryChange={handleCategoryChange}
             onSubcategoryChange={handleSubcategoryChange}
           />
-          <Ads uri={pubImg} />
+          <Ads ad={1} />
         </div>
         <div
           className="content-card"
@@ -200,7 +200,7 @@ function Home() {
       </div>
       <div className="home-bottom">
         <TopSelll />
-        <Ads uri={pubImg} />
+        <Ads ad={2} />
       </div>
     
     </div>
