@@ -146,6 +146,19 @@ function Dashboard() {
           </li>
           <li>
             <Link
+              to="/sidePub"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+              }}
+            >
+             Side Pub
+              <AiOutlineDashboard />
+            </Link>
+          </li>
+          <li>
+            <Link
               to="/Details"
               style={{
                 display: "flex",
