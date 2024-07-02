@@ -24,6 +24,8 @@ const baseURL = import.meta.env.VITE_BASE_URL;
 
 function Navbar() {
   const light = useSelector((state) => state.light.value);
+  const user = JSON.parse(localStorage.getItem("user")) || null;
+  
 
   //* state
   const [searchText, setSearchText] = useState("");
@@ -217,6 +219,10 @@ function Navbar() {
               Welcome to <span className="span-message">Gamz</span>
             </div>
             <div className="account-pub">
+           {user?.isAdmin&&    <li className="catch-button">
+              
+              <Link to="/dashboard">Dashboard</Link>
+            </li>}
               <li className="catch-button">
                 <BsPlusLg size={13} />
                 <Link to="/createPost">Deposez une annonce</Link>
