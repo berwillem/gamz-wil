@@ -65,7 +65,7 @@ function User({
             </li>
           </div>
 
-          <Ads />
+          <Ads ad = {2} />
         </div>
 
         <div className="user-r">
