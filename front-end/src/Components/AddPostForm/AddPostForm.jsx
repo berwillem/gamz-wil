@@ -279,7 +279,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
         <div className="account-center">
           <div className="user-l">
             {isLoggedIn === "true" ? <SideCard /> : null}
-            <Ads />
+            <Ads ad= {1} />
           </div>
           <div className="add-content">
             <div className="add-post-l">

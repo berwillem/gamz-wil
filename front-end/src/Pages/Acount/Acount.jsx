@@ -73,7 +73,7 @@ function Acount() {
 
           <div className="home-bottom">
             <TopSelll />
-            <Ads />
+            <Ads ad = {2} />
           </div>
         </div>
       ) : (

@@ -15,6 +15,8 @@ import { Link } from "react-router-dom";
 import Modal from "@mui/material/Modal";
 import { Box, Typography } from "@mui/material";
 import { FaLink } from "react-icons/fa";
+import { createPubMobil } from "../../services/Pubs";
+import Swal from 'sweetalert2';
 const style = {
   position: "absolute",
   top: "50%",
@@ -141,6 +143,43 @@ export default function PubManageMobile() {
     setPub2(newPub2);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const user = JSON.parse(localStorage.getItem("user"))
+    const sessionId = user.sessionId
+    const fd = new FormData()
+    pub2.forEach((pub, index) => {
+      fd.append("pub", pub.image)
+      fd.append("title", pub2[0].title)
+      fd.append("links", pub.link)
+    })
+    fd.append("cardOneImage", pub2[0].seconde.image)
+    fd.append("cardOneTitle", pub2[0].seconde.title)
+    fd.append("cardOneLink", pub2[0].seconde.link)
+
+    fd.append("cardTwoImage", pub2[0].third.image)
+    fd.append("cardTwoTitle", pub2[0].third.title)
+    fd.append("cardTwoLink", pub2[0].third.link)
+    createPubMobil(fd, sessionId)
+    .then(()=> {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'worked',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    })
+    .catch((err) => {
+      console.error(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!'
+      })
+    })
+  }
+
   return (
     <div className="dashboard-container">
       <Modal
@@ -216,7 +255,7 @@ export default function PubManageMobile() {
           <button type="button" onClick={addSlide}>
             addSlide
           </button>
-          <button>valider le slide</button>
+          <button onClick={handleSubmit}>valider le slide</button>
         </div>
         <div className="iphoneContent">
           <img className="iphone" src={iphone} alt="" />
