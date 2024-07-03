@@ -36,13 +36,14 @@ exports.createPub = async (req, res) => {
 
     // Create the pub data object
 
-    console.log("image1 :", cloudinaryImage1 ? {url:cloudinaryImage1, publicId:"512"} :cardOneImage)
-    console.log("image2: ",cloudinaryImage2 ? {url:cloudinaryImage2, publicId:"512"} :cardTwoImage)
+    // console.log("image1 :", cloudinaryImage1 ? {url:cloudinaryImage1, publicId:"pubs/o77ehcb92vfj7lhb6f9h"} :cardOneImage)
+    // console.log("image2: ",cloudinaryImage2 ? {url:cloudinaryImage2, publicId:"pubs/o77ehcb92vfj7lhb6f9h"} :cardTwoImage)
+    console.log("CloudinaryPub: ", (arrayify(cloudinaryPub).map(p=>({url:p}))))
     // console.log(links);
     const pubData = new Pub({
-      pub: cloudinaryPub ? [...arrayify(cloudinaryPub),...arrayify(pub)] : arrayify(pub),
+      pub: cloudinaryPub ? [...(arrayify(cloudinaryPub).map(p=>({url:p}))),...(arrayify(pub))] : arrayify(pub),
       title,
-      redirectUrls: Array.isArray(links) ? links.map(link=>{url:link}): {url:links},
+      redirectUrls: Array.isArray(links) ? links.map(link=>({url:link})): [{url:links}],
       cardOne: {
         title: cardOneTitle,
         cardOneImage: cloudinaryImage1 ? {url:cloudinaryImage1, publicId:"512"} :cardOneImage,
