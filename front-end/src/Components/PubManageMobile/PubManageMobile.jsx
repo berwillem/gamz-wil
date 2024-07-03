@@ -174,16 +174,23 @@ export default function PubManageMobile() {
     
      
     })
+
+    pubs2.pub?.forEach((pub, index) => {
+      
+      console.log(pub)
+      if(pub.url.includes("cloudinary")){fd.append("cloudinaryPub", pub.url)}
+      
+    })
     fd.append("title", pubs.title)
     pubs.redirectUrls.forEach((redirectUrls, index) => {
       fd.append("links", redirectUrls.url)
      
     })
-    fd.append("cardOneImage", imagePub1)
+    imagePub1 instanceof File ? fd.append("cardOneImage", imagePub1) : fd.append("cloudinaryImage1", pubs?.cardOne?.cardOneImage.url);
     fd.append("cardOneTitle", pubs.cardOne.title)
     fd.append("cardOneLink", pubs.cardOne.redirect)
 
-    fd.append("cardTwoImage",imagePub2)
+    imagePub2 instanceof File ? fd.append("cardTwoImage", imagePub2) : fd.append("cloudinaryImage2", pubs?.cardTwo?.cardTwoImage.url);
     fd.append("cardTwoTitle", pubs.cardTwo.title)
     fd.append("cardTwoLink", pubs.cardTwo.redirect)
 
