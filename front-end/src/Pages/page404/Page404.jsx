@@ -1,11 +1,11 @@
-import Navbar from "../../Components/Navbar/Navbar";
+
 import Error404 from "../../Components/404/Error404";
 
-const Page404 = (isDarkMode) => {
-  const p = isDarkMode.isDarkMode;
+const Page404 = () => {
+ 
   return (
     <>
-      <Navbar p={p}></Navbar>
+      
       <Error404></Error404>
     </>
   );

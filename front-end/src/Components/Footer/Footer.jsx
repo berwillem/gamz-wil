@@ -6,10 +6,12 @@ import "./Footer.css";
 import { Link } from "react-router-dom";
 import pdf1 from "../../assets/pdf/Conditions d'utilisation .pdf";
 import pdf2 from "../../assets/pdf/Politique de confidentialité .pdf";
-import { fetchCategories, getCategories } from "../../Data/category";
+import { useSelector } from "react-redux";
+import { getCategories } from "../../services/Category";
 
-function Footer({ p, onCategoryChange }) {
+function Footer({  onCategoryChange }) {
   //state
+  const light = useSelector((state) => state.light.value);
   const [categories, setCategories] = useState([]);
   // function Categorys id
   const handleCategorySelection = (categoryId) => {
@@ -27,9 +29,9 @@ function Footer({ p, onCategoryChange }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await fetchCategories();
-        const fetchedCategories = getCategories();
-        setCategories(fetchedCategories);
+        
+        const fetchedCategories = await getCategories()
+        setCategories(fetchedCategories.data);
       } catch (error) {
         console.error(error);
       }
@@ -42,7 +44,7 @@ function Footer({ p, onCategoryChange }) {
       <div className="footer-content">
         <div className="L-footer">
           <div className="logo-footer">
-            <img src={p ? Logo2 : Logo} alt="" />
+            <img src={light ? Logo2 : Logo} alt="" />
           </div>
           <div className="social-media">
             <a

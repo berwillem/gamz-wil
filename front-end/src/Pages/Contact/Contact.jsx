@@ -1,12 +1,9 @@
 import { useState, useRef } from "react";
 import emailjs from "emailjs-com";
 import "./Contact.css";
-import Navbar from "../../Components/Navbar/Navbar";
-import Footer from "../../Components/Footer/Footer";
 import Swal from "sweetalert2";
-
-const Contact = (isDarkMode) => {
-  const p = isDarkMode.isDarkMode;
+import { Helmet } from "react-helmet";
+const Contact = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -44,7 +41,9 @@ const Contact = (isDarkMode) => {
 
   return (
     <>
-      <Navbar p={p} />
+      <Helmet>
+        <title>Contact</title>
+      </Helmet>
       <div className="Contact-page">
         <div className="title_contact">
           <h1>Contactez Gamz</h1>
@@ -92,7 +91,6 @@ const Contact = (isDarkMode) => {
           <button type="submit">Envoyez votre message</button>
         </form>
       </div>
-      <Footer p={p} />
     </>
   );
 };

@@ -1,116 +1,45 @@
-.manage {
-  display: flex;
-  width: 100%;
-  height: 850px;
-  padding: 30px;
-  height: 100vh;
-}
-.manage .dot {
-  position: relative !important;
-  grid-template-columns: auto auto auto;
-  grid-template-rows: 70px 70px 70px 70px;
-  padding-top: 40px;
-  top: 0;
-  border: 3px solid #e81a2a;
-  border-radius: 15px;
-  height: 400px;
-  width: 450px;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  left: 250px;
-  top: 120px;
-}
-.manage .btnsub {
-  top: 750px;
-  left: 438px;
-  z-index: 1000;
-}
-.switch2 {
-  position: absolute;
-  width: 200px;
-  display: flex;
-  align-items: center;
-  left: 1020px;
-  top: 950px;
-}
-.switch2 svg {
-  color: black !important;
-  width: 40px;
-  height: 40px;
-}
-.mobile {
-  width: 300px;
-  height: 622px;
-  top: 320px;
-  position: absolute;
-  left: 900px;
-}
 
-.mobile .slider {
-  display: flex;
-  flex-direction: column;
 
-  padding: 30px !important;
-  width: 314px;
-  height: 622px;
-  border: solid 1px black;
-  border-radius: 15px;
-}
-.mobile .L-slider {
-  width: 500px;
-}
-.mobile .C-slider {
-  width: 300px;
-}
-.mobile .R-slider {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-}
-
-.mobile .R-C-slider {
-  width: 100%;
-  margin-bottom: 250px;
-}
-.mobile .buy-button {
-  width: 10%;
-  top: 250px;
-  left: 47%;
-  height: 3%;
-}
-.mobile .box {
-  height: 94px;
-  width: 322;
-  padding: 20px 10px;
-}
 .iphone {
   position: absolute;
-  left: 882.5px;
+ 
   z-index: 2;
   width: 350px;
+  height: 652px;  
+  pointer-events: none;
+}
+.iphoneContent{
+  position: relative;
+  width: 100%;
   height: 652px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mobil{
+  width: 297px;
+  height: 607px;
+
+}
+.mobil .infos{
+flex-direction: column;
+align-items: center;
+justify-content: flex-end;
+height: 100%;
+padding:50px 0 ;
+gap: 10px;
+
+}
+.mobil .info_rights{
+width: 100%;
+align-items: center;
+padding: 0%;
+
+}
+.mobil .delete{
+ top: 15PX;
+}
+.mobil .linkIcon{
+ top: 15PX;
 }
 
-@media screen and (max-width: 1240px) {
-  .mobile {
-    width: 300px;
-    height: 622px;
-    top: 120px;
-    position: absolute;
-    left: 900px;
-  }
-  .manage .btnsub {
-    top: 500px;
-    left: 438px;
-  }
-  .mobile .R-slider a {
-    width: 100%;
-  }
-  .mobile .R-slider {
-    margin: 0 !important;
-  }
-  .mobile .slider {
-    height: 622px !important;
-  }
-}

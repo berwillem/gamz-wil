@@ -41,7 +41,7 @@
 .big-image img {
   height: 300px;
   width: 400px;
-  object-fit: fill;
+  object-fit: cover;
   border-radius: 5%;
 }
 
@@ -175,7 +175,7 @@
 .sub-images img {
   width: 190px;
   height: 150px;
-  object-fit: fill;
+  object-fit: cover;
 }
 
 /*respo*/

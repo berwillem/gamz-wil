@@ -22,7 +22,7 @@ app.use(
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
-//* routes ::
+//* routes
 
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/category", CategoryRoute);

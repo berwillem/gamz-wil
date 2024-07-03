@@ -1,25 +1,29 @@
 import { useEffect, useState, useRef } from "react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { gsap, Power3 } from "gsap";
-import { useDispatch } from "react-redux";
-import axios from "axios";
-import Navbar from "../../Components/Navbar/Navbar";
+import { useDispatch, useSelector } from "react-redux";
 import Slider from "../../Components/Slider/Slider";
-import pubImg from "../../assets/images/pub.webp";
-import Footer from "../../Components/Footer/Footer";
-import Pagination from "../../Components/Pagination/Pagination";
+import { Pagination } from "@mui/material";
 import Ads from "../../Components/Ads/Ads";
 import "./Home.css";
 import TopSelll from "../../Components/TopSelll/TopSelll";
 import CategorySide from "../../Components/CategorySide/CategorySide";
 import { GetAllPosts } from "../../redux/reducers/Posts";
 import { loginSuccess } from "../../redux/reducers/Auth";
+import Post from "../../Components/Post/Post";
+import image from "../../assets/no-result-diadem.webp";
+import { setCategory, setSubCategory } from "../../redux/reducers/filters";
+import {
+  getPosts,
+  getPostsByCategory,
+  getPostsBySubcategory,
+} from "../../services/Posts";
+import { Helmet } from "react-helmet";
 
-const baseURL = import.meta.env.VITE_BASE_URL;
 
-function Home({ isDarkMode }) {
+function Home() {
   const dispatch = useDispatch();
-  const p = isDarkMode;
+
   // animations
   gsap.registerPlugin(ScrollTrigger);
   const cardContainer = useRef();
@@ -72,30 +76,43 @@ function Home({ isDarkMode }) {
 
   // states
   const [posts, setPosts] = useState([]);
-  const [categoryId, setCategoryId] = useState(null);
-  const [subcategoryId, setSubcategoryId] = useState(null);
+
+  const categoryId = useSelector((state) => state.filters.category);
+  const subcategoryId = useSelector((state) => state.filters.subcategory);
+
+  const [page, SetPage] = useState(1);
+  const [totalPage, SetTotalPage] = useState(1);
 
   const handleCategoryChange = (categoryId) => {
-    setCategoryId(categoryId);
+    console.log("category change called", categoryId);
+    dispatch(setCategory(categoryId));
   };
 
   const handleSubcategoryChange = (subcategoryId) => {
-    setSubcategoryId(subcategoryId);
+    dispatch(setSubCategory(subcategoryId));
   };
 
   useEffect(() => {
+    SetPage(1);
+  }, [categoryId, subcategoryId]);
+  useEffect(() => {
     const fetchPosts = async () => {
       try {
-        let url = `${baseURL}/post/`;
+        var res;
 
         if (categoryId) {
-          url = `${baseURL}/post/category/${categoryId}`;
+          res = await getPostsByCategory(categoryId, page);
         } else if (subcategoryId) {
-          url = `${baseURL}/post/subcategory/${subcategoryId}`;
+          res = await getPostsBySubcategory(subcategoryId, page);
+        } else {
+          res = await getPosts(page);
         }
+        //TODO: test it
 
-        const res = await axios.get(url);
-        setPosts(res.data);
+        setPosts(res.data.posts);
+
+        SetTotalPage(res.data.nbrPage);
+
         dispatch(GetAllPosts(res.data));
       } catch (err) {
         console.log(err);
@@ -103,42 +120,90 @@ function Home({ isDarkMode }) {
     };
 
     fetchPosts();
-  }, [categoryId, subcategoryId]);
+  }, [categoryId, subcategoryId, page]);
+
+  const handlePageChange = (event, value) => {
+    SetPage(value);
+    window.scrollTo({ behavior: "smooth", top: "400" });
+  };
 
   return (
-    <div>
-      <Navbar
-        p={p}
-        onCategoryChange={handleCategoryChange}
-        onSubcategoryChange={handleSubcategoryChange}
-      />
-      <Slider />
-      <div className="home-center">
-        <div className="Ads-category " ref={cardContainer2}>
-          <CategorySide
-            onCategoryChange={handleCategoryChange}
-            onSubcategoryChange={handleSubcategoryChange}
-          />
-          <Ads uri={pubImg} />
+    <>
+      <Helmet>
+        <title>Add Post</title>
+      </Helmet>
+      <div>
+        <Slider />
+        <div className="home-center">
+          <div className="Ads-category " ref={cardContainer2}>
+            <CategorySide
+              onCategoryChange={handleCategoryChange}
+              onSubcategoryChange={handleSubcategoryChange}
+            />
+            <Ads ad={1} />
+          </div>
+          <div
+            className="content-card"
+            style={{
+              opacity: 0,
+              transform: 'translateY("100px")',
+              width: "60%",
+            }}
+            ref={cardContainer3}
+          >
+            <div className="pagination-container">
+              <div id="pagination-title">
+                <p>Les annonces récentes</p>
+              </div>
+
+              {totalPage === 0 && <img src={image} alt="no post" />}
+
+              {totalPage > 0 && (
+                <>
+                  <div className="dataContainer">
+                    {posts.map((item, index) => (
+                      <Post
+                        key={index}
+                        category={item.category.name}
+                        img_post={item.images[0]}
+                        name={item.title}
+                        price={item.price}
+                        id={item._id}
+                      />
+                    ))}
+                  </div>
+
+                  <Pagination
+                    sx={{
+                      padding: "30px 0",
+                      "& .MuiPaginationItem-root": {
+                        border: "1px solid",
+                        color: "red",
+                      },
+                      "& .MuiPaginationItem-root:hover": {
+                        backgroundColor: "red",
+                        color: "white",
+                      },
+                      "& .MuiPaginationItem-root.Mui-selected": {
+                        backgroundColor: "red",
+                        color: "white",
+                      },
+                    }}
+                    count={totalPage}
+                    page={page}
+                    onChange={handlePageChange}
+                  />
+                </>
+              )}
+            </div>
+          </div>
         </div>
-        <div
-          className="content-card"
-          style={{
-            opacity: 0,
-            transform: 'translateY("100px")',
-            width: "60%",
-          }}
-          ref={cardContainer3}
-        >
-          <Pagination posts={posts} />
+        <div className="home-bottom">
+          <TopSelll />
+          <Ads ad={2} />
         </div>
       </div>
-      <div className="home-bottom">
-        <TopSelll />
-        <Ads uri={pubImg} />
-      </div>
-      <Footer onCategoryChange={handleCategoryChange} p={p} />
-    </div>
+    </>
   );
 }
 

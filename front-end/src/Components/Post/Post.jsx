@@ -2,6 +2,7 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import "./Post.css";
 import NotFound from "../../assets/images/Image_not_available.webp";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 function Post({ category, img_post, name, price, id }) {
   const fallbackImageUrl = NotFound;
   // Determine the image URL to use
@@ -15,7 +16,7 @@ function Post({ category, img_post, name, price, id }) {
       <div className="post-name">
         <p>{name}</p>
       </div>
-      <img src={imageUrl} alt="post-image" loading="lazy" />
+      <LazyLoadImage src={imageUrl} alt="post-image" loading="lazy" />
       <div className="button-post-container">
         <strong>{price} DA</strong>
         <Link to={`/postDetails/${id}`}>

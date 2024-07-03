@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import "./update_use.css";
 import avatarImage from "../../assets/images/avatar.webp";
 import bannerImage from "../../assets/images/banner.webp";
 import Swal from "sweetalert2";
 import { AiFillEdit } from "react-icons/ai";
-import loader from "../../assets/images/loader.gif";
-const baseURL = import.meta.env.VITE_BASE_URL;
+import { updateUser } from "../../services/User";
+
 function Update_user() {
   const navigate = useNavigate();
   // states:
@@ -67,9 +66,8 @@ function Update_user() {
     formData.append("banner", bannerFile);
 
     try {
-      const res = await axios.put(baseURL + `/user/`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      //TODO: Test it
+      const res = await updateUser(formData);
 
       // Update the user object with the new values
       user.avatar.url = res.data.avatar.url;

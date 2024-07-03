@@ -2,8 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Ads from "../../Components/Ads/Ads";
 import CategorySide from "../../Components/CategorySide/CategorySide";
 import Details from "../../Components/Details/Details";
-import Footer from "../../Components/Footer/Footer";
-import Navbar from "../../Components/Navbar/Navbar";
+
 import axios from "axios";
 import pubImg from "../../assets/images/pub.webp";
 import TopSelll from "../../Components/TopSelll/TopSelll";
@@ -13,8 +12,7 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useLocation } from "react-router-dom";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-function Postdetails(isDarkMode) {
-  // style and animation ::
+function Postdetails() {
   gsap.registerPlugin(ScrollTrigger);
   const cardContainer = useRef();
   const cardContainer2 = useRef();
@@ -45,7 +43,7 @@ function Postdetails(isDarkMode) {
       scrollTrigger: cardContainer.current,
     });
   }, []);
-  const p = isDarkMode.isDarkMode;
+
   // api call:
   const [post, setPost] = useState(null);
   const location = useLocation();
@@ -59,11 +57,10 @@ function Postdetails(isDarkMode) {
 
   return (
     <div className="post-details-container">
-      <Navbar p={p} />
       <div className="post-details-center">
         <div className="Ads-category" ref={cardContainer2}>
           <CategorySide />
-          <Ads uri={pubImg} />
+          <Ads ad = {1} />
         </div>
         <div className="post-details">
           <Details postinfo={post} />
@@ -71,9 +68,8 @@ function Postdetails(isDarkMode) {
       </div>
       <div className="home-bottom">
         <TopSelll />
-        <Ads uri={pubImg} />
+        <Ads ad = {2} />
       </div>
-      <Footer p={p} />
     </div>
   );
 }

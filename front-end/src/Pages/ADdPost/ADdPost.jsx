@@ -1,22 +1,21 @@
 import AddPost from "../../Components/AddPost/AddPost";
 import Ads from "../../Components/Ads/Ads";
-import Footer from "../../Components/Footer/Footer";
-import Navbar from "../../Components/Navbar/Navbar";
 import TopSelll from "../../Components/TopSelll/TopSelll";
-
-
-function ADdPost(isDarkMode) {
-  const p = isDarkMode.isDarkMode;
+import { Helmet } from "react-helmet";
+function ADdPost() {
   return (
-    <div>
-      <Navbar p={p} />
-      <AddPost />
-      <div className="home-bottom">
-        <TopSelll />
-        <Ads />
+    <>
+      <Helmet>
+        <title>Add Post</title>
+      </Helmet>
+      <div>
+        <AddPost />
+        <div className="home-bottom">
+          <TopSelll />
+          <Ads ad={1} />
+        </div>
       </div>
-      <Footer p={p} />
-    </div>
+    </>
   );
 }
 

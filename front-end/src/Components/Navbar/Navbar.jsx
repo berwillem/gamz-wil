@@ -17,10 +17,16 @@ import { AiFillCaretDown } from "react-icons/ai";
 //import categoryes from "../../Data/category";
 import subCategoryes from "../../Data/subCategory";
 import axios from "axios";
-import { fetchCategories, getCategories } from "../../Data/category";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategory, setSubCategory } from "../../redux/reducers/filters";
+import { getCategories } from "../../services/Category";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
+function Navbar() {
+  const light = useSelector((state) => state.light.value);
+  const user = JSON.parse(localStorage.getItem("user")) || null;
+  
+
   //* state
   const [searchText, setSearchText] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
@@ -38,18 +44,18 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
     JSON.parse(localStorage.getItem("user"))?.infoUpdate || null;
   const navRef = useRef(null);
   const searchBoxRef = useRef(null);
+  const dispatch = useDispatch();
   //function categorys id
   const handleCategorySelection = (categoryId) => {
-    onCategoryChange(categoryId);
+    dispatch(setCategory(categoryId));
   };
   const handleSubcategorySelection = (subcategoryId) => {
-    onSubcategoryChange(subcategoryId);
+    dispatch(setSubCategory(subcategoryId));
   };
   // respo logo function
   useEffect(() => {
     const handleResize = () => {
       const isMobile = window.matchMedia("(max-width: 1240px)").matches;
-
       if (isMobile) {
         setImage(logo3);
       } else {
@@ -91,9 +97,9 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await fetchCategories();
-        const fetchedCategories = getCategories();
-        setCategories(fetchedCategories);
+        const fetchedCategories = await getCategories();
+        console.log(fetchedCategories);
+        setCategories(fetchedCategories.data);
       } catch (error) {
         console.error(error);
       }
@@ -150,7 +156,7 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
       axios
         .get(baseURL + `/post/`)
         .then((response) => {
-          const results = response.data.filter((post) =>
+          const results = response.data.posts.filter((post) =>
             post.title.toLowerCase().includes(value.toLowerCase())
           );
           setResults(results);
@@ -163,7 +169,7 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
         .get(baseURL + `/post/category/${selectedValue}`)
         .then((response) => {
           console.log(response);
-          const results = response.data.filter((post) =>
+          const results = response.data.posts.filter((post) =>
             post.title.toLowerCase().includes(value.toLowerCase())
           );
           setResults(results);
@@ -213,6 +219,10 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
               Welcome to <span className="span-message">Gamz</span>
             </div>
             <div className="account-pub">
+           {user?.isAdmin&&    <li className="catch-button">
+              
+              <Link to="/dashboard">Dashboard</Link>
+            </li>}
               <li className="catch-button">
                 <BsPlusLg size={13} />
                 <Link to="/createPost">Deposez une annonce</Link>
@@ -312,7 +322,7 @@ function Navbar({ p, onCategoryChange, onSubcategoryChange }) {
               <div className="logo">
                 <Link to="/">
                   <img
-                    src={p ? logo2 : image}
+                    src={light ? logo2 : image}
                     alt=""
                     className="logo-gamz-nav"
                   />

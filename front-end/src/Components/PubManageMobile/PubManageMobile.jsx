@@ -1,377 +1,371 @@
-import { useEffect, useState, useRef } from "react";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { gsap, Power3 } from "gsap";
-import Navbar from "../Navbar/Navbar";
-import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
+import React, { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import image from "../../assets/images/banner.webp";
+
 import "./PubManageMobile.css";
-import axios from "axios";
 import iphone from "../../assets/images/iphone.webp";
-import slide1 from "../../assets/images/SMALL1.webp";
-import slide2 from "../../assets/images/SMALL2.webp";
-import slide from "../../assets/images/telslide.webp";
-import { AiOutlineRight, AiOutlineLeft } from "react-icons/ai";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation } from "swiper/modules";
+import { AiOutlineDashboard, AiOutlineHome } from "react-icons/ai";
 
-const baseURL = import.meta.env.VITE_BASE_URL;
-function PubManageMobile({}) {
-  // State variables
-  const [backgroundImage, setBackgroundImage] = useState([
-    { src: slide },
-    { src: slide },
-    { src: slide },
-  ]);
-  const [backgroundImage2, setBackgroundImage2] = useState(slide1);
-  const [backgroundImage3, setBackgroundImage3] = useState(slide2);
-  const [urlArray, setUrlArray] = useState(["", "", ""]);
-  const [principalImagesFile, setPrincipalImagesFile] = useState([]);
-  const [pub1, setPub1] = useState(null);
-  const [pub2, setPub2] = useState(null);
-  const [subtitleValue1, setSubtitleValue1] = useState("");
-  const [subtitleValue2, setSubtitleValue2] = useState("");
-  const [subtitleValue3, setSubtitleValue3] = useState("");
-  const [index, setIndex] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [url4, setUrl4] = useState("");
-  const [url5, setUrl5] = useState("");
-  // Refs
-  const subtitle = useRef();
-  const subtitle2 = useRef();
-  const subtitle3 = useRef();
-  const title = useRef();
-  const dot = useRef();
-  const button = useRef();
-  const cardContainer = useRef();
-  const cardContainer2 = useRef();
-
-  // Change the background image of the slider
-  const handleBackgroundChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const imageUrl = event.target.result;
-        const newImage = { src: imageUrl };
-        const updatedImages = [...backgroundImage];
-        updatedImages[index] = newImage;
-        setBackgroundImage(updatedImages);
-
-        const newImageFiles = [...principalImagesFile];
-        newImageFiles[index] = file;
-        setPrincipalImagesFile(newImageFiles);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-  // Switch to the next background image
-  const switchback = () => {
-    setIndex((index) =>
-      index < backgroundImage.length - 1
-        ? index + 1
-        : backgroundImage.length - 1
-    );
+import { Link } from "react-router-dom";
+import Modal from "@mui/material/Modal";
+import { Box, Typography } from "@mui/material";
+import { FaLink } from "react-icons/fa";
+import { createPubMobil, getNoCacheMobile } from "../../services/Pubs";
+import Swal from 'sweetalert2';
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  p: 4,
+  borderRadius: "10px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "10px",
+};
+export default function PubManageMobile() {
+  const [open, setOpen] = useState(false);
+  const [linkType, setLinkType] = useState({ index: null, type: null });
+  const [imagePub, setImagePub] = useState([]);
+  const [imagePub1, setImagePub1] = useState();
+  const [imagePub2, setImagePub2] = useState();
+  const handleOpen = (index, type) => {
+    setLinkType({ index, type });
+    setOpen(true);
   };
 
-  // Switch to the previous background image
-  const switchback2 = () => {
-    setIndex((index) => (index > 0 ? index - 1 : 0));
-  };
-  // Change the background image of the first card
-  const handleBackgroundChange2 = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setBackgroundImage2(URL.createObjectURL(file));
-      setPub1(file);
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const imageUrl = event.target.result;
-        setBackgroundImage2(imageUrl);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  const handleClose = () => setOpen(false);
+  const [pubs, setPubs] = useState({})
+  const [pubs2, setPubs2] = useState({})
+  
+ 
+ useEffect(() => {
+  getNoCacheMobile().then((response) => {
+    setPubs(response.data);
+    setPubs2(response.data);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 
-  // Change the background image of the second card
-  const handleBackgroundChange3 = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setBackgroundImage3(URL.createObjectURL(file));
-      setPub2(file);
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const imageUrl = event.target.result;
-        setBackgroundImage3(imageUrl);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+ }, [])
 
-  useEffect(() => {
-    // Animation effects using gsap and ScrollTrigger
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.to(dot.current, {
-      y: 0,
-      delay: 0.2,
-      opacity: 1,
-      duration: 1,
-      ease: Power3.easeOut,
-      scrollTrigger: {
-        trigger: dot.current,
-      },
-    });
-    gsap.to(button.current, {
-      y: 0,
-      delay: 0.2,
-      opacity: 1,
-      duration: 1,
-      ease: Power3.easeOut,
-      scrollTrigger: {
-        trigger: button.current,
-      },
-    });
-    gsap.to(title.current, {
-      y: 0,
-      delay: 0.2,
-      opacity: 1,
-      duration: 1,
-      ease: Power3.easeOut,
-      scrollTrigger: {
-        trigger: title.current,
-      },
-    });
-    gsap.to(cardContainer.current, {
-      x: 0,
-      delay: 0.2,
-      opacity: 1,
-      duration: 1,
-      ease: Power3.easeOut,
-      scrollTrigger: {
-        trigger: cardContainer.current,
-      },
-    });
-    gsap.to(cardContainer2.current, {
-      x: 0,
-      delay: 0.2,
-      opacity: 1,
-      duration: 1,
-      ease: Power3.easeOut,
-      scrollTrigger: {
-        trigger: cardContainer2.current,
-      },
-    });
-  }, []);
-
-  // Handle the subtitle change for a specific ref
-  const handleSubtitleChange = (ref, setSubtitleValue) => {
-    const newSubtitle = prompt("Enter a new subtitle:");
-    if (newSubtitle) {
-      setSubtitleValue(newSubtitle);
-    }
-  };
-  // Handle the URL change
-  const handleURLChange = (event, index) => {
-    const { value } = event.target;
-    const updatedUrls = [...urlArray];
-    updatedUrls[index] = value;
-    setUrlArray(updatedUrls);
-  };
-  // Handle the URL4 change
-  const handleURL4Change = (event) => {
-    const { value } = event.target;
-    setUrl4(value);
-  };
-
-  // Handle the URL5 change
-  const handleURL5Change = (event) => {
-    const { value } = event.target;
-    setUrl5(value);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    window.scrollTo({ top: 300 });
-    const requestData = {
-      pub: principalImagesFile,
-      title: subtitleValue1,
-      redirectUrls: urlArray.map((url) => ({ url })),
-      cardOne: {
-        title: subtitleValue2,
-        cardOneImage: pub1,
-        redirect: url4,
-      },
-      cardTwo: {
-        title: subtitleValue3,
-        cardTwoImage: pub2,
-        redirect: url5,
-      },
+ 
+  const addNewPub = () => {
+    const newPub = {
+      url: image,
+      publicId: 'pubs/newad'
     };
 
-    const formData = new FormData();
-    formData.append("pub", requestData.pub[0]);
-    formData.append("pub", requestData.pub[1]);
-    formData.append("pub", requestData.pub[2]);
-    formData.append("title", requestData.title);
-    formData.append("redirectUrls", JSON.stringify(requestData.redirectUrls));
-    formData.append("cardOne[title]", requestData.cardOne.title);
-    formData.append("cardOneImage", requestData.cardOne.cardOneImage);
-    formData.append("cardOne[redirect]", requestData.cardOne.redirect);
-    formData.append("cardTwo[title]", requestData.cardTwo.title);
-    formData.append("cardTwoImage", requestData.cardTwo.cardTwoImage);
-    formData.append("cardTwo[redirect]", requestData.cardTwo.redirect);
-
-    try {
-      const user = JSON.parse(localStorage.getItem("user"));
-      const sessionId = user.sessionId;
-      const config = {
-        headers: {
-          "session-id": sessionId,
-        },
+    setPubs((prevPubs) => ({
+      ...prevPubs,
+      pub: [...prevPubs.pub, newPub]
+    }));
+    setPubs2((prevPubs2) => ({
+      ...prevPubs2,
+      pub: [...prevPubs2.pub, newPub]
+    }));
+  };
+  const deleteAd = (index) => {
+    setPubs((prevPubs) => ({
+      ...prevPubs,
+      pub: prevPubs.pub.filter((_, i) => i !== index)
+    }));
+    setPubs2((prevPubs) => ({
+      ...prevPubs,
+      pub: prevPubs.pub.filter((_, i) => i !== index)
+    }));
+  };
+  const handleFileChange = (index, type, subIndex, event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+ 
+        const newPubs = { ...pubs };
+        
+   
+  
+        if (type === "main") {
+          newPubs.pub[index].url = reader.result;
+          setImagePub((prevImagePub) => [...prevImagePub, file]);
+   
+      
+        } else if (type === "seconde") {
+          newPubs.cardOne.cardOneImage.url = reader.result;
+          setImagePub1(file);
+    
+        } else if (type === "third") {
+          newPubs.cardTwo.cardTwoImage.url = reader.result;
+          setImagePub2(file);
+      
+     
+        }
+  
+      
+      
+        setPubs(newPubs); 
+       
+        
+    
+        
+    
       };
-      const res = await axios.post(baseURL + "/pub/mobil", formData, config, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
-      Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: "Your request has been submitted successfully!",
-      });
-    } catch (err) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Error occurred while submitting the request",
-      });
-      console.log(err);
-    } finally {
-      setLoading(false);
+  
+      reader.readAsDataURL(file); 
     }
   };
+  const handleTitleChange = (index, type, event) => {
+  
+    const newPubs = { ...pubs };
+    const newPubs2 = { ...pubs2 };
+    if (type === "main") {
+    
+      newPubs.title = event.target.value;
+      newPubs2.title = event.target.value;
+    } else if (type === "seconde") {
+   
+      newPubs.cardOne.title = event.target.value;
+      newPubs2.cardOne.title = event.target.value;
+    } else if (type === "third") {
+      newPubs.cardTwo.title = event.target.value;
+      newPubs2.cardTwo.title = event.target.value;
+    }
+    setPubs(newPubs);
+    setPubs2(newPubs2);
+   
+  };
+  const handleLinkChange = (event) => {
+    const { index, type } = linkType;
+    const newPubs = { ...pubs };
+    const newPubs2 = { ...pubs2 };
+    if (type === "main") {
 
-  console.log(subtitleValue1);
+      newPubs.redirectUrls[index].url = event.target.value;
+      newPubs2.redirectUrls[index].url = event.target.value;
+    } else if (type === "seconde") {
+  
+      newPubs.cardOne.redirect = event.target.value;
+      newPubs2.cardOne.redirect = event.target.value;
+    } else if (type === "third") {
+  
+      newPubs.cardTwo.redirect = event.target.value;
+      newPubs2.cardTwo.redirect = event.target.value;
+    }
+    setPubs(newPubs);
+    setPubs2(newPubs2);
+   
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const user = JSON.parse(localStorage.getItem("user"))
+    const sessionId = user.sessionId
+    const fd = new FormData()
+    imagePub.forEach((pub, index) => {
+      fd.append("pub", pub)
+    
+     
+    })
+
+    pubs2.pub?.forEach((pub, index) => {
+      
+      console.log(pub)
+      if(pub.url.includes("cloudinary")){fd.append("cloudinaryPub", pub.url)}
+      
+    })
+    fd.append("title", pubs.title)
+    pubs.redirectUrls.forEach((redirectUrls, index) => {
+      fd.append("links", redirectUrls.url)
+     
+    })
+    imagePub1 instanceof File ? fd.append("cardOneImage", imagePub1) : fd.append("cloudinaryImage1", pubs?.cardOne?.cardOneImage.url);
+    fd.append("cardOneTitle", pubs.cardOne.title)
+    fd.append("cardOneLink", pubs.cardOne.redirect)
+
+    imagePub2 instanceof File ? fd.append("cardTwoImage", imagePub2) : fd.append("cloudinaryImage2", pubs?.cardTwo?.cardTwoImage.url);
+    fd.append("cardTwoTitle", pubs.cardTwo.title)
+    fd.append("cardTwoLink", pubs.cardTwo.redirect)
+
+    createPubMobil(fd, sessionId)
+    .then(()=> {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'worked',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    })
+    .catch((err) => {
+      console.error(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!'
+      })
+    })
+  }
+
   return (
-    <>
-      <Navbar />
-      {loading && (
-        <div className="loader">
-          <span className="loader"></span>
+    <div className="dashboard-container">
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className="boxModel" sx={style}>
+          <label htmlFor="">Enter votre Url</label>
+          <input type="text" id="link-input" onChange={handleLinkChange} />
+          <button onClick={handleClose}>Valid</button>
+        </Box>
+      </Modal>
+      <div className="dashboard_l">
+        <div className="user-l-dashboard">
+          <li>
+            <Link
+              to="/Dashboard"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+              }}
+            >
+              Home
+              <AiOutlineHome />
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/Pub-manage"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+              }}
+            >
+              pub management
+              <AiOutlineDashboard />
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/pub-manage-mobile"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+              }}
+            >
+              pub management mobile
+              <AiOutlineDashboard />
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/sidePub"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+              }}
+            >
+              side pub management
+              <AiOutlineDashboard />
+            </Link>
+          </li>
         </div>
-      )}
-      <form action="" className="manage" onSubmit={handleSubmit}>
-        <img src={iphone} className="iphone" alt="" />
-        <div className="switch2">
-          <AiOutlineLeft onClick={switchback2} size={20} color="#fff" />
-          <AiOutlineRight onClick={switchback} size={20} color="#fff" />
+      </div>
+      <form className="user_dashboard_right">
+        <div className="btn">
+          <button type="button" onClick={addNewPub}>
+            addSlide
+          </button>
+          <button onClick={handleSubmit}>valider le slide</button>
         </div>
-        <div className="dot">
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(event) => handleBackgroundChange(event)}
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleBackgroundChange2}
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleBackgroundChange3}
-          />
-          <input
-            type="button"
-            value="enter text 1"
-            onClick={() => handleSubtitleChange(subtitle, setSubtitleValue1)}
-          />
-          <input
-            type="button"
-            value="enter text 2"
-            onClick={() => handleSubtitleChange(subtitle2, setSubtitleValue2)}
-          />
-          <input
-            type="button"
-            value="enter text 3"
-            onClick={() => handleSubtitleChange(subtitle3, setSubtitleValue3)}
-          />
-          <input
-            type="url"
-            placeholder="url 1"
-            value={urlArray[0]}
-            onChange={(event) => handleURLChange(event, 0)}
-          />
-          <input
-            type="url"
-            placeholder="url 2"
-            value={urlArray[1]}
-            onChange={(event) => handleURLChange(event, 1)}
-          />
-          <input
-            type="url"
-            placeholder="url 3"
-            value={urlArray[2]}
-            onChange={(event) => handleURLChange(event, 2)}
-          />
-          <input
-            type="url"
-            placeholder="url 4"
-            value={url4}
-            onChange={handleURL4Change}
-          />
-          <input
-            type="url"
-            placeholder="url 5"
-            value={url5}
-            onChange={handleURL5Change}
-          />
-        </div>
-
-        <div className="mobile">
-          <div
-            className="slider"
-            style={{
-              backgroundImage: `url(${backgroundImage[index].src})`,
-            }}
+        <div className="iphoneContent">
+          <img className="iphone" src={iphone} alt="" />
+          <Swiper
+            navigation={true}
+            modules={[Navigation]}
+            className="mySwiper mobil"
           >
-            <div className="R-C-slider">
-              <div className="L-slider">
-                <div className="buy-button">
-                  <Link target="_blank">
-                    <button ref={button}>En savoir plus !</button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="R-slider">
-              <Link target="_blank">
-                <div
-                  ref={cardContainer}
-                  className="box"
-                  style={{
-                    backgroundImage: `url(${backgroundImage2})`,
-                  }}
-                ></div>
-              </Link>
-              <Link target="_blank">
-                <div
-                  className="box"
-                  ref={cardContainer2}
-                  style={{
-                    backgroundImage: `url(${backgroundImage3})`,
-                  }}
-                >
-                  <div className="title-box"></div>
-                </div>
-              </Link>
-            </div>
-          </div>
-        </div>
+            {pubs?.pub?.map((pub, index) => (
+              <SwiperSlide key={index}>
+                <FaLink
+                  className="linkIcon"
+                  onClick={() => handleOpen(index, "main")}
+                />
+                <input
+                  type="file"
+                  className="bigimage"
+                  onChange={(e) => handleFileChange(index, "main", null, e)}
+                />
+                <span onClick={() => deleteAd(index)} className="delete">
+                  delete
+                </span>
+                <img src={pub?.url} alt="" />
+                <div className="infos">
+                  <div className="info_lefts">
+                    <input
+                      type="text"
+                      value={pubs?.title}
+                      onChange={(e) => handleTitleChange(index, "main", e)}
+                      placeholder="Main Title"
+                    />
+                    <button className="btnPlus">En savoir plus !</button>
+                  </div>
+                  <div className="info_rights">
+                    <div className="div">
+                      <FaLink
+                        className="linkIcon"
+                        onClick={() => handleOpen(index, "seconde")}
+                      />
+                      <img src={pubs?.cardOne?.cardOneImage.url}  alt="" />{" "}
+                      <input
+                        type="file"
+                        onChange={(e) =>
+                          handleFileChange(index, "seconde", 0, e)
+                        }
+                      />
+                      <input
+                        type="text"
+                        value={pubs?.cardOne?.title}
+                        onChange={(e) => handleTitleChange(index, "seconde", e)}
+                      />
+                    </div>
 
-        <input type="submit" className="btnsub" />
+                    <div className="div">
+                      <FaLink
+                        className="linkIcon"
+                        onClick={() => handleOpen(index, "third")}
+                      />
+                        <img src={pubs?.cardTwo?.cardTwoImage.url} alt="" />{" "}
+                      <input
+                        type="file"
+                        onChange={(e) => handleFileChange(index, "third", 0, e)}
+                      />
+                      <input
+                        type="text"
+                        value={pubs?.cardTwo?.title}
+                        onChange={(e) => handleTitleChange(index, "third", e)}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </form>
-    </>
+    </div>
   );
 }
-
-export default PubManageMobile;
