@@ -10,7 +10,7 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { AiOutlineDashboard, AiOutlineHome } from "react-icons/ai";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/material";
 import { FaLink } from "react-icons/fa";
@@ -41,7 +41,7 @@ export default function PubManageMobile() {
   const [loading, setLoading] = useState(false);
   const [pubs, setPubs] = useState({});
   const [pubs2, setPubs2] = useState({});
-
+  const navigate = useNavigate();
   const handleOpen = (index, type) => {
     setLinkType({ index, type });
     setOpen(true);
@@ -189,6 +189,7 @@ export default function PubManageMobile() {
           timer: 1500,
         });
         setLoading(false);
+        navigate("/Dashboard");
       })
       .catch((err) => {
         console.error(err);
