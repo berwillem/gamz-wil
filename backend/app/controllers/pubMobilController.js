@@ -1,5 +1,13 @@
 const pubmobil = require("../models/pubmobil");
 
+const arrayify = (input) => {
+  if(Array.isArray(input)){
+    return input
+  }else{
+    return [input]
+  }
+}
+
 exports.createPubMobil = async (req, res) => {
   try {
     const {
@@ -12,6 +20,9 @@ exports.createPubMobil = async (req, res) => {
       cardTwoLink,
       cardOneImage,
       cardTwoImage,
+      cloudinaryPub,
+      cloudinaryImage1,
+      cloudinaryImage2
     } = req.body;
     // Perform data validation on the request payload
     if (!pub || !title) {
@@ -26,17 +37,17 @@ exports.createPubMobil = async (req, res) => {
 
     // Create the pub data object
     const pubData = new pubmobil({
-      pub: pub,
+      pub: cloudinaryPub ? [...(arrayify(cloudinaryPub).map(p=>({url:p}))),...(arrayify(pub))] : arrayify(pub),
       title,
-      redirectUrls: Array.isArray(links) ? links.map(link=>{url:link}): {url:links},
+      redirectUrls: Array.isArray(links) ? links.map(link=>({url:link})): [{url:links}],
       cardOne: {
         title: cardOneTitle,
-        cardOneImage: cardOneImage,
+        cardOneImage: cloudinaryImage1 ? {url:cloudinaryImage1, publicId:"512"} :cardOneImage,
         redirect: cardOneLink,
       },
       cardTwo: {
         title: cardTwoTitle,
-        cardTwoImage: cardTwoImage,
+        cardTwoImage: cloudinaryImage2 ? {url:cloudinaryImage2, publicId:"512"} :cardTwoImage,
         redirect: cardTwoLink, 
       },
     });
@@ -44,6 +55,7 @@ exports.createPubMobil = async (req, res) => {
     const savedPub = await pubData.save();
     res.status(201).json(savedPub);
   } catch (err) {
+    console.error(err)
     res.status(400).json({ message: err.message });
   }
 };

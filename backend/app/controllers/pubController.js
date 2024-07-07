@@ -1,5 +1,13 @@
 const Pub = require("../models/pub");
 
+const arrayify = (input) => {
+  if(Array.isArray(input)){
+    return input
+  }else{
+    return [input]
+  }
+}
+
 exports.createPub = async (req, res) => {
   try {
     const {
@@ -12,6 +20,9 @@ exports.createPub = async (req, res) => {
       cardTwoLink,
       cardOneImage,
       cardTwoImage,
+      cloudinaryPub,
+      cloudinaryImage1,
+      cloudinaryImage2
     } = req.body;
     // Perform data validation on the request payload
     if (!pub || !title) {
@@ -20,23 +31,27 @@ exports.createPub = async (req, res) => {
 
     // Delete the existing pub, if it exists
     await Pub.deleteMany();
-
+    // const cloudinaryPubArr = Array.isArray(cloudinaryPub)? cloudinaryPub : [cloudinaryPub];
     // Parse redirectUrls from JSON string to an array of objects
 
     // Create the pub data object
-    console.log(links);
+
+    // console.log("image1 :", cloudinaryImage1 ? {url:cloudinaryImage1, publicId:"pubs/o77ehcb92vfj7lhb6f9h"} :cardOneImage)
+    // console.log("image2: ",cloudinaryImage2 ? {url:cloudinaryImage2, publicId:"pubs/o77ehcb92vfj7lhb6f9h"} :cardTwoImage)
+    console.log("CloudinaryPub: ", (arrayify(cloudinaryPub).map(p=>({url:p}))))
+    // console.log(links);
     const pubData = new Pub({
-      pub: pub,
+      pub: cloudinaryPub ? [...(arrayify(cloudinaryPub).map(p=>({url:p}))),...(arrayify(pub))] : arrayify(pub),
       title,
-      redirectUrls: Array.isArray(links) ? links.map(link=>{url:link}): {url:links},
+      redirectUrls: Array.isArray(links) ? links.map(link=>({url:link})): [{url:links}],
       cardOne: {
         title: cardOneTitle,
-        cardOneImage: cardOneImage,
+        cardOneImage: cloudinaryImage1 ? {url:cloudinaryImage1, publicId:"512"} :cardOneImage,
         redirect: cardOneLink,
       },
       cardTwo: {
         title: cardTwoTitle,
-        cardTwoImage: cardTwoImage,
+        cardTwoImage: cloudinaryImage2 ? {url:cloudinaryImage2, publicId:"512"} :cardTwoImage,
         redirect: cardTwoLink,
       },
     });
@@ -44,6 +59,7 @@ exports.createPub = async (req, res) => {
     const savedPub = await pubData.save();
     res.status(201).json(savedPub);
   } catch (err) {
+    console.error(err)
     res.status(400).json({ message: err.message });
   }
 };

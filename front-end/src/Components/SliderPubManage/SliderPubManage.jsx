@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import Modal from "@mui/material/Modal";
 import { Box, Typography } from "@mui/material";
 import { createPub, getPubCache } from "../../services/Pubs";
-import  Swal  from 'sweetalert2';
+import Swal from "sweetalert2";
 
 const style = {
   position: "absolute",
@@ -41,45 +41,43 @@ export default function SliderPubManage() {
   };
 
   const handleClose = () => setOpen(false);
-  const [pubs, setPubs] = useState({})
-  const [pubs2, setPubs2] = useState({})
-  
- 
- useEffect(() => {
-   getPubCache().then((response) => {
-    setPubs(response.data);
-    setPubs2(response.data);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+  const [pubs, setPubs] = useState({});
+  const [pubs2, setPubs2] = useState({});
 
- }, [])
+  useEffect(() => {
+    getPubCache()
+      .then((response) => {
+        setPubs(response.data);
+        setPubs2(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
- 
   const addNewPub = () => {
     const newPub = {
       url: image,
-      publicId: 'pubs/newad'
+      publicId: "pubs/newad",
     };
 
     setPubs((prevPubs) => ({
       ...prevPubs,
-      pub: [...prevPubs.pub, newPub]
+      pub: prevPubs.pub? [...prevPubs.pub, newPub]: [newPub],
     }));
     setPubs2((prevPubs2) => ({
       ...prevPubs2,
-      pub: [...prevPubs2.pub, newPub]
+      pub: prevPubs2.pub? [...prevPubs2.pub, newPub]: [newPub],
     }));
   };
   const deleteAd = (index) => {
     setPubs((prevPubs) => ({
       ...prevPubs,
-      pub: prevPubs.pub.filter((_, i) => i !== index)
+      pub: prevPubs.pub.filter((_, i) => i !== index),
     }));
     setPubs2((prevPubs) => ({
       ...prevPubs,
-      pub: prevPubs.pub.filter((_, i) => i !== index)
+      pub: prevPubs.pub.filter((_, i) => i !== index),
     }));
   };
   const handleFileChange = (index, type, subIndex, event) => {
@@ -87,50 +85,32 @@ export default function SliderPubManage() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
- 
-        const newPubs = { ...pubs };
-        
-   
-  
+        const newPubs = { ...pubs };console.log(newPubs);
+
         if (type === "main") {
           newPubs.pub[index].url = reader.result;
           setImagePub((prevImagePub) => [...prevImagePub, file]);
-   
-      
         } else if (type === "seconde") {
           newPubs.cardOne.cardOneImage.url = reader.result;
           setImagePub1(file);
-    
         } else if (type === "third") {
           newPubs.cardTwo.cardTwoImage.url = reader.result;
           setImagePub2(file);
-      
-     
         }
-  
-      
-      
-        setPubs(newPubs); 
-       
-        
-    
-        
-    
+
+        setPubs(newPubs);
       };
-  
-      reader.readAsDataURL(file); 
+
+      reader.readAsDataURL(file);
     }
   };
   const handleTitleChange = (index, type, event) => {
-  
     const newPubs = { ...pubs };
     const newPubs2 = { ...pubs2 };
     if (type === "main") {
-    
       newPubs.title = event.target.value;
       newPubs2.title = event.target.value;
     } else if (type === "seconde") {
-   
       newPubs.cardOne.title = event.target.value;
       newPubs2.cardOne.title = event.target.value;
     } else if (type === "third") {
@@ -139,72 +119,72 @@ export default function SliderPubManage() {
     }
     setPubs(newPubs);
     setPubs2(newPubs2);
-   
   };
   const handleLinkChange = (event) => {
     const { index, type } = linkType;
     const newPubs = { ...pubs };
     const newPubs2 = { ...pubs2 };
     if (type === "main") {
-
       newPubs.redirectUrls[index].url = event.target.value;
       newPubs2.redirectUrls[index].url = event.target.value;
     } else if (type === "seconde") {
-  
       newPubs.cardOne.redirect = event.target.value;
       newPubs2.cardOne.redirect = event.target.value;
     } else if (type === "third") {
-  
       newPubs.cardTwo.redirect = event.target.value;
       newPubs2.cardTwo.redirect = event.target.value;
     }
     setPubs(newPubs);
     setPubs2(newPubs2);
-   
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const user = JSON.parse(localStorage.getItem("user"))
-    const sessionId = user.sessionId
-    const fd = new FormData()
+    const user = JSON.parse(localStorage.getItem("user"));
+    const sessionId = user.sessionId;
+    const fd = new FormData();
     imagePub.forEach((pub, index) => {
-      fd.append("pub", pub)
-    
-     
+      fd.append("pub", pub);
+    });
+    pubs2.pub?.forEach((pub, index) => {
+      
+      console.log(pub)
+      if(pub.url.includes("cloudinary")){fd.append("cloudinaryPub", pub.url)}
+      
     })
-    fd.append("title", pubs.title)
+    fd.append("title", pubs.title);
     pubs.redirectUrls.forEach((redirectUrls, index) => {
-      fd.append("links", redirectUrls.url)
-     
-    })
-    fd.append("cardOneImage", imagePub1)
-    fd.append("cardOneTitle", pubs.cardOne.title)
-    fd.append("cardOneLink", pubs.cardOne.redirect)
+      fd.append("links", redirectUrls.url);
+    });
 
-    fd.append("cardTwoImage",imagePub2)
-    fd.append("cardTwoTitle", pubs.cardTwo.title)
-    fd.append("cardTwoLink", pubs.cardTwo.redirect)
+    console.log(pubs?.cardOne?.cardOneImage.url);
+    imagePub1 instanceof File ? fd.append("cardOneImage", imagePub1) : fd.append("cloudinaryImage1", pubs?.cardOne?.cardOneImage.url);
+    fd.append("cardOneTitle", pubs.cardOne.title);
+    fd.append("cardOneLink", pubs.cardOne.redirect);
+
+    imagePub2 instanceof File ? fd.append("cardTwoImage", imagePub2) : fd.append("cloudinaryImage2", pubs?.cardTwo?.cardTwoImage.url);
+    fd.append("cardTwoTitle", pubs.cardTwo.title);
+    fd.append("cardTwoLink", pubs.cardTwo.redirect);
 
     createPub(fd, sessionId)
-    .then(()=> {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'worked',
-        showConfirmButton: false,
-        timer: 1500
+      .then(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "worked",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       })
-    })
-    .catch((err) => {
-      console.error(err)
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!'
-      })
-    })
-  }
+      .catch((err) => {
+        console.error(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+      });
+  };
 
   return (
     <div className="dashboard-container dash-pub">
@@ -298,7 +278,7 @@ export default function SliderPubManage() {
                 <div className="info_lefts">
                   <input
                     type="text"
-                  value={pubs?.title}
+                    value={pubs?.title}
                     onChange={(e) => handleTitleChange(index, "main", e)}
                     placeholder="Main Title"
                   />
@@ -310,7 +290,7 @@ export default function SliderPubManage() {
                       className="linkIcon"
                       onClick={() => handleOpen(index, "seconde")}
                     />
-                      <img src={pubs?.cardOne?.cardOneImage.url} alt="" />{" "}
+                    <img src={pubs?.cardOne?.cardOneImage.url} alt="" />{" "}
                     <input
                       type="file"
                       onChange={(e) => handleFileChange(index, "seconde", 0, e)}
@@ -334,7 +314,7 @@ export default function SliderPubManage() {
                     />
                     <input
                       type="text"
-                   value={pubs?.cardTwo?.title}
+                      value={pubs?.cardTwo?.title}
                       onChange={(e) => handleTitleChange(index, "third", e)}
                     />
                   </div>
@@ -347,7 +327,9 @@ export default function SliderPubManage() {
           <button type="button" onClick={addNewPub}>
             addSlide
           </button>
-          <button type="submit" onClick={handleSubmit}>valider le slide</button>
+          <button type="submit" onClick={handleSubmit}>
+            valider le slide
+          </button>
         </div>
       </form>
     </div>
