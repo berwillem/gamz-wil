@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./PassForgot2.css";
 import Swal from "sweetalert2";
 import { passwordReset } from "../../services/Auth";
+import { Helmet } from "react-helmet";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
 const PassForgot2 = () => {
@@ -40,6 +41,9 @@ const PassForgot2 = () => {
 
   return (
     <div className="password-reset">
+           <Helmet>
+        <title>pass-forgot | Gamz </title>
+      </Helmet>
       <div className="password-reset-header">
         <h1 className="password-reset-title">Reset Password</h1>
       </div>

@@ -4,6 +4,7 @@ import { sendResetLink } from "../../redux/reducers/Pass";
 import image from "../../assets/Svg/undraw_forgot_password_re_hxwm.svg";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
+import { Helmet } from "react-helmet";
 
 
 const PassForgot = () => {
@@ -35,6 +36,9 @@ const PassForgot = () => {
 
   return (
     <div className="pass-forgot-container">
+           <Helmet>
+        <title>pass-forgot | Gamz </title>
+      </Helmet>
       <div className="pass-forgot-image-container">
         <img src={image} alt="Image" />
       </div>

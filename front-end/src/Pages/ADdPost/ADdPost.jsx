@@ -6,7 +6,7 @@ function ADdPost() {
   return (
     <>
       <Helmet>
-        <title>Add Post</title>
+        <title>Add Post | gamz</title>
       </Helmet>
       <div>
         <AddPost />
