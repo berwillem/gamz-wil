@@ -10,6 +10,7 @@ import "./Postdetails.css";
 import { Power3, gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
 function Postdetails() {
@@ -57,6 +58,9 @@ function Postdetails() {
 
   return (
     <div className="post-details-container">
+      <Helmet>
+        <title>post-details | Gamz </title>
+      </Helmet>
       <div className="post-details-center">
         <div className="Ads-category" ref={cardContainer2}>
           <CategorySide />

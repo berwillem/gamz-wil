@@ -221,11 +221,11 @@ function Navbar() {
             <div className="account-pub">
            {user?.isAdmin&&    <li className="catch-button">
               
-              <Link to="/dashboard">Dashboard</Link>
+              <Link className="btnAn" to="/dashboard">Dashboard</Link>
             </li>}
               <li className="catch-button">
                 <BsPlusLg size={13} />
-                <Link to="/createPost">Deposez une annonce</Link>
+                <Link to="/createPost" className="btnAn">Deposez une annonce</Link>
               </li>
               <li className="upline">|</li>
               <li>

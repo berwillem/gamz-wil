@@ -8,9 +8,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { AiOutlineDashboard, AiOutlineHome } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Modal from "@mui/material/Modal";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { createPub, getPubCache } from "../../services/Pubs";
 import Swal from "sweetalert2";
 
@@ -35,6 +35,9 @@ export default function SliderPubManage() {
   const [imagePub, setImagePub] = useState([]);
   const [imagePub1, setImagePub1] = useState();
   const [imagePub2, setImagePub2] = useState();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
   const handleOpen = (index, type) => {
     setLinkType({ index, type });
     setOpen(true);
@@ -63,13 +66,14 @@ export default function SliderPubManage() {
 
     setPubs((prevPubs) => ({
       ...prevPubs,
-      pub: prevPubs.pub? [...prevPubs.pub, newPub]: [newPub],
+      pub: prevPubs.pub ? [...prevPubs.pub, newPub] : [newPub],
     }));
     setPubs2((prevPubs2) => ({
       ...prevPubs2,
-      pub: prevPubs2.pub? [...prevPubs2.pub, newPub]: [newPub],
+      pub: prevPubs2.pub ? [...prevPubs2.pub, newPub] : [newPub],
     }));
   };
+
   const deleteAd = (index) => {
     setPubs((prevPubs) => ({
       ...prevPubs,
@@ -80,12 +84,14 @@ export default function SliderPubManage() {
       pub: prevPubs.pub.filter((_, i) => i !== index),
     }));
   };
+
   const handleFileChange = (index, type, subIndex, event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        const newPubs = { ...pubs };console.log(newPubs);
+        const newPubs = { ...pubs };
+        console.log(newPubs);
 
         if (type === "main") {
           newPubs.pub[index].url = reader.result;
@@ -104,6 +110,7 @@ export default function SliderPubManage() {
       reader.readAsDataURL(file);
     }
   };
+
   const handleTitleChange = (index, type, event) => {
     const newPubs = { ...pubs };
     const newPubs2 = { ...pubs2 };
@@ -120,6 +127,7 @@ export default function SliderPubManage() {
     setPubs(newPubs);
     setPubs2(newPubs2);
   };
+
   const handleLinkChange = (event) => {
     const { index, type } = linkType;
     const newPubs = { ...pubs };
@@ -140,6 +148,7 @@ export default function SliderPubManage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     const user = JSON.parse(localStorage.getItem("user"));
     const sessionId = user.sessionId;
     const fd = new FormData();
@@ -147,27 +156,30 @@ export default function SliderPubManage() {
       fd.append("pub", pub);
     });
     pubs2.pub?.forEach((pub, index) => {
-      
-      console.log(pub)
-      if(pub.url.includes("cloudinary")){fd.append("cloudinaryPub", pub.url)}
-      
-    })
+      console.log(pub);
+      if (pub.url.includes("cloudinary")) {
+        fd.append("cloudinaryPub", pub.url);
+      }
+    });
     fd.append("title", pubs.title);
     pubs.redirectUrls.forEach((redirectUrls, index) => {
       fd.append("links", redirectUrls.url);
     });
-
-    console.log(pubs?.cardOne?.cardOneImage.url);
-    imagePub1 instanceof File ? fd.append("cardOneImage", imagePub1) : fd.append("cloudinaryImage1", pubs?.cardOne?.cardOneImage.url);
+    imagePub1 instanceof File
+      ? fd.append("cardOneImage", imagePub1)
+      : fd.append("cloudinaryImage1", pubs?.cardOne?.cardOneImage.url);
     fd.append("cardOneTitle", pubs.cardOne.title);
     fd.append("cardOneLink", pubs.cardOne.redirect);
 
-    imagePub2 instanceof File ? fd.append("cardTwoImage", imagePub2) : fd.append("cloudinaryImage2", pubs?.cardTwo?.cardTwoImage.url);
+    imagePub2 instanceof File
+      ? fd.append("cardTwoImage", imagePub2)
+      : fd.append("cloudinaryImage2", pubs?.cardTwo?.cardTwoImage.url);
     fd.append("cardTwoTitle", pubs.cardTwo.title);
     fd.append("cardTwoLink", pubs.cardTwo.redirect);
 
     createPub(fd, sessionId)
       .then(() => {
+        setLoading(false);
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -175,8 +187,10 @@ export default function SliderPubManage() {
           showConfirmButton: false,
           timer: 1500,
         });
+        navigate("/Dashboard");
       })
       .catch((err) => {
+        setLoading(false);
         console.error(err);
         Swal.fire({
           icon: "error",
@@ -327,8 +341,8 @@ export default function SliderPubManage() {
           <button type="button" onClick={addNewPub}>
             addSlide
           </button>
-          <button type="submit" onClick={handleSubmit}>
-            valider le slide
+          <button type="submit" onClick={handleSubmit} disabled={loading}>
+            {loading ? "Loading..." : "valider le slide"}
           </button>
         </div>
       </form>

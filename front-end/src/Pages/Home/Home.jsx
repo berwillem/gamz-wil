@@ -130,7 +130,7 @@ function Home() {
   return (
     <>
       <Helmet>
-        <title>Add Post</title>
+        <title>home | Gamz </title>
       </Helmet>
       <div>
         <Slider />

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import pubImg from "../../assets/images/pub.webp";
 import "./SidePub.css";
 import { AiOutlineDashboard, AiOutlineHome } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createSidePub, getSidePub } from "../../services/Pubs";
 import Swal from "sweetalert2";
 
@@ -15,6 +15,8 @@ export default function SidePub() {
     { image: pubImg, url: "" },
     { image: pubImg, url: "" },
   ]);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getSidePub(1).then((res) => {
@@ -29,9 +31,14 @@ export default function SidePub() {
     });
 
     getSidePub(2).then((res) => {
-      setPub((state) => [...state.slice(0,1), { image: res.data.url, url: res.data.redirect }]);
-      setPub2((state) => [...state.slice(0,1), { image: res.data.url, url: res.data.redirect }]);
-
+      setPub((state) => [
+        ...state.slice(0, 1),
+        { image: res.data.url, url: res.data.redirect },
+      ]);
+      setPub2((state) => [
+        ...state.slice(0, 1),
+        { image: res.data.url, url: res.data.redirect },
+      ]);
     });
   }, []);
 
@@ -61,22 +68,30 @@ export default function SidePub() {
   };
 
   const handleSubmit = () => {
+    setLoading(true);
     const fd = new FormData();
 
-    pub2[0].image instanceof File ? fd.append("cardOneImage", pub2[0].image): fd.append("cloudinaryImage1", pub2[0].image);
-    pub2[1].image instanceof File ? fd.append("cardTwoImage", pub2[1].image): fd.append("cloudinaryImage2", pub2[1].image);
+    pub2[0].image instanceof File
+      ? fd.append("cardOneImage", pub2[0].image)
+      : fd.append("cloudinaryImage1", pub2[0].image);
+    pub2[1].image instanceof File
+      ? fd.append("cardTwoImage", pub2[1].image)
+      : fd.append("cloudinaryImage2", pub2[1].image);
     fd.append("cardOneLink", pub2[0].url);
     fd.append("cardTwoLink", pub2[1].url);
-  
+
     const user = JSON.parse(localStorage.getItem("user"));
     const sessionId = user.sessionId;
     createSidePub(fd, sessionId)
       .then(() => {
         Swal.fire("Success", "Side Pub created successfully", "success");
+        setLoading(false);
+        navigate("/Dashboard");
       })
       .catch((err) => {
         console.error(err);
         Swal.fire("Error", "Something went wrong", "error");
+        setLoading(false);
       });
   };
 
@@ -158,8 +173,8 @@ export default function SidePub() {
           ))}
         </div>
         <div className="btn">
-          <button type="button" onClick={handleSubmit}>
-            Valider
+          <button type="button" onClick={handleSubmit} disabled={loading}>
+            {loading ? "Loading..." : "Valider"}
           </button>
         </div>
       </form>
