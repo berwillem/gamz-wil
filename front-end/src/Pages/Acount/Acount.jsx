@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import Ads from "../../Components/Ads/Ads";
 import Login from "../../Components/Login/Login";
 import Register from "../../Components/Register/Register";
@@ -52,6 +53,9 @@ function Acount() {
 
   return (
     <div className="account-container">
+        <Helmet>
+        <title>Profil | gamz</title>
+      </Helmet>
       {isLoggedIn ? (
         <div>
           <div className="account-center">

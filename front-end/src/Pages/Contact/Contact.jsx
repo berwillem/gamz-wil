@@ -42,7 +42,7 @@ const Contact = () => {
   return (
     <>
       <Helmet>
-        <title>Contact</title>
+        <title>Contact | gamz</title>
       </Helmet>
       <div className="Contact-page">
         <div className="title_contact">
