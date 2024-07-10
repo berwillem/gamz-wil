@@ -11,10 +11,11 @@ function TopSelll() {
   const [postsConsole, setPostsConsole] = useState([]);
   const [postsTelephone, setPostsTelephone] = useState([]);
   const [postsInformatique, setPostsInformatique] = useState([]);
+  
   // variable
-  const boxSlice1 = shuffleArray(postsConsole).slice(0, 3);
-  const boxSlice2 = shuffleArray(postsInformatique).slice(0, 3);
-  const boxSlice3 = shuffleArray(postsTelephone).slice(0, 3);
+  const boxSlice1 = postsConsole.slice(0, 3);
+  const boxSlice2 = postsInformatique.slice(0, 3);
+  const boxSlice3 = postsTelephone.slice(0, 3);
   // api call
   useEffect(() => {
     axios
@@ -53,17 +54,7 @@ function TopSelll() {
       });
   }, []);
 
-  function shuffleArray(array) {
-    const shuffledArray = [...array];
-    for (let i = shuffledArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledArray[i], shuffledArray[j]] = [
-        shuffledArray[j],
-        shuffledArray[i],
-      ];
-    }
-    return shuffledArray;
-  }
+
   gsap.registerPlugin(ScrollTrigger);
 
   const cardContainer = useRef();

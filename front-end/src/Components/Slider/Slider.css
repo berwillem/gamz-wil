@@ -63,14 +63,14 @@
   color: #34bcec;
   font-weight: 600;
   font-size: 12px;
-  opacity: 0 !important;
+  
 }
 .sub-title > p {
   font-size: 30px;
   font-weight: 100;
   text-align: center;
   width: 100%;
-  opacity: 0 !important;
+ 
   color: #070707;
   /* transition: all ease-in-out 400ms ; */
   transform: translateY(40px);
@@ -161,7 +161,7 @@ button.active {
   padding: 20px 10px;
   opacity: 0;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size:cover;
  background-position: center;
   transform:  translateX(50px);
 }
@@ -171,7 +171,7 @@ button.active {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 300;
   color: var(--text-color);
-  opacity: 0;
+
 }
 
 .sub-title-box{
