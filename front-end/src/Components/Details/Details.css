@@ -70,6 +70,7 @@
   display: grid;
   grid-template-rows: auto auto;
   grid-template-columns: 1fr 1fr;
+  gap: 5px;
 }
 
 .images {
@@ -212,9 +213,7 @@
     align-items: center;
     margin: 0%;
   }
-  .sub-images {
-    width: 90%;
-  }
+ 
 
   .big-image img {
     height: 250px;
