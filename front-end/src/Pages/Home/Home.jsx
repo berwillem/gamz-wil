@@ -79,6 +79,7 @@ function Home() {
 
   const categoryId = useSelector((state) => state.filters.category);
   const subcategoryId = useSelector((state) => state.filters.subcategory);
+  const searchText = useSelector((state) => state.filters.search);
 
   const [page, SetPage] = useState(1);
   const [totalPage, SetTotalPage] = useState(1);
@@ -101,11 +102,11 @@ function Home() {
         var res;
 
         if (categoryId) {
-          res = await getPostsByCategory(categoryId, page);
+          res = await getPostsByCategory(categoryId, page, searchText);
         } else if (subcategoryId) {
-          res = await getPostsBySubcategory(subcategoryId, page);
+          res = await getPostsBySubcategory(subcategoryId, page, searchText);
         } else {
-          res = await getPosts(page);
+          res = await getPosts(page, searchText);
         }
         //TODO: test it
 
@@ -120,7 +121,7 @@ function Home() {
     };
 
     fetchPosts();
-  }, [categoryId, subcategoryId, page]);
+  }, [categoryId, subcategoryId, page, searchText]);
 
   const handlePageChange = (event, value) => {
     SetPage(value);
