@@ -187,6 +187,13 @@ function Navbar() {
         });
     }
   };
+
+  const handleEnter = (e)=> {
+    // console.log(scroll.scrollMore)
+    if(e.key === "Enter"){
+      handleSearch();
+    }
+  }
   // function search
   useEffect(() => {
     fetchData(searchText);
@@ -195,7 +202,7 @@ function Navbar() {
     setSearchText(event.target.value);
     // dispatch(setSearch(event.target.value));
 
-    fetchData(event.target.value);
+    // fetchData(event.target.value);
   };
   const filterResultsByCategory = (category) => {
     if (category === "") {
@@ -221,6 +228,12 @@ function Navbar() {
       setSearchActive("search");
     }
     setSearchCategory(searchBoxRef.current.querySelector("select").value);
+    if(window.innerWidth <= 1240){
+      if(searchActive === "search active-search")
+        window.scrollTo({top:700, behavior: "smooth"})
+    }else{
+      window.scrollTo({top:700, behavior: "smooth"})
+    }
   };
 
   return (
@@ -358,15 +371,16 @@ function Navbar() {
                   name="searchText"
                   autoComplete="off"
                   onChange={handleChange}
+                  onKeyDown={handleEnter}
                 />
-                <div className="results-list">
+                {/* <div className="results-list">
                   {searchText !== "" &&
                     filterResultsByCategory(searchCategory).map((result) => (
                       <Link to={`/postDetails/${result._id}`}>
                         <li key={result._id}>{result.title}</li>
                       </Link>
                     ))}
-                </div>
+                </div> */}
                 <div style={{ display: "flex" }}>
                   <select
                     id="select"
