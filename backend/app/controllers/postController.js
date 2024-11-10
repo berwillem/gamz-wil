@@ -183,8 +183,8 @@ exports.getAllPosts = async (req, res) => {
     if (searchTerm) {
       query.$or = [
         { title: searchRegex },
-        { category: searchRegex },
-        { subcategory: searchRegex },
+        // { category: searchRegex },
+        // { subcategory: searchRegex },
       ];
     }
 
@@ -213,10 +213,24 @@ exports.getPostCount = async (req, res) => {
 };
 exports.getPostsByCategoryId = async (req, res) => {
   try {
+    
     const categoryId = req.params.categoryId;
     const page = req.query.page || 1;
     const pageSize = 12;
-    const nbrposts = await Post.countDocuments({ category: categoryId });
+    const searchTerm = req.query.searchTerm;
+    const searchRegex = new RegExp(searchTerm, "i");
+    let query = {category: categoryId};
+
+    
+
+    if (searchTerm) {
+      query.$or = [
+        { title: searchRegex },
+        // { category: searchRegex },
+        // { subcategory: searchRegex },
+      ];
+    }
+    const nbrposts = await Post.countDocuments(query);
     const nbrPage = Math.ceil(nbrposts / pageSize);
 
     const posts = await Post.find({ category: categoryId })

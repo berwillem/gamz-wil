@@ -9,16 +9,44 @@ export const getPost = async (id) => {
   return axios.get(`${baseURL}/post/${id}`);
 };
 
-export const getPosts = async (page) => {
-  return axios.get(`${baseURL}/post`, { params: { page } });
+export const getPosts = async (page, searchText) => {
+  const config = {
+    params: {
+      page,
+    },
+  };
+  if (searchText) {
+    config.params.searchTerm = searchText;
+  }
+  return axios.get(`${baseURL}/post`, config);
 };
 
-export const getPostsByCategory = async (categoryId, page) => {
-  return axios.get(`${baseURL}/post/category/${categoryId}`, { params: { page } });
+export const getPostsByCategory = async (categoryId, page, searchText) => {
+  const config = {
+    params: {
+      page,
+    },
+  };
+  if (searchText) {
+    config.params.searchTerm = searchText;
+  }
+  return axios.get(`${baseURL}/post/category/${categoryId}`, config);
 };
 
-export const getPostsBySubcategory = async (subcategoryId, page) => {
-  return axios.get(`${baseURL}/post/subcategory/${subcategoryId}`, { params: { page } });
+export const getPostsBySubcategory = async (
+  subcategoryId,
+  page,
+  searchText
+) => {
+  const config = {
+    params: {
+      page,
+    },
+  };
+  if (searchText) {
+    config.params.searchTerm = searchText;
+  }
+  return axios.get(`${baseURL}/post/subcategory/${subcategoryId}`, config);
 };
 export const getPostsBycategoryCount = async () => {
   return axios.get(`${baseURL}/post/category/count`);

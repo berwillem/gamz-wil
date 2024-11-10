@@ -18,14 +18,17 @@ import { AiFillCaretDown } from "react-icons/ai";
 import subCategoryes from "../../Data/subCategory";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategory, setSubCategory } from "../../redux/reducers/filters";
+import {
+  setCategory,
+  setSearch,
+  setSubCategory,
+} from "../../redux/reducers/filters";
 import { getCategories } from "../../services/Category";
 const baseURL = import.meta.env.VITE_BASE_URL;
 
 function Navbar() {
   const light = useSelector((state) => state.light.value);
   const user = JSON.parse(localStorage.getItem("user")) || null;
-  
 
   //* state
   const [searchText, setSearchText] = useState("");
@@ -140,6 +143,7 @@ function Navbar() {
       ) {
         setSearchActive("search");
         setSearchText("");
+        dispatch(setSearch(""));
         setResults([]);
       }
     }
@@ -154,11 +158,13 @@ function Navbar() {
   const fetchData = (value) => {
     if (selectedValue == "") {
       axios
-        .get(baseURL + `/post/`)
+        .get(baseURL + `/post/`, {
+          params: {
+            searchTerm: value,
+          },
+        })
         .then((response) => {
-          const results = response.data.posts.filter((post) =>
-            post.title.toLowerCase().includes(value.toLowerCase())
-          );
+          const results = response.data.posts;
           setResults(results);
         })
         .catch((error) => {
@@ -166,12 +172,14 @@ function Navbar() {
         });
     } else {
       axios
-        .get(baseURL + `/post/category/${selectedValue}`)
+        .get(baseURL + `/post/category/${selectedValue}`, {
+          params: {
+            searchTerm: value,
+          },
+        })
         .then((response) => {
           console.log(response);
-          const results = response.data.posts.filter((post) =>
-            post.title.toLowerCase().includes(value.toLowerCase())
-          );
+          const results = response.data.posts;
           setResults(results);
         })
         .catch((error) => {
@@ -179,13 +187,22 @@ function Navbar() {
         });
     }
   };
+
+  const handleEnter = (e)=> {
+    // console.log(scroll.scrollMore)
+    if(e.key === "Enter"){
+      handleSearch();
+    }
+  }
   // function search
   useEffect(() => {
     fetchData(searchText);
   }, [searchText]);
   const handleChange = (event) => {
     setSearchText(event.target.value);
-    fetchData(event.target.value);
+    // dispatch(setSearch(event.target.value));
+
+    // fetchData(event.target.value);
   };
   const filterResultsByCategory = (category) => {
     if (category === "") {
@@ -201,12 +218,22 @@ function Navbar() {
     setSearchText(
       searchBoxRef.current.querySelector('input[type="text"]').value
     );
+    dispatch(
+      setSearch(searchBoxRef.current.querySelector('input[type="text"]').value)
+    );
+
     if (searchActive === "search") {
       setSearchActive("search active-search");
     } else {
       setSearchActive("search");
     }
     setSearchCategory(searchBoxRef.current.querySelector("select").value);
+    if(window.innerWidth <= 1240){
+      if(searchActive === "search active-search")
+        window.scrollTo({top:700, behavior: "smooth"})
+    }else{
+      window.scrollTo({top:700, behavior: "smooth"})
+    }
   };
 
   return (
@@ -219,13 +246,18 @@ function Navbar() {
               Welcome to <span className="span-message">Gamz</span>
             </div>
             <div className="account-pub">
-           {user?.isAdmin&&    <li className="catch-button">
-              
-              <Link className="btnAn" to="/dashboard">Dashboard</Link>
-            </li>}
+              {user?.isAdmin && (
+                <li className="catch-button">
+                  <Link className="btnAn" to="/dashboard">
+                    Dashboard
+                  </Link>
+                </li>
+              )}
               <li className="catch-button">
                 <BsPlusLg size={13} />
-                <Link to="/createPost" className="btnAn">Deposez une annonce</Link>
+                <Link to="/createPost" className="btnAn">
+                  Deposez une annonce
+                </Link>
               </li>
               <li className="upline">|</li>
               <li>
@@ -339,15 +371,16 @@ function Navbar() {
                   name="searchText"
                   autoComplete="off"
                   onChange={handleChange}
+                  onKeyDown={handleEnter}
                 />
-                <div className="results-list">
+                {/* <div className="results-list">
                   {searchText !== "" &&
                     filterResultsByCategory(searchCategory).map((result) => (
                       <Link to={`/postDetails/${result._id}`}>
                         <li key={result._id}>{result.title}</li>
                       </Link>
                     ))}
-                </div>
+                </div> */}
                 <div style={{ display: "flex" }}>
                   <select
                     id="select"
