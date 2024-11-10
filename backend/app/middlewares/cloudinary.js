@@ -36,42 +36,56 @@ const uploadImages = (folderName) => {
         // Handle avatar file
         if (req.files["avatar"]) {
           // const avatarUpload = getFilePromise(req.files["avatar"][0]);
-          uploadedImages.avatar = req.files["avatar"][0].path;
+          uploadedImages.avatar = req.files["avatar"][0].path.replace(
+            /^\/var\/www\/html/,
+            ""
+          );
         }
 
         // Handle banner file
         if (req.files["banner"]) {
           // const bannerUpload = getFilePromise(req.files["banner"][0]);
-          uploadedImages.banner = req.files["banner"][0].path
+          uploadedImages.banner = req.files["banner"][0].path.replace(
+            /^\/var\/www\/html/,
+            ""
+          );
         }
 
         // Handle cardOneImage file
         if (req.files["cardOneImage"]) {
           // const cardOneImageUpload = getFilePromise(req.files["cardOneImage"][0]);
-          uploadedImages.cardOneImage = req.files["cardOneImage"][0].path
+          uploadedImages.cardOneImage = req.files[
+            "cardOneImage"
+          ][0].path.replace(/^\/var\/www\/html/, "");
         }
 
         // Handle cardTwoImage file
         if (req.files["cardTwoImage"]) {
           // const cardTwoImageUpload = getFilePromise(req.files["cardTwoImage"][0]);
-          uploadedImages.cardTwoImage = req.files["cardTwoImage"][0].path
+          uploadedImages.cardTwoImage = req.files[
+            "cardTwoImage"
+          ][0].path.replace(/^\/var\/www\/html/, "");
         }
 
         // Handle images files
         if (req.files["images"]) {
           // const imagesUploadPromises = req.files["images"].map(getFilePromise);
-          uploadedImages.images = req.files["images"].map((image)=>image.path)
+          uploadedImages.images = req.files["images"].map((image) =>
+            image.path.replace(/^\/var\/www\/html/, "")
+          );
         }
 
         // Handle pub files
         if (req.files["pub"]) {
           // const pubUploadPromises = req.files["pub"].map(getFilePromise);
-          uploadedImages.pub = req.files["pub"].map((image)=>image.path)
+          uploadedImages.pub = req.files["pub"].map((image) =>
+            image.path.replace(/^\/var\/www\/html/, "")
+          );
         }
 
         const mapImage = (image) => ({
           url: image || null,
-          publicId: image?.public_id || null
+          publicId: image?.public_id || null,
         });
 
         // Modify the conditional checks for avatar and banner
