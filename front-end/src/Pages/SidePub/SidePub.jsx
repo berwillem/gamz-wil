@@ -5,6 +5,7 @@ import { AiOutlineDashboard, AiOutlineHome } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { createSidePub, getSidePub } from "../../services/Pubs";
 import Swal from "sweetalert2";
+import imageCompression from "browser-image-compression";
 
 export default function SidePub() {
   const [pub, setPub] = useState([
@@ -67,15 +68,20 @@ export default function SidePub() {
     setPub2(newPub2);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setLoading(true);
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
     const fd = new FormData();
 
     pub2[0].image instanceof File
-      ? fd.append("cardOneImage", pub2[0].image)
+      ? fd.append("cardOneImage", await imageCompression(pub2[0].image))
       : fd.append("cloudinaryImage1", pub2[0].image);
     pub2[1].image instanceof File
-      ? fd.append("cardTwoImage", pub2[1].image)
+      ? fd.append("cardTwoImage", await imageCompression(pub2[1].image))
       : fd.append("cloudinaryImage2", pub2[1].image);
     fd.append("cardOneLink", pub2[0].url);
     fd.append("cardTwoLink", pub2[1].url);
