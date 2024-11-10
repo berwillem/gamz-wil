@@ -146,14 +146,19 @@ export default function SliderPubManage() {
     setPubs2(newPubs2);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
     const user = JSON.parse(localStorage.getItem("user"));
     const sessionId = user.sessionId;
     const fd = new FormData();
-    imagePub.forEach((pub, index) => {
-      fd.append("pub", pub);
+    imagePub.forEach(async (pub) => {
+      fd.append("pub", pub ? await imageCompression(pub, options) : pub);
     });
     pubs2.pub?.forEach((pub, index) => {
       console.log(pub);
@@ -166,13 +171,13 @@ export default function SliderPubManage() {
       fd.append("links", redirectUrls.url);
     });
     imagePub1 instanceof File
-      ? fd.append("cardOneImage", imagePub1)
+      ? fd.append("cardOneImage", await imageCompression(imagePub1, options))
       : fd.append("cloudinaryImage1", pubs?.cardOne?.cardOneImage.url);
     fd.append("cardOneTitle", pubs.cardOne.title);
     fd.append("cardOneLink", pubs.cardOne.redirect);
 
     imagePub2 instanceof File
-      ? fd.append("cardTwoImage", imagePub2)
+      ? fd.append("cardTwoImage", await imageCompression(imagePub2, options))
       : fd.append("cloudinaryImage2", pubs?.cardTwo?.cardTwoImage.url);
     fd.append("cardTwoTitle", pubs.cardTwo.title);
     fd.append("cardTwoLink", pubs.cardTwo.redirect);

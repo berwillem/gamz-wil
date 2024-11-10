@@ -170,7 +170,7 @@ exports.getPostById = async (req, res) => {
 exports.getAllPosts = async (req, res) => {
   try {
     const page = req.query.page || 1;
-    const pageSize = 12;
+    const pageSize = 9;
     const userId = req.query.userId;
     const searchTerm = req.query.searchTerm;
     const searchRegex = new RegExp(searchTerm, "i");

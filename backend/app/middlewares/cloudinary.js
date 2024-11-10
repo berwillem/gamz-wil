@@ -35,52 +35,52 @@ const uploadImages = (folderName) => {
 
         // Handle avatar file
         if (req.files["avatar"]) {
-          const avatarUpload = getFilePromise(req.files["avatar"][0]);
-          uploadedImages.avatar = await avatarUpload;
+          // const avatarUpload = getFilePromise(req.files["avatar"][0]);
+          uploadedImages.avatar = req.files["avatar"][0].path;
         }
 
         // Handle banner file
         if (req.files["banner"]) {
-          const bannerUpload = getFilePromise(req.files["banner"][0]);
-          uploadedImages.banner = await bannerUpload;
+          // const bannerUpload = getFilePromise(req.files["banner"][0]);
+          uploadedImages.banner = req.files["banner"][0].path
         }
 
         // Handle cardOneImage file
         if (req.files["cardOneImage"]) {
-          const cardOneImageUpload = getFilePromise(req.files["cardOneImage"][0]);
-          uploadedImages.cardOneImage = await cardOneImageUpload;
+          // const cardOneImageUpload = getFilePromise(req.files["cardOneImage"][0]);
+          uploadedImages.cardOneImage = req.files["cardOneImage"][0].path
         }
 
         // Handle cardTwoImage file
         if (req.files["cardTwoImage"]) {
-          const cardTwoImageUpload = getFilePromise(req.files["cardTwoImage"][0]);
-          uploadedImages.cardTwoImage = await cardTwoImageUpload;
+          // const cardTwoImageUpload = getFilePromise(req.files["cardTwoImage"][0]);
+          uploadedImages.cardTwoImage = req.files["cardTwoImage"][0].path
         }
 
         // Handle images files
         if (req.files["images"]) {
-          const imagesUploadPromises = req.files["images"].map(getFilePromise);
-          uploadedImages.images = await Promise.all(imagesUploadPromises);
+          // const imagesUploadPromises = req.files["images"].map(getFilePromise);
+          uploadedImages.images = req.files["images"].map((image)=>image.path)
         }
 
         // Handle pub files
         if (req.files["pub"]) {
-          const pubUploadPromises = req.files["pub"].map(getFilePromise);
-          uploadedImages.pub = await Promise.all(pubUploadPromises);
+          // const pubUploadPromises = req.files["pub"].map(getFilePromise);
+          uploadedImages.pub = req.files["pub"].map((image)=>image.path)
         }
 
         const mapImage = (image) => ({
-          url: image?.url || null,
+          url: image || null,
           publicId: image?.public_id || null
         });
 
         // Modify the conditional checks for avatar and banner
         if (!req.body.avatar) {
-          req.body.avatar = mapImage(uploadedImages.avatar) || null;
+          req.body.avatar = uploadedImages.avatar || null;
         }
 
         if (!req.body.banner) {
-          req.body.banner = mapImage(uploadedImages.banner) || null;
+          req.body.banner = uploadedImages.banner || null;
         }
 
         req.body.cardOneImage = mapImage(uploadedImages.cardOneImage) || null;

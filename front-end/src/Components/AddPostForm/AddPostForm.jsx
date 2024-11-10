@@ -11,7 +11,12 @@ import { useNavigate } from "react-router-dom";
 import { options_state } from "../../Data/etat";
 import { createPost } from "../../services/Posts";
 import { useDispatch } from "react-redux";
-import { createPostFailure, createPostStart, createPostSuccess } from "../../redux/reducers/Posts";
+import {
+  createPostFailure,
+  createPostStart,
+  createPostSuccess,
+} from "../../redux/reducers/Posts";
+import imageCompression from "browser-image-compression";
 
 // needs befor :::
 const baseURL = import.meta.env.VITE_BASE_URL;
@@ -42,7 +47,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
   const [selectedSubCategory3, setSelectedSubCategory3] = useState([]);
   const [subcategories4, setSubcategories4] = useState([]);
   const [selectedSubCategory4, setSelectedSubCategory4] = useState([]);
-  
+
   // form states:
 
   const [title, setTitle] = useState("");
@@ -62,7 +67,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
     setId(id);
   }, []);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   // ***HANDELE FUNCTIONS ***
 
@@ -191,6 +196,12 @@ function AddPostForm({ categories, fetchSubcategories }) {
       return;
     }
 
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+
     const formData = new FormData();
     formData.append("title", title);
     formData.append("price", price);
@@ -210,27 +221,42 @@ function AddPostForm({ categories, fetchSubcategories }) {
     }
     formData.append("wilaya", wilaya);
     formData.append("etat", etat);
-    //FIXME: commune constante  
+    //FIXME: commune constante
     formData.append("commune", "alger");
     formData.append("num", phone);
     formData.append("author", id);
-    formData.append("images", principalImageFile);
-    formData.append("images", otherImagesFile[0]);
-    formData.append("images", otherImagesFile[1]);
+    formData.append(
+      "images",
+      principalImageFile
+        ? await imageCompression(principalImageFile, options)
+        : principalImageFile
+    );
+    formData.append(
+      "images",
+      otherImagesFile[0]
+        ? await imageCompression(otherImagesFile[0], options)
+        : otherImagesFile[0]
+    );
+    formData.append(
+      "images",
+      otherImagesFile[1]
+        ? await imageCompression(otherImagesFile[1], options)
+        : otherImagesFile[1]
+    );
     if (!principalImageFile) {
       setLoading(false);
       Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Please upload the principal image",
+        icon: "error",
+        title: "Oops...",
+        text: "Please upload the principal image",
       });
       return;
-  }
+    }
     try {
       //TODO: Test it
-      dispatch(createPostStart())
-      const response = await createPost(formData)
-      dispatch(createPostSuccess(response.data))
+      dispatch(createPostStart());
+      const response = await createPost(formData);
+      dispatch(createPostSuccess(response.data));
       Swal.fire({
         icon: "success",
         title: "Success",
@@ -245,7 +271,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
       });
       console.log(err);
 
-      dispatch(createPostFailure(err.message))
+      dispatch(createPostFailure(err.message));
     } finally {
       setLoading(false);
     }
@@ -279,7 +305,7 @@ function AddPostForm({ categories, fetchSubcategories }) {
         <div className="account-center">
           <div className="user-l">
             {isLoggedIn === "true" ? <SideCard /> : null}
-            <Ads ad= {1} />
+            <Ads ad={1} />
           </div>
           <div className="add-content">
             <div className="add-post-l">
