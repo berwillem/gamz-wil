@@ -20,7 +20,6 @@ import {
 } from "../../services/Posts";
 import { Helmet } from "react-helmet";
 
-
 function Home() {
   const dispatch = useDispatch();
 
@@ -164,7 +163,7 @@ function Home() {
                   <div className="dataContainer">
                     {posts.map((item, index) => (
                       <Post
-                        key={index}
+                        key={item._id}
                         category={item.category.name}
                         img_post={item.images[0]}
                         name={item.title}
